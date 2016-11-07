@@ -18,6 +18,10 @@
 \usepackage{IEEEtrantools}
 \usepackage{framed}
 
+%\usepackage{draftwatermark}
+%\SetWatermarkText{Javier de Martí­n}
+%\SetWatermarkScale{4.8}
+
 % This sets page margins to .5 inch if using letter paper, and to 1cm
 % if using A4 paper. (This probably isn't strictly necessary.)
 % If using another size paper, use default 1cm margins.
@@ -288,15 +292,28 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 		    \draw (-4,0) -- (4,0) node[right] {$V_{GS}$};
     		\draw (0,-3) -- (0,3) node[above] {$I_D$};
 			\draw[scale=2,domain=0:1,thick,variable=\x,blue] plot (\x + 1,\x*\x) node[left] {$nMOS acum$};
-			\draw (0.5,-0.2) node[right] {$V_T$};
+			\draw (1.7,-0.2) node[right] {$V_T$};
 			
 			\draw[scale=2,domain=0:1,thick,variable=\x,red] plot (\x - 1,\x*\x) node[left] {$nMOS depl$};
-			\draw (-2,-0.2) node[right] {$V_T$};
-			\draw (.2,2) node[right] {$I_{D_{SS}}$};
+			\draw (-1.9,-0.2) node[right] {$V_T$};
+			\draw (.05,2) node[right] {$I_{D_{SS}}$};
 			
 			\draw[scale=2,domain=0:1,thick,variable=\x,orange] plot (-\x + 1,-\x*\x) node[right] {$pMOS depl$};
 			
 			\draw[scale=2,domain=0:1,thick,variable=\x,purple] plot (-\x - 1,-\x*\x) node[right] {$pMOS acum$};
+    		
+		\end{tikzpicture}
+	\end{center}
+	
+	
+	\begin{center}
+		\begin{tikzpicture}
+		    \draw (-0.2,0) -- (3,0) node[right] {$V_{DS}$};
+    		\draw (0,-0.2) -- (0,3) node[above] {$I_{D_{SS}}$};
+    		
+    		\node[text width=3cm] at (2.7,1.2) {Saturación};
+    		\node[text width=3cm] at (3,0.1) {Corte};
+    		\node[text width=3cm, rotate = 70] at (.7,2.2) {Óhmica};
     		
 		\end{tikzpicture}
 	\end{center}
@@ -305,28 +322,79 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 
 \subsubsection{Configuración en Paralelo}
 
-Se comporta como un único transistor, necesita una resistencia $R$ (\textit{ballast resistor}) para estabilizar el reparto de corriente.
+	\begin{center}
+		\begin{circuitikz} %[scale=1]
+			\draw (0,0) node[npn](npn1) {$Q_1$}
+				(npn1.E) to [R, l=$R$] (0,-2) -- (0,-2.5) 
+				(npn1.B) to [short, -o]  (-1,0) node[left] {$B_P$}; 
+ 			\draw (1,0) node[npn](npn2) {$Q_2$}
+ 				(npn2.E) to [R, l=$R$] (1,-2) -- (1,-2.5); 
+ 			\draw (3,0) node[npn](npn3) {$Q_N$}
+ 				(npn3.E) to [R, l=$R$] (3,-2) -- (3,-2.5); 
+ 				
+ 			\draw (npn1.B) [short] to (1.7,0);
+ 			\draw (1.7,0) node[right] {...};
+ 			
+ 			\draw (npn1.C) -- (1.7,0.78) 
+ 					(1.7,0.78) node[right] {...}
+ 					(2.2, .78) -- (npn3.C);
+ 					
+ 			\draw (0,-2.5) -- (1.7,-2.5) 
+ 					(1.7,-2.5) node[right] {...}
+ 					(2.2, -2.5) -- (3,-2.5);
+ 			
+ 			\draw (1.5,0.78) to [short, -o, i<_=$I_{CP}$] (1.5,1.28) node[right] {$C_P$};
+ 			\draw (1.5,-2.5) to [short, -o] (1.5,-3) node[right] {$E_P$};
+ 			
+		\end{circuitikz}
+	\end{center}
+
+Se comporta como un único transistor, necesita una resistencia $R$ (\textit{ballast resistor}) para estabilizar el reparto de corriente entre los transistores.
+
+	\begin{equation*}
+		I_{CN} = \frac{I_{CP}}{N} \hspace{20pt} V_{BE_N} + I_{C_N}
+	\end{equation*}
 
 \subsubsection{Configuración Darlington}
 
-Gran ganancia de corriente pero baja impedancia de salida.
+Gran ganancia de corriente pero baja impedancia de salida. Las fugas del primer transistor son amplificadas por el segundo, sólo es aconsejable en agrupaciones de 2 transistores.
 	
 	\begin{center}
 	\begin{circuitikz}
   		\draw (0,0) node[npn](npn1) {}
   		(npn1.base) node[anchor=east] {B};
  		\draw (1,-0.78) node[npn](npn2) {};
- 		\draw (npn1.E) -- (npn2.B);
+ 		\draw (npn1.E) [short, -, i_=$I_{B2}$] to (npn2.B);
  		\draw (npn2.E) node[anchor=east] {E};
  		%\draw (npn1.C)--(npn2.C);
- 		\draw (npn1.C) -- (1, 0.78) [short, -] to (npn2.C);
- 		\draw (1,0.78) [short, -*] to (1, 1.5) node[anchor=east] {C};
+ 		\draw (npn1.C) [short, -, i<^=$I_{C1}$] to (1, 0.78) [short, -, i_=$I_{C2}$] to (npn2.C);
+ 		\draw (1,0.78) [short, -*, i<_=$I_C$] to (1, 1.5) node[anchor=east] {C};
  		
 	\end{circuitikz}
 	\end{center}
+	
+	\begin{center}
+		\begin{circuitikz}[scale=1,american voltages, american currents, transform shape]
+			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
+				to [short, -] (1,-1)
+				to [R, l=$h_{ie_D}$] (1,-2)
+				to [short] (1,-3) -- (3,-3) -- (3,-2)
+				(3,-1) to [I, i= $h_{fe_D} \cdot i_{b_D}$] (3,-2)
+				to [short] (3,0)
+				to [short] (5,0)
+				to [short, , i<_=$i_c$, -o] (6,0)
+				;
+			\draw (3,-3) to [short, -] (5,-3) -- (5,-2)
+				to [R, l_=$h_{oe_D}^{-1}$] (5,-1)
+				to [short, -*] (5,0);		
+			\draw (3,-3) to [short, *-o] (3,-4) node[anchor=east] {$E_D$};
+			\draw (0,0) node[anchor=east] {$B_D$};
+			\draw (6,0) node[anchor=west] {$C_D$};
+		\end{circuitikz}
+	\end{center}
 
 	\begin{equation*}
-		\beta_T \approx \beta_1 \cdot \beta_2
+		\beta_T \approx \beta_1 \cdot \beta_2 \approx \frac{I_C}{I_B}
 	\end{equation*}
 
 \subsubsection{Amplificador Diferencial}
