@@ -1,0 +1,311 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{color,graphicx,overpic}
+\graphicspath{ {images/} }
+\usepackage{hyperref}
+\usepackage{esint}
+\usepackage{bm}
+\usepackage{relsize}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{datetime}
+\usepackage[utf8] {inputenc}
+\usepackage[spanish, activeacute] {babel}
+\usepackage{IEEEtrantools}
+\usepackage{framed}
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+    {\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+    }
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+\newcommand{\Lagr}{\mathcal{L}}
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+%My Environments
+\newtheorem{example}[section]{Example}
+% ---------------------------------------------------------------
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{framed}
+	\begin{center}
+    	\Large{\underline{Electrónica de Circuitos}} \\
+    	\scriptsize{3º Ingeniería de Telecomunicaciones | UPV/EHU}\\
+     	%Actualizado por última vez el \today \\
+     	"\textsl{Under-promise and over-deliver}." \\
+     	%\hspace{5 pt} \\
+     	\small{\textbf{Javier de Martín -- 2016/17}}
+	\end{center}
+\end{framed}
+
+%
+% Cheatsheet code below 
+%                                                      
+
+\section{\underline{Repaso BJTs}}
+
+\subsection{Parámetros}
+
+$h_{ie} (\Omega)$: Impedancia de entrada\\
+
+$h_{re}$ \\
+
+$h_{fe}$ \\
+
+$h_{oe} (\Omega^{-1})$: Admitancia de salida\\
+
+
+\begin{tabular}{|c|c|c|}
+\hline
+Base Común                              & Emisor Común & Colector Común \\ \hline
+    $h_{ib} = \frac{v_{eb}}{i_e}$       &  $h_{ie} = \frac{v_{be}}{i_b}$            &   $h_{ic} = \frac{v_{bc}}{i_b}$             \\ \hline
+    $h_{rb} = \frac{v_{eb}}{v_{cb}}$   &              &                \\ \hline
+    $h_{fb} = \frac{i_c}{i_e}$       &              &                \\ \hline
+     $h_{ob} = \frac{i_c}{v_{cb}}$      &              &                \\ \hline
+\end{tabular}
+
+\subsection{Regiones Operativas}
+
+\begin{itemize}
+	\item \textbf{Región Activa}: La corriente de colector $I_C$ depende directamente de la corriente de base $I_B$, de la ganancia de corriente $\beta$ y de las resistencias conectadas al colector y emisor. En esta región se produce amplificación de la señal.
+	\item \textbf{Región Inversa}: 
+	\item \textbf{Región de Saturación}: La corriente $I_C = I_E = I_{max}$. La corriente depende del voltaje de alimentación del circuito y de las resistencias conectadas al colector y emisor. Este modo aparece cuando la corriente de base es lo suficientemente grande como para inducir una corriente de colector $\beta$ veces más grande.
+	\item \textbf{Región de Corte}: La corriente $I_C = I_E = 0$. El voltaje $V_{CE}$ es el de alimentación del circuito, al no haber corriente circulando no hay caída tensión. Este modo aparece, normalmente, cuando $I_B = 0$.
+\end{itemize}
+
+\subsection{Configuraciones de Montaje}
+
+\subsubsection{Base Común}
+
+\begin{center}
+\begin{circuitikz} %[scale=1]
+	\draw (0,0) node[npn](npn)	{}
+		(npn.C) node[anchor=east] {C} % Collector
+    	(npn.B) node[anchor=north west] {B} % Gate
+        (npn.E) node[anchor= north east] {E} % Emisor
+        (npn.B) -- (-1, 0)
+        (-1, 0) [short, -*] to (-1, 1)
+        (-1, 0) [short, -*] to (-1, -1)
+        (npn.E) [short, -*] to (0, -1) 
+        (npn.C) [short, -*] to (0, 1);
+	%\draw (1,0) -- (0,0) -- (0,1);
+	%\draw (-1, 0) -- (pnp.C);
+	;
+\end{circuitikz}
+\end{center}
+
+\begin{itemize}
+	\item Baja impedancia de entrada.
+	\item Alta impedancia de salida
+	\item Ganancia unidad, o menor, de corriente.
+	\item Ganancia alta de tensión.
+\end{itemize}
+
+
+\subsubsection{Emisor Común}
+
+\begin{center}
+\begin{circuitikz} %[scale=1]
+	\draw (0,0) node[npn](npn)	{}
+		(npn.C) node[anchor=east] {C} % Collector
+    	(npn.B) node[anchor=north east] {B} % Gate
+        (npn.E) node[anchor= east] {E} % Emisor
+        (npn.B) [short, -*] to (-1, 0)
+        (npn.E) -- (0, -1) [short, -*] to (1, -1)
+        (0, -1) [short, -*] to (-1, -1)
+        (npn.C) -- (0, 1) [short, -*] to (1, 1);
+	%\draw (1,0) -- (0,0) -- (0,1);
+	%\draw (-1, 0) -- (pnp.C);
+\end{circuitikz}
+\end{center}
+
+\begin{itemize}
+	\item Impedancia de entrada media.
+	\item Impedancia de salida media.
+	\item Alta ganancia de corriente.
+	\item Alta ganancia de tensión.
+\end{itemize}
+
+\subsubsection{Colector Común}
+
+\begin{center}
+\begin{circuitikz} %[scale=1]
+	\draw (0,0) node[npn](npn)	{}
+		(npn.C) node[anchor=east] {C} % Collector
+    	(npn.B) node[anchor=north east] {B} % Gate
+        (npn.E) node[anchor= east] {E} % Emisor
+        (npn.B) [short, -*] to (-1, 0)
+        (npn.E) -- (0, -1) [short, -*] to (1, -1)
+        (0, -1) [short, -*] to (-1, -1)
+        (npn.C) -- (0, 1) [short, -*] to (1, 1);
+	%\draw (1,0) -- (0,0) -- (0,1);
+	%\draw (-1, 0) -- (pnp.C);
+\end{circuitikz}
+\end{center}
+
+\begin{itemize}
+	\item Alta impedancia de entrada.
+	\item Muy baja impedancia de salida.
+	\item Alta ganancia de corriente.
+	\item Unidad, o menor, ganancia de tensión.
+\end{itemize}
+
+\section{\underline{Etapas de Dos Transistores}}
+
+\subsubsection{Configuración en Paralelo}
+
+Se comporta como un único transistor, necesita una resistencia $R$ (\textit{ballast resistor}) para estabilizar el reparto de corriente.
+
+\subsubsection{Configuración Darlington}
+
+Gran ganancia de corriente pero baja impedancia de salida.
+	
+	\begin{center}
+	\begin{circuitikz}
+  		\draw (0,0) node[npn](npn1) {}
+  		(npn1.base) node[anchor=east] {B};
+ 		\draw (1,-0.78) node[npn](npn2) {};
+ 		\draw (npn1.E) -- (npn2.B);
+ 		\draw (npn2.E) node[anchor=east] {E};
+ 		%\draw (npn1.C)--(npn2.C);
+ 		\draw (npn1.C) -- (1, 0.78) [short, -] to (npn2.C);
+ 		\draw (1,0.78) [short, -*] to (1, 1.5) node[anchor=east] {C};
+ 		
+	\end{circuitikz}
+	\end{center}
+
+	\begin{equation*}
+		\beta_T \approx \beta_1 \cdot \beta_2
+	\end{equation*}
+
+\subsubsection{Amplificador Diferencial}
+
+\subsubsection{Circuito Cascodo}
+
+\subsubsection{Etapas CMOS}
+
+\section{\underline{Amplificadores Multietapa}}
+
+\subsubsection{Clasificación}
+
+\subsubsection{Análisis en Continua}
+
+\subsubsection{Ganancia en Pequeña Señal}
+
+\subsubsection{Margen Dinámico a la Entrada}
+
+\section{\underline{3. Respuesta en Frecuencia (aUn no)}}
+
+\section{\underline{4. Fuentes de Corriente y Cargas Activas}}
+
+\subsubsection{Introducción y Figura de Mérito}
+
+\subsubsection{Configuraciones de Fuentes de Corriente}
+
+\subsubsection{Cargas Activas}
+
+\subsubsection{FC y CA con Amplificadores Diferenciales}
+
+\subsubsection{Polarización Independiente de $V_{CC}$}
+
+\subsubsection{Desplazador de Nivel}
+
+\section{\underline{5. Etapas de Potencia}}
+
+\subsubsection{Clasificación}
+
+\textbf{Clase A}: El transistor conduce durante el \textbf{ciclo completo}. \\
+
+\textbf{Clase B}: El transistor conduce durante \textbf{medio ciclo}.\\
+
+\textbf{Clase AB}: El transistor conduce durante algo \textbf{más de medio ciclo}.\\
+
+\textbf{Clase C}: El transistor conduce durante algo \textbf{menos de medio ciclo}.
+
+\subsubsection{Definiciones}
+
+\textbf{Potencia Consumida}: Potencia suministrada por la fuente de alimentación de continua.
+
+	\begin{equation*}
+		P_{CC} = \frac{1}{T} \int_0^T V_{CC} \cdot i_C(t) dt = V_{CC} \cdot \langle i_C (t) \rangle
+	\end{equation*}
+	
+\textbf{Potencia Entregada a la Carga}: Potencia de la señal amplificada en la carga de alterna.
+
+	\begin{equation*}
+			P_O = V_{oeff} \cdot I_{oeff} = V_{Leff} \cdot I_{Leff} = P_L
+	\end{equation*}
+	
+\textbf{Potencia disipada por el transistor}: Consumida en el transistor, lo calienta.
+
+	\begin{equation*}
+		P_D = P_{CC} - P_O - P_{resto}
+	\end{equation*}
+	
+\textbf{Rendimiento de la etapa}: Potencia entregada a la carga, respecto de la consumida de la fuente de alimentación.
+
+	\begin{equation*}
+		\eta(\%) = \frac{P_O}{P_{CC}} \cdot 100 \%
+	\end{equation*}
+
+\subsubsection{Amplificadores Clase A}
+
+\subsubsection{Amplificadores Clase B y Clase AB}
+
+\subsubsection{Consideraciones Térmicas}
+
+%\vfill
+
+
+\end{multicols}
+\end{document}

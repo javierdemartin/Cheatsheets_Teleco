@@ -1,0 +1,840 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{times}
+\usepackage{color,graphicx,overpic}
+\graphicspath{ {images/} }
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\usepackage{esint}
+\usepackage{bm}
+\usepackage{tikz}
+\usepackage{relsize}
+\usepackage{datetime}
+\usepackage[utf8] {inputenc}
+\usepackage[spanish, activeacute] {babel}
+\usepackage{IEEEtrantools}
+\usepackage{framed}
+
+\usepackage{draftwatermark}
+\SetWatermarkText{Javier de Martín}
+\SetWatermarkScale{0.8}
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\geometry{top=.5cm,left=.5cm,right=.5cm,bottom=.5cm}
+    
+\pgfplotsset{
+    dirac/.style={
+        mark=triangle*,
+        mark options={scale=2},
+        ycomb,
+        scatter,
+        visualization depends on={y/abs(y)-1 \as \sign},
+        scatter/@pre marker code/.code={\scope[rotate=90*\sign,yshift=-2pt]}
+    }
+}
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+\newcommand{\Lagr}{\mathcal{L}}
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+%My Environments
+\newtheorem{example}[section]{Example}
+% ---------------------------------------------------------------
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{framed}
+	\begin{center}
+    	\Large{\underline{Sistemas de Telecomunicación}} \\
+    	\scriptsize{3º Ingeniería de Telecomunicaciones | UPV/EHU}\\
+     	%Actualizado por última vez el \today \\
+     	"\textsl{Under-promise and over-deliver}." \\
+     	%\hspace{5 pt} \\
+     	\small{\textbf{Javier de Martín -- 2016}}
+	\end{center}
+\end{framed}
+
+%
+% Cheatsheet code below 
+%                                                      
+
+\section{\underline{Unidades Logarítmicas}}
+
+%\begin{center}
+%	\begin{tikzpicture}
+%		\node [draw, align=center] (1) at (0,0) {Fuente};
+%		\node [draw, align=center] (2) at (0,-1) {Procesado en TX};
+%	
+%		\node [draw, align=center] (3) at (2,-1) {Red};
+%		
+%		\node [draw, align=center] (4) at (4,-1) {Procesado en RX};
+%		\node [draw, align=center] (5) at (4,0) {Presentación};
+%	
+%		\path (1) edge node [right] {} (2);
+%		\path (2) edge node [above] {} (3);
+%		\path (3) edge node [above] {} (4);
+%		\path (4) edge node [left] {} (5);
+%	\end{tikzpicture}	
+%\end{center}
+
+\textbf{dB} es una unidad que describe una \textbf{relación} entre magnitudes.
+
+\begin{IEEEeqnarray*}{rCl}
+	L(dB) & = & 10 \cdot \log_{10} \left( \frac{P_2}{P_1} \right) \\ & = & 20 \cdot \log_{10} \left( \frac{V_2}{V_1} \right) + 10 \cdot \log_{10} \left( \frac{R_1	}{R_2} \right)
+\end{IEEEeqnarray*}
+
+\subsection{Unidades Derivadas del dB}
+
+\begin{itemize}
+	\item $dBm$: Potencia de la señal en un punto cualquiera de un circuito referida a una potencia de $1mW$.
+		
+		\begin{equation*}
+			L(dBm) = 10 \cdot \log_{10} \left( \frac{P(mW)}{1mW} \right)
+		\end{equation*}
+	\item $dBW$: Potencia de la señal referida a una potencia de $1W$.
+		
+		\begin{equation*}
+			L(dBW) = 10 \cdot \log_{10} \left( \frac{P(W)}{1W} \right)
+		\end{equation*}
+		
+	\item $dBmV$: Nivel de un voltaje comparado con $1mV$ sobre una carga de $75\Omega$.
+		
+		\begin{equation*}
+			L(dbmV) = 20 \cdot \log_{10} \left( \frac{V(mV)}{1mV} \right)
+		\end{equation*}
+		
+	\item $dBV$: Nivel de un voltaje comparado con $0.0775 V$ (tensión eficaz) sobre una carga de $600\Omega$.
+		
+		\begin{equation*}
+			L(dBm) = dBV + 10 \cdot \log_{10} \left( \frac{600}{R} \right)
+		\end{equation*}
+\end{itemize}
+
+Estas medidas están relacionadas por:
+
+	\begin{equation*}
+		L(dBm) = L(dBV) + 10 \cdot \log_{10} \left( \frac{600}{R} \right)
+	\end{equation*}
+
+\subsection{Niveles}
+
+\begin{itemize}
+	\item $dBr$: Expresa el nivel relativo en un punto con respecto a otro punto; es una medida en $dB$ sin sufijo, $r$ se incluye para denotar que se trata de un valor relativo a un cierto punto de referencia.
+	
+		\begin{equation*}
+			L(dBr) = 10 \log_{10} \frac{P}{P_{ref}}
+		\end{equation*}
+	
+	\item $dBm0$: Indica la potencia en $dBm$ presente en el punto de nivel relativo cero.
+		
+		\begin{equation*}
+			L(dBm0) = L_A(dBm) - L_A(dBr)
+		\end{equation*}
+\end{itemize}
+
+Si se emite un tono de prueba ($0dBm$) $\rightarrow L_A (dBm) = L_A (dBr)$.
+
+\section{\underline{Perturbaciones y Medios de TX}}
+
+\subsection{Distorsión Lineal}
+
+%\begin{center}
+%	\begin{tikzpicture}
+%		\draw (0,0) -- node[above left] {$x(t)$} (0.6,0);
+%		\node [draw, align=center] at (0.95,0) {$h(t)$};	
+%		\draw (1.3,0) -- node[above right] {$y(t) = k \cdot x(t - t_0)$} (1.9,0);
+%	\end{tikzpicture}	
+%\end{center}
+
+%Hay distorsión no lineal si en la banda de trabajo:
+
+\begin{itemize}
+	\item de amplitud: $k \neq cte$, $k = k(f)$
+	\item de fase: $t_o \neq cte$, $t_0 = t_o(f)$
+\end{itemize}
+
+\subsection{Distorsión No Lineal o Armónica}
+
+%No se puede utilizar la respuesta en frecuencia $H(f)$, se utilizará la \textbf{característica de transferencia}.
+
+\begin{IEEEeqnarray*}{rCl}
+	y(t) = f(x(t)) \underbrace{=}_\textrm{\tiny{Serie de Taylor}}  \overbrace{a_0}^\textrm{C.C} & + & \overbrace{a_1 x(t)}^\textrm{\tiny{Término Lineal}} + \overbrace{a_2 x^2(t)}^\textrm{\tiny{Término Cuadrático}} + \\ & + & \overbrace{a_3 x^3(t)}^\textrm{\tiny{Término Cúbico}} + ... + a_n x^n(t)
+\end{IEEEeqnarray*}
+
+%\begin{center}
+%	\begin{tikzpicture}[scale = 0.5]
+%	\begin{axis}[axis lines = middle,xmin=-0.1,xmax = 3.2,ymin=-0.3,ymax=3, xticklabels={,,}, yticklabels={,,}] %,grid=both]
+%		\addplot +[dirac] coordinates {(1, 2)};
+%		
+%		% Valores del eje X
+%		\node at (axis cs:1, 0) [anchor=north] {$f_0$};
+%		\node at (axis cs:0, 3) [anchor=north west] {$X(f)$};
+%		\node at (axis cs:3.2, 0) [anchor=south east] {$f$};
+%		
+%	\end{axis}
+%\end{tikzpicture}
+%\hspace{2pt}
+%$\rightarrow$
+%\begin{tikzpicture}[scale = 0.5]
+%	\begin{axis}[axis lines = middle,xmin=-0.1,xmax = 3.2, ymin=-0.3,ymax=3, xticklabels={,,}, yticklabels={,,}] %,grid=both]
+%		\addplot +[dirac] coordinates {(1, 2)};
+%		%\node at (axis cs:1,2) [anchor=north east] {test};
+%		\addplot +[orange, dirac] coordinates {(2, 1.6)};
+%		\node at (axis cs:2, 1.6) [anchor=north east] {$V_{d_3}$};
+%		\addplot +[orange, dirac] coordinates {(3, 1.3)};
+%		\node at (axis cs:3, 1.3) [anchor=north east] {$V_{d_3}$};
+%		
+%		% Valores del eje X
+%		\node at (axis cs:1, 0) [anchor=north] {$f_0$};
+%		\node at (axis cs:2, 0) [anchor=north] {$ 2 \cdot f_0$};
+%		\node at (axis cs:3, 0) [anchor=north] {$3 \cdot f_0$};
+%		\node at (axis cs:0, 3) [anchor=north west] {$Y(f)$};
+%		\node at (axis cs:3.2, 0) [anchor=south east] {$f$};
+%		
+%		% Nota: "Amplitud de distorsión
+%		\draw [<-] (axis cs:2,1.7)-- +(20pt,15pt) node[above] {Amplitud de distorsión};
+%		\draw [<-] (axis cs:3,1.4)-- +(-20pt,30pt) node[above] {}; %{Amplitud de distorsión};
+%	\end{axis}
+%\end{tikzpicture}
+%\end{center}
+
+El grado del polinomio a la salida del sistema no lineal indica cuántas frecuencias nuevas van a ser generadas por dicho sistema.
+
+\begin{itemize}
+	\item \textbf{Coeficiente de Distorsión del Armónico n-ésimo $d_n$}:
+		\begin{IEEEeqnarray*}{rCl}
+			d_n & = & \frac{V_{d_n}}{V_1} \hspace{5pt} n = 2, 3, ..., k \\
+			D_n & = & 20 \cdot \log_{10} \frac{V_{d_n}}{V_1}	
+		\end{IEEEeqnarray*}
+	\item \textbf{Atenuación del Armónico n-ésimo $A_n$}:
+		\begin{equation*}
+			A_n = 20 \cdot \log_10 \frac{V_1}{V_{d_n}} = -D_n
+		\end{equation*}
+	\item \textbf{Coeficiente de Distorsión Total $d$}:
+		\begin{equation*}
+			d = \sqrt{\sum_{n>1} d_n^2}
+		\end{equation*}
+	\item \textbf{Total Harmonic Distortion(THD)}:
+		\begin{equation*}
+			THD(\%) = \frac{1}{V_1} \sqrt{\sum_{n>1} V_{d_n}^2} \cdot 100 \%
+		\end{equation*}
+\end{itemize}
+
+Si $V_1$ aumenta $\Delta (dB) \rightarrow V_{d_n}$ aumenta $n \cdot \Delta (dB)$. 
+
+
+\subsection{Intermodulación}
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) -- node[above left] {$x(t)$} (0.6,0);
+		\node [draw, align=center] at (0.95,0) {$h(t)$};	
+		\draw (1.3,0) -- node[above right] {$y(t) = a_0 + a_1 \cdot x(t)+ ... + a_n \cdot x^n(t)$} (1.9,0);
+	\end{tikzpicture}	
+\end{center}
+
+A la salida del sistema aparecen nuevas frecuencias:
+
+\begin{itemize}
+	\item Armónicos: $2 \cdot f_1$, $2 \cdot f_2$, $3 \cdot f_1$, $3 \cdot f_2$, ..., $n \cdot f_1$, $n \cdot f_2$
+	\item Combinación lineal de las frecuencias de x(t):
+		\begin{itemize}
+			\item Segundo orden: $f_1 + f_2$, $f_1 - f_2$, ...
+			\item Tercer orden: $2 f_1 + f_2$, $f_1 - 2 f_2$, ... 
+		\end{itemize} 
+\end{itemize}
+
+\begin{center}
+	\begin{tikzpicture}[scale = 0.5]
+	\begin{axis}[axis lines = middle,xmin=-0.1,xmax = 3.2,ymin=-0.3,ymax=3, xticklabels={,,}, yticklabels={,,}] %,grid=both]
+		\addplot +[dirac, blue] coordinates {(1, 2)};
+			\node at (axis cs:1, 2) [anchor=north east] {$V_1$};
+		\addplot +[dirac, blue] coordinates {(1.5, 2)};
+			\node at (axis cs:1.5, 2) [anchor=north east] {$V_2$};
+		
+		% Valores del eje X
+		\node at (axis cs:1, 0) [anchor=north] {$f_1$};
+		\node at (axis cs:1.5, 0) [anchor=north] {$f_2$};
+		
+		\node at (axis cs:0, 3) [anchor=north west] {$x(t)$};
+		\node at (axis cs:3.2, 0) [anchor=south east] {$f$};
+		
+	\end{axis}
+\end{tikzpicture}
+\hspace{2pt}
+$\rightarrow$
+\begin{tikzpicture}[scale = 0.5]
+	\begin{axis}[axis lines = middle,xmin=-0.1,xmax = 5, ymin=-0.4,ymax=3, xticklabels={,,}, yticklabels={,,}] %,grid=both]
+		\addplot +[dirac, blue] coordinates {(1.5, 2)};
+			\node at (axis cs:1.5, 2) [anchor=north east] {$V_1$};
+			\node at (axis cs:1.5, 0) [anchor=north] {$f_1$};
+		\addplot +[dirac, blue] coordinates {(2.75, 2)};
+			\node at (axis cs:2.75, 2) [anchor=north east] {$V_2$};
+			\node at (axis cs:2.75, 0) [anchor=north] {$f_2$};
+		
+			% Armónicos de f1 y f2
+		\addplot +[dirac, green] coordinates {(3.75, 1)};
+			\node at (axis cs:3.75, 1) [anchor=north east] {$V_{d_2}$};
+			\node at (axis cs:3.75, 0) [anchor=north] {\tiny $2f_1$};
+		\addplot +[dirac, green] coordinates {(4.75, 1)};
+			\node at (axis cs:4.75, 1) [anchor=north east] {$V_{d_2}$};
+			\node at (axis cs:4.75, 0) [anchor=north] {\tiny $2f_2$};
+			
+%		\addplot +[dirac, red] coordinates {(3, 1)};
+%			\node at (axis cs:3, 1) [anchor=north west] {$V_{d_3}$};
+%			\node at (axis cs:3, -0.2) [anchor=north] {\tiny $2f_2$};
+%		\addplot +[dirac, red] coordinates {(4.5, 1)};
+%			\node at (axis cs:4.5, 1) [anchor=north west] {$V_{d_4}$};
+%			\node at (axis cs:4.5, 0) [anchor=north] {\tiny $3f_2$};
+%		
+			% Productos de intermodulación de Orden 2	
+		\addplot +[dirac, black] coordinates {(0.5, 1.5)}; % f2 - f1
+			\node at (axis cs:0.5, 1.5) [anchor=north east] {$V_{i_2}$};
+			\node at (axis cs:0.35, -0.1) [anchor=north, rotate = 0] {\tiny $f_2 - f_1$};
+		\addplot +[dirac, black] coordinates {(4.25, 1.5)}; % f1 + f2
+			\node at (axis cs:4.25, 1.5) [anchor=north west] {$V_{i_2}$};
+			\node at (axis cs:4.25, -0.25) [anchor=south, rotate = 0] {\tiny $f_1 + f_2$};
+			
+			% Productos de intermodulacion de Orden 3
+		\addplot +[dirac, red] coordinates {(2.25, 1.5)}; % 2f2 - f1
+			\node at (axis cs:2.25, 1.5) [anchor=north east] {$V_{i_3}$};
+			\node at (axis cs:2.15, -0.15) [anchor=north, rotate = 0] {\tiny $2f_2 - f_1$};
+		\addplot +[dirac, red] coordinates {(3.25, 1.5)}; % 2f1 + f2
+			\node at (axis cs:3.25, 1.5) [anchor=north east] {$V_{i_3}$};	
+			\node at (axis cs:3.15, -0.15) [anchor=north, rotate = 30] {\tiny $2f_1 + f_2$};
+%		
+%		% Valores del eje X
+%		\node at (axis cs:1, 0) [anchor=north] {\tiny $f_1$};
+%		\node at (axis cs:1.5, 0) [anchor=north] {\tiny $f_2$};
+%		
+%		\node at (axis cs:2, 0) [anchor=north] {\tiny $ 2 \cdot f_0$};
+%		\node at (axis cs:3, 0) [anchor=north] {\tiny $3 \cdot f_0$};
+%		\node at (axis cs:0, 3) [anchor=north west] {$y(t)$};
+%		\node at (axis cs:5, 0) [anchor=south east] {$f$};
+	
+	\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+	Intermodulación orden $n$ $>$ Armónico orden $n$
+\end{center}
+
+\begin{itemize}
+	\item \textbf{Coeficiente de Intermodulación enésimo ($i_n$)}:
+		\begin{IEEEeqnarray*}{rCl}
+			i_n & = & \frac{V_{d_1}}{V_1} = n \cdot d_n	\\
+			I_n & = & 20 \cdot \log_{10} \frac{V_{i_n}}{V_1} = 20 \cdot \log_{10} n \cdot \frac{V_{d_1}}{V_1} = D_n + 20 \cdot \log_{10} n
+		\end{IEEEeqnarray*}
+\end{itemize}
+
+Si $x(t)$ cambia y ahora tiene $\Delta (dB)$ menos:
+
+	\begin{IEEEeqnarray*}{rCl}
+		D'_n & = & D_n + (n - 1) \cdot \Delta \\
+		I_N & = & D_n + 20 \cdot \log_{10} n \\
+		I'_n & = & D'_n + 20 \cdot \log_{10} n = D_n + (n - 1) \Delta + 20 \cdot \log_{10} n = \\
+		     & = & I_n + (n-1)\cdot \Delta	
+	\end{IEEEeqnarray*}
+
+
+\subsection{Diafonía}
+
+\begin{center}
+	\begin{tikzpicture}
+		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,0) {$F_1$};
+		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,-1) {$F_2$};	
+	
+		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,0) {$P_1$};
+		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,-1) {$P_2$};
+	
+		\draw (0.25,0) -- node[above left] {} (1.75,0);
+		\draw (0.25,-1) -- node[above left] {} (1.75,-1);
+		\draw [blue,  -to, thick] (0.5,0) -- (1.5,0) node [right] {};
+		\draw [red,  -to, thick] (0.5,0) .. controls (1.10,0) and (0.7,-1) .. (1.5,-1);
+		\draw [red,  -to, thick] (0.5,0) .. controls (1.05,0) and (0.88,-1) .. (0.5,-1);
+	\end{tikzpicture}
+\end{center}
+
+El circuito \textbf{perturbador} es el circuito en el que se genera la perturbación y el circuito \textbf{perturbado} es en el que se recibe la diafonía.\\
+
+\textbf{Clasificación} de la diafonía:
+
+\begin{itemize}
+	\item Según como sea percibida la señal perturbadora en el circuito perturbado:
+		\begin{itemize}
+			\item Inteligible
+			\item Ininteligible
+		\end{itemize}
+	\item Según el número de circuitos que atraviesa la señal perturbadora:
+		\begin{itemize}
+			\item Directa: No se atraviesan circuitos intermedios
+				
+%				\begin{center}
+%					\begin{tikzpicture}
+%						\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,0) {$F_1$};
+%						\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,-1) {$F_2$};	
+%	
+%						\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,0) {$P_1$};
+%						\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,-1) {$P_2$};
+%	
+%						\draw (0.25,0) -- node[above left] {} (1.75,0);
+%						\draw (0.25,-1) -- node[above left] {} (1.75,-1);
+%						\draw [red,  -to, thick] (0.5,0) .. controls (1.10,0) and (0.7,-1) .. (1.5,-1);
+%					\end{tikzpicture}
+%				\end{center}
+			
+			\item Indirecta: Se atraviesan uno o más circuitos intermedios
+			
+				\begin{itemize}
+					\item Transversal
+					
+%						\begin{center}
+%							\begin{tikzpicture}[scale = 0.7]
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,0) {$F_1$};
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,-1) {$F_2$};
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,-2) {$F_3$};		
+%	
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,0) {$P_1$};
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,-1) {$P_2$};
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,-2) {$P_3$};
+%	
+%								\draw (0.25,0) -- node[above left] {} (1.75,0);
+%								\draw (0.25,-1) -- node[above left] {} (1.75,-1);
+%								\draw (0.25,-2) -- node[above left] {} (1.75,-2);
+%								\draw [red,  -to, thick] (0.5,0) .. controls (1.10,0) and (0.7,-2) .. (1.5,-2);
+%							\end{tikzpicture}
+%						\end{center}
+					
+					\item Longitudinal
+					
+%						\begin{center}
+%							\begin{tikzpicture}[scale = 0.7]
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,0) {$F_1$};
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,-1) {$F_2$};
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,-2) {$F_3$};		
+%	
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,0) {$P_1$};
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,-1) {$P_2$};
+%								\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,-2) {$P_3$};
+%	
+%								\draw (0.36,0) -- node[above left] {} (1.64,0);
+%								\draw (0.36,-1) -- node[above left] {} (1.64,-1);
+%								\draw (0.36,-2) -- node[above left] {} (1.64,-2);
+%								
+%								\draw [red, thick] (0.36,0) -- (0.44,0);
+%								\draw [red, thick] (0.44,0) .. controls (0.53,-0.05) and (0.58, -0.95) .. (0.7,-1);
+%								\draw [red, thick] (0.7,-1) -- (0.95,-1);
+%								\draw [red, thick] (0.95,-1) .. controls (1.1,-1.05) and (1.25, -1.9) .. (1.5,-2);
+%								\draw [red, -to, thick] (1.5,-2) -- (1.64,-2);
+%							\end{tikzpicture}
+%						\end{center}
+
+						\end{itemize}
+					\item Según el extremo que recibe la perturbación
+					
+						\begin{itemize}
+							\item Paradiafonía: Perturbación recibida en el mismo extremo que se genera la señal, conocida como \textit{NEXT} (Near End Cross Talk).
+							
+%								\begin{center}
+%%									\begin{tikzpicture}[scale = 0.7]
+%										\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,0) {$F_1$};
+%										\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,-1) {$F_2$};	
+%		
+%										\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,0) {$P_1$};
+%										\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,-1) {$P_2$};
+%	
+%										\draw (0.36,0) -- node[above left] {} (1.64,0);
+%										\draw (0.36,-1) -- node[above left] {} (1.64,-1);
+%										\draw [red,  -to, thick] (0.35,0) .. controls (1.10,0) and (1.1,-1) .. (0.35,-1);
+%									\end{tikzpicture}
+%								\end{center}
+							
+							\item Telediafonía: Recibida en el extremo opuesto. Conocida como \textit{FEXT} (Far End Cross Talk).
+							
+%								\begin{center}
+%									\begin{tikzpicture}[scale = 0.7]
+%										\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,0) {$F_1$};
+%										\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,-1) {$F_2$};	
+%	
+%										\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,0) {$P_1$};
+%										\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,-1) {$P_2$};
+%	
+%										\draw (0.36,0) -- node[above left] {} (1.64,0);
+%										\draw (0.36,-1) -- node[above left] {} (1.64,-1);
+%										\draw [red,  -to, thick] (0.5,0) .. controls (1.10,0) and (0.7,-1) .. (1.5,-1);
+%									\end{tikzpicture}
+%							\end{center}
+				\end{itemize}
+		\end{itemize}
+\end{itemize}
+
+Parámetros de medida de la diafonía:
+
+\begin{itemize}
+	\item $P_1$: Potencia de la señal en un punto del circuito perturbador.
+	\item $P_2$: Potencia de la señal perturbada medida en un punto equivalente del circuito perturbado.
+\end{itemize}
+
+\begin{itemize}
+	\item Relación de Diafonía ($R_d$):
+		\begin{equation*}
+			R_d = 10 \log_{10} \left( \frac{P_2}{P_1} \right)
+		\end{equation*}
+	\item Atenuación de Diafonía ($A_d$):
+		\begin{equation*}
+			A_d = 10 \log_{10} \left( \frac{P_1}{P_2} \right) = - R_d
+		\end{equation*}
+	\item Cross Talk Unit (CU):
+		\begin{equation*}
+			CU = 20 \log_{10} \left( \frac{V_2}{V_1} \cdot 10^6 \right) = 120 - A_d
+		\end{equation*}
+\end{itemize}
+
+
+\begin{center}
+	\begin{tikzpicture}[scale = 0.3]
+	
+	\draw[red, very thick] (0.5,5) -- (6, 3.5) node[right] {Telediafonía};;
+	\draw[green, very thick] (0.5,3) -- (6, 2) node[right] {Paradiafonía};
+	
+	\draw[gray, dashed, thick] (0.75,5) -- (0.75, 0.5);
+	\draw[gray, dashed, thick] (5.75,3.5) -- (5.75, 0.5);
+	
+	\begin{axis}[axis lines = middle,xmin=-0.1,xmax = 3.2,ymin=-0.3,ymax=3, xticklabels={,,}, yticklabels={,,}] ,grid=both]
+		
+		%TERMINAR AQUI
+		
+			% Ejes
+		\node at (axis cs:0, 3) [anchor=north west] {$A_d$};
+		\node at (axis cs:3.2, 0) [anchor=south east] {$f$};
+		
+		\draw[red, very thick] (0,0) -- (2.5,1.5);% -- (0,1);
+		\draw (0,0) -- (2,2);
+		
+	\end{axis}
+	\end{tikzpicture}
+\end{center}
+
+\subsection{Ruido}
+
+\subsubsection{Ruido Térmico}
+
+\begin{IEEEeqnarray*}{rCl}
+	n & = & k \cdot t \cdot B \\
+	N & = & 10 \cdot \log_{10} (ktB)	
+\end{IEEEeqnarray*}
+
+\begin{itemize}
+	\item $k$: Constante de Boltzmann ($1.38 \cdot 10^{-23} W/K/Hz$)
+	\item $t$ (Kelvin): Temperatura
+	\item $b$ (Hz): Ancho de banda
+\end{itemize}
+
+\subsubsection{Ruido en un Cuadripolo}
+
+\begin{center}
+	\begin{tikzpicture}[scale = 0.7]		
+		\draw [draw, align=center, fill={rgb:black,1;white,2}, text = white] (0,0) rectangle (2,2) node[pos=.5] {Cuadripolo}; 
+	
+		\draw (-0.5,0.5) -- node[above left] {$n_e$} (0,0.5);
+		\draw (-0.5,1.5) -- node[above left] {$S_e$} (0,1.5);
+				
+		\draw (2,0.5) -- node[above right] {$S_s = S_e \cdot g$} (2.5,0.5);
+		\draw (2,1.5) -- node[above right] {$n_s = n_e \cdot g + n_{interno}$} (2.5,1.5);
+	\end{tikzpicture}
+\end{center}
+
+Parámetros de caracterización del ruido:
+
+\begin{itemize}
+	\item \textbf{Temperatura Equivalente de Ruido ($T_{eq}$)}: Temperatura a la que tendría que estar la entrada del circuito para que a la salida se vea el mismo ruido que se produce suponiendo que el cuadripolo es ideal.
+	
+		\begin{equation*}
+			n_{int} = k \cdot t_{eq} \cdot b \cdot g
+		\end{equation*}
+	
+	\item \textbf{Factor de Ruido en un Cuadripolo ($f$)}: Cociente entre la potencia de ruido a la salida comparada con la potencia de ruido que habría a la salida si la entrada estuviera a temperatura estándar y el cuadripolo no añadiera ruido térmico.
+		
+		\begin{IEEEeqnarray*}{rCl}
+			f & = & \frac{n_s}{k \cdot t_o \cdot b \cdot g} = 1 + \frac{t_{eq}}{t_o} \hspace{10px} f= \frac{\left( \frac{S}{N} \right)_e}{\left( \frac{S}{N} \right)_s} \\	
+			F & = & 10 \cdot \log_{10} (f) = \left( \frac{S}{N} \right)_e - \left( \frac{S}{N} \right)_s
+		\end{IEEEeqnarray*}
+\end{itemize}
+
+Relación entre $t_{eq}$ y $f$:
+
+	\begin{equation*}
+		t_{eq} = t_0 \cdot (f - 1) \hspace{10px} f = 1 + \frac{t_{eq}}{t_o}
+	\end{equation*}
+
+\subsubsection{Asociación de Cuadripolos}
+
+\begin{center}
+	\begin{tikzpicture}[scale = 0.65]
+		
+		\draw [draw, align=center, fill={rgb:black,1;white,2}, text = white] (0,0) rectangle (2,2) node[pos=.5] {$g_1$ $f_1$ $t_{eq_1}$}; 
+	
+		\draw (-0.5,0.5) -- node[above left] {} (0,0.5);
+		\draw (-0.5,0.5) -- (-0.5,0.25);
+		\draw (-0.575,0.25) -- (-0.425,0.25) -- (-0.425,-0.25) -- (-0.575,-0.25) -- (-0.575,0.25); % Resistencia
+		\draw (-0.5,-0.25) -- (-0.5,-0.5);
+		\draw (-0.5,-0.25) -- (-0.5,-0.5);
+		\draw (-0.625,-0.5) -- (-0.375,-0.5);
+		\draw (-0.5,-0.25) node[above left] {$t_{eq_1}$} (-0.5,0);
+
+		\draw (-1.5,1.5) -- node[above,xshift=-0.4cm] {$n_e = k \cdot t_e \cdot b$} (0,1.5);
+		
+				
+		%\draw (2,1.5) -- node[above right] {$k \cdot t_e \cdot b \cdot g_1$} (2.5,1.5);
+		\draw (2,1.5) -- node[above right] {} (4,1.5);
+		
+		
+		\draw [draw, align=center, fill={rgb:black,1;white,2}, text = white] (3.5,0) rectangle (5.5,2) node[pos=.5] {$g_2$ $f_2$ $t_{eq_2}$}; 
+	
+		\draw (3,0.5) -- node[above left] {} (3.5,0.5);
+		\draw (3,0.5) -- (3,0.25);
+		\draw (3.075,0.25) -- (2.925,0.25) -- (2.925,-0.25) -- (3.075,-0.25) -- (3.075,0.25); % Resistencia
+		\draw (3,-0.25) -- (3,-0.5);
+		\draw (3,-0.25) -- (3,-0.5);
+		\draw (3.125,-0.5) -- (2.875,-0.5);
+		\draw (3,-0.25) node[above left] {$t_{eq_2}$} (3,0);
+		
+		\draw (5.5,1.5) -- node[above right] {} (7.5,1.5);
+		
+		\draw [draw, align=center, fill={rgb:black,1;white,2}, text = white] (7,0) rectangle (9,2) node[pos=.5] {$g_3$ $f_3$ $t_{eq_3}$}; 
+	
+		\draw (6.5,0.5) -- node[above left] {} (7,0.5);
+		\draw (6.5,0.5) -- (6.5,0.25);
+		\draw (6.575,0.25) -- (6.425,0.25) -- (6.425,-0.25) -- (6.575,-0.25) -- (6.575,0.25); % Resistencia
+		\draw (6.5,-0.25) -- (6.5,-0.5);
+		\draw (6.5,-0.25) -- (6.5,-0.5);
+		\draw (6.625,-0.5) -- (6.375,-0.5);
+		\draw (6.5,-0.25) node[above left] {$t_{eq_3}$} (6.5,0);
+		
+		\draw (9,1.5) -- node[above right] {} (9.5,1.5);
+
+	\end{tikzpicture}
+\end{center}
+
+\begin{equation*}
+	n_s = k \cdot b \cdot g_1 \cdot g_2 \cdot g_3 \left( t_o + t_{eq_1} + \frac{t_{eq_2}}{g_1} + \frac{t_{eq_3}}{g_1 \cdot g_2} \right)	
+\end{equation*}
+
+Fórmula de Friis:
+
+	\begin{equation*}
+		f_T = f_1 + \frac{f_2 - 1}{g_1} + \frac{f_3 - 1}{g_1 \cdot g_2} + ... + \frac{f_n - 1}{g_1 \cdot g_2 \cdot ... \cdot g_{n-1}}
+	\end{equation*}
+
+\section{\underline{Tráfico}}
+
+\subsection{Tráfico Telefónico}
+
+El \textbf{tráfico} es una medida del conjunto de peticiones de uso y de ocupación de los recursos de un determinado sistema de telecomunicaciones.
+
+\begin{itemize}
+	\item \textbf{Ritmo de afluencia de las llamadas} ($\lambda$, $\frac{\mbox{Número de Llamadas}}{\mbox{Tiempo}}$)
+	\item \textbf{Tiempo medio de duración} de las llamadas ($T_m$)
+	\item \textbf{Volumen de Tráfico}: Tiempo de ocupación de los recursos, para $N$ circuitos:
+		\begin{equation*}
+			V(N) = \sum_i V_i
+		\end{equation*}
+		Se mide en:
+		\begin{itemize}
+			\item LLR: Llamadas reducidas - 120 segundos $\rightarrow 1(E) = 30 \frac{LLR}{H}$
+			\item CCS: \textit{Century Call Seconds} - 100 segundos $\rightarrow 1(E) = 30 \frac{LLR}{H}$
+		\end{itemize}
+	\item \textbf{Intensidad de Tráfico (\textit{A})}: Volumen a lo largo de un periodo de observación, se mide en \textit{Erlangs}.
+		\begin{equation*}
+			A = \frac{t_{\mbox{ocupación}}}{t_{\mbox{observación}}} = \lambda \cdot t_{medio}
+		\end{equation*}
+	\item \textbf{Tiempo de Observación para las medidas del tráfico (\textit{A})} El tráfico depende tanto de la duración como de la distribución de llegada de las llamadass
+\end{itemize}
+
+\subsection{Bloqueo - Llamadas Perdidas - GoS - Disponibilidad}
+
+\begin{itemize}
+	\item \textbf{Tráfico Ofrecido ($A_O$)}: Tráfico que soportaría la red si fuera capaz de servir todas las solicitudes de servicio.
+	\item \textbf{Tráfico Bloqueado ($A_B$)}: Tráfico rechazado por ocupación de todos los circuitos $B \cdot A_O$.
+	\item \textbf{Tráfico Cursado ($A_C$)}: Tráfico servido por la red $A_O (1-B)$.
+\end{itemize}
+
+\begin{itemize}
+	\item En un sistema sin pérdidas: $A_O = A_C$.
+	\item En un sistema con pérdidas: $A_O = A_C + A_B$.
+	\item Con $N$ circuitos o servidores, $\rho = \frac{A}{N}$ será el tráfico, ofrecido/cursado, por circuito o servidor.
+\end{itemize}
+
+Un \textbf{conmutador tiene disponibilidad total} cuando cada entrada tiene acceso a cada una de las salidas.
+
+\subsection{Distribuciones Estadísticas para Fuentes de Tráfico}
+
+\begin{itemize}
+	\item Duración de llamada constante: redes de conmutación de paquetes
+	\item Duración de llamadas exponencial negativa: conversación telefónica
+\end{itemize}
+
+%\subsection{Modelos de Gestión de Llamadas Bloqueadas}
+%
+%\begin{itemize}
+%	\item \textbf{Lost Calls Held (\textit{LCH})}: Práctica norteamericana, la llamada se pierde y el usuario volverá a intentarlo de forma inmediata. El segundo intento está estadísticamente relacionado con el primero.
+%	\item \textbf{Lost Calls Cleared (\textit{LCC})}: Práctica europea, la llamada se pierde y el usuario dejará pasar cierto tiempo antes de volver a intentarlo. El segundo intento está considerado como una petición aleatoria más.
+%	\item \textbf{Lost Calls Delayed (\textit{LCD})}: La llamada no se pierde, existe una cola de espera hasta que se libere algún acceso.
+%	\item \textbf{Lost Calls Retried (\textit{LCR})}: Variación de \textit{LCC}, es un caso especial
+%\end{itemize}
+
+\subsection{Modelo de Llamadas Perdidas Despejadas}
+
+\subsubsection{Modelo LLC $\rightarrow$ Erlang-B}
+
+Distribución Erlang B para el cáclulo de la probabilidad de bloqueo
+
+	\begin{equation*}
+		B(N,A) = \frac{\frac{A^N}{N!}}{\sum_{i=0}^N \frac{A^i}{i!}}
+	\end{equation*}
+
+\qquad \textit{$B(N,A)$: Probabilidad de Bloqueo}\\
+\qquad \textit{$N$: Número de órganos} \\
+\qquad \textit{$A$: Tráfico ofrecido}
+
+\subsubsection{Sistemas con Retardo - LCD}
+
+Las solicitudes de servicio que encuentran todos los servidores ocupados son puestas en una cola. Los servidores verán un ritmo constante de llegadas. Parámetros:
+
+\begin{itemize}
+	\item Tiempo de Servicio o Tiempo de Ocupación ($T_O$).
+	\item Tiempo de Espera ($T_w$).
+	\item Tiempo total en el sistema ($T_s = T_m + T_w$).
+\end{itemize}
+
+%Terminología de Colas
+%
+%\begin{enumerate}
+%	\item \textbf{Input Specification}:
+%		\begin{itemize}
+%			\item G: General (no assumptions)
+%			\item M: Purely random
+%		\end{itemize}
+%	\item \textbf{Service Time Distribution}:
+%		\begin{itemize}
+%			\item G: General (no assumptions)
+%			\item M: Negative Exponential
+%			\item D: Constant
+%		\end{itemize}
+%	\item \textbf{Number of Sources}:
+%		\begin{itemize}
+%			\item M: Finite
+%			\item  : Indinite
+%		\end{itemize}
+%	\item \textbf{Queue Length}:
+%		\begin{itemize}
+%			\item L: Finite Length
+%			\item  : Infinite Length
+%		\end{itemize}
+%\end{enumerate}
+
+\subsubsection{Sistemas M/M/N (Erlang-C)}
+
+Llegadas aleatorias, tiempo de servicio exponencial y $N$ servidores.
+
+	\begin{equation*}
+		p(t_w > t) = C(N,A) \cdot e^{- \frac{(N-A)t}{T_m}}
+	\end{equation*}
+	
+	\begin{equation*}
+		T_w = \frac{C(N,A) \cdot T_m}{N - A}
+	\end{equation*}
+	
+Número medio de usuarios en cola:
+
+	\begin{equation*}
+		u_w = \lambda \cdot T_w
+	\end{equation*}
+
+%\begin{equation*}
+%	C(N,A) = \frac{N \cdot E_B}{[ N - A (1 - E_B) ]}
+%\end{equation*}
+%
+%\begin{itemize}
+%	\item $N$: Números de servidores del sistema
+%	\item $A$: Tráfico ofrecido al sistema
+%\end{itemize}
+
+\subsubsection{Sistemas M/M/1}
+
+Llegadas aleatorias, tiempo de servicio exponencial y $1$ servidor.
+
+	\begin{equation*}
+		C(N,A) = A = \rho
+	\end{equation*}
+
+	\begin{equation*}
+		p(t_w > t) = A \cdot e^{- \frac{(1-A)t}{T_m}}
+	\end{equation*}
+	
+	\begin{equation*}
+		T_w = \frac{\rho \cdot T_m}{1 - \rho}
+	\end{equation*}
+
+\subsubsection{Sistemas M/D/1}
+
+Llegadas aleatorias, tiempos de servicio fijos y 1 servidor.
+
+	\begin{equation*}
+		T_w = \frac{\rho \cdot T_m}{2 \cdot (1 - \rho)}
+	\end{equation*}
+
+	\begin{equation*}
+		p(t_w > 0) = A = \rho
+	\end{equation*}
+
+%\vfill
+
+
+\end{document}
