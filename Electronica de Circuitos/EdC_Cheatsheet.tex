@@ -97,7 +97,7 @@
 % Cheatsheet code below 
 %                                                      
 
-\section{\underline{Repaso BJTs}}
+\section{\underline{Transistor BJT}}
 
 \subsection{Parámetros}
 
@@ -123,6 +123,7 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 
 	\begin{center}
 		\begin{tikzpicture}
+		
 		    \draw (-0.2,0) -- (2.5,0) node[right] {$I_C$};
     		\draw (0,-0.2) -- (0,2.5) node[above] {$V_{CE}$};
     		
@@ -417,9 +418,76 @@ Gran ganancia de corriente pero baja impedancia de salida. Las fugas del primer 
 
 \section{\underline{4. Fuentes de Corriente y Cargas Activas}}
 
+Una \textbf{carga activa o carga dinámica} es un componente de circuito que se comporta como una resistencia no lineal estable contra corriente. Utilizado frecuentemente en la entrada de amplificadores operacionales para incrementar considerablemente la ganancia.
+
 \subsubsection{Introducción y Figura de Mérito}
 
+\textbf{No sé qué es una figura de mérito}
+
 \subsubsection{Configuraciones de Fuentes de Corriente}
+
+\textbf{Espejo de Corriente}:
+
+	\begin{center}
+		\begin{circuitikz} [scale=1, transform shape]
+			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
+				(npn1.C) [short, blue, i=${I_{BB}}$] to (npn1.B)
+				(npn1.C) -| (npn1.B)
+				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
+			\draw (2,0) node[npn, xscale = 1, yscale = 1, rotate = 0](npn2) {$Q_2$}
+				(npn2.B) -- (npn1.B)
+				(npn1.E) [short, thick, blue, -|] to (1,-.78);
+			\draw (npn2.C) [short, -o, ,i<_=$I_O$] to (2,1.5);
+			\draw (1,-0.78) [short] to (npn2.E);
+			\draw[blue, thick] (1,-.78) [short, *-] to (1, -1.28) node[ground, color = blue]{} (1, -1.5); 
+		\end{circuitikz}
+	\end{center}
+
+	\begin{center}
+		\begin{circuitikz}[scale=.6,american voltages, american currents, transform shape]
+			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
+				to [short, -] (1,-1)
+				to [R, l=$h_{ie}$] (1,-2)
+				to [short] (1,-3) -- (3,-3) -- (3,-2)
+				(3,-1) to [I, i= $h_{fe_D} \cdot i_{b_D}$] (3,-2)
+				to [short] (3,0)
+				to [short] (5,0)
+				to [short, , i<_=$i_c$, -o] (6,0)
+				;
+			\draw (3,-3) to [short, -] (5,-3) -- (5,-2)
+				to [R, l_=$h_{oe}^{-1}$] (5,-1)
+				to [short, -*] (5,0);		
+			\draw (2,-3) to [short, *-] (2,-3.1) node[ground]{} (-2, -2.2);
+			%\draw (0,0) node[anchor=east] {$B_D$};
+			%\draw (6,0) node[anchor=west] {$C_D$};
+			\draw[blue, thick] (-1,0) -- (-1,-1) to [R, color = blue, l=$R_{Q0}$] (-1,-2) -- (-1,-3) node[ground, color = blue]{} (-1, -2.2);
+			\draw[blue, thick] (-2,0) -- (-2,-1) to [R, color = blue, l_=$R_{CC}$] (-2,-2) -- (-2, -3) node[ground, color = blue]{} (-2, -2.2)
+				(-2,0) [short, color = blue, -*] to (0,0);
+		\end{circuitikz}
+	\end{center}
+
+	\begin{equation*}
+		I_O = \frac{I_{ref}}{1 + \frac{2}{\beta_F}} \hspace{15pt} \mbox{si} \beta \uparrow\uparrow \hspace{15pt} I_O = I_{ref}
+	\end{equation*}
+	
+	\begin{center}
+		\begin{circuitikz} [scale=1, transform shape]
+			\draw[blue, thick] (4,0) node[npn, color = blue](npn1) {}
+				(npn1.C) -| (npn1.B) %i=${I_{BB}}$] to (npn1.B)
+				(npn1.C) to [R, color = blue, l=$R_{CC}$] (4,2.4) [short, -o, i<_=$I_{ref}$] to (4,3) node[anchor=east] {$V_{CC}$};
+			\draw[blue, thick] (2,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn2) {};
+			\draw (1,0) node[right] {...};
+			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn0) {};
+			\draw[blue] (1.5,0) -- (npn1.B);
+		\end{circuitikz}
+	\end{center}
+	
+Si hay varias etapas se divide la corriente:
+
+	\begin{equation*}
+		I_O = \frac{I_{ref}}{1 + \frac{N}{\beta_F}}
+	\end{equation*}
+	
 
 \subsubsection{Cargas Activas}
 
