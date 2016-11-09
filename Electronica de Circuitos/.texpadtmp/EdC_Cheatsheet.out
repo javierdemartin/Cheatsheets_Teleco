@@ -20,14 +20,17 @@
 \BOOKMARK [1][-]{section*.20}{3. Respuesta en Frecuencia \(aUn no\)}{}% 20
 \BOOKMARK [1][-]{section*.21}{4. Fuentes de Corriente y Cargas Activas}{}% 21
 \BOOKMARK [2][-]{section*.22}{Introducci\363n y Figura de M\351rito}{section*.21}% 22
-\BOOKMARK [3][-]{section*.23}{Configuraciones de Fuentes de Corriente}{section*.22}% 23
-\BOOKMARK [3][-]{section*.24}{Cargas Activas}{section*.22}% 24
-\BOOKMARK [3][-]{section*.25}{FC y CA con Amplificadores Diferenciales}{section*.22}% 25
-\BOOKMARK [3][-]{section*.26}{Polarizaci\363n Independiente de VCC}{section*.22}% 26
-\BOOKMARK [3][-]{section*.27}{Desplazador de Nivel}{section*.22}% 27
-\BOOKMARK [1][-]{section*.28}{5. Etapas de Potencia}{}% 28
-\BOOKMARK [2][-]{section*.29}{Clasificaci\363n}{section*.28}% 29
-\BOOKMARK [3][-]{section*.30}{Definiciones}{section*.29}% 30
-\BOOKMARK [3][-]{section*.31}{Amplificadores Clase A}{section*.29}% 31
-\BOOKMARK [3][-]{section*.32}{Amplificadores Clase B y Clase AB}{section*.29}% 32
-\BOOKMARK [3][-]{section*.33}{Consideraciones T\351rmicas}{section*.29}% 33
+\BOOKMARK [2][-]{section*.23}{Configuraciones de Fuentes de Corriente}{section*.21}% 23
+\BOOKMARK [3][-]{section*.24}{Fuente Widlar}{section*.23}% 24
+\BOOKMARK [3][-]{section*.25}{Fuente de Cascodo}{section*.23}% 25
+\BOOKMARK [3][-]{section*.26}{Fuente de Wilson}{section*.23}% 26
+\BOOKMARK [2][-]{section*.27}{Cargas Activas}{section*.21}% 27
+\BOOKMARK [2][-]{section*.28}{FC y CA con Amplificadores Diferenciales}{section*.21}% 28
+\BOOKMARK [2][-]{section*.29}{Polarizaci\363n Independiente de VCC}{section*.21}% 29
+\BOOKMARK [2][-]{section*.30}{Desplazador de Nivel}{section*.21}% 30
+\BOOKMARK [1][-]{section*.31}{5. Etapas de Potencia}{}% 31
+\BOOKMARK [2][-]{section*.32}{Clasificaci\363n}{section*.31}% 32
+\BOOKMARK [3][-]{section*.33}{Definiciones}{section*.32}% 33
+\BOOKMARK [3][-]{section*.34}{Amplificadores Clase A}{section*.32}% 34
+\BOOKMARK [3][-]{section*.35}{Amplificadores Clase B y Clase AB}{section*.32}% 35
+\BOOKMARK [3][-]{section*.36}{Consideraciones T\351rmicas}{section*.32}% 36

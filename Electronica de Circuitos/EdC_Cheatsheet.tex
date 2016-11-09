@@ -424,15 +424,14 @@ Una \textbf{carga activa o carga dinámica} es un componente de circuito que se 
 
 \textbf{No sé qué es una figura de mérito}
 
-\subsubsection{Configuraciones de Fuentes de Corriente}
+\subsection{Configuraciones de Fuentes de Corriente}
 
-\textbf{Espejo de Corriente}:
+\textbf{Espejo de Corriente}: Permite obtener una corriente constante (fuente de corriente).
 
 	\begin{center}
 		\begin{circuitikz} [scale=1, transform shape]
 			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
-				(npn1.C) [short, blue, i=${I_{BB}}$] to (npn1.B)
-				(npn1.C) -| (npn1.B)
+				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
 				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
 			\draw (2,0) node[npn, xscale = 1, yscale = 1, rotate = 0](npn2) {$Q_2$}
 				(npn2.B) -- (npn1.B)
@@ -488,14 +487,99 @@ Si hay varias etapas se divide la corriente:
 		I_O = \frac{I_{ref}}{1 + \frac{N}{\beta_F}}
 	\end{equation*}
 	
+\subsubsection{Fuente Widlar}
 
-\subsubsection{Cargas Activas}
+Variación del circuito anterior con una resistencia en el emisor del transistor de salida para obtener corrientes pequeñas constantes en la salida.
 
-\subsubsection{FC y CA con Amplificadores Diferenciales}
+	\begin{center}
+		\begin{circuitikz} [scale=1, transform shape]
+			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
+				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
+				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$}
+				;
+			\draw (2,0) node[npn, xscale = 1, yscale = 1, rotate = 0](npn2) {$Q_2$}
+				%(npn2.B) -- (npn1.B)
+				%(npn1.E) [short, thick] to (1,-.78)
+				%(npn1.E) to [short, blue] (0, -2.78)
+				(npn2.E) to [R, l=$R_1$] (2,-2.78)
+				(npn2.B) to [short] (.78,0)
+				;
+			\draw[blue] (npn1.E) to [short, blue] (0, -2.78) -- (1, -2.78);
+			\draw (1,-2.78) -- (2, -2.78);
+			\draw (npn2.C) [short, -o, ,i<_=$I_O$] to (2,1.5);
+			%\draw (1,-0.78) [short] to (npn2.E);
+			\draw[blue, thick] (1,-2.78) [short, *-] to (1, -3.28) node[ground, color = blue]{} (1, -3.5); 
+		\end{circuitikz}
+	\end{center}
 
-\subsubsection{Polarización Independiente de $V_{CC}$}
+	\begin{equation*}
+		I_0^{(k+1)} = \frac{V_T}{R_E} ln \left( \frac{I_{ref}}{I_O^{(k)}} \right)
+	\end{equation*}
 
-\subsubsection{Desplazador de Nivel}
+\subsubsection{Fuente de Cascodo}
+
+Proporciona impedancia de salida alta, mucho mayor que en las otras fuentes.
+
+	\begin{center}
+		\begin{circuitikz} [scale=1, transform shape]
+			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
+				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
+				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
+			\draw (2,0) node[npn, xscale = 1, yscale = 1, rotate = 0](npn2) {$Q_2$}
+				(npn2.B) -- (npn1.B)
+				%(npn1.E) [short, thick, blue, -|] to (1,-.78);
+				;
+			\draw (npn2.C) [short, -o,i<_=$I_O$] to (2,1.5);
+			\draw[blue, thick] (1,-2.78) [short, *-] to (1, -3.28) node[ground, color = blue]{} (1, -2.5); 
+			
+			\draw[blue, thick] (0,-2) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn3) {$Q_3$}
+				(npn3.C) to [short, blue, *-] (.84,-1.22) to [short, blue, i=$I_{BB}$] (npn3.B)
+				(npn1.E) -- (npn3.C)
+				;
+			\draw (2,-2) node[npn, xscale = 1, yscale = 1, rotate = 0](npn4) {$Q_4$}
+				(npn4.B) -- (npn3.B)
+				(npn3.E) [short, thick, blue, -|] to (1,-2.78);
+			\draw (npn4.C) [short, -o] to (2,-.5);
+			\draw (1,-2.78) [short] to (npn4.E);
+		\end{circuitikz}
+	\end{center}
+
+
+\subsubsection{Fuente de Wilson}
+
+	\begin{center}
+		\begin{circuitikz} [scale=1, transform shape]
+			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
+				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
+				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
+			\draw (2,0) node[npn, xscale = 1, yscale = 1, rotate = 0](npn2) {$Q_2$}
+				(npn2.B) -- (npn1.B)
+				%(npn1.E) [short, thick, blue, -|] to (1,-.78);
+				;
+			\draw (npn2.C) [short, -o,i<_=$I_O$] to (2,1.5);
+			\draw[blue, thick] (1,-2.78) [short, *-] to (1, -3.28) node[ground, color = blue]{} (1, -2.5); 
+			
+			\draw[blue, thick] (0,-2) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn3) {$Q_3$}
+				(npn3.C) to [short, blue, *-] (.84,-1.22) to [short, blue, i=$I_{BB}$] (npn3.B)
+				(npn1.E) -- (npn3.C)
+				;
+			\draw (2,-2) node[npn, xscale = 1, yscale = 1, rotate = 0](npn4) {$Q_4$}
+				(npn4.B) -- (npn3.B)
+				(npn3.E) [short, thick, blue, -|] to (1,-2.78);
+			\draw (npn4.C) [short, -o] to (2,-.5);
+			\draw (1,-2.78) [short] to (npn4.E);
+		\end{circuitikz}
+	\end{center}
+
+Permite obtener alta ganancia de corriente e impedancia de salida elevada.
+
+\subsection{Cargas Activas}
+
+\subsection{FC y CA con Amplificadores Diferenciales}
+
+\subsection{Polarización Independiente de $V_{CC}$}
+
+\subsection{Desplazador de Nivel}
 
 \section{\underline{5. Etapas de Potencia}}
 
