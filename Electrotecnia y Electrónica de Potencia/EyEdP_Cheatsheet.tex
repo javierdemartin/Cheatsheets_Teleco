@@ -1,0 +1,266 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{color,graphicx,overpic}
+\graphicspath{ {images/} }
+\usepackage{hyperref}
+\usepackage{esint}
+\usepackage{bm}
+\usepackage{relsize}
+\usepackage{datetime}
+\usepackage[utf8] {inputenc}
+\usepackage[spanish, activeacute] {babel}
+\usepackage{IEEEtrantools}
+\usepackage{framed}
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+    {\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+    }
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+\newcommand{\Lagr}{\mathcal{L}}
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+%My Environments
+\newtheorem{example}[section]{Example}
+% ---------------------------------------------------------------
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{framed}
+	\begin{center}
+    	\Large{\underline{EyEdP}} \\
+    	\scriptsize{3º de Ingeniería de Telecomunicaciones | UPV/EHU}\\
+     	%Actualizado por última vez el \today \\
+     	"\textsl{Under-promise and over-deliver}." \\
+     	%\hspace{5 pt} \\
+     	\small{\textbf{Javier de Martín Gil -- 2016}}
+	\end{center}
+\end{framed}
+
+%
+% Cheatsheet code below 
+%                                                      
+
+\section{\underline{Circuitos Monofásicos}}
+
+Representación de funciones sinusoidales:
+
+\begin{IEEEeqnarray*}{rCl}
+	\underline{I} & = & X \angle{\theta} \\
+	\underline{i} & = & X \cdot \sqrt{2} \cdot e^{j \cdot (\omega t + \theta)} \\
+	i & = & X \cdot \sqrt{2} \cdot \cos{\omega t + \theta})	
+\end{IEEEeqnarray*}
+
+\subsection{Régimen Alterno Sinusoidal Permanente}
+
+Clasificación de los circuitos en función de su impedancia:
+
+\begin{itemize}
+	\item Circuito Abierto ($Z = \infty$)
+	\item TERMINAR
+\end{itemize}
+
+Según el \textbf{argumento de la impedancia}:
+
+\begin{itemize}
+	\item Inductivos ($\phi > 0$): La intensidad está retrasada con respecto a la tensión.
+	\item Resistivos ($\phi = 0$): Tensión e intensidad están siempre en fase.
+	\item Capacitivos ($\phi < 0$): La intensidad está adelantada con respecto a la tensión.
+\end{itemize}
+
+\subsubsection{Circuito RLC Serie}
+
+Un \textbf{circuito serie RLC} tiene carácter inductivo o capacitivo en función del predomino de un efecto sobre el otro. SI en un circuito se modficica la frecuencia hasta que los valores de las reactancias inductiva y capacitiva se igualan, el circuito entra en \textbf{resonancia}.
+
+
+\subsection{\underline{Circuitos Trifásicos}}
+
+El conjunto de tensiones forma un \textbf{sistema equilibrado} de tensiones, ya que está formado por 3 tensiones sinusoidales del mismo valor eficaz, la misma frecuencia y desfasados 120º entre sí. Según cómo se coloquen las fases hay dos secuencias:
+
+\begin{itemize}
+	\item \textbf{Secuencia Directa o Positiva}: 1-2-3
+	\item \textbf{Secuencia Inversa o Negativa}: 1-3-2
+\end{itemize}
+
+Conexiones en circuitos trifásicos:
+
+\begin{itemize}
+	\item \textbf{Triángulo}: Sistema trifásico a 3 hilos
+	\item \textbf{Estrella}: Con neutro (sistema trifásico a 4 hilos) y sin neutro (sistema trifásico a 3 hilos).
+\end{itemize}
+
+\subsection{Conexión en Estrella}
+
+\begin{itemize}
+	\item \textbf{Conexión Simple}: Tensión entre conductor de fase y punto neutro.
+	\item \textbf{Tensión Compuesta}: Tensión entre los conductores de fase.
+\end{itemize}
+
+Para un sistema equilibrado la corriente por una fase:
+
+\begin{equation*}
+	\underline{V}_1 = \frac{\underline{U}_{xy}}{\sqrt{3}} \angle{-30º}
+\end{equation*}
+
+\begin{itemize}
+	\item \textbf{Corrientes de Fase}: Corrientes que circulan por cada fase de la carga.
+	\item \textbf{Corrientes de Línea}: Corrientes externas que circulan por la línea de acceso.
+	\item \textbf{En la conexión en estrella coinciden las corrientes de fase y de línea.}
+\end{itemize}
+
+\subsection{Conexión en Triángulo}
+
+\begin{itemize}
+	\item La tensión en las cargas es la tensión compuesta.
+	\item La intensidad en cada elemento es igual a la de línea dividida por $\sqrt{3}$.
+	\item Las tensiones de cada elemento están desfasadas $120º$ entre sí.
+	\item Las corrientes de cada elemento están desfasadas $120º$ entre sí.
+	\item \textbf{En la conexión en triángulo coinciden las tensiones de fase y de línea.}
+\end{itemize}
+
+\subsection{Relaciones en Circuitos Trifásicos}
+
+\begin{itemize}
+	\item \textbf{Tensión de Fase}: Diferencia de potencial que existe en cada una de las ramas monofásicas de un sistema trifásico.
+	\item \textbf{Tensión de Línea o Compuesta}: Diferencia de potencial que existe entre dos conductores de línea o entre dos terminales de fase.
+	\item \textbf{Intensidad de Fase}: Corriente que circula por cada una de las ramas de un sistema trifásico.
+	\item \textbf{Intensidad de Línea}: Corriente que circula por cada uno de los conductores de línea.
+\end{itemize}
+
+\begin{equation*}
+	\underline{Z}_Y = \frac{\underline{Z}_\triangle}{3} \hspace{20pt} \underline{Z}_\triangle = 3 \cdot \underline{Z}_Y
+\end{equation*}
+
+
+\section{\underline{CIRCUITOS MAGNÉTICOS}}
+
+\textbf{Campo Magnético}: 
+
+	\begin{equation*}
+		B = \frac{\phi}{S}
+	\end{equation*}
+
+\subsection{Leyes Fundamentales}
+
+\textbf{Hopkinson} $\rightarrow$ $F_{mm} = \phi \cdot R$ \\
+
+\textbf{Lenz} $\rightarrow$ $fem = -N \frac{\partial\phi}{\partial t}$ \\
+
+\textbf{Faraday} $\rightarrow$ $V_{AB} = V B L \sin \theta$ \\
+
+\textbf{Laplace} $\rightarrow$ $F = I B L \sin \phi $
+
+\subsection{Transformadores}
+
+\subsubsection{Transformador monofásico ideal en el vacío}
+
+Relación de Transformación:
+
+	\begin{equation*}
+		a = \frac{E_1}{E_2} = \frac{N_1}{N_2}
+	\end{equation*}
+
+\subsubsection{Transformador monofásico ideal en carga}
+
+	\begin{equation*}
+		\frac{1}{a} = \frac{i_1}{i_2} = \frac{N_2}{N_1}
+	\end{equation*}
+
+\subsubsection{Transformador monofásico real en el vacío}
+
+	\begin{equation*}
+		V_1 - E_1 = (R_1 + j X_1) I_{10}
+	\end{equation*}
+
+	\begin{equation*}
+		a = \frac{E_1}{E_2} = \frac{N_1}{N_2}
+	\end{equation*}
+	
+\subsubsection{Transformador monofásico real en carga}
+
+	\begin{equation*}
+		i = \frac{S_1}{S_N} = \frac{I_1}{I_{1N}} \approx \frac{I_2}{I_{2N}}
+	\end{equation*}	
+
+\subsubsection{Balance de potencias}
+
+	\begin{equation*}
+		\eta = \frac{P_2}{P_1} = \frac{P_2}{P_2 + P_{Fe} + P_{Cu}} = \frac{i S_N cos \phi}{i S_N cos \phi + P_{Fe} + R_e (i I_{1N})^2}
+	\end{equation*}
+
+\subsection{Transformadores Trifásicos}
+
+%\begin{table}[]
+%\centering
+%\caption{My caption}
+%\label{my-label}
+\begin{tabular}{|l|l|l|l|}
+\hline
+Dd & $\bigtriangledown$  & $\bigtriangledown$ & $RT = \frac{U_1}{U_2} = \frac{V_1}{V_2} = \frac{N_1}{N_2} = RE$ \\ \hline
+Dy & $\bigtriangledown$ & Y                  & $RT = \frac{U_1}{U_2} = \frac{V_1}{\sqrt{3} V_2} = \frac{N_1}{N_2} = \frac{RE}{\sqrt{3}}$ \\ \hline
+Yd & Y                  & $\bigtriangledown$ & $RT = \frac{U_1}{U_2} = \frac{\sqrt{3} V_1}{V_2} = \frac{N_1}{N_2} = RE \cdot \sqrt{3}$ \\ \hline
+Yy & Y                  & Y                  & $RT = \frac{U_1}{U_2} = \frac{V_1}{V_2} = \frac{N_1}{N_2} = RE$ \\ \hline
+\end{tabular}
+%\end{table}
+
+Por ejemplo, para un transformador trifásico:
+
+	\begin{equation*}
+		Yd5 \rightarrow 5 \cdot 30º (desfase)
+	\end{equation*}
+
+
+%\vfill
+
+
+\end{multicols}
+\end{document}
