@@ -9,11 +9,17 @@
 \usepackage{esint}
 \usepackage{bm}
 \usepackage{relsize}
+\usepackage{tikz}
+\usepackage{circuitikz}
 \usepackage{datetime}
 \usepackage[utf8] {inputenc}
 \usepackage[spanish, activeacute] {babel}
 \usepackage{IEEEtrantools}
 \usepackage{framed}
+
+\usepackage{draftwatermark}
+\SetWatermarkText{Javier de Martí­n}
+\SetWatermarkScale{4.8}
 
 % This sets page margins to .5 inch if using letter paper, and to 1cm
 % if using A4 paper. (This probably isn't strictly necessary.)
@@ -77,7 +83,7 @@
 
 \begin{framed}
 	\begin{center}
-    	\Large{\underline{Electrotecnia y Electrónica de Potencia}} \\
+    	\Large{\underline{EyEdP}} \\
     	\scriptsize{3º de Ingeniería de Telecomunicaciones | UPV/EHU}\\
      	%Actualizado por última vez el \today \\
      	"\textsl{Under-promise and over-deliver}." \\
@@ -112,9 +118,9 @@ Clasificación de los circuitos en función de su impedancia:
 Según el \textbf{argumento de la impedancia}:
 
 \begin{itemize}
-	\item Inductivos ($\phi > 0$): La intensidad está retrasada con respecto a la tensión.
-	\item Resistivos ($\phi = 0$): Tensión e intensidad están siempre en fase.
-	\item Capacitivos ($\phi < 0$): La intensidad está adelantada con respecto a la tensión.
+	\item \textbf{Inductivos} ($\phi > 0$): La intensidad está retrasada con respecto a la tensión.
+	\item \textbf{Resistivos} ($\phi = 0$): Tensión e intensidad están siempre en fase.
+	\item \textbf{Capacitivos} ($\phi < 0$): La intensidad está adelantada con respecto a la tensión.
 \end{itemize}
 
 \subsubsection{Circuito RLC Serie}
@@ -122,7 +128,7 @@ Según el \textbf{argumento de la impedancia}:
 Un \textbf{circuito serie RLC} tiene carácter inductivo o capacitivo en función del predomino de un efecto sobre el otro. SI en un circuito se modficica la frecuencia hasta que los valores de las reactancias inductiva y capacitiva se igualan, el circuito entra en \textbf{resonancia}.
 
 
-\subsection{\underline{Circuitos Trifásicos}}
+\section{\underline{Circuitos Trifásicos}}
 
 El conjunto de tensiones forma un \textbf{sistema equilibrado} de tensiones, ya que está formado por 3 tensiones sinusoidales del mismo valor eficaz, la misma frecuencia y desfasados 120º entre sí. Según cómo se coloquen las fases hay dos secuencias:
 
@@ -131,14 +137,28 @@ El conjunto de tensiones forma un \textbf{sistema equilibrado} de tensiones, ya 
 	\item \textbf{Secuencia Inversa o Negativa}: 1-3-2
 \end{itemize}
 
-Conexiones en circuitos trifásicos:
-
-\begin{itemize}
-	\item \textbf{Triángulo}: Sistema trifásico a 3 hilos
-	\item \textbf{Estrella}: Con neutro (sistema trifásico a 4 hilos) y sin neutro (sistema trifásico a 3 hilos).
-\end{itemize}
+Resolver ejercicios $\rightarrow$ hacer el monofásico equivalente.
 
 \subsection{Conexión en Estrella}
+	
+	\begin{center}
+		\begin{circuitikz}%[width = .8]
+			\draw (0,0) to [short, i_=$I_L$,o-] (4,0)
+				to [generic, l=$R_1$] (4,-2);
+			\draw (4,-2) to [generic, i>_=$I_F$, l=$R_2$] (6,-4)
+				to [short,-] (6,-6)
+				to [short, i<_=$I_L$,-o] (0,-6);
+			\draw (4,-2) to [generic, l=$R_3$] (2,-4)
+				to [short,-] (2,-5)
+				to [short, i<_=$I_L$,-o] (0,-5);
+				
+			\draw[-latex] (0,-4.9) -- (0,-.1);
+			\draw (0.2,-2.5) node {$U$};
+			
+			\draw (3,-6.5) node {$V = \frac{U}{\sqrt{3}} \angle 30º$ \hspace{5px} $I_F = I_L$};
+		\end{circuitikz}
+	\end{center}
+
 
 \begin{itemize}
 	\item \textbf{Conexión Simple}: Tensión entre conductor de fase y punto neutro.
@@ -159,6 +179,24 @@ Para un sistema equilibrado la corriente por una fase:
 
 \subsection{Conexión en Triángulo}
 
+	\begin{center}
+		\begin{circuitikz}
+			\draw (0,1) to [short, i_=$I_L$,o-] (4,1)
+				to [short,-] (4,0)
+				to [generic, l=$R_1$] (2,-2);
+			\draw (2,-2) to [generic, i<_=$I_F$, l=$R_3$] (6,-2)
+				to [short,-] (6,-4)
+				to [short,-o] (0,-4);
+			\draw (2,-2) to [short,-] (2,-3)
+				to [short,-o] (0,-3);
+			\draw (6,-2) to [generic, l=$R_2$] (4,0);
+			\draw[-latex] (0,-2.9) -- (0,.9);
+			\draw (0.2,-1.5) node {$U$};
+			
+			\draw (3,-4.5) node {$U = V$ \hspace{5px} $I_F = \frac{I_L}{\sqrt{3}} \angle 30º$};
+		\end{circuitikz}
+	\end{center}
+
 \begin{itemize}
 	\item La tensión en las cargas es la tensión compuesta.
 	\item La intensidad en cada elemento es igual a la de línea dividida por $\sqrt{3}$.
@@ -167,7 +205,7 @@ Para un sistema equilibrado la corriente por una fase:
 	\item \textbf{En la conexión en triángulo coinciden las tensiones de fase y de línea.}
 \end{itemize}
 
-\subsection{Relaciones en Circuitos Trifásicos}
+\subsubsection{Relaciones en Circuitos Trifásicos}
 
 \begin{itemize}
 	\item \textbf{Tensión de Fase}: Diferencia de potencial que existe en cada una de las ramas monofásicas de un sistema trifásico.
@@ -179,6 +217,129 @@ Para un sistema equilibrado la corriente por una fase:
 \begin{equation*}
 	\underline{Z}_Y = \frac{\underline{Z}_\triangle}{3} \hspace{20pt} \underline{Z}_\triangle = 3 \cdot \underline{Z}_Y
 \end{equation*}
+
+
+\subsubsection{Potencias}
+
+	\begin{IEEEeqnarray*}{rCl}
+		P & = & 3 \cdot V \cdot I \cdot \cos \varphi	 \\
+		Q & = & 3 \cdot V \cdot I \cdot \sin \varphi	 \\ 
+		S & = & 3 \cdot \underline{V} \cdot \underline{I}^*
+	\end{IEEEeqnarray*}
+
+Corrección del factor de potencia: $Q_C = P \left( \tan \varphi' - \tan \varphi \right)$	\\
+
+	\begin{IEEEeqnarray*}{rCl}
+		C_{Y} & = & \frac{Q_C}{-U^2 \cdot \cdot \omega} \\
+		C_{\bigtriangledown} & = & \frac{1}{3} \cdot \frac{Q_C}{-U^2 \cdot \cdot \omega} \\
+	\end{IEEEeqnarray*}
+
+	
+\section{\underline{CIRCUITOS MAGNÉTICOS}}
+
+\textbf{Campo Magnético}: 
+
+	\begin{equation*}
+		B = \frac{\phi}{S}
+	\end{equation*}
+
+\subsection{Leyes Fundamentales}
+
+\textbf{Hopkinson} $\rightarrow$ $F_{mm} = \phi \cdot R$ \\
+
+\textbf{Lenz} $\rightarrow$ $fem = -N \frac{\partial\phi}{\partial t}$ \\
+
+\textbf{Faraday} $\rightarrow$ $V_{AB} = V B L \sin \theta$ \\
+
+\textbf{Laplace} $\rightarrow$ $F = I B L \sin \phi $
+
+\subsection{Transformadores}
+
+\subsubsection{Transformador monofásico ideal en el vacío}
+
+Relación de Transformación:
+
+	\begin{equation*}
+		a = \frac{E_1}{E_2} = \frac{N_1}{N_2}
+	\end{equation*}
+
+\subsubsection{Transformador monofásico ideal en carga}
+
+	\begin{equation*}
+		\frac{1}{a} = \frac{i_1}{i_2} = \frac{N_2}{N_1}
+	\end{equation*}
+
+\subsubsection{Transformador monofásico real en el vacío}
+
+	\begin{equation*}
+		V_1 - E_1 = (R_1 + j X_1) I_{10}
+	\end{equation*}
+
+	\begin{equation*}
+		a = \frac{E_1}{E_2} = \frac{N_1}{N_2}
+	\end{equation*}
+	
+\subsubsection{Transformador monofásico real en carga}
+
+	\begin{equation*}
+		i = \frac{S_2}{S_N} = \frac{I_2}{I_{1N}} \approx \frac{I_2}{I_{2N}}
+	\end{equation*}	
+
+	\begin{equation*}
+		E_{1,2} = 4,44 \cdot N_{1,2} \cdot \phi_0 \cdot f
+	\end{equation*}
+	
+En el primario:	
+
+	\begin{equation*}
+		\underline{V}_1 - \underline{E}_1 = (R_1 + j \cdot X_1) \cdot \underline{I}_1
+	\end{equation*}
+	
+En el secundario:
+
+	\begin{equation*}
+		\underline{E}_2 = \underline{V}_2 + \underline{I}_2 (R_2 + j \cdot X_2)
+	\end{equation*}
+
+\subsubsection{Circuito Equivalente}
+
+
+
+\subsubsection{Balance de potencias}
+
+	\begin{IEEEeqnarray*}{rCl}
+		\eta & = & \frac{P_2}{P_1} = \frac{P_{util}}{P_{absorbida}} = \\ & = & \frac{P_2}{P_2 + P_{Fe} + P_{Cu}} = \frac{i S_N cos \phi}{i S_N cos \phi + P_{Fe} + R_e (i I_{1N})^2}
+	\end{IEEEeqnarray*}
+
+\subsection{Transformadores Trifásicos}
+
+\begin{tabular}{l|@{\ }l|l|@{\ }l|l@{\ }l|l@{\ }l|l@{\ }l@{}}
+	Dd & $\bigtriangledown$ & $\bigtriangledown$	 & $RT = \frac{U_1}{U_2} = \frac{V_1}{V_2} = \frac{N_1}{N_2} = RE$ \\ \vspace{5px}
+	Dy & $\bigtriangledown$ & Y                  & $RT = \frac{U_1}{U_2} = \frac{V_1}{\sqrt{3} V_2} = \frac{N_1}{N_2} = \frac{RE}{\sqrt{3}}$ \\ \vspace{5px}
+	Yd & Y                  & $\bigtriangledown$ & $RT = \frac{U_1}{U_2} = \frac{\sqrt{3} V_1}{V_2} = \frac{N_1}{N_2} = RE \cdot \sqrt{3}$ \\ \vspace{5px}
+	Yy & Y                  & Y                  & $RT = \frac{U_1}{U_2} = \frac{V_1}{V_2} = \frac{N_1}{N_2} = RE$ \\ 
+\end{tabular}
+
+
+Por ejemplo, para un transformador trifásico:
+
+	\begin{equation*}
+		Yd5 \rightarrow 5 \cdot 30º (desfase)
+	\end{equation*}
+
+\subsubsection{Generador Síncrono}
+
+	\begin{equation*}
+		n = \frac{60 \cdot f}{p} (rpm)
+	\end{equation*}
+	
+\subsubsection{Motor Asíncrono}
+
+Deslizamiento:
+
+	\begin{equation*}
+		s = \frac{n_1 - n_2}{n_1}
+	\end{equation*}
 
 %\vfill
 
