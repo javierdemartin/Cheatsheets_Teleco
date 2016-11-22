@@ -1,5 +1,7 @@
 # Cheatsheets Teleco
 
+Formularios del temario de las asignaturas impartidas en el grado de Ingeniería de Tecnologías de Telecomunicaciones de la Universidad del País Vasco.
+
 ## Segundo Curso
 
 * [Ampliación de Física](https://github.com/javierdemartin/Cheatsheets_Teleco/blob/master/Ampliación%20de%20F%C3%ADsica/AF_Cheatsheet.pdf)
