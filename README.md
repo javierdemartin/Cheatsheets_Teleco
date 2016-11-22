@@ -1,5 +1,10 @@
 # Cheatsheets Teleco
 
+## Segundo Curso
+
+* [Ampliación de Física](https://github.com/javierdemartin/Cheatsheets_Teleco/blob/master/Ampliación%20de%20F%C3%ADsica/AF_Cheatsheet.pdf)
+* [Campos Electromagnéticos](https://github.com/javierdemartin/Cheatsheets_Teleco/blob/master/Campos%20Electromagnéticos/CE_Cheatsheet.pdf)
+
 ## Tercer Curso
 
 * [Planificación de Redes y Modelado](https://github.com/javierdemartin/Cheatsheets_Teleco/blob/master/Planificación%20de%20Redes%20y%20Modelado/PRM_Cheatsheet.pdf)
