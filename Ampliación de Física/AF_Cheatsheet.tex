@@ -1,0 +1,421 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage {esvect}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{color,graphicx,overpic}
+\graphicspath{ {images/} }
+\usepackage{hyperref}
+\usepackage{esint}
+\usepackage{bm}
+\usepackage{relsize}
+\usepackage{datetime}
+\usepackage[utf8] {inputenc}
+\usepackage[spanish, activeacute] {babel}
+\usepackage{framed}
+
+\usepackage{draftwatermark}
+\SetWatermarkText{Javier de Martí­n}
+\SetWatermarkScale{4.8}
+
+\pdfinfo{
+  /Title (example.pdf)
+  /Creator (TeX)
+  /Producer (pdfTeX 1.40.0)
+  /Author (Javier de Martín)
+  /Subject (Example)
+  /Keywords (pdflatex, latex,pdftex,tex)}
+ 
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+    {\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+    }
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+%My Environments
+\newtheorem{example}[section]{Example}
+% -----------------------------------------------------------------------
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{framed}
+	\begin{center}
+    	\Large{\underline{Ampliación de Física}} \\
+    	\scriptsize{2º Curso de Ingeniería de Telecomunicaciones | UPV/EHU}\\
+     	Actualizado el \today,  \currenttime \\
+     	"\textsl{Under-promise and over-deliver}." \\
+     	\hspace{5 pt} \\
+     	\small{\textbf{Javier de Martín Gil -- 2015/16}}
+	\end{center}
+\end{framed}
+
+\section{\underline{Definiciones}}
+\subsection{Electrostática}
+
+	Q (Carga) [C]\\
+	$\vec{E}$ (Campo Eléctrico) [$\frac{N}{C}$] or [$\frac{V}{m}$]\\
+	$\vec{D}$ (Vector Desplazamiento) [$\frac{C}{m^2}$] \\ 
+	$\vec{P}$ (Vector Polarización) [$\frac{C}{m^2}$]\\
+	$\lambda$ (Densidad de Carga Filamental) [$\frac{C}{m}$] \\
+	$\sigma$ (Densidad de carga superficial) [$\frac{C}{m^2}$]\\
+	$\rho$ (Densidad de Carga en Volumen) [$\frac{C}{m^3}$] \\
+	$\Phi$ (Potencial Eléctrico) [V] o [$\frac{J}{C}$] \\
+	$C$ (Capacitancia) [F]\\
+	$U_E$ (Energía Potencial Eléctrica) [J]\\
+	
+\subsection{Corrientes}	
+	
+	$I$ (Corriente) [$A$] \\
+	$\vec{J}$ (Densidad de Corriente) [$\frac{A}{m^2}$]\\
+	$\varepsilon$ (Fuerza Electromotriz) \\
+
+\subsection{Magnetismo}
+
+    $\vec{B}$ (Campo Magnético) [T] = [$\frac{N}{m \cdot A}$] = [$\frac{kg}{A \cdot s^2}$] or [G] \\
+    $\vec{H}$ (Intensidad del Campo Magnético)\\
+    $\vec{M}$ (Magnetización)\\
+	$L$ (Inductancia) [H] = [$\frac{V \cdot s}{A}$]\\
+	$\chi_m$ (Susceptibilidad Magnética) \\
+	
+\subsection{Ondas Electromagnéticas}
+
+    $\upsilon$ (Frecuencia) \\
+    $\omega = 2\pi\omega = k \cdot c$ (Frecuencia Angular) [$\frac{rad}{s}$]\\
+    $n = \sqrt{\varepsilon_r \mu_r}$ (Índice de Refracción de un Medio) \\
+    $v = \frac{c}{n}$ (Velocidad de Propagación) \\
+    $\phi$ (Fase de Onda) \\
+    $\lambda = \frac{c}{u} = \frac{v}{\upsilon}$ (Longitud de Onda) \\
+    $k = \frac{\omega}{\upsilon} = \frac{2\pi}{\lambda}$ (Número de Ondas) [$m^{-1}$]\\
+    $u_g = \frac{\Delta \omega}{\Delta k} = \frac{\partial \omega} {\partial k}$ (Velocidad de Grupo) \\
+    $\vec{S}$ (Vector de Poynting) [$\frac{W}{m^2}$]\\
+    $I$ (Irradiancia) [$\frac{W}{m^2}$]\\
+    $Z = \sqrt{\frac{\mu}{\varepsilon}}$ (Impedancia Intrínseca de un Medio)\\
+        
+\subsection{Constantes}
+
+	$\varepsilon_{o}  = 8.85 \cdot 10^{-12}$  [$\frac{F}{m}$] (Permitividad Eléctrica del Vacío) \\
+	$\mu_o = 4\pi \cdot 10^{-7}$ [$\frac{H}{m}$]/[$\frac{N}{A^2}$] (Permeabilidad Magnética del Vacío) \\ 
+	$Q_{e^-} = -1.60217662 \cdot 10^{-19}$ [C] (Carga Elemental)\\
+	$m_{e^-} = 9.11 \cdot 10^{-31} [kg]$  (Masa de un Electrón)\\
+	$c = 3 \cdot 10^8 [\frac{m}{s}]$ (Velocidad de la Luz)\\
+	$Z_0 = \sqrt{\frac{\mu_0}{\varepsilon_0}} = 377 \Omega$ (Impedancia del Vacío)\\ 
+
+\rule{0.3\linewidth}{0.25pt}
+
+\section{\underline{Cálculo Vectorial}}
+
+    \subsection{Identidades Vectoriales} 
+    
+    $u$ y $v$ representan funciones escalares y $\vec{A}$ y $\vec{B}$ funciones vectoriales.\\
+        
+    $\vec{A} \wedge (\vec{B} \wedge \vec{C}) = (\vec{C} \wedge \vec{B}) \wedge \vec{A} = \vec{B} (\vec{A} \cdot \vec{C}) - \vec{C}(\vec{A} \cdot \vec{B})$ \\
+    
+    $\vec{\nabla} (u \cdot v) = u \vec{\nabla} v + v \vec{\nabla} u$ \\
+    
+    $\vec{\nabla} \cdot (\vec{A} \cdot \vec{B} )= \vec{A} \wedge (\vec{\nabla} \wedge \vec{B}) + (\vec{A} \cdot \vec{\nabla}) \vec{B} + \vec{B} \wedge (\vec{\nabla} \wedge \vec{A}) + (\vec{B} \cdot \vec{\nabla}) \vec{A}$ \\
+    
+    $\vec{\nabla} \cdot (u \cdot \vec{A}) = u \vec{\nabla} \cdot \vec{A} + \vec{A} \cdot (\vec{\nabla} u)$ \\
+    
+    $\vec{\nabla} \wedge (u \cdot \vec{A}) =  u \vec{\nabla} \wedge \vec{A} - \vec{A} \wedge \vec{\nabla}u$ \\
+    
+    $\vec{\nabla} \cdot (\vec{A} \wedge \vec{B}) = \vec{B} \cdot (\vec{\nabla} \wedge \vec{A}) - \vec{A} \cdot (\vec{\nabla} \wedge \vec{B})$ \\
+    
+    $\vec{\nabla} \wedge (\vec{A} \wedge \vec{B}) = (\vec{B} \cdot \vec{\nabla}) \cdot \vec{A} + \vec{A} (\vec{\nabla} \cdot \vec{B}) - (\vec{A} \cdot \vec{\nabla}) \vec{B} - \vec{B} (\vec{\nabla} \cdot \vec{A})$ \\
+    
+    $\vec{\nabla} \wedge (\vec{\nabla} \wedge \vec{A}) = \vec{\nabla} (\vec{\nabla} \cdot \vec{A}) - (\vec{\nabla} \cdot \vec{\nabla}) \vec{A}$ \\
+    
+    \subsection{Operaciones con Operadores Diferenciales}
+    
+    $\vec{A} \wedge (\vec{B} \wedge \vec{C}) = (\vec{A} \vec{C})\vec{B} - (\vec{A}\vec{B})\vec{C}$
+
+	\subsection{Gradiente: $\vec{\nabla} \Phi$}
+		Cartesianas: $\frac{\partial \Phi}{\partial x}\hat{x} + \frac{\partial \Phi}{\partial y}\hat{y} + \frac{\partial \Phi}{\partial z}\hat{z}$\\
+		Cilindricas: $\frac{\partial \Phi}{\partial r}\hat{r} + \frac{1}{r}\frac{\partial \Phi}{\partial \phi}\hat{\phi} + \frac{\partial \Phi}{\partial z}			\hat{z}$ \\
+		Esféricas: $\frac{\partial \Phi}{\partial r}\hat{r} + \frac{1}{r}\frac{\partial \Phi}{\partial \theta}\hat{\theta} + \frac{1}{r\sin(\theta)}			\frac{\partial \Phi}{\partial z}\hat{\phi}$\\
+
+	\subsection{Divergencia: $\vec{\nabla} \cdot \vec{A}$}
+			Cartesianas: $\frac{\partial A_x}{\partial x} + \frac{\partial A_y}{\partial y} + \frac{\partial A_z}{\partial z}$\\
+			Cilíndricas: $\frac{1}{r}\frac{\partial \left(rA_r\right)}{\partial r} + \frac{1}{r}\frac{\partial A_{\phi}}{\partial \phi} + \frac{\partial A_z}{\partial 	z}$\\
+			Esféricas: $\frac{1}{r^2}\frac{\partial \left(r^2A_r\right)}{\partial r} + \frac{1}{r\sin{\theta}}\frac{\partial \left( A_{\theta}					\sin{\theta}\right)}		{\partial \theta} + \frac{1}{r\sin{\theta}}\frac{\partial A_{\phi}}{\partial \phi}$\\
+
+	\subsection{Rotacional: $\vec{\nabla} \wedge \vec{A}$}
+		Cartesianas: \\
+		$\hat{x}\left( \frac{\partial A_z}{\partial y} - \frac{\partial A_y}{\partial z} \right) + \hat{y} \left( \frac{\partial A_x}{\partial z} - \frac{\partial A_z}{\partial x} \right) + \hat{z} \left( \frac{\partial A_y}{\partial x} - \frac{\partial A_x}{\partial y} \right)$\\
+		Cilíndricas: \\
+		$\hat{r}\left( \frac{1}{r}\frac{\partial A_z}{\partial \phi} - \frac{\partial A_{\phi}}{\partial z} \right) + \hat{\phi} \left( \frac{\partial A_r}{\partial z} - \frac{\partial A_z}{\partial r} \right) + \hat{z}\frac{1}{r}\left( \frac{\partial \left(rA_{\phi}\right)}{\partial r} 		- \frac{\partial A_r}{\partial \phi} \right)$\\
+		Esféricas:\\ 
+		$\frac{\hat{r}}{rsin(\theta)} [\frac{\partial(A_\phi sin(\theta)}{\partial\theta} - \frac{\partial A_\theta}{\partial \phi}] + \frac{\hat{\theta}}{r} [\frac{1}{sin(\theta)} \frac{\partial A_r}{\partial \phi} - \frac{\partial(r A_\phi)}{\partial r}] + \frac{\hat{\phi}}{r} [\frac{\partial(r A_\theta )}{\partial r} - \frac{\partial A_r}{\partial \theta}]$
+	
+	\subsection{Teoremas}
+		
+	    \underline{Teorema de la Divergencia}: \textit{La integral de volumen de la divergencia de una función vectorial es igual a la integral sobre la superficie de la componente normal a la superficie.} \\
+	
+        \quad{$\int_\tau \nabla \vec{A} \partial \tau = \int_\Sigma A \partial \Sigma$}	
+        
+        \underline{Teorema de Stokes}: \textit{La integral de área del rotacional de una función vectorial es igual a la integral de línea del campo alrededor del perímetro del área.}\\ 
+        
+        \quad{$\int_\Sigma (\vec{\nabla} \wedge \vec{A}) \partial \Sigma = \int_\Gamma A \partial l
+        $}
+		
+	\section{Cosas que no hay que olvidar}
+	
+	Superficie de una esfera: $4\pi r^2$\\
+	Superficie de una circunferencia: $\pi \cdot r^2$ \\
+	Diferencial de Supeficie de una circunferencia: $2\pi \cdot r$ \\
+	Volumen de una esfera: $\frac{4}{3} \pi r^3$\\
+	Superficie de un cilindo: $2\pi r l$\\
+	$\vec{E}$ de una carga puntual: $\vec{E} = \frac{q}{4 \pi \varepsilon_o r^2} \hat{r}$\\
+	$\phi$ de una carga puntual: $\Phi = \frac{q}{4 \pi \varepsilon_o r}$\\
+	
+\section{\underline{Conceptos Generales}}
+	\subsection{Carga}
+		$Q = \iiint \rho(x,y,z) dV$\\
+	\subsection{Densidades de Carga}
+	    $\partial q = \lambda \cdot \partial L$ (Densidad de Carga Filamental)\\
+	    $\partial q = \sigma \cdot \partial \Sigma$ (Densidad de Carga Superficial)\\
+	    $\partial q = \rho \cdot \partial \tau$ (Densidad de Carga en Volumen)\\
+	
+	\subsection{Energía Potencial}
+		De una distribución de cargas:\\
+			 \quad{$U_E = \frac{1}{2}\iiint \rho (\vec{r}) \Phi (\vec{r}) dV$} \\ 
+			\quad{$U_E = \frac{1}{2}\iiint \varepsilon | \vec{E}| ^{2} dV$} \\
+	
+\section{\underline{Electrostática}}
+    
+    \underline{Ley de Coulomb:}\\
+        \quad{$\vec{F} = k \cdot q_1 \cdot q_2 \cdot \frac{\vec{r}}{r^3}$}\\
+    $\vec{E}	= \frac{q}{4 \pi \varepsilon_0} \frac{\vec{r}}{r^3}$ (Campo Eléctrico) \\
+	
+	\underline{Teorema de Gauss:}\\ 
+		\quad{$\int_S \vec{E}\cdot d\vec{S} = \frac{Q}{\varepsilon}$ (Forma Integral)}\\
+		\quad{$\vec{\nabla} \cdot \vec{E} =  \frac{\rho}{\varepsilon}$ (Forma Diferencial)}\\
+		$\vec{E} = -\vec{\nabla} \Phi$ \\
+		$\vec{E}(x,y,z) = \iiint \frac{\rho(x',y',z')}{4\pi\varepsilon_o R^{2}} dV$\\
+	Potencial Electrostático:\\
+	    \quad{$\Phi = - \int \vec{E} \cdot d\vec{l}$}\\
+	    \quad{$\phi_2 - \phi_1 = - \int_{1}^{2} \vec{E} \cdot d\vec{r}$}\\
+	
+
+\section{\underline{Conductores}}	
+	
+	\textit{Materiales que contienen algún tipo de cargas que pueden moverse casi libremente de un átomo a otro a través del material manteniendo la neutralidad eléctrica macroscópica de su volumen.}\\
+	
+	$\sigma = \frac{q}{S}$ (Densidad de Carga)\\
+	Interior de un conductor:\\
+	    \quad{$\hookrightarrow$ $ \vec{E} = 0, \phi = k, Q_{en}=0$} \\
+	Superficie de un conductor:\\
+	    \quad{$\hookrightarrow$ $ E_n = \frac{\sigma}{\varepsilon_0}, \phi = k, Q = \int_S \sigma \cdot dS $} \\
+	Potencial: \\
+	    \quad{$\nabla^{2}\Phi = 0$ (Ecuación de Laplace)} \\
+	        \qquad{$\hookrightarrow$ Para dieléctricos}\\
+	    \quad{$\nabla^{2}\Phi = -\frac{\rho}{\varepsilon_0}$ (Ecuación de Poisson)} \\
+	        \qquad{$\hookrightarrow$ Para distribuciones de carga}\\
+
+	Asociación de Condensadores:\\
+	    \quad{En serie: $ \frac{1}{C_{eq}} = \sum_i \frac{1}{C_i} $}\\
+	    \quad{En paralelo: $ C_{eq} = \sum_i C_{i} $}\\
+	\underline{Energía}: \\
+	$ U = \frac{1}{2} \int \rho \cdot S$ \\
+	$ U = \frac{1}{2} \phi \cdot Q$ \\
+	$  U = \frac{1}{2} \int_\Sigma \sigma \cdot \phi = \frac{1}{2} \phi \cdot Q $ (Energía de un Condensador)\\
+	    
+	\subsection{Condiciones de Contorno}
+     Superficie de un Conductor: \\
+	\quad{$\hat{n} \cdot \vec{E}_{S} = \frac{\rho}{\varepsilon}$}\\
+	\quad{$\hat{n} \wedge \vec{E}_{S} = 0$} \\
+	\textit{Expresado en términos del potencial...}\\
+	\quad{$-\frac{\partial\Phi}{\partial\hat{n}} = \frac{\rho_s}{\varepsilon}$}\\
+	\quad{$\Phi$ = k}\\
+	
+\section{\underline{Dieléctricos}}
+
+    \textit{Las cargas están ligadas a átomos específicos o moléculas, se mantiene esta estructura incluso en presencia de campos eléctricos.}\\
+    \underline{Vector Desplazamiento Eléctrico}:\\
+        \quad{$ \int_\Sigma \vec{D} \cdot d\vec{\Sigma} = Q_{f}^{enc} $} (Forma Integral)\\
+        \quad{$ \vec{\nabla} \vec{D} = \vec{\nabla} (\varepsilon_0 \vec{E} + \vec{P}) = \rho_f$} (Forma Diferencial)\\
+    $ \vec{E} = -\vec{\nabla} \phi = \frac{\sigma}{\varepsilon_0} $\\
+    $\int_S \vec{E} \cdot \partial \vec{\Sigma} = \frac{Q_f + Q_b}{\varepsilon_0}$ \\
+    $\vec{D} = \varepsilon \vec{E} = \varepsilon_0 k \vec{E}$ (Vector Desplazamiento Eléctrico) \\
+        \quad{$\vec{\nabla}\vec{D} = \rho_f$}\\
+        \quad{$\frac{\partial\vec{D}}{\partial t} = \vec{J}_f$} \\
+    \underline{Vector Polarización}:\\
+        \quad{$\vec{P} = \vec{D} - \varepsilon_0 \vec{E} = \frac{k - 1}{k} \vec{D}$}\\
+        \quad{$\vec{\nabla} \vec{P} = \frac{1}{r^2} \frac{\partial}{\partial r} (r\cdot \vec{P}) $} \\
+    \underline{Densidades Ligadas de Carga:}\\
+        \quad{$ \sigma_b = \vec{P} \cdot \hat{n}$ (Superficial)}\\
+        \quad{$ \rho_b = - \vec{\nabla}\vec{P}$ (En Volumen)}\\
+        \quad{\quad{$\vec{\nabla}\vec{P} = \frac{1}{r} \frac{\partial}{\partial r}(r \cdot P)$ (Coordenadas Cilíndricas)}}\\
+        \quad{\quad{$\vec{\nabla}\vec{P} = \frac{1}{r^2} \frac{\partial}{\partial r}(r^2 \cdot P) = -\rho$ (Coordenadas Esféricas)}}\\
+    $C = \frac{Q}{\Delta \phi}$ (Capacidad)\\
+    \underline{Energía}: \\
+        \quad{$U=\frac{1}{2} \int_\forall \vec{D} \vec{E} d\tau $}\\
+    $\nabla^{2}\Phi = -\frac{\rho}{\varepsilon}$ (Ecuación de Poisson para el Potencial) \\
+	%\quad{$\nabla^{2}\Phi = 0$ (Ecuación de Laplace)} \\
+		\quad{$\hookrightarrow$ $\nabla \cdot (\varepsilon\nabla\Phi) = -\rho$ (Forma General, para $\varepsilon$ no constante)}\\
+	
+	\subsection{Condiciones de Contorno}
+	
+	$\hat{n} \cdot \vec{E}_{1} \cdot \varepsilon_1 - \hat{n} \cdot \vec{E}_{2} \cdot \varepsilon_2 = \rho_s$ \\
+	$\hat{n} \times \vec{E}_{1} = \hat{n} \times \vec{E}_{2}$\\
+	\textit{Expresado en términos del potencial...}\\
+	$\varepsilon_1 \frac{\partial \Phi_1}{\partial n} - \varepsilon_2 \frac{\partial \Phi_2}{\partial n} = \rho_s$\\
+	$\hat{n} \times \nabla \Phi_1 \big|_{superficie} = \hat{n} \times \nabla \Phi_2 \big|_{superficie}$\\
+	$ \sigma_f = \vec{D}_1 \cdot \hat{n}_1 + \vec{D}_2 \cdot \hat{n}_2 $ \\
+	$ \frac{\sigma_f + \sigma_f}{\varepsilon_0} = \vec{E}_1 \cdot \hat{n}_1 + \vec{E}_2 \cdot \hat{n}_2 $ \\
+
+\section{\underline{Corrientes}}
+	$\vec{\nabla}\vec{J} + \frac{\partial \rho}{\partial t} = 0$ (Ecuación de Continuidad)\\
+	$I = \int_\Sigma \vec{J} \cdot d\vec{S}$ (Corriente)\\ 
+	$\vec{J} = \sigma\vec{E}$ (Ley de Ohm)\\ 
+	    \quad{$\hookrightarrow$ $\Delta \phi = I \cdot R$}\\
+	$\vec{J} = \rho \cdot \vec{v}$ (Densidad de Corriente en Volumen)\\
+	    \quad{$\vec{J}_m = \vec{\nabla} \wedge \vec{M}$ (Densidad de Corriente de Imanación en Volumen)}\\
+	$\vec{K} = \sigma \cdot \vec{v}$ (Densidad Superficial de Corriente)\\
+	    \quad{$\vec{K}_m = \vec{M} \wedge \hat{n}$ (Densidad de Corriente de Imanación Superficial)}\\
+	$\vec{I} = \lambda \cdot \vec{v}$ (Densidad Filamental de Carga)\\
+	$\varepsilon = \int_\Gamma \vec{E} \partial \vec{l}$ (Corrientes de Conducción: Fuerza Electromotriz)\\
+	
+
+	\section{\underline{Magnetismo}}
+	$\vec{B} = \mu_0 (1 + \chi_m)\vec{H} = \mu_0 K_m \cdot \vec{H} = \mu \cdot \vec{H}$ (Campo Magnético)\\
+	    \quad{$\vec{B} = \vec{\nabla} \wedge \vec{A}$ (Potencial Vector)} \\
+	    \quad{$\vec{\nabla} \wedge \vec{B} = \mu_0 \vec{J} = \mu_o (\vec{J}_f + \vec{J}_m)$}\\
+	    \quad{$\int_\Gamma \vec{B} \partial \vec{l} = \mu_0 I$}\\
+	    \quad{$K_m <= 1$ (Material Diamagnético}\\
+	    \quad{$K_m >= 1$ (Material Paramagnético)}\\
+	    \quad{$K_m >> 1$ (Material Ferromagnético)}\\
+	$\vec{H} = \frac{\vec{B}}{\mu}$ (Intensidad de Campo)\\
+	    \quad{$\vec{\nabla} \wedge \vec{H} = J_f + \frac{\partial \vec{D}}{\partial t}$}\\
+	    \qquad{$\hookrightarrow$ $\vec{\nabla} \wedge \vec{H} = 0$ (En ausencia de corrientes libres)}\\
+	$\vec{M} = \frac{\vec{B}}{\mu_0}-\vec{H}$ (Imanación Magnética) \\
+	    \quad{$\vec{\nabla} \wedge \vec{M} = \vec{J}_m$} \\
+	    \quad{$\vec{M} = \chi_m \cdot \vec{H}$}\\
+	\underline{Momento Magnético}:\\
+	    \quad{$\vec{m} = \int_{\tau'}\vec{M}\cdot \partial \tau'$}\\
+    \underline{Ley de Biot-Savart:}\\
+    \quad{$\partial\vec{B} = \frac{\mu_0}{4\pi} \cdot \frac{I \cdot d\vec{l} \wedge \vec{r}}{r^3} = \frac{\mu_0}{4\pi} \cdot \frac{I \cdot sin(\theta)}{r^2} $} (Forma Integral)\\
+    \quad{$\vec{B} = \frac{\mu_0 \cdot I}{4\pi} \cdot \int \frac{d\vec{l} \wedge \vec{r}}{r^3}$} \\
+    \quad{$\nabla \cdot$} \\
+	\underline{Ley de Ampère:}\\ 
+	\quad{$\oint_C \vec{B} \cdot d\vec{l} = \mu_0 \cdot I_{en}$} \\
+	\quad{$\int_\Gamma \vec{H}\cdot d \vec{l} = \int_\Sigma \vec{J}_{f}^{enc} = I_{f}^{enc}$ (Forma Integral)}\\
+	\quad{$\vec{\nabla} \times \vec{B} = \mu_o \vec{J}$ (Forma Diferencial)}\\
+	
+	$\vec{B} = \frac{\mu_0 I}{4 \pi d} [cos(\beta) - cos(\delta)]$ (Campo $\vec{B}$ por un segmento $AB$ de un hilo paraelo a otro hilo)\\
+	    \quad{$\hookrightarrow$ $\beta$ es el ángulo formado por el hilo y el punto $B$.}\\
+	    \quad{$\hookrightarrow$ $\delta$ es el ángulo formado por el hilo y el punto $A$.}\\
+	Fuerza de Interacción que un circuito 1 ejerce sobre un circuito 2:\\
+	    \quad{$\hookrightarrow$ $\vec{F}_{1\rightarrow 2} = I_2 \int_2 \partial \vec{l}_2 \wedge \vec{B}$}\\
+	$\vec{F_B} = I \vec{l} \times \vec{B}$ (Fuerza sobre un Hilo)\\
+			\quad{\textit{$\hookrightarrow$ $\vec{F}_B =  q\vec{v} \wedge \vec{B}$}} \\ 
+	Densidades de Corriente de Imanación: \\
+	    \quad{$\rho_m = -\vec{\nabla} \vec{M}=\vec{\nabla} \vec{H}$ (Densidad de Corriente de Imanación en Volumen)}\\
+	        \qquad{$\hookrightarrow$ $\nabla^2 \phi_m = -\rho_m$}\\
+	    \quad{$\sigma_m = \hat{n} \vec{M}$ (Densidad de Corriente de Imanación Superficial)}\\
+	\underline{Energía:}\\
+	    \quad{$U_m = \frac{1}{2} \int_\forall \vec{H} \vec{B} \cdot \partial \tau$ (Energía Magnética)}\\
+	    \quad{$u_m = \frac{1}{2} \vec{H} \vec{B}$ (Densidad de Energía Magnética)}\\
+	    
+	\section{\underline{Electromagnetismo}}
+	
+	\underline{Ley de Faraday e Inducción}: \\
+	    Flujo Magnético: $\Phi_B = \int_S \vec{B} \cdot d\vec{S}$\\
+	        \quad{$\vec{\nabla} \wedge \vec{E} = - \frac{\partial \vec{B}}{\partial t}$ (Forma Diferencial de la ley de inducción de Faraday-Lenz)}\\
+	    \quad{$\hookrightarrow$ Si $\frac{\partial \phi}{\partial t} = 0 \rightarrow$ no hay corriente en el circuito.}\\
+	    \quad{$\hookrightarrow$ Si $\frac{\partial \phi}{\partial t} \neq 0 \rightarrow$ aparece una corriente inducida en el circuito.}\\
+	\underline{Ley de Faraday-Lenz}: \\
+	    \quad{$\varepsilon_{ind} = - \frac{\partial \phi}{\partial t}$ (Fuerza Electromotriz Inducida)}\\
+	$M = \frac{\phi}{I}$ (Coeficiente de Inducción Mutua)
+	$U_{em} = \frac{1}{2}\vec{D}\vec{E} + \frac{1}{2}\vec{B}\vec{H}$ (Energía Electromagnética)\\
+
+\section{\underline{Ecuaciones de Maxwell}}
+
+    $\vec{\nabla} \vec{D} = \rho_f$ (Ley de Coulomb)\\
+    $\vec{\nabla} \wedge \vec{E} = - \frac{\partial \vec{B}}{\partial t}$ (Ley de Faraday-Lenz)\\
+    $\vec{\nabla} \vec{B} = 0$ (Ausencia de monopolos magnéticos libres)\\
+    $\vec{\nabla} \wedge \vec{H} = \vec{J}_f + \frac{\partial \vec{D}}{\partial t}$ (Ley de Ampère)\\
+
+\section{\underline{Ondas Electromagnéticas}}
+
+    OEM Plana: \\
+        \quad{$\vec{E} = \vec{E}_0 e^{i(\vec{k}\vec{r} - \omega t)} = E_0 \cdot cos(k\cdot \vec{r} - \omega \cdot t) \vec{k}$}\\
+        \quad{$\vec{H} = \vec{H}_0 e^{i(\vec{k}\vec{r} - \omega t)} = H_0 \cdot cos(k\cdot \vec{r} - \omega \cdot t) \vec{k}$}\\
+    $\Psi(z, t) = \Psi_0 cos(kz-\omega t)$ (Ecuación de Onda Unidimensional)\\
+    $\Psi(x, y, z, t) = \Psi_0 cos(\vec{k} \vec{z}-\omega t)$ (Ecuación de Onda Tridimensional) \\
+    Relación entre las magnitudes de los campos:\\
+        \quad{$\hookrightarrow H=\frac{\varepsilon \omega}{k} E = \varepsilon u E = \frac{n}{Z_0} E = $}\\
+        \quad{$\hookrightarrow B_0 = \frac{E_0}{v}$} \\
+    $I = \frac{1}{2} E_0 H_0 = \frac{n}{2Z_0} |E_0|^2 = \frac{1}{2\mu_0 v} |E_0|^2 = \langle | \vec{S} | \rangle$ (Irradiancia)\\ 
+    $\vec{S} = \frac{1}{\mu_0} \cdot \vec{E} \wedge \vec{B}$ (Vector de Poynting)\\
+    Polarización:\\
+        \quad{$\hookrightarrow$ Si $\vec{E}_0$ y $\vec{H}_0 \in \Re \rightarrow$ Polarización Lineal/Plana}\\
+        \quad{$\hookrightarrow$ Plano de polarización $\rightarrow$ plano creado por $\vec{E}$ y $\hat{k}$} \\
+    $P = Area \cdot |\vec{S}|$ (Potencia)\\
+    Longitudes de Onda: \\
+        \quad{$< 10^9 Hz$ $\mid$ $>300 mm$ (Radiofrecuencia)}\\
+        \quad{$10^9 \rightarrow 10^{12} Hz$ $\mid$ $300 \rightarrow 0.3 mm$ (Microondas)}\\
+        \quad{(Visible)}\\
+        \quad{$10^{16}\rightarrow 10^{19} Hz$ $\mid$ $300\AA \rightarrow 0,3 \AA$ (Rayos X)}\\
+        \quad{$>10^{19} Hz$ $\mid$ $< 0,3\AA$ (Rayos $\gamma$)}\\
+    \underline{Energía}:\\
+        \quad{$\langle \vec{S} \rangle = \frac{1}{2} \vec{E}_0 \wedge \vec{H}_0 = \frac{1}{2} \vec{E}_0 \wedge \frac{\vec{B}_0}{\mu_0} = I = \frac{1}{2}\cdot E_0 \cdot H_0 = \frac{1}{2}\cdot E_0 \cdot \frac{B_0}{\mu_0}$} (Energía de una OEM Plana) \\      
+            \qquad{$\hookrightarrow$ $E = I \cdot S \cdot t$ (Energía por unidad de tiempo)}  
+        
+\vfill
+
+
+% You can even have references
+%\rule{0.3\linewidth}{0.25pt}
+\scriptsize
+
+\end{multicols}
+\end{document}
