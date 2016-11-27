@@ -1,3 +1,4 @@
+% !TEX encoding = UTF-8 Unicode
 \documentclass[10pt,landscape]{article}
 \usepackage{multicol}
 \usepackage{calc}
@@ -18,9 +19,14 @@
 \usepackage{IEEEtrantools}
 \usepackage{framed}
 
-%\usepackage{draftwatermark}
-%\SetWatermarkText{Javier de Martí­n}
-%\SetWatermarkScale{4.8}
+\usepackage{fullpage}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumerate}
+
+\usepackage{draftwatermark}
+\SetWatermarkText{Javier de Martí­­n}
+\SetWatermarkScale{4.8}
 
 % This sets page margins to .5 inch if using letter paper, and to 1cm
 % if using A4 paper. (This probably isn't strictly necessary.)
@@ -85,11 +91,11 @@
 \begin{framed}
 	\begin{center}
     	\Large{\underline{Electrónica de Circuitos}} \\
-    	\scriptsize{3º Ingeniería de Telecomunicaciones | UPV/EHU}\\
-     	%Actualizado por última vez el \today \\
+    	\scriptsize{3º Ingenierí­a de Telecomunicaciones | UPV/EHU}\\
+     	%Actualizado por Ãºltima vez el \today \\
      	"\textsl{Under-promise and over-deliver}." \\
      	%\hspace{5 pt} \\
-     	\small{\textbf{Javier de Martín -- 2016/17}}
+     	\small{\textbf{Javier de Martí­n -- 2016/17}}
 	\end{center}
 \end{framed}
 
@@ -99,7 +105,7 @@
 
 \section{\underline{Transistor BJT}}
 
-\subsection{Parámetros}
+\subsection{ParÃ¡metros}
 
 $h_{ix} (\Omega)$: Impedancia de entrada\\
 
@@ -112,7 +118,7 @@ $h_{ox} (\Omega^{-1})$: Admitancia de salida\\
 
 \begin{tabular}{|c|c|c|}
 \hline
-Base Común                              & Emisor Común & Colector Común \\ \hline
+Base ComÃºn                              & Emisor ComÃºn & Colector ComÃºn \\ \hline
     $h_{ib} = \frac{v_{eb}}{i_e}$       &  $h_{ie} = \frac{v_{be}}{i_b}$            &   $h_{ic} = \frac{v_{bc}}{i_b}$             \\ \hline
     $h_{rb} = \frac{v_{eb}}{v_{cb}}$   &              &                \\ \hline
     $h_{fb} = \frac{i_c}{i_e}$       &              &                \\ \hline
@@ -137,13 +143,13 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 \begin{itemize}
 	\item \textbf{Región Activa}: La corriente de colector $I_C$ depende directamente de la corriente de base $I_B$, de la ganancia de corriente $\beta$ y de las resistencias conectadas al colector y emisor. En esta región se produce amplificación de la señal.
 	\item \textbf{Región Inversa}: 
-	\item \textbf{Región de Saturación}: La corriente $I_C = I_E = I_{max}$. La corriente depende del voltaje de alimentación del circuito y de las resistencias conectadas al colector y emisor. Este modo aparece cuando la corriente de base es lo suficientemente grande como para inducir una corriente de colector $\beta$ veces más grande.
-	\item \textbf{Región de Corte}: La corriente $I_C = I_E = 0$. El voltaje $V_{CE}$ es el de alimentación del circuito, al no haber corriente circulando no hay caída tensión. Este modo aparece, normalmente, cuando $I_B = 0$.
+	\item \textbf{Región de Saturación}: La corriente $I_C = I_E = I_{max}$. La corriente depende del voltaje de alimentación del circuito y de las resistencias conectadas al colector y emisor. Este modo aparece cuando la corriente de base es lo suficientemente grande como para inducir una corriente de colector $\beta$ veces mÃ¡s grande.
+	\item \textbf{Región de Corte}: La corriente $I_C = I_E = 0$. El voltaje $V_{CE}$ es el de alimentación del circuito, al no haber corriente circulando no hay caí­da tensión. Este modo aparece, normalmente, cuando $I_B = 0$.
 \end{itemize}
 
 \subsection{Configuraciones de Montaje}
 
-\subsubsection{Base Común}
+\subsubsection{Base ComÃºn}
 
 \begin{center}
 \begin{circuitikz} %[scale=1]
@@ -186,7 +192,7 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 \end{itemize}
 
 
-\subsubsection{Emisor Común}
+\subsubsection{Emisor ComÃºn}
 
 \begin{center}
 \begin{circuitikz} %[scale=1]
@@ -246,7 +252,7 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 	\item Alta ganancia de tensión.
 \end{itemize}
 
-\subsubsection{Colector Común}
+\subsubsection{Colector ComÃºn}
 
 \begin{center}
 \begin{circuitikz} %[scale=1]
@@ -314,7 +320,7 @@ Base Común                              & Emisor Común & Colector Común \\ \h
     		
     		\node[text width=3cm] at (2.7,1.2) {Saturación};
     		\node[text width=3cm] at (3,0.1) {Corte};
-    		\node[text width=3cm, rotate = 70] at (.7,2.2) {Óhmica};
+    		\node[text width=3cm, rotate = 70] at (.7,2.2) {hmica};
     		
 		\end{tikzpicture}
 	\end{center}
@@ -348,13 +354,15 @@ Base Común                              & Emisor Común & Colector Común \\ \h
  			\draw (1.5,-2.5) to [short, -o] (1.5,-3) node[right] {$E_P$};
  			
  			\draw (0,-3.5) node {$h_{ie_{CP}} = \frac{h_{ie_k}}{n} = \frac{V_T}{I_{B_k} \cdot n} = \frac{V_T}{I_{B_P}}$};
- 			\draw (0,-4) node {$h_{fe_{CP}} = h_{f_{ek}}$};
- 			\draw (0,-4.5) node {$h_{oe_{CP}} = h_{oe_k} \cdot n = \frac{I_{C_k} \cdot n}{V_T} = \frac{I_{C_P}}{V_A}$};
+ 			\draw (-1.15,-4) node {$h_{fe_{CP}} = h_{f_{ek}}$};
+ 			\draw (0.15,-4.5) node {$h_{oe_{CP}} = h_{oe_k} \cdot n = \frac{I_{C_k} \cdot n}{V_A} = \frac{I_{C_P}}{V_A}$};
  			
 		\end{circuitikz}
 	\end{center}
 
-Se comporta como \textbf{un único transistor}, necesita una resistencia $R$ (\textit{ballast resistor}) para estabilizar el reparto de corriente entre los transistores. Permite trabajar en \textbf{altas corrientes}.
+Se comporta como \textbf{un Ãºnico transistor}, necesita una resistencia $R$ (\textit{ballast resistor}) para estabilizar el reparto de corriente entre los transistores. Permite trabajar en \textbf{altas corrientes}.\\
+
+Las resistencias de emisor permiten estabilizar el circuito tensión.
 
 	\begin{equation*}
 		I_{CN} = \frac{I_{CP}}{N} \hspace{20pt} V_{BE_N} + I_{C_N}
@@ -446,14 +454,14 @@ Se comporta como \textbf{un único transistor}, necesita una resistencia $R$ (\t
 
 	\end{center}
 
-\textbf{Amplificador de continua}, simétrico con 2 entradas y 2 salidas. Amplifica exclusivamente la diferencia de sus entradas: $V_O = k \cdot (V_{i1} - V_{i2})$. Tiene los siguientes modos de funcionamiento:
+\textbf{Amplificador de continua}, simÃ©trico con 2 entradas y 2 salidas. Amplifica exclusivamente la diferencia de sus entradas: $V_O = k \cdot (V_{i1} - V_{i2})$. Tiene los siguientes modos de funcionamiento:
 
 	\begin{itemize}
 		\item \textbf{Salida Diferencial}: La señal de salida se toma entre las salidas de cada semi-red ($V_O = V_{O_1} - V_{O_2}$).
-		\item \textbf{Salida Asimétrica}: La señal de salida se toma de la salida de una semi-red ($V_O = V_{O_x}$). Para este modo es necesaria una $R_{EE}$ elevada.
+		\item \textbf{Salida AsimÃ©trica}: La señal de salida se toma de la salida de una semi-red ($V_O = V_{O_x}$). Para este modo es necesaria una $R_{EE}$ elevada.
 	\end{itemize}
 
-Tiene efectos parásitos como las \textbf{corrientes de polarización} que provocan caídas de tensión en las resistencias internas de las fuentes de señal a amplificar.
+Tiene efectos parÃ¡sitos como las \textbf{corrientes de polarización} que provocan caí­das de tensión en las resistencias internas de las fuentes de señal a amplificar.
 
 
 \subsubsection{Circuito Cascodo}
@@ -500,9 +508,7 @@ Tiene efectos parásitos como las \textbf{corrientes de polarización} que provo
 			\draw (1,-6.7) to [R, l=$R_L$] (1,-8.2)
 				(1,-6.7) to [short] (2.5,-6.7)
 				to [C] (2.5,-8.2)
-				to [short] (1,-8.2);
-  			
-
+				to [short] (1,-8.2);  			
 		\end{circuitikz}
 	\end{center}
 
@@ -511,15 +517,117 @@ Permite trabajar con \textbf{mayores tensiones de salida}. Buen comportamiento e
 
 \subsubsection{Etapas CMOS}
 
-\section{\underline{Amplificadores Multietapa}}
+\section{\underline{2.- Amplificadores Multietapa}}
 
 \subsubsection{Clasificación}
 
+\textbf{De alterna o de acoplo RC} Se agrupan en cascada de amplificadores monoetapa conectándose mediante condensadores de acoplo. \textbf{De continua o de acoplo directo} No existen condensadores de paso y amplifican tensiones continuas.
+
 \subsubsection{Análisis en Continua}
+
+\textbf{Amplificadores RC}: Cada etapa puede analizarse independientemente. No existe dependencia entre los puntos de trabajo de las distintas etapas.
+
+	\begin{center}
+		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+			 \draw (-1.6,.3) to [short] (1,.3)
+			  	 (0,1.8) to [C, color = red] (1,1.8)
+				  (-1.6,1.8) to [R, l=$R_{S}$] (0,1.8)
+				 (-1.6,.3) to [sV, l=$V_{S}$] (-1.6,1.8);
+			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (1,0){Etapa 1 ($A_{V1}$)};
+			  \draw (3.15,.3) to [short] (4,.3)
+			  	 (3.15,1.8) to [C, color = red] (4,1.8);
+			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (4,0){Etapa 2 ($A_{V2}$)};
+			   \draw (6.15,.3) to [short] (7,.3)
+			  	 (6.15,1.8) to [C, color = red] (7,1.8);
+			 \draw [densely dashed] (7,.3)--(8,.3);
+			  \draw [densely dashed] (7,1.8)--(8,1.8);
+			  \draw (8,.3) to [short] (9,.3)
+			  	 (8,1.8) to [C, color = red] (9,1.8);
+			\node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (9,0){Etapa n ($A_{Vn}$)};
+			 \draw (11.2,.3) to [short] (12,.3)
+			  	 (11.2,1.8) to [C, color = red] (12,1.8)
+				 (12,.3) to [R, l_=$R_{L}$] (12,1.8);
+		\end{circuitikz}
+	\end{center}
+	
+\textbf{Amplificadores de continua}: Todas las etapas están inter-relacionadas, es aconsejable seguir un orden para su análisis.
+			
 
 \subsubsection{Ganancia en Pequeña Señal}
 
+	\begin{center}
+		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+			 \draw (-1.6,.3) to [short] (1,.3)
+			  	 (0,1.8) to [C, color = red] (1,1.8)
+				  (-1.6,1.8) to [R, l=$R_{S}$] (0,1.8)
+				 (-1.6,.3) to [sV, l=$V_{S}$] (-1.6,1.8);
+			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west, color = blue] at (1,0){Etapa 1 ($A_{V1}$)};
+			  \draw (3.15,.3) to [short] (4,.3)
+			  	 (3.15,1.8) to [C, color = blue] (4,1.8);
+			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west, color = green] at (4,0){Etapa 2 ($A_{V2}$)};
+			   \draw (6.15,.3) to [short] (7,.3)
+			  	 (6.15,1.8) to [C, color = green] (7,1.8);
+			 \draw [densely dashed] (7,.3)--(8,.3);
+			  \draw [densely dashed] (7,1.8)--(8,1.8);
+			  \draw (8,.3) to [short] (9,.3)
+			  	 (8,1.8) to [C, color = red] (9,1.8);
+			\node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west, color = orange] at (9,0){Etapa n ($A_{Vn}$)};
+			 \draw (11.2,.3) to [short, color = orange] (12,.3)
+			  	 (11.2,1.8) to [C, color = orange] (12,1.8)
+				 (12,.3) to [R, l_=$R_{L}$, color = orange] (12,1.8);
+		\end{circuitikz}
+	\end{center}
+
+La \textbf{ganancia total} es el producto de las ganancias de cada etapa:
+
+	\begin{equation*}
+		A_{v} = \frac{v_{o}}{v_{s}} = \frac{v_{o}}{v_{o(n-1)}} \dots \frac{v_{o2}}{v_{o1}} 
+	\end{equation*}
+
 \subsubsection{Margen Dinámico a la Entrada}
+
+Máxima señal obtenible en la carga sin distorsión, se mide en $V_{P}$ o en $V_{PP}$. Viene determinado por las situaciones de corte/saturación de los transistores.
+
+\textbf{Margen dinámico debido a una etapa}: Si la etapa k-ésima tiene un margen dinámico a su salida permitirá a la salida del amplificador un margen dinámico.\\
+
+\textbf{Margen dinámico del amplificador}: Menor de los márgenes dinámicos debidos a cada etapa.
+
+\subsubsection{Margen dinámico a la salida}
+
+\subsubsection{Margen dinámico a la entrada}
+
+
+\begin{center}
+		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+			 
+			 \draw[blue, thick] (-.25,.95) sin (0,1.45) cos (.25,.95) sin (.5,.45) cos (.75,.95);
+			 
+			 \draw (0,.3) to [short] (1,.3)
+			  	 (0,1.8) to [C, color = red] (1,1.8);
+			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (1,0){Etapa 1 ($A_{V1}$)};
+			  \draw (3.15,.3) to [short] (4,.3)
+			  	 (3.15,1.8) to [C, color = red] (4,1.8);
+			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (4,0){Etapa 2 ($A_{V2}$)};
+			   \draw (6.15,.3) to [short] (7,.3)
+			  	 (6.15,1.8) to [C, color = red] (7,1.8);
+			 \draw [densely dashed] (7,.3)--(8,.3);
+			  \draw [densely dashed] (7,1.8)--(8,1.8);
+			  \draw (8,.3) to [short] (9,.3)
+			  	 (8,1.8) to [C, color = red] (9,1.8);
+			\node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (9,0){Etapa n ($A_{Vn}$)};
+			 \draw (11.2,.3) to [short] (12,.3)
+			  	 (11.2,1.8) to [C, color = red] (12,1.8);
+				 
+			\draw[red, thick] (12,.95) sin (12.25,1.95) cos (12.5,.95) sin (12.75,.05) cos (13,.95);
+		\end{circuitikz}
+	\end{center}
+	
+Máximo nivel de señal en la entrada para no tener distorsión a la salida.
+
+\begin{equation*}
+	M_{di} = \frac{M_{do}}{| A_{v} |}
+\end{equation*}
+
 
 \section{\underline{3. Respuesta en Frecuencia (aUn no)}}
 
@@ -528,8 +636,6 @@ Permite trabajar con \textbf{mayores tensiones de salida}. Buen comportamiento e
 Una \textbf{carga activa o carga dinámica} es un componente de circuito que se comporta como una resistencia no lineal estable contra corriente. Utilizado frecuentemente en la entrada de amplificadores operacionales para incrementar considerablemente la ganancia.
 
 \subsubsection{Introducción y Figura de Mérito}
-
-\textbf{No sé qué es una figura de mérito}
 
 \subsection{Configuraciones de Fuentes de Corriente}
 
@@ -696,7 +802,7 @@ Permite obtener alta ganancia de corriente e impedancia de salida elevada.
 
 \textbf{Clase B}: El transistor conduce durante \textbf{medio ciclo}.\\
 
-\textbf{Clase AB}: El transistor conduce durante algo \textbf{más de medio ciclo}.\\
+\textbf{Clase AB}: El transistor conduce durante algo \textbf{mÃ¡s de medio ciclo}.\\
 
 \textbf{Clase C}: El transistor conduce durante algo \textbf{menos de medio ciclo}.
 
@@ -730,14 +836,13 @@ Permite obtener alta ganancia de corriente e impedancia de salida elevada.
 
 \subsubsection{Amplificadores Clase B y Clase AB}
 
-\subsubsection{Consideraciones Térmicas}
+\subsubsection{Consideraciones TÃ©rmicas}
 
 
 %\vfill
 
 \newpage
 
-aaa
 
 \end{multicols}
 \end{document}
