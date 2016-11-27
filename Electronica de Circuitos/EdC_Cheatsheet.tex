@@ -92,7 +92,7 @@
 	\begin{center}
     	\Large{\underline{Electrónica de Circuitos}} \\
     	\scriptsize{3º Ingenierí­a de Telecomunicaciones | UPV/EHU}\\
-     	%Actualizado por Ãºltima vez el \today \\
+     	%Actualizado por última vez el \today \\
      	"\textsl{Under-promise and over-deliver}." \\
      	%\hspace{5 pt} \\
      	\small{\textbf{Javier de Martí­n -- 2016/17}}
@@ -105,7 +105,7 @@
 
 \section{\underline{Transistor BJT}}
 
-\subsection{ParÃ¡metros}
+\subsection{Parámetros}
 
 $h_{ix} (\Omega)$: Impedancia de entrada\\
 
@@ -113,16 +113,16 @@ $h_{rx}$: Reverse voltage ratio \\
 
 $h_{fx}$ Forward current transfer ratio\\
 
-$h_{ox} (\Omega^{-1})$: Admitancia de salida\\
+$h_{ox} (\Omega^{-1})$: Admitancia de salida\\ 
 
 
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{| c | c | c |}
 \hline
-Base ComÃºn                              & Emisor ComÃºn & Colector ComÃºn \\ \hline
-    $h_{ib} = \frac{v_{eb}}{i_e}$       &  $h_{ie} = \frac{v_{be}}{i_b}$            &   $h_{ic} = \frac{v_{bc}}{i_b}$             \\ \hline
-    $h_{rb} = \frac{v_{eb}}{v_{cb}}$   &              &                \\ \hline
-    $h_{fb} = \frac{i_c}{i_e}$       &              &                \\ \hline
-     $h_{ob} = \frac{i_c}{v_{cb}}$      &              &                \\ \hline
+Base Común                              & Emisor Común & Colector Común \\ \hline
+    $\displaystyle h_{ib} = \frac{v_{eb}}{i_e}$       &  $\displaystyle h_{ie} = \frac{v_{be}}{i_b}$            &   $\displaystyle h_{ic} = \frac{v_{bc}}{i_b}$             \\ \hline
+    $\displaystyle h_{rb} = \frac{v_{eb}}{v_{cb}}$   &   $\displaystyle h_{re} = \frac{v_{be}}{v_{ce}}$           &   $\displaystyle h_{rc} = \frac{v_{bc}}{v_{ec}}$             \\ \hline
+    $\displaystyle h_{fb} = \frac{i_c}{i_e}$       &  $\displaystyle h_{fe} = \frac{i_{c}}{i_{b}} $            &    $\displaystyle h_{fc} = \frac{i_{e}}{i_{b}}$            \\ \hline
+     $\displaystyle h_{ob} = \frac{i_c}{v_{cb}}$      &       $\displaystyle h_{oe} = \frac{i_{c}}{v_{ce}}$       &     $\displaystyle h_{oc} = \frac{i_{e}}{v_{ec}}$           \\ \hline
 \end{tabular}
 
 \subsection{Regiones Operativas}
@@ -134,7 +134,7 @@ Base ComÃºn                              & Emisor ComÃºn & Colector ComÃºn
     		\draw (0,-0.2) -- (0,2.5) node[above] {$V_{CE}$};
     		
     		\node[text width=3cm] at (2.5,1) {Activa};
-    		\node[text width=3cm] at (2.3,0.1) {Saturación};
+    		\node[text width=3cm] at (2.3,0.2) {Saturación};
     		\node[text width=3cm, rotate = 90] at (.1,2.2) {Corte};
     		
 		\end{tikzpicture}
@@ -143,13 +143,13 @@ Base ComÃºn                              & Emisor ComÃºn & Colector ComÃºn
 \begin{itemize}
 	\item \textbf{Región Activa}: La corriente de colector $I_C$ depende directamente de la corriente de base $I_B$, de la ganancia de corriente $\beta$ y de las resistencias conectadas al colector y emisor. En esta región se produce amplificación de la señal.
 	\item \textbf{Región Inversa}: 
-	\item \textbf{Región de Saturación}: La corriente $I_C = I_E = I_{max}$. La corriente depende del voltaje de alimentación del circuito y de las resistencias conectadas al colector y emisor. Este modo aparece cuando la corriente de base es lo suficientemente grande como para inducir una corriente de colector $\beta$ veces mÃ¡s grande.
+	\item \textbf{Región de Saturación}: La corriente $I_C = I_E = I_{max}$. La corriente depende del voltaje de alimentación del circuito y de las resistencias conectadas al colector y emisor. Este modo aparece cuando la corriente de base es lo suficientemente grande como para inducir una corriente de colector $\beta$ veces más grande.
 	\item \textbf{Región de Corte}: La corriente $I_C = I_E = 0$. El voltaje $V_{CE}$ es el de alimentación del circuito, al no haber corriente circulando no hay caí­da tensión. Este modo aparece, normalmente, cuando $I_B = 0$.
 \end{itemize}
 
 \subsection{Configuraciones de Montaje}
 
-\subsubsection{Base ComÃºn}
+\subsubsection{Base Común}
 
 \begin{center}
 \begin{circuitikz} %[scale=1]
@@ -192,7 +192,7 @@ Base ComÃºn                              & Emisor ComÃºn & Colector ComÃºn
 \end{itemize}
 
 
-\subsubsection{Emisor ComÃºn}
+\subsubsection{Emisor Común}
 
 \begin{center}
 \begin{circuitikz} %[scale=1]
@@ -252,7 +252,7 @@ Base ComÃºn                              & Emisor ComÃºn & Colector ComÃºn
 	\item Alta ganancia de tensión.
 \end{itemize}
 
-\subsubsection{Colector ComÃºn}
+\subsubsection{Colector Común}
 
 \begin{center}
 \begin{circuitikz} %[scale=1]
@@ -295,7 +295,7 @@ Base ComÃºn                              & Emisor ComÃºn & Colector ComÃºn
 \section{\underline{Transistor FET}}
 
 	\begin{center}
-		\begin{tikzpicture}
+		\begin{tikzpicture}[scale = 0.6]
 		    \draw (-4,0) -- (4,0) node[right] {$V_{GS}$};
     		\draw (0,-3) -- (0,3) node[above] {$I_D$};
 			\draw[scale=2,domain=0:1,thick,variable=\x,blue] plot (\x + 1,\x*\x) node[left] {$nMOS acum$};
@@ -330,7 +330,7 @@ Base ComÃºn                              & Emisor ComÃºn & Colector ComÃºn
 \subsubsection{Configuración en Paralelo}
 
 	\begin{center}
-		\begin{circuitikz} %[scale=1]
+		\begin{circuitikz}[scale=.6,american voltages, american currents, transform shape]
 			\draw (0,0) node[npn](npn1) {$Q_1$}
 				(npn1.E) to [R, l=$R$] (0,-2) -- (0,-2.5) 
 				(npn1.B) to [short, -o]  (-1,0) node[left] {$B_P$}; 
@@ -360,7 +360,7 @@ Base ComÃºn                              & Emisor ComÃºn & Colector ComÃºn
 		\end{circuitikz}
 	\end{center}
 
-Se comporta como \textbf{un Ãºnico transistor}, necesita una resistencia $R$ (\textit{ballast resistor}) para estabilizar el reparto de corriente entre los transistores. Permite trabajar en \textbf{altas corrientes}.\\
+Se comporta como \textbf{un único transistor}, necesita una resistencia $R$ (\textit{ballast resistor}) para estabilizar el reparto de corriente entre los transistores. Permite trabajar en \textbf{altas corrientes}.\\
 
 Las resistencias de emisor permiten estabilizar el circuito tensión.
 
@@ -389,7 +389,7 @@ Las resistencias de emisor permiten estabilizar el circuito tensión.
 \textbf{Gran ganancia de corriente} pero \textbf{baja impedancia de salida}. Las fugas del primer transistor son amplificadas por el segundo, sólo es aconsejable en agrupaciones de 2 transistores.
 	
 	\begin{center}
-		\begin{circuitikz}[scale=1,american voltages, american currents, transform shape]
+		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
 			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
 				to [short, -] (1,-1)
 				to [R, l=$h_{ie_D}$] (1,-2)
@@ -415,7 +415,7 @@ Las resistencias de emisor permiten estabilizar el circuito tensión.
 \subsubsection{Amplificador Diferencial}
 
 	\begin{center}
-		\begin{circuitikz}[scale=1,american voltages, american currents, transform shape]
+		\begin{circuitikz}[scale=.6,american voltages, american currents, transform shape]
 			\draw (0,0) to [short, o-*] (0,-0.5)
 				(0.5,0) node {$+V_{CC}$};
 				
@@ -454,20 +454,20 @@ Las resistencias de emisor permiten estabilizar el circuito tensión.
 
 	\end{center}
 
-\textbf{Amplificador de continua}, simÃ©trico con 2 entradas y 2 salidas. Amplifica exclusivamente la diferencia de sus entradas: $V_O = k \cdot (V_{i1} - V_{i2})$. Tiene los siguientes modos de funcionamiento:
+\textbf{Amplificador de continua}, simétrico con 2 entradas y 2 salidas. Amplifica exclusivamente la diferencia de sus entradas: $V_O = k \cdot (V_{i1} - V_{i2})$. Tiene los siguientes modos de funcionamiento:
 
 	\begin{itemize}
 		\item \textbf{Salida Diferencial}: La señal de salida se toma entre las salidas de cada semi-red ($V_O = V_{O_1} - V_{O_2}$).
-		\item \textbf{Salida AsimÃ©trica}: La señal de salida se toma de la salida de una semi-red ($V_O = V_{O_x}$). Para este modo es necesaria una $R_{EE}$ elevada.
+		\item \textbf{Salida Asimétrica}: La señal de salida se toma de la salida de una semi-red ($V_O = V_{O_x}$). Para este modo es necesaria una $R_{EE}$ elevada.
 	\end{itemize}
 
-Tiene efectos parÃ¡sitos como las \textbf{corrientes de polarización} que provocan caí­das de tensión en las resistencias internas de las fuentes de señal a amplificar.
+Tiene efectos parásitos como las \textbf{corrientes de polarización} que provocan caí­das de tensión en las resistencias internas de las fuentes de señal a amplificar.
 
 
 \subsubsection{Circuito Cascodo}
 
 	\begin{center}
-		\begin{circuitikz}[scale=1,american voltages, american currents, transform shape]
+		\begin{circuitikz}[scale=.6,american voltages, american currents, transform shape]
 			\draw (0,0) to [short, o-*] (0,-0.5)
 				(0.5,0) node {$+V_{CC}$};
 			\draw (-1,-0.5) to [short] (1,-0.5)
@@ -618,7 +618,7 @@ Máxima señal obtenible en la carga sin distorsión, se mide en $V_{P}$ o en $V
 			 \draw (11.2,.3) to [short] (12,.3)
 			  	 (11.2,1.8) to [C, color = red] (12,1.8);
 				 
-			\draw[red, thick] (12,.95) sin (12.25,1.95) cos (12.5,.95) sin (12.75,.05) cos (13,.95);
+			\draw[blue, thick] (12,.95) sin (12.25,1.95) cos (12.5,.95) sin (12.75,.05) cos (13,.95);
 		\end{circuitikz}
 	\end{center}
 	
@@ -629,7 +629,7 @@ Máximo nivel de señal en la entrada para no tener distorsión a la salida.
 \end{equation*}
 
 
-\section{\underline{3. Respuesta en Frecuencia (aUn no)}}
+\section{\underline{3. Respuesta en Frecuencia}}
 
 \section{\underline{4. Fuentes de Corriente y Cargas Activas}}
 
@@ -637,12 +637,18 @@ Una \textbf{carga activa o carga dinámica} es un componente de circuito que se 
 
 \subsubsection{Introducción y Figura de Mérito}
 
+La \textbf{figura de mérito} de un amplificador es el producto de la ganancia por el ancho de banda.
+
+	\begin{equation*}
+		GB = |A_{M}| BW
+	\end{equation*}
+
 \subsection{Configuraciones de Fuentes de Corriente}
 
 \textbf{Espejo de Corriente}: Permite obtener una corriente constante (fuente de corriente).
 
 	\begin{center}
-		\begin{circuitikz} [scale=1, transform shape]
+		\begin{circuitikz} [scale=.6, transform shape]
 			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
 				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
 				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
@@ -652,11 +658,14 @@ Una \textbf{carga activa o carga dinámica} es un componente de circuito que se 
 			\draw (npn2.C) [short, -o, ,i<_=$I_O$] to (2,1.5);
 			\draw (1,-0.78) [short] to (npn2.E);
 			\draw[blue, thick] (1,-.78) [short, *-] to (1, -1.28) node[ground, color = blue]{} (1, -1.5); 
+			\draw (1.9,-.6) node[anchor=east] {\tiny $V_{BE1} = V_{BE2}$};
+			\draw (3,2.7) node[anchor=east] {$I_O = \frac{I_{ref}}{1 + \frac{2}{\beta_F}} $};
+			
 		\end{circuitikz}
 	\end{center}
 
 	\begin{center}
-		\begin{circuitikz}[scale=.6,american voltages, american currents, transform shape]
+		\begin{circuitikz}[scale=.4,american voltages, american currents, transform shape]
 			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
 				to [short, -] (1,-1)
 				to [R, l=$h_{ie}$] (1,-2)
@@ -677,13 +686,9 @@ Una \textbf{carga activa o carga dinámica} es un componente de circuito que se 
 				(-2,0) [short, color = blue, -*] to (0,0);
 		\end{circuitikz}
 	\end{center}
-
-	\begin{equation*}
-		I_O = \frac{I_{ref}}{1 + \frac{2}{\beta_F}} \hspace{15pt} \mbox{si} \beta \uparrow\uparrow \hspace{15pt} I_O = I_{ref}
-	\end{equation*}
 	
 	\begin{center}
-		\begin{circuitikz} [scale=1, transform shape]
+		\begin{circuitikz} [scale=.6, transform shape]
 			\draw[blue, thick] (4,0) node[npn, color = blue](npn1) {}
 				(npn1.C) -| (npn1.B) %i=${I_{BB}}$] to (npn1.B)
 				(npn1.C) to [R, color = blue, l=$R_{CC}$] (4,2.4) [short, -o, i<_=$I_{ref}$] to (4,3) node[anchor=east] {$V_{CC}$};
@@ -705,7 +710,7 @@ Si hay varias etapas se divide la corriente:
 Variación del circuito anterior con una resistencia en el emisor del transistor de salida para obtener corrientes pequeñas constantes en la salida.
 
 	\begin{center}
-		\begin{circuitikz} [scale=1, transform shape]
+		\begin{circuitikz} [scale=.6, transform shape]
 			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
 				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
 				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$}
@@ -734,7 +739,7 @@ Variación del circuito anterior con una resistencia en el emisor del transistor
 Proporciona impedancia de salida alta, mucho mayor que en las otras fuentes.
 
 	\begin{center}
-		\begin{circuitikz} [scale=1, transform shape]
+		\begin{circuitikz} [scale=.6, transform shape]
 			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
 				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
 				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
@@ -761,7 +766,7 @@ Proporciona impedancia de salida alta, mucho mayor que en las otras fuentes.
 \subsubsection{Fuente de Wilson}
 
 	\begin{center}
-		\begin{circuitikz} [scale=1, transform shape]
+		\begin{circuitikz} [scale=.6, transform shape]
 			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
 				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
 				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
@@ -802,7 +807,7 @@ Permite obtener alta ganancia de corriente e impedancia de salida elevada.
 
 \textbf{Clase B}: El transistor conduce durante \textbf{medio ciclo}.\\
 
-\textbf{Clase AB}: El transistor conduce durante algo \textbf{mÃ¡s de medio ciclo}.\\
+\textbf{Clase AB}: El transistor conduce durante algo \textbf{más de medio ciclo}.\\
 
 \textbf{Clase C}: El transistor conduce durante algo \textbf{menos de medio ciclo}.
 
@@ -836,7 +841,7 @@ Permite obtener alta ganancia de corriente e impedancia de salida elevada.
 
 \subsubsection{Amplificadores Clase B y Clase AB}
 
-\subsubsection{Consideraciones TÃ©rmicas}
+\subsubsection{Consideraciones Térmicas}
 
 
 %\vfill
