@@ -1,0 +1,427 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{color,graphicx,overpic}
+\graphicspath{ {images/} }
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{esint}
+\usepackage{bm}
+\usepackage{relsize}
+\usepackage{datetime}
+\usepackage[utf8] {inputenc}
+\usepackage[spanish, activeacute] {babel}
+\usepackage{IEEEtrantools}
+\usepackage{framed}
+
+\usepackage{draftwatermark}
+\SetWatermarkText{Javier de Martí­n}
+\SetWatermarkScale{4.8}
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+    {\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+    }
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+\newcommand{\Lagr}{\mathcal{L}}
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+%My Environments
+\newtheorem{example}[section]{Example}
+% ---------------------------------------------------------------
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{framed}
+	\begin{center}
+    	\Large{\underline{Planificación de Redes y Modelado}} \\
+    	\scriptsize{3º Ingeniería de Telecomunicaciones | UPV/EHU}\\
+     	%Actualizado por última vez el \today \\
+     	"\textsl{Under-promise and over-deliver}." \\
+     	%\hspace{5 pt} \\
+     	\small{\textbf{Javier de Martín -- 2016/17}}
+	\end{center}
+\end{framed}
+
+%
+% Cheatsheet code below 
+%                             
+
+\section{\underline{Definiciones}}                         
+
+$R$: Cadencia
+$\vec{p}$: Vector conjunto de probabilidades\\
+$X$: Variable aleatoria discreta \\
+$x_i$: Valor de la v.a. \\
+$p(x)$: Probabilidad marginal \\
+$p(x,y)$: Probabilidad conjunta \\
+$p(x/y)$: Probabilidad condicional \\
+$H(X)$: Entropía \\
+$H(X, Y)$: Entropía conjunta \\
+$H(X/Y)$: Entropía condicionada \\
+
+\section{\underline{Tema 1.- Teoría de la Información}}
+
+\subsection{\underline{Introducción a la Teoría de la Información - Técnicas de Codificación}}
+
+\textbf{Cadencia}: Por cada $k$ símbolos que entran al codificador llegan $n$ al sistema.
+
+	\begin{equation*}
+		R = \frac{k}{n}
+	\end{equation*}
+
+\textbf{Probabilidad de error de bit}:
+
+	\begin{equation*}
+		P_e = \frac{1}{k} \sum_{i = 1}^k P_e^{(i)}
+	\end{equation*}
+
+\textbf{Función Entropía}: Representa la cantidad de información proporcionada al conocer $X$, la medida de incertidumbre o ignorancia de $X$ o la aleatoridad o dispersión de $X$.
+
+	\begin{equation*}
+		H_n(X) = \sum_{i \geq 1} p_i log_n \frac{1}{p_i}
+	\end{equation*}
+
+Dependiendo del valor de $n$, la entropía se mide en unidades diferentes:
+
+\begin{itemize}
+	\item $n = 2 \rightarrow$ bits
+	\item $n = e \rightarrow$ nats
+	\item $n = 10 \rightarrow$ Hartleys 
+\end{itemize}
+
+Se puede cambiar de base, que significa un cambio de escala:
+
+\begin{equation*}
+	\log_b x = \log_b a \cdot \log_a x
+\end{equation*}
+
+La \textbf{interpretación de la entropía}:
+
+\begin{itemize}
+	\item El hecho más improbable es el que proporciona mayor información.
+	\item $I(X)$ se puede interpretar como la cantidad de información proporcionada por el suceso $\{ X = x \}$.
+	\item $H(X)$ será el valor medio de dicha cantidad de información $I(X)$.
+\end{itemize}
+
+\subsection{\underline{Codificación de Fuentes de Longitud Variable}}
+
+\subsubsection{Códigos de Longitud Variable Únicamente Decodificables}
+
+\begin{itemize}
+	\item \textbf{Ristra $\sigma$ de longitud $k$}: Secuencia ordenada de $k$ elementos de $S$.
+	\item \textbf{Operación concatenación}: Dadas dos ristras, $\sigma = s_1, s_2, ..., s_k$ y $\tau = t_1, t_2, ..., t_l$, sobre $S$, $\sigma * \tau = s_1, s_2, ..., s_k, t_1, t_2, ..., t_l$.
+	\item Si $\sigma = \sigma_1 * \sigma_2 * \sigma_3$: $\rightarrow$ $\sigma_1$ es prefijo, $\sigma_2$ es subristra y $\sigma_3$ es sufijo.
+	\item \textbf{Longitud de una ristra ($|\sigma|$)}: $|\sigma * \tau | = |\sigma| + |\tau|$.
+\end{itemize}
+
+Un \textbf{código} es \textbf{unívocamente decodificable (UD)} si cualquier ristra $c^k$ tiene una única descomposición posible como concatenación de palabras código.
+
+Un \textbf{código} $c$ se denomina \textbf{prefijo} si ninguna palabra código es prefijo de otra.
+
+\begin{center}
+	\textbf{Si un código es prefijo $\rightarrow$ es unívocamente decodificable}
+\end{center}
+
+\textbf{Teorema de McMillan}: Si un código $c = \{ \sigma_0, \sigma_1, ..., \sigma_{r-1} \}$ es un código UD sobre $S = \{ 0, 1, ..., s-1 \}$ entonces:
+
+	\begin{equation*}
+		\sum_{i = 0}^{r-1} \frac{1}{s^{n_i}} \leq 1 / n_i = |\sigma_i|
+	\end{equation*}
+	
+\textbf{Teorema de Kraft}: Dadas $r$ longitudes $n_i$ para $i = 0, 1, ..., r-1$ que cumplan $\sum_{i = 0}^{r-1} \frac{1}{s^{n_i}} \leq 1$, existirá algún código prefijo y UD con esas longitudes. \\
+
+\underline{Método para generar ese código prefijo y UD}
+
+Reordenar los $n_i \rightarrow n_0 \leq n_1 \leq ... \leq n_{r-1}$ y definir los $r$ enteros $w_j$:
+
+\begin{equation*}
+	w_0 = 0 \mbox{ y } w_j = \sum_{i = 0}^{j-1} s^{n_j - n_i} \rightarrow w_j = s^{n_j} \sum_{i = 0}^{j - 1} s^{-n_i} \leq s^{n_j} - 1 \hspace{5pt} \forall j
+\end{equation*}
+
+Cada $w_j$ se codifica con $n_j$ símbolos s-arios. Cada $\sigma_j$ es la representación s-aria del entero $w_j$ (se rellena con ceros hasta $n_j$).
+
+\begin{itemize}
+	\item Sea una fuente discreta sin memoria de alfabeto fuente $A = \{ 0, 1, ..., s-1 \}$ definida por $\vec{p} = \{ p_0, p_1, ..., p_{r-1} \}$ y definamos un código s-ario de la fuente $\{ \sigma_0, \sigma_1, ..., \sigma_{r-1} \}$ sobre $S = \{ 0, 1, ..., s-1 \}$ de tal forma que si queremos transmitir el símbolo fuente $i$ transmitimos $\sigma_i$. Si queremos transmitir $k$ símbolos fuente $i_1, i_2, ..., i_k$ seguidos, enviaremos la ristra $\sigma = \sigma_{i1} * \sigma_{i2} * \sigma_{ik}$ y para asegurarnos que el receptor pueda recuperar la cadena de símbolos fuente $i_1, i_2, ... i_k$ usaremos un código UD.
+	\item La \textbf{longitud media de un código} $\{ \sigma_0, \sigma_1, ..., \sigma_{r-1} \} $ respecto a la fuente $\{ p_0, p_1, ..., p_{r-1} \}$ se define como: 
+
+		\begin{equation*}
+			n = \sum_{i=0}^{r-1} p_i \cdot | \sigma_i |
+		\end{equation*}
+	\item \textbf{Interpretación}: $n$ es una medida de la \textbf{carga media del canal} dada por el uso del código,
+	\item Llamaremos $n_s(\vec{p})$ a la \textbf{longitud media} de un código s-ario para $\vec{p}$.
+	\item \textbf{Límite inferior de la longitud media $n$}: Para un código $c$ que sea UD, su longitud media \textbf{no} es inferior a la entropía s-aria de la fuente.
+	
+		\begin{equation*}
+			n \geq H_s(\vec{p})
+		\end{equation*}
+\end{itemize}
+
+\subsubsection{Algoritmo de Huffmann}
+
+Permite generar un código prefijo, que también será UD. 
+
+\begin{enumerate}
+	\item Ordenar las probabilidades de los símbolos de mayor a menor.
+	\item Reemplazar el vector de probabilidades $\vec{p}$ por $\vec{p'}$ donde se combinan las tres probabilidades más pequeñas.
+	\item Reemplazar el vector de probabilidades de forma recursiva agrupando $s$ símbolos de menor probabilidad en uno sólo hasta conseguir una fuente reducida de $s$ símbolos.
+	\item Se codifica cada fuente reducida de forma óptima empezando por la más pequeña hasta llegar a la fuente original.
+\end{enumerate}
+
+Con esto se crea el \textbf{código óptimo} para un conjunto de símbolos y probabilidades. Hay que tener la \textbf{determinación del tamaño $s'$} de la primera reducción. El valor de $s'$ está definido por dos condiciones:
+
+\begin{equation*}
+	s' \in \{2, 3, ..., s \} \mbox{ y } s' \equiv r \hspace{5pt} mod (s-1)
+\end{equation*}
+
+\subsubsection{Adaptación de Códigos a las Fuentes: Extensión de Fuentes}
+
+Sea una fuente definida por $\vec{p}$ sobre el alfabeto $A$, son necesarios $H_s(\vec{p})$ para representar fielmente la fuente. En cambio, si se utiliza un código UD s-ario se necesitarán, en general, más símbolos.
+
+\begin{equation*}
+	n_s(\vec{p}) \geq H_s(\vec{p})
+\end{equation*}
+
+Para solucionar esto se extiende la fuente considerando la fuente como secuencia de bloques consecutivos de $m$ símbolos sobre un alfabeto $A^m$. Tomando un valor de $m$ suficientemente grande, se puede aproximar todo lo que se quiera el número medio de símbolos necesarios para representar la fuente. Sea $\vec{p}^m$ la distribución de probabilidades de la extensión y $n_s(\vec{p}^m)$ la longitud media de un código de dicha extensión:
+
+\begin{equation*}
+	\lim_{m \rightarrow \infty} \frac{1}{m} n_s (\vec{p}^m) = H_s(\vec{p})
+\end{equation*}
+
+\textbf{Interpretación}: Una fuente $\vec{p}$ puede ser representada fielmente utilizando $H_s(\vec{p})$ símbolos s-arios por símbolo fuente. 
+
+\subsubsection{\underline{Modelado del Proceso de Información}}
+
+\begin{center}
+	\begin{tikzpicture}
+		\node [draw, align=center] (1) at (0,0) {Fuente};
+		\node [draw, align=center] (2) at (0,-1) {Codificador};
+	
+		\node [draw, align=center] (3) at (2,-1) {Canal};
+		
+		\node [draw, align=center] (4) at (4,-1) {Decodificador};
+		\node [draw, align=center] (5) at (4,0) {Receptor};
+	
+		\path (1) edge node [right] {$\vec{U}$} (2);
+		\path (2) edge node [above] {$\vec{X}$} (3);
+		\path (3) edge node [above] {$\vec{Y}$} (4);
+		\path (4) edge node [left] {$\vec{V}$} (5);
+	\end{tikzpicture}	
+\end{center}
+
+
+\begin{itemize}
+	\item $\vec{U}$: k salidas consecutivas de la fuente.
+	\item $\vec{X}$: n-tupla que utiliza el codificador para codificar en el canal la información transmitida.
+	\item $\vec{Y}$: Versión ruidosa de $n$ salidas recibidas de $\vec{X}$.
+	\item $\vec{V}$: k-tupla que reproduce de forma estimada la fuente.
+\end{itemize}
+
+En los sistemas de comunicaciones realizables las salidas de cada bloque no dependen de las entradas anteriores, sino que son funciones de la entrada en cada momento. Viene definido por las probabilidades condicionales:
+
+	\begin{equation*}
+		p(\vec{y}/\vec{x}, \vec{u}) = p(\vec{y}, \vec{x}) \hspace{10pt} , \hspace{10pt} p(\vec{v}/\vec{y}, \vec{x}) = p(\vec{v}/\vec{y})
+	\end{equation*}
+
+\subsubsection{Teorema del Proceso de Información}
+
+
+"\textit{El procesado de información sólo puede destruir información.}"
+
+\begin{equation*}
+ \left.\begin{aligned}
+        I(\vec{U},\vec{V}) &\leq I(\vec{X}, \vec{V}) \\
+        I(\vec{X}, \vec{V}) &\leq I(\vec{X}, \vec{Y})
+       \end{aligned}
+ \right\}
+ \rightarrow I(\vec{U},\vec{V}) \leq I(\vec{X}, \vec{Y})
+\end{equation*}
+
+\subsubsection{Canal Discreto Sin Memoria (\textit{DMC})}
+
+\begin{itemize}
+	\item Discreto: Número de E/S finito.
+	\item Sin Memoria: La salida sólo depende de la entrada en ese dispositivo y no de entradas de dispositivos anteriores.
+	\item Aleatorio: La salida no es una función directa de la entrada sino que está regulado por una matriz de probabilidades.
+\end{itemize}
+
+Se define una matriz de probabilidades $p(y/x)$ de dimensión $(r,s)$ que representa la probabilidad de que se produzca una salida $y$ habiéndose producido una entrada $x$.
+
+\begin{IEEEeqnarray*}{rCl}
+	p(y_j/x_i) \geq 0 \forall (i, j) \\
+	\sum_j p(y_j/x_i) = 1 \forall i	
+\end{IEEEeqnarray*}
+
+\[ Q_{(r,s)} =\left( \begin{array}{cccc}
+p(y_0/x_0) & p(y_1/x_0) & ... & p(y_s/x_0) \\
+p(y_0/x_1) & p(y_1/x_1) & ... & p(y_s/x_0) \\
+...        & ...        & ... & ...        \\
+p(y_0/x_r) & p(y_1/x_r) & ... & p(y_s/x_r) \\
+\end{array} \right)\]
+
+\textbf{Modelización de un Canal DMC}:
+
+\begin{itemize}
+	\item Se define una variable aleatoria $X$ de rango $R = \{0, 1, ..., r-1\}$ que modeliza la entrada de un canal DMC según una distribución de probabilidades $Pr\{X = x \} = p(x)$
+	\item Se define también una variable aleatoria $Y$ de rango $S = \{ 0, 1, ..., s-1 \}$ que representa la salida del canal DMC.
+\end{itemize}
+
+Distribución conjunta: $p(x, y) = p(x) \cdot p(y/x)$
+Distribución marginal: $p(y) = \sum_x$
+
+\begin{center}
+	\begin{tikzpicture}
+		\draw (0,0) -- node[above] {$X$} (0.5,0);
+		\node [draw, align=center] at (0.95,0) {DMC};	
+		\draw (1.4,0) -- node[above] {$Y$} (1.9,0);
+	\end{tikzpicture}	
+\end{center}
+
+$H(X)$ es la incertidumbre que se tiene de $X$ antes de conocer a $Y$. Una vez conocida $y$, la entropía remanente de $X$ es:
+
+\begin{equation*}
+	H(X/y) = \sum_x p(x/y) \cdot \log \frac{1}{p(x/y)}
+\end{equation*}
+
+La \textbf{entropía condicionada de $X/Y$} será la esperanza de esta variable aleatoria:
+
+\begin{equation*}
+	H(X/Y) = \sum_y p(y) \cdot H(X/Y = y) = E_y \{ H(X/Y = y) \}
+\end{equation*}
+
+$H(X/Y)$ representa la cantidad de incertidumbre remanente de $X$ tras conocer $Y$.
+
+\textbf{Entropía de Sucesos con Dos Variables Aleatorias}: Sea un suceso definido por dos variables aleatorias $X$ w $Y$ con rangos $R_X = \{x_1, x_2, ..., x_r \}$ y $R_Y = \{ y_1, y_2, ..., y_s \}$ y con una distribución de probabilidades: \textbf{FALTA EQ}
+
+Se define la \textbf{entropía conjunta} de $X$ e $Y$ como:
+
+\begin{equation*}
+	H(X, Y) = \sum_i \sum_j p(x_i, y_j) \cdot \log \frac{1}{p(x_i, y_j)} = \sum_x \sum_y p(x, y) \cdot \log \frac{1}{p(x, y)}
+\end{equation*}
+
+\quad Si las variables $X$ e $Y$ son independientes: \\
+\qquad $p(x, y) = p(x) \cdot p(y) \hspace{10pt} \forall x, y \rightarrow H(X, Y) = H(X) + H(Y)$
+\quad La entropía conjunta de dos variables aleatorias independientes es la suma de entropías.\\
+\quad Si las variables son dependientes la suma total será menor que la suma de entropías.\\
+\qquad $H(X_1, X_2, ...) \leq H(X_1) + H(X_2) + ...$
+
+\textbf{Probabilidad Conjunta}:
+
+\begin{equation*}
+	p(x, y) = Pr \{ X = x, Y = y \}
+\end{equation*}
+
+\textbf{Probabilidades Marginales}:
+
+\begin{IEEEeqnarray*}{rCl}
+	p(x) & = & Pr \{ X = x \} = \sum_y p(x, y) \\	
+	p(y) & = & Pr \{ Y = y \} = \sum_x p(x, y)	
+\end{IEEEeqnarray*}
+
+\textbf{Probabilidades Condicionales}:
+
+\begin{IEEEeqnarray*}{rCl}
+	p(x/y) & = & Pr \{ X = x / Y = y \} = \frac{p(x, y)}{p(y)} \\
+	p(y/x) & = & Pr \{ Y = y / X = x \} = \frac{p(x, y)}{p(x)}		
+\end{IEEEeqnarray*}
+
+\textbf{Entropía condicional} de $X$ dada por $Y$: \textbf{FALTA EQ}
+
+La entropía condicionada cumple las siguientes condiciones:\\
+\quad $\rightarrow H(X, Y) = H(X) + H(Y/X) = H(Y) + H(X/Y)$\\
+\quad $\rightarrow H(Y/X) \leq H(Y)$ \\
+\quad $\rightarrow$ Inecuación de Fano \textbf{TERMINAR}: $H(X/Y) \leq H(P_e) + P_e \cdot log(r-1)$\\
+\qquad Siendo $X$ e $Y$ dos variables aleatorias de igual rango de valor $r$ y $P_e = Pr \{ X \neq Y \}$\\
+
+\textbf{Información Mutua}: Si $H(X)$ es la cantidad de incertidumbre a priori de $X$ y $H(X/Y)$ es la incertidumbre de $X$ una vez conocido $Y$, se puede entender $I(X;Y)$ como la información que $Y$ suministra sobre $X$.
+
+\begin{IEEEeqnarray*}{rCl}
+	I(X;Y) & = & I(Y;X) = H(X) + H(Y) - H(X/Y) \\	
+	I(X;Y) & \geq & 0
+\end{IEEEeqnarray*}
+
+	
+
+Se define la variable aleatoria $I(x;y)$ como la información mutua de entre los elementos $x$ e $y$.
+
+\begin{equation*}
+	I(X = x; Y = y) = I(x;y) = \log \frac{p(x/y)}{p(y)} = \log \frac{p(y/x)}{p(y)}
+\end{equation*}
+
+\quad Si esta v.a. proporciona valores positivos $\rightarrow$ proporciona información\\
+\quad Si esta v.a. proporciona valores negativos $\rightarrow$ confunde\\
+
+$I(X;Y)$ es una medida de la dependencia estadística entre las dos variables, será cero cuando las variables aleatorias sean independientes.
+
+\begin{tikzpicture}
+	\fill[even odd rule] (0,0) circle (1) (1,0) circle (1);
+\end{tikzpicture}
+
+\textbf{TERMINAR}
+
+\subsubsection{\underline{Codificación de Canal}}
+
+\textbf{Teorema de la Codificación del Canal}
+
+\begin{equation*}
+	r = \frac{k}{n} \leq \frac{C(\beta)}{1 - H_2(\epsilon)}
+\end{equation*}
+
+La \textbf{cadencia del sistema} ($\frac{k}{n}$) representa el número de bits por uso del canal transmitidos por el sistema de comunicaciones. Tiene un \textbf{límite superior} que es función creciente de $\epsilon$. \\
+
+"\textit{Cuanto más fiablemente se quiera comunicar más lentamente hay que realizarlo}"
+
+%\vfill
+
+
+
+\end{multicols}
+\end{document}
