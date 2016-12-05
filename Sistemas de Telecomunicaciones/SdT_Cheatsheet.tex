@@ -18,9 +18,9 @@
 \usepackage{IEEEtrantools}
 \usepackage{framed}
 
-\usepackage{draftwatermark}
-\SetWatermarkText{Javier de Martín}
-\SetWatermarkScale{0.8}
+%\usepackage{draftwatermark}
+%\SetWatermarkText{Javier de Martín}
+%\SetWatermarkScale{0.8}
 
 % This sets page margins to .5 inch if using letter paper, and to 1cm
 % if using A4 paper. (This probably isn't strictly necessary.)
@@ -77,7 +77,7 @@
 \begin{document}
 \raggedright
 \footnotesize
-\begin{multicols}{3}
+\begin{multicols}{2}
 
 
 % multicol parameters
@@ -834,7 +834,447 @@ Llegadas aleatorias, tiempos de servicio fijos y 1 servidor.
 		p(t_w > 0) = A = \rho
 	\end{equation*}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tema 4
+
+\section{\underline{Redes de Acceso}}
+
+\subsection{Introducción}
+
+\subsubsection{Introducción}
+
+``\textit{El objetivo es asegurar la comunicacioón oral entre los usuarios del servciio atendiendo a lso estándares de la ITU que fijan las normas para obtener un servicio mínimo de calidad}''
+
+Para proveer el servicio es necesario:
+
+\begin{itemize}
+	\item Red o conjunto de medios que posibiliten el \textbf{acceso a los usuarios del servicio}: terminales de abonado, medios de transmisión (bucle local) y centrales de acceso y conmutación (centrales locales - remotas).
+	\item Red o conjunto de medios que interconectan los medios de acceso de los usuarios para proveer conectividad total entre los usuarios: Redes de transporte y centros de conmutación.
+\end{itemize}
+
+La \text{red} se define como un método de interconexión de centrales para poder proveer conectividad total. En telefonía hay tres métodos utilizados para interconectar centrales:
+
+	\begin{itemize}
+		\item Malla (todos con todos): Eficiente en zonas con usuarios concentrados cerca de los nodos y si el tráfico de usuarios es alto, el número de enlaces es alto $\frac{N(N-1)}{2}$ y la escalabilidad es compleja.
+		\item Estrella (a través de un centro de y estrella doble (varias estrellas a través de un centro de tránsito de segundo orden): Menor número de conexiones ($N$), necesita nodos intermedios de conmutación, óptimo en lugares con poco tráfico, permite dar acceso a zonas aisladas y su escalabilidad es sencilla.
+	\end{itemize}•
+
+\subsubsection{RDI: Red Digital Integrada}
+
+La \textbf{red de acceso} son centrales digitales remotas. Se componen de \textbf{concentradores}: son equipos de conmutación para dar accesos a abonados alejados de la central, las funciones de conmutación las realiza la central autónoma, el camino telefónico de una llamada local pasa por la central autónoma.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/RedAcceso}
+	\end{center}
+
+\textbf{Unidades remotas de abonados}: son equipos con más capacidad de accesos que el concentrador, están conectados a la central autónoma mediante sistemas MIC por cable o bien enlaces de fibra, su funcionamiento es más autónomo que en el caso de los concentradores y tienen capacidad de conmutación para los enlaces locales.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/RDI}
+	\end{center}
+		
+\subsection{Terminal Telefónico}
+
+\subsubsection{Transmisores y Receptores}
+
+El primer sistema basado en un transmisor, un receptor y una batería dispuestos en serie funcionaba por le principio de resistencia variable. El problema era la potencia del transmisor ya que no existían amplificadores. En la actualizad el transmisor es un micrófono de carbón (no lineal y muy sensible).
+
+\subsubsection{El bucle de Abonado}
+
+El \textbf{bucle de abonado} es una conexión física con la central telefónica, inicialmente era un único hilo (aprovechando la tierra) y actualmente son dos hilos (cable de pares). Inicialmente nació como líneas dedicadas entre dos usuarios, posteriormente fueron líneas de conmutación manual (centralitas) y finalmente son centrales de conmutación (strowger).
+
+\subsubsection{La Bobina de Inducción}
+
+Inicialmente eran un transmisor y un receptor en serie. Tenían \textbf{problemas} como la impedancia del altavoz, difícil adaptación de impedancias y la corriente continua que circulaba a través del receptor reducía su eficiencia. Como \textbf{solución} se utiliza la bobina de inducción, se aíslan los TX y RX facilitando la adaptación y evitando que circule corriente continua por el altavoz.
+
+\subsubsection{El Efecto Local (Sidetone)}
+
+Sigue habiendo un \textbf{problema}, las señales del micrófono se escuchan en el auricular. Hay un tercer camino de alta ganancia entre el altavoz y auricular que hace que el ususario se escuche a sí mismo demasiado alto y tienda a hablar más bajo.
+ 	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Sidetone}
+	\end{center}
+
+La adaptación no es perfecta ($Z_{L}$ variable), pero un cierto nivel de sidetone es beneficioso.
+
+\subsubsection{Alimentación y llamada}
+
+La alimentación se realiza desde la central local con $48V$. El consumo de corriente del terminal permite identificar y dar servicio a los usuarios (estados: on-hook y off-hook) \textbf{Insertar Imagen aquí}. El timbre está conectado en paralelo y es de alta impedancia, la señal que se envía a la central es de $75 V_{rms}$ y $50Hz$. 
+
+\subsubsection{Marcación}
+
+\begin{itemize}
+	\item \textbf{Por Pulsos/Decamétrica}:
+	\item \textbf{DTMF} (\textit{Dual Tone MultiFrequency}):
+\end{itemize}
+
+\subsubsection{Otros tipos de terminales}
+
+La ITU define dos tipos de módems:
+
+\begin{itemize}
+	\item \textbf{Modems Digitales}: Envía señales G.711 y recibe señales V.34 codificadas con el estándar V.34. Se conecta a una red con conmutación digital con un interfaz digital.
+	\item \textbf{Modems Analógicos}: Generan señales V.34 y reciben señales G.711 que han sido decodificadas en una central local de abonado telefónico y preparadas para su envío a través de un bucle de abonado.
+\end{itemize}
+
+G.711 - Pulse Code Modulation (PCM) of voice frequencies\\
+V.34 - A modem operating (up to 33.600 bit/s) for use in 2-wire analog PSTN
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/SpecsModem}
+	\end{center}
+
+Los módems tienen distintas especificaciones que varían según las redes.
+
+\begin{itemize}
+	\item V.26 - 2400 bps para uso en líneas alquiladas a 4 hilos
+	\item V.27 - 4800 bps para uso en líneas alquiladas
+	\item V.27ter - 4800/2400 bps para uso genérico en la red telefónica conmutada
+	\item V.29 - 9600 bps para uso en líneas alquiladas punto a punto a 4 hilos
+	\item V.34 - 33600 bps para uso genérico en la red telefónica conmutada
+	\item V.90 - 56000 bps en el enlace descendente y hasta 33600 bps para el ascendente. Uso genérico en la red telefónica conmutada
+\end{itemize}
+
+\textbf{Funciones} de un modem:
+
+	\begin{enumerate}
+		\item \textbf{Circuitos para compatibilizar la señalización RDI}: Descolgado, marcado y detección de tono marcado.
+		\item \textbf{Circuitos de envío de la señal de datos} en la banda de frecuencias vocal
+		\item \textbf{Transmisión a cuatro hilos equivalentes}: Diferentes portadoras en cada sentido e inclusión de filtros para minimizar interferencias.
+	\end{enumerate}
+	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/FuncModem}
+	\end{center}
+	
+\subsubsection{Operación de un Modem}
+
+El módem receptor espera en answer mode, en el otro extremo espera en call mode y se simula el off-hook escuchando el tono de invitación a marcar y se envían pulsos o tonos para marcar. El modem en modo answer detecta las señales de llamada, simula el off-hook y envía una portadora. El modem en modo llamada envía una portadora y se intercambian los datos ambos.
+
+\subsubsection{Módem V.34}
+
+Permite mayor número de bits por símbolo y permite modulación QAM transmitiendo información en la amplitud y en la fase, incluye códigos de corrección y permite compresión. Estos módems se diseñaron para optimizar la situación en la que ambos lados de la comunicación eran analógicos.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/ModemV34}
+	\end{center}
+
+Este tipo de módems está limitado por el ruido de cuantificación. El estándar V34 no tiene en cuenta la arquitectura real de la conexión entre la red telefónica y el proveedor de acceso a internet, siendo el bucle local la única parte analógica de la transmisión, el ruido de cuantificación sólo está presente en la parte del enlace ascendente.
+
+\subsubsection{Módem V90}
+
+Estándar doméstico desde 1998, el principio de funcionamiento se basa en que el ISP tiene una conexión digital con la central local. Por lo tanto se asume que solo existe una conversión analógico-digital en el camino hasta el ISP.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/ModemV90}
+	\end{center}
+
+
+\subsubsection{Comunicaciones de Facsímil a través de la RTB}
+
+Los terminales de facsímil siguen estándares de la ITU-T. Los faxes se dividen en varios grupos según si el escaneado es digital y su velocidad de transmisión.
+
+\subsection{Bucle de Abonado}
+
+
+\subsubsection{Introducción}
+
+Medio físico que une la red telefónica con el terminal de abonado. En la RDI este acceso es analógico y basado en cable de pares, representa gran parte del coste de una red.
+
+\subsubsection{Distribución entre la central y el abonado}
+
+El interfaz con la red telefónica: La centrla local
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/CentralLocal}
+	\end{center}
+
+Esquema de distribución de cable de pares
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Distribucion}
+	\end{center}	
+
+Bridged - Taps
+
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Taps}
+	\end{center}
+	
+Extensión en circuito abierto conectado en paralelo a un bucle de abonado, puede originarse en un cambio de conexión (nueva localización). Permite dar flexibilidad en las instalaciones telefónicas. Produce desadaptación de impedancias, reflexiones (problema en los equipos de línea de la central y el abonado). Es dañino en altas frecuencias (ADSL).
+
+\subsubsection{Elementos básicos de la instalación}
+
+\subsubsection{Características típicas del bucle de abonado}
+
+Los cables se clasifican según su galga (diámetro), según su categoría permiten se establece su velocidad de transmisión y su aplicación varía. La distancia máxima del bucle del abonado está limitada por \textbf{limitación óhmica} y \textbf{limitación por pérdidas (atenuación)}.
+
+\subsubsection{Centrales locales: Interfaz con el bucle de abonado}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/CentralFuncional}
+	\end{center}
+	
+La central local tiene como \textbf{funciones}: \textbf{funciones de mantenimiento} en la que supervisa las líneas de abonado y los enlaces y \textbf{funciones de operación} en las que maneja datos administrativos y datos estadísticos.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/CentralFuncional2}
+	\end{center}
+
+El interfaz con la red telefónica
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/InterfazRed}
+	\end{center}
+
+\subsubsection{Perturbaciones en el bucle de abonado}
+
+La \textbf{bobina híbrida} permite separar los canales de ida y vuelta. Las conexiones entre abonados son a dos hilos y las conexiones entre centrales son a cuatro hilos. Al ser elemenots ideales, en las redes telefónicas se ocasionan los problemas de ECO y CANTO.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/BobinaHibrida}
+	\end{center}
+	
+\textbf{Pérdidas de retorno}:
+
+	\begin{equation*}
+		A_{R} =  20 \cdot \log(\left| \frac{1}{\rho} \right| ) = 20 \cdot \log \left| \frac{Z_{L} + Z_{E}}{Z_{E} - Z_{L}} \right|
+	\end{equation*}
+
+\textbf{Atenuación Transhíbrida}:
+
+	\begin{equation}
+		A_{TH} = 2 \alpha + A_{R}
+	\end{equation}•
+	
+\textbf{Estudio de la Inestabilidad}:	
+	
+Pérdida entre extremos a 2 hilos: $T = 2 \alpha + L - G$
+
+Margen de estabilidad $S = \frac{M}{2}$. El bucle a cuatro hilos será estable si no tiene ganancia, es decir, si $M = 0$. Habitualmente $S = 3 dB$.	
+	
+En la bobina híbrida aparecen dos tipos de \textbf{eco}:
+
+	\begin{itemize}
+		\item \textbf{Eco del hablante}: el hablante escucha un eco de su propia voz
+		\item \textbf{Eco del oyente}: el oyente escucha un eco de la señal que escucha
+	\end{itemize}
+	
+Para solucionar estos problemas se utilizan dos componentes. \textbf{NES} (\textit{Network Echo Supressor}) anula la línea de transmisión cuando se detecta la señal recibida. Es equivalente a una comunicación semi-dúplex.
+	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/NES}
+	\end{center}
+	
+El \textbf{NEC} (\textit{Network Echo Canceller}) elimina en la rama de transmisión la señal de eco calculada a partir de la rama de recepción
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/NEC}
+	\end{center}
+
+\textbf{Interfaces PSTN e ISDN en una central local}. ISDN es Inegrated Service Data Network y PSTN Public Switched Telephone Network.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/ISDN}
+	\end{center}
+
+\textbf{Interfaz V1} acceso básico para la RDSI, sus funciones básicas son: $2B + D$ ($2x64 kbps + 16 kbps$ canalización), temporización y sincronismo de trama, activación y desactivación del terminal de línea, operación y mantenimiento, alimentación... \textbf{V2 Interfaz para la conexión con concentradores}: 2048 kbit/s, $30B + D$. \textbf{V3 similar a V2 pero pensado para interfaz con centralitas (PABX)}: $30B + D$ a 2048 kbit/s y también $23B+D$ a 1544 kbit/s.
+
+
+
+\subsubsection{DLC (Digital Loop Carriers)}
+
+
+
+\subsection{xDSL}
+
+\subsection{HFC y redes de fibra}
+
+
+\subsection{Acceso Vía Radio}
+
+
+\subsection{Sistemas PCM}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tema 5
+
+\section{\underline{Redes Troncales y de Transporte}}
+
+\subsection{PDH}
+
+\subsubsection{Introducción}
+
+La tecnología PDH (\textit{Plesiochronous Digital Hierarchy}) permite multiplexar en tramas de orden superior afluentes MIC 30+2. Optimiza los recursos en los enlaces transmitiendo el mayor número de canales vocales posibles con el mínimo de recursos. Al ser sistemas digitales, la multiplexación es TDM. PDH consiste en una red en la que los relojes con ``casi'' síncronos, tendrán la misma velocidad pero estarán sujetos a una tolerancia. Existen varios estándares. Es coherente con la diferencia en el proceso de creación de la trama básica MIC.\\
+
+Las jerarquías digitales son la herramienta de transporte de las redes telefónicas digitales.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Jerarquia}
+	\end{center}
+	
+La UIT especifica los niveles de multiplexación posible y la estructura de las tramas multiplexadas.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/NivelesMUX}
+	\end{center}
+
+Las señales de entrada a un multiplexor son \textbf{tributarias} o \textbf{afluentes}. La multiplexación se realiza a nivel del bit.
+
+\subsubsection{Velocidades PDH}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/VelocidadPDH}
+	\end{center}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/CaracteristicasPDH}
+	\end{center}	
+
+\subsubsection{Justificación o Relleno}
+
+Los equipos de la red PDH no están sincronizados, utilizan distintos relojes con la misma velocidad pero con tolerancias sobre la velocidad nominal. Esto supone un problema para la multiplexación.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/JustificacionPDH}
+	\end{center}	
+
+Las tramas contemplan espacios para bits de relleno que se pueden utilizar como bits de información si es necesario $\rightarrow$ Justificación positiva
+	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Relleno}
+	\end{center}	
+
+La técnica de justificación tiene tres variantes: positiva, negativa (supresión de impulsos sobre los afluentes), positiva-nula-negativa (usada en la SDH). Si se ha utilizado justificación en la trama es necesario indicarlo, hay bits de control de justificación sobre qué afluente se ha realizado.
+
+\subsubsection{Estructura de la trama G.742 - 8 Mbps}
+	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/TramaG742}
+	\end{center}	
+
+\subsubsection{Estructura de las tramas G.751 - 34 Mbps}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/TramaG751}
+	\end{center}
+	
+\subsubsection{Estructura de las tramas G.751 - 140 Mbps}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/TramaG7512}
+	\end{center}		
+
+\subsubsection{Velocidades de trama de señales PDH}
+
+\textbf{Tasa Nominal de Justificación}: $\theta = \frac{F_{J}}{F_{A}}$\\
+	\quad $F_{A}$: Velocidad de justificación cuando el afluente llega a velocidad nominal\\
+	\quad $F_{J}$: Frecuencia Nominal de Justificación
+
+\textbf{Frecuencia de Redundancia}\\
+	\quad Frecuencia a la que se insertan los bits de control \\
+	\quad Tasa de redundancia $R$
+	
+\textbf{Relación Nominal de Justificación}: Relación entre la velocidad nominal de justificación  y la velocidad máxima de justificación posible. $g = \frac{F_{J}}{F_{J}^{MAX}}$
+
+\textbf{Frecuencia del Múltiplex}: $F_{M} = N \cdot F_{A} * (1 + \theta) (1 + R)$
+
+
+\subsubsection{Tipos de Equipos en redes PDH}
+
+\textbf{Terminales de línea}
+
+\textbf{Multiplexores}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Electrico}
+	\end{center}	
+
+\textbf{Radio}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Radio}
+	\end{center}
+
+\textbf{Optico}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Optico}
+	\end{center}
+
+\textbf{Multiplexores de acceso: canales de usuario / 2M}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Mux}
+	\end{center}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/MuxTerminal}
+	\end{center}
+
+\textbf{Multiplexores de Inserción y Extracción}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/MuxExtra}
+	\end{center}
+
+Tipos de conexiones:
+
+	\begin{itemize}
+	\item Punto a punto
+		\begin{center}
+			\includegraphics[scale=0.2]{images/P2P}
+		\end{center}
+	\item Punto a Multipunto
+		\begin{center}
+			\includegraphics[scale=0.2]{images/P2M}
+		\end{center}
+	\item Punto a Multipunto
+		\begin{center}
+			\includegraphics[scale=0.2]{images/Uni}
+		\end{center}
+	\item Protección de circuitos: sistemas propietarios
+	\end{itemize}
+
+\textbf{Cross connect}
+
+	\begin{center}
+			\includegraphics[scale=0.2]{images/Cross}
+		\end{center}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %\vfill
 
+\end{multicols}
 
 \end{document}
