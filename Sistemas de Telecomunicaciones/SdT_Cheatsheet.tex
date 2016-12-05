@@ -1,7 +1,7 @@
-\documentclass[10pt,landscape]{article}
+\documentclass[10pt,portrait, twocolumn]{article}
 \usepackage{multicol}
 \usepackage{calc}
-\usepackage[landscape]{geometry}
+\usepackage[portrait]{geometry}
 \usepackage{amsmath,amsthm,amsfonts,amssymb}
 \usepackage{times}
 \usepackage{color,graphicx,overpic}
@@ -17,6 +17,9 @@
 \usepackage[spanish, activeacute] {babel}
 \usepackage{IEEEtrantools}
 \usepackage{framed}
+
+\usepackage{pdflscape}
+
 
 %\usepackage{draftwatermark}
 %\SetWatermarkText{Javier de Martín}
@@ -75,6 +78,9 @@
 % ---------------------------------------------------------------
 
 \begin{document}
+
+\begin{landscape}
+
 \raggedright
 \footnotesize
 \begin{multicols}{2}
@@ -833,6 +839,22 @@ Llegadas aleatorias, tiempos de servicio fijos y 1 servidor.
 	\begin{equation*}
 		p(t_w > 0) = A = \rho
 	\end{equation*}
+	
+	
+\end{multicols}
+\end{landscape}
+
+
+\begin{framed}
+	\begin{center}
+    	\Large{\underline{Sistemas de Telecomunicación}} \\
+    	\scriptsize{3º Ingeniería de Telecomunicaciones | UPV/EHU}\\
+     	%Actualizado por última vez el \today \\
+     	"\textsl{Under-promise and over-deliver}." \\
+     	%\hspace{5 pt} \\
+     	\small{\textbf{Javier de Martín -- 2016}}
+	\end{center}
+\end{framed}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tema 4
@@ -1097,11 +1119,14 @@ El \textbf{NEC} (\textit{Network Echo Canceller}) elimina en la rama de transmis
 
 \subsection{Sistemas PCM}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tema 5
 
+\hrulefill
+
 \section{\underline{Redes Troncales y de Transporte}}
+
+\hrulefill
 
 \subsection{PDH}
 
@@ -1244,6 +1269,40 @@ Tipos de conexiones:
 			\includegraphics[scale=0.2]{images/Cross}
 		\end{center}
 
+\hrulefill
+
+\subsection{SDH}
+
+\subsubsection{Introducción}
+
+\subsubsection{Velocidades SDH-SONET}
+
+\subsubsection{Topologías de Red}
+
+\subsubsection{Arquitectura SDH}
+
+\subsubsection{Estructura STM-1/STM-N/STM-Nc}
+
+\subsubsection{Tara de Sección}
+
+\subsubsection{Contenedores y Punteros}
+
+\subsubsection{Multiplexación y Mapeado de señales PDH sobre SDH}
+
+\subsubsection{Gestión de red SDH}
+
+\subsubsection{Protección en SDH}
+
+\subsubsection{Sincronismo}
+
+\subsubsection{Arquitectura de un operador}
+
+
+
+
+
+
+
 
 
 
@@ -1275,6 +1334,6 @@ Tipos de conexiones:
 
 %\vfill
 
-\end{multicols}
+%\end{multicols}
 
 \end{document}
