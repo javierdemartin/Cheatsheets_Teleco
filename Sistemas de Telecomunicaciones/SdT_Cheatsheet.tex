@@ -21,9 +21,9 @@
 \usepackage{pdflscape}
 
 
-%\usepackage{draftwatermark}
-%\SetWatermarkText{Javier de Martín}
-%\SetWatermarkScale{0.8}
+\usepackage{draftwatermark}
+\SetWatermarkText{Javier de Martín}
+\SetWatermarkScale{0.8}
 
 % This sets page margins to .5 inch if using letter paper, and to 1cm
 % if using A4 paper. (This probably isn't strictly necessary.)
@@ -83,7 +83,7 @@
 
 \raggedright
 \footnotesize
-\begin{multicols}{2}
+\begin{multicols}{3}
 
 
 % multicol parameters
@@ -1275,9 +1275,56 @@ Tipos de conexiones:
 
 \subsubsection{Introducción}
 
+El antecedente a las redes SDH (Sinchronous Digital Hierarchy) son los sistemas PDH. Multiplexación de sistemas MIC 30+2, creación de múltiplex de orden superior mediante multiplexación ``casi'' síncrona, los equipos utilizan relojes no sincronizados $\rightarrow$ para poder realizar correctamente la multiplexación se requiere de técnicas de justificación. Tienen una serie de \textbf{problemas}: \textbf{No existe compatibilidad en los estándares utilizados en diferentes países} y los equipos de adaptación son costosos, \textbf{las capacidades máximas son limitadas}, \textbf{problemas para extraer flujos} ya que para extraer un flujo de nivel inferior directamente de un flujo de nivel superior hay que demultiplexar todos los flujos, \textbf{no está pensada para el uso de fibra óptica como medio de transmisión}, \textbf{carece de herramientas de gestión y no prevé sistemas de tolerancia a fallos en los enlaces} limitando el ancho de banda disponible para la señalización y la gestión de la red siendo los sistemas de gestión y mantenimiento propietarios.
+
+Extracción de una tributaria de 2 Mbps en un múltiplex de 139 Mbps
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Extraccion}
+	\end{center}
+
+Estos problemas los resuelve SDH. Da lugar a un estándar ANSI que se denominó SONET.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/AddDrop}
+	\end{center}
+
+
 \subsubsection{Velocidades SDH-SONET}
 
+Aquí irían las tablas
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/EjemploTrans}
+	\end{center}
+
+\begin{itemize}
+	\item \textbf{Regeneradores}: Regeneradores de señal utilizados en enlaces de larga distancia, donde las perturbaciones del medio de transmisión limitan el alcance del enlace.
+	\item \textbf{Multiplexores terminales}: Permiten combinar señales de entrada PDH o SDH en señales STM-N de mayor velocidad.
+	\item \textbf{Multiplexores ADM} (Add and Drop Multiplexer): Permiten intercalar o extraer tramas de un determinado múltiplex. Permiten la formación de anillos.
+	\item \textbf{Digital Cross-Connect}: Permiten la interconexión de diferentes secciones o anillos de la red SDH, tienen varias entradas y varias salidas.
+\end{itemize}
+
 \subsubsection{Topologías de Red}
+
+\begin{itemize}
+	\item Punto a Punto
+		\begin{center}
+			\includegraphics[scale=0.2]{images/SDHP2P}
+		\end{center}
+	\item Lineal / Punto a Multipunto
+		\begin{center}
+			\includegraphics[scale=0.2]{images/SDHMulti}
+		\end{center}
+	\item Anillo
+		\begin{center}
+			\includegraphics[scale=0.2]{images/SDHAnillo}
+		\end{center}
+	\item Anillo: Comunicación full duplex con una fibra
+		\begin{center}
+			\includegraphics[scale=0.2]{images/SDHAnillo2}
+		\end{center}
+\end{itemize}
 
 \subsubsection{Arquitectura SDH}
 
