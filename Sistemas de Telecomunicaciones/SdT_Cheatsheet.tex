@@ -1290,7 +1290,7 @@ El codificador ADPCM funciona a varias velocidades (16-32 kbps). Completa el cod
 	
 \hrulefill
 
-\subsection{HCF y Redes de Fibra}
+\subsection{Redes de Fibra}
 
 El acceso a través de fibra óptica es una alternativa más. Existen varias aproximaciones que se basan en criterios económicos y de necesidad de ancho de banda. FTT, Fiber to the X (cabinet, curb, building, home...). En su mayoría es una red óptica pasiva. 
 
@@ -1328,12 +1328,92 @@ Sistemas basados en ATM (\textit{Asynchronous Transfer Mode}), la distancia máx
 		\includegraphics[scale=0.2]{images/APON}
 	\end{center}
 
+\hrulefill
+
+\subsection{HFC}
+
+
+Las \textbf{redes de cable} nacen ante la necesidad de resolver la mala calidad de las señales recibidas en poblaciones alejadas de los grandes núcleos urbanos. La arquitectura típica era árbol-rama. A partir de los años 80 a parecen las redes HFC (\textit{Hybrid Iber Coax}) que es una combinación de fibra óptica y cable coaxial. Surge un cambio en la estructura de la red, ahora es una combinación de estrella con árbol-rama. En un primer tramo, las fibras ópticas llevan la inforamción desd ela cabecera hasta unos nodos finales donde se realiza la conversión óptico/eléctrico con una topología de estrella y a partir de los cuales se despliega la típica red de coaxial con estructura de árbol-rama hasta los usuarios.
+
+La red de fibra tiene una topología en estrella, los anillos son sólo un método para introducir redundancia (una fibra de subida y otra de bajada por cada lado del anillo) y conseguir una red más robusta ante averías. Entre cada nodo primario y nodo final hay 4 fibras dedicadas (2 de subida y 2 de bajada).
+
+La topología HFC mejora la calidad gracias a que con la fibra disminuyen las interferencias y el número de amplificadores. Lo último también mejora la fiabilidad. Necesita menor alimentación, proporcionando mayor sencillez y menor coste. Aumenta la capacidad por acercar las fibras dedicadas a los usuarios. Permite dirigir algunos servicios por la parte en la estrella de la topología frente a la difusión de las redes antiguas. La tendencia es acercar más la fibra al usuario: FTTF $\rightarrow$ FTTC $\rightarrow$ FTTB $\rightarrow$ FTTH.
+
+La \textbf{red HFC de Euskaltel} responde a la estructura de una red FTTC, es bidireccional y comparte la misma infraestructura que la red de transporte de Euskaltel destinada a los servicios de telefonía y datos. Se compone de: cabecera, red de contribución, red troncal, red de distribución y red de acometida de los abonados.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Euskaltel}
+	\end{center}
+	
+La \textbf{red troncal}, para que la red no tenga degradaciones importantes la red ha de ser de fibra óptica. Realiza el transporte de las señales desde las cabeceras territoriales hasta los nodos finales a través de los tres niveles de red, habiendo rutas, equipamiento y fibras reduntantes. La red troncal primaria está constituida por anillos de fibra óptica que enlaza cada cabecera territorial con los nodos primarios de su provincia. La red troncal secundaria está constituida por anillos de fibra óptica que unen los nodos primarios con los secundarios. La red troncal terciaria está formada por anillos de fibra óptica que unen los nodos ópticos entre si y con los nodos secundarios.
+
+Elementos de la red troncal:
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/RedTroncal}
+	\end{center}
+	
+Elementos de la red de distribución:
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/RedDistribucion}
+	\end{center}
+
+La red de abonado une el tap situado en la entrada de los edificios con la toma final en la vivienda del usuario.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Esquema}
+	\end{center}
+
+\hrulefill
+
+\subsection{Acceso Via Radio}
+
+Soluciona los problemas de realizar obras para instalar una red de bucle de abonado. Es de bajo coste, rápido despliegue, accesible en zonas remotas, no necesita gran inversión inicial, el crecimiento es adaptado a la demanda, bajos costes de mantenimiento, retorno de inversión rápido...
+
+\subsubsection{Características de los sistemas PMP}
+
+Tiene esctructura celular, optimiza el espectro y necesita baja potencia. Establece la conexión entre subscriptores y central a través de radioenlaces digitales bidireccionale (necesita visibilidad radioeléctrica entre el cliente y la estación base de red).
+
+\subsubsection{Estructura de la Red}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/EstructuraRed}
+	\end{center}
+	
+Algunos sistemas tienen estructura celular, éstas dependen de la orografía y de la densidad de clientes. Se reutilizan frecuencias dentro de una celda a otra. La utilización de polarizaciones diferentes permite optimizar más aún el espectro asignado.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Espectro}
+	\end{center}
+
+\subsubsection{Eficiencia}
+
+Estos sistemas utilizan asignación dinámica de anchos de banca. Consiste en gestionar el espectro dinámicamente para asignar recursos a los usuarios. Permite comportir parte del espectro entre varios clientes según sus necesidades. Generalmente replican sistemas de conmutación ATM o Frame Relay.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Eficiencia}
+	\end{center}
+	
+\subsubsection{Modulaciones y Ancho de Banda}
+
+La capacidad de estos sistemas depende del ancho de banda disponible por el operador y la eficiencia espectral de la modulación empleada. Factor de utilización de frecuencias (doble uso de la banda asignada dentro de una celda con polarizaciones cruzadas), factor de compartición del espectro entre usuarios.
+
+\subsubsection{MMDS}
+
+Multichannel Multipoint Distribution System fue pensado originalmente como un servicio de difusión. Opera en la banda de los 3.5 GHz, las versiones posteriores son digitales con posibilidad de retorno, necesita visibilidad entre emisor-receptor, es sensible al multitrayecto, no se ve atenuado por la lluvia.
+
+\subsubsection{LMDS}
+
+Local Multipoint Distribution system utiliza la banda de frecuencias entre 24-40 GHz, emplea la modulación QPSK o 16 QAM. Sistema celular basado en células pequeñas, emplea transmisores de baja potencia, afectado por la atenuación atmosférica y en ocasiones no es necesario visión directa debido a las reflexiones.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tema 5
 
 \hrulefill
 
-\section{\underline{Redes Troncales y de Transporte}}
+\section{5. Redes Troncales y de Transporte}
 
 \hrulefill
 
