@@ -21,9 +21,9 @@
 \usepackage{pdflscape}
 
 
-\usepackage{draftwatermark}
-\SetWatermarkText{Javier de Martín}
-\SetWatermarkScale{0.8}
+%\usepackage{draftwatermark}
+%\SetWatermarkText{Javier de Martín}
+%\SetWatermarkScale{0.8}
 
 % This sets page margins to .5 inch if using letter paper, and to 1cm
 % if using A4 paper. (This probably isn't strictly necessary.)
@@ -859,11 +859,11 @@ Llegadas aleatorias, tiempos de servicio fijos y 1 servidor.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tema 4
 
-\section{\underline{Redes de Acceso}}
+\hrulefill
 
-\subsection{Introducción}
+\section{4. Redes de Acceso}
 
-\subsubsection{Introducción}
+\hrulefill
 
 ``\textit{El objetivo es asegurar la comunicacioón oral entre los usuarios del servciio atendiendo a lso estándares de la ITU que fijan las normas para obtener un servicio mínimo de calidad}''
 
@@ -879,9 +879,14 @@ La \text{red} se define como un método de interconexión de centrales para pode
 	\begin{itemize}
 		\item Malla (todos con todos): Eficiente en zonas con usuarios concentrados cerca de los nodos y si el tráfico de usuarios es alto, el número de enlaces es alto $\frac{N(N-1)}{2}$ y la escalabilidad es compleja.
 		\item Estrella (a través de un centro de y estrella doble (varias estrellas a través de un centro de tránsito de segundo orden): Menor número de conexiones ($N$), necesita nodos intermedios de conmutación, óptimo en lugares con poco tráfico, permite dar acceso a zonas aisladas y su escalabilidad es sencilla.
-	\end{itemize}•
+		\item Estrella doble: Varias estrellas a través de un centro de tránsito de segundo orden.
+	\end{itemize}
 
-\subsubsection{RDI: Red Digital Integrada}
+\subsection{RDI: Red Digital Integrada}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/RDII}
+	\end{center}
 
 La \textbf{red de acceso} son centrales digitales remotas. Se componen de \textbf{concentradores}: son equipos de conmutación para dar accesos a abonados alejados de la central, las funciones de conmutación las realiza la central autónoma, el camino telefónico de una llamada local pasa por la central autónoma.
 
@@ -895,6 +900,8 @@ La \textbf{red de acceso} son centrales digitales remotas. Se componen de \textb
 		\includegraphics[scale=0.2]{images/RDI}
 	\end{center}
 		
+\hrulefill		
+
 \subsection{Terminal Telefónico}
 
 \subsubsection{Transmisores y Receptores}
@@ -921,16 +928,13 @@ La adaptación no es perfecta ($Z_{L}$ variable), pero un cierto nivel de sideto
 
 \subsubsection{Alimentación y llamada}
 
-La alimentación se realiza desde la central local con $48V$. El consumo de corriente del terminal permite identificar y dar servicio a los usuarios (estados: on-hook y off-hook) \textbf{Insertar Imagen aquí}. El timbre está conectado en paralelo y es de alta impedancia, la señal que se envía a la central es de $75 V_{rms}$ y $50Hz$. 
+La alimentación se realiza desde la central local con $48V (CC)$. El consumo de corriente del terminal permite identificar y dar servicio a los usuarios (estados: \textit{on-hook}, colgado, y \textit{off-hook}, descolgado). El timbre está conectado en paralelo y es de alta impedancia, la señal que se envía a la central es de $75 V_{rms}$ y $50Hz$. 
 
 \subsubsection{Marcación}
 
-\begin{itemize}
-	\item \textbf{Por Pulsos/Decamétrica}:
-	\item \textbf{DTMF} (\textit{Dual Tone MultiFrequency}):
-\end{itemize}
+Se realiza por dos formas: \textbf{por pulsos o decamétrica} o \textbf{DTMF} (\textit{Dual Tone Multifrecuency}).
 
-\subsubsection{Otros tipos de terminales}
+\subsubsection{Otros tipos de terminales: Módems}
 
 La ITU define dos tipos de módems:
 
@@ -939,23 +943,17 @@ La ITU define dos tipos de módems:
 	\item \textbf{Modems Analógicos}: Generan señales V.34 y reciben señales G.711 que han sido decodificadas en una central local de abonado telefónico y preparadas para su envío a través de un bucle de abonado.
 \end{itemize}
 
-G.711 - Pulse Code Modulation (PCM) of voice frequencies\\
-V.34 - A modem operating (up to 33.600 bit/s) for use in 2-wire analog PSTN
+\begin{center}
+	{\scriptsize G.711 - Pulse Code Modulation (PCM) of voice frequencies\\
+	V.34 - A modem operating (up to 33.600 bit/s) for use in 2-wire analog PSTN}
+\end{center}
+
 
 	\begin{center}
 		\includegraphics[scale=0.2]{images/SpecsModem}
 	\end{center}
 
 Los módems tienen distintas especificaciones que varían según las redes.
-
-\begin{itemize}
-	\item V.26 - 2400 bps para uso en líneas alquiladas a 4 hilos
-	\item V.27 - 4800 bps para uso en líneas alquiladas
-	\item V.27ter - 4800/2400 bps para uso genérico en la red telefónica conmutada
-	\item V.29 - 9600 bps para uso en líneas alquiladas punto a punto a 4 hilos
-	\item V.34 - 33600 bps para uso genérico en la red telefónica conmutada
-	\item V.90 - 56000 bps en el enlace descendente y hasta 33600 bps para el ascendente. Uso genérico en la red telefónica conmutada
-\end{itemize}
 
 \textbf{Funciones} de un modem:
 
@@ -981,7 +979,7 @@ Permite mayor número de bits por símbolo y permite modulación QAM transmitien
 		\includegraphics[scale=0.2]{images/ModemV34}
 	\end{center}
 
-Este tipo de módems está limitado por el ruido de cuantificación. El estándar V34 no tiene en cuenta la arquitectura real de la conexión entre la red telefónica y el proveedor de acceso a internet, siendo el bucle local la única parte analógica de la transmisión, el ruido de cuantificación sólo está presente en la parte del enlace ascendente.
+Este tipo de módems está \textbf{limitado} por el ruido de cuantificación. El estándar V34 no tiene en cuenta la arquitectura real de la conexión entre la red telefónica y el proveedor de acceso a internet, siendo el bucle local la única parte analógica de la transmisión, el ruido de cuantificación sólo está presente en la parte del enlace ascendente.
 
 \subsubsection{Módem V90}
 
@@ -991,21 +989,25 @@ Estándar doméstico desde 1998, el principio de funcionamiento se basa en que e
 		\includegraphics[scale=0.2]{images/ModemV90}
 	\end{center}
 
-
 \subsubsection{Comunicaciones de Facsímil a través de la RTB}
 
 Los terminales de facsímil siguen estándares de la ITU-T. Los faxes se dividen en varios grupos según si el escaneado es digital y su velocidad de transmisión.
 
+\hrulefill
+
 \subsection{Bucle de Abonado}
 
+Medio físico que une la red telefónica con el terminal de abonado. En la RDI este acceso es analógico y basado en cable de pares, representa gran parte del coste de una red. Existen tecnologías alternativas pero sigue siendo el predominante en usuarios domésticos. Va a seguir implantada durante mucho teimpo $\rightarrow$ demanda de servicio de voz únicamente.
 
-\subsubsection{Introducción}
+Distintos medios de acceso por pares:
 
-Medio físico que une la red telefónica con el terminal de abonado. En la RDI este acceso es analógico y basado en cable de pares, representa gran parte del coste de una red.
+	\begin{center}
+		\includegraphics[scale=0.2]{images/BucleIntro}
+	\end{center}
 
 \subsubsection{Distribución entre la central y el abonado}
 
-El interfaz con la red telefónica: La centrla local
+El interfaz con la red telefónica: La central local
 
 	\begin{center}
 		\includegraphics[scale=0.2]{images/CentralLocal}
@@ -1017,34 +1019,33 @@ Esquema de distribución de cable de pares
 		\includegraphics[scale=0.2]{images/Distribucion}
 	\end{center}	
 
-Bridged - Taps
+\subsubsection{Bridged - Taps}
 
+Método de cableado para redes telefónicas. Un par de cables ``aparecerá'' en distintas localizaciones de terminales permitiendo a la compañía telefónica asignar ese par a cualquier cliente que esté cerca de ese terminal. Una vez ese cliente se desconecta, el par se convierte en disponible para cualquiera de los terminales. Esta conexión es una ``T'' en el cable, no tiene bobina híbrida o un componente de adaptación de impedancias produciendo reflexiones de la señal en el cable.
 
 	\begin{center}
 		\includegraphics[scale=0.2]{images/Taps}
 	\end{center}
-	
-Extensión en circuito abierto conectado en paralelo a un bucle de abonado, puede originarse en un cambio de conexión (nueva localización). Permite dar flexibilidad en las instalaciones telefónicas. Produce desadaptación de impedancias, reflexiones (problema en los equipos de línea de la central y el abonado). Es dañino en altas frecuencias (ADSL).
 
-\subsubsection{Elementos básicos de la instalación}
+\subsubsection{Características de los cables }
 
-\subsubsection{Características típicas del bucle de abonado}
-
-Los cables se clasifican según su galga (diámetro), según su categoría permiten se establece su velocidad de transmisión y su aplicación varía. La distancia máxima del bucle del abonado está limitada por \textbf{limitación óhmica} y \textbf{limitación por pérdidas (atenuación)}.
+Los cables se clasifican según su galga (diámetro), según su categoría se establece su velocidad de transmisión y su aplicación varía. La distancia máxima del bucle del abonado está limitada por \textbf{limitación óhmica} y \textbf{limitación por pérdidas (atenuación)}.
 
 \subsubsection{Centrales locales: Interfaz con el bucle de abonado}
+
+Central Local
 
 	\begin{center}
 		\includegraphics[scale=0.2]{images/CentralFuncional}
 	\end{center}
 	
-La central local tiene como \textbf{funciones}: \textbf{funciones de mantenimiento} en la que supervisa las líneas de abonado y los enlaces y \textbf{funciones de operación} en las que maneja datos administrativos y datos estadísticos.
+La central local tiene como \textbf{funciones} el \textbf{ mantenimiento} en la que supervisa las líneas de abonado y los enlaces, \textbf{funciones de operación} en las que maneja datos administrativos y datos estadísticos y puede añadir \textbf{servicios de valor añadido} si así lo desea.
 
 	\begin{center}
 		\includegraphics[scale=0.2]{images/CentralFuncional2}
 	\end{center}
 
-El interfaz con la red telefónica
+El interfaz con la red telefónica: La Central Local
 
 	\begin{center}
 		\includegraphics[scale=0.2]{images/InterfazRed}
@@ -1052,7 +1053,7 @@ El interfaz con la red telefónica
 
 \subsubsection{Perturbaciones en el bucle de abonado}
 
-La \textbf{bobina híbrida} permite separar los canales de ida y vuelta. Las conexiones entre abonados son a dos hilos y las conexiones entre centrales son a cuatro hilos. Al ser elemenots ideales, en las redes telefónicas se ocasionan los problemas de ECO y CANTO.
+La \textbf{bobina híbrida} permite separar los canales de ida y vuelta. Las conexiones entre abonados son a dos hilos y las conexiones entre centrales son a cuatro. Al ser elementos ideales, en las redes telefónicas se ocasionan los problemas de ECO y CANTO.
 
 	\begin{center}
 		\includegraphics[scale=0.2]{images/BobinaHibrida}
@@ -1061,14 +1062,14 @@ La \textbf{bobina híbrida} permite separar los canales de ida y vuelta. Las con
 \textbf{Pérdidas de retorno}:
 
 	\begin{equation*}
-		A_{R} =  20 \cdot \log(\left| \frac{1}{\rho} \right| ) = 20 \cdot \log \left| \frac{Z_{L} + Z_{E}}{Z_{E} - Z_{L}} \right|
+		A_{R} =  20 \cdot \log \left( \left| \frac{1}{\rho} \right| \right) = 20 \cdot \log \left| \frac{Z_{L} + Z_{E}}{Z_{E} - Z_{L}} \right|
 	\end{equation*}
 
 \textbf{Atenuación Transhíbrida}:
 
 	\begin{equation}
 		A_{TH} = 2 \alpha + A_{R}
-	\end{equation}•
+	\end{equation}
 	
 \textbf{Estudio de la Inestabilidad}:	
 	
@@ -1089,7 +1090,7 @@ Para solucionar estos problemas se utilizan dos componentes. \textbf{NES} (\text
 		\includegraphics[scale=0.2]{images/NES}
 	\end{center}
 	
-El \textbf{NEC} (\textit{Network Echo Canceller}) elimina en la rama de transmisión la señal de eco calculada a partir de la rama de recepción
+El \textbf{NEC} (\textit{Network Echo Canceller}) elimina en la rama de transmisión la señal de eco calculada a partir de la rama de recepción.
 
 	\begin{center}
 		\includegraphics[scale=0.2]{images/NEC}
@@ -1098,26 +1099,195 @@ El \textbf{NEC} (\textit{Network Echo Canceller}) elimina en la rama de transmis
 \textbf{Interfaces PSTN e ISDN en una central local}. ISDN es Inegrated Service Data Network y PSTN Public Switched Telephone Network.
 
 	\begin{center}
-		\includegraphics[scale=0.2]{images/ISDN}
+		\includegraphics[scale=0.35]{images/ISDN}
 	\end{center}
 
-\textbf{Interfaz V1} acceso básico para la RDSI, sus funciones básicas son: $2B + D$ ($2x64 kbps + 16 kbps$ canalización), temporización y sincronismo de trama, activación y desactivación del terminal de línea, operación y mantenimiento, alimentación... \textbf{V2 Interfaz para la conexión con concentradores}: 2048 kbit/s, $30B + D$. \textbf{V3 similar a V2 pero pensado para interfaz con centralitas (PABX)}: $30B + D$ a 2048 kbit/s y también $23B+D$ a 1544 kbit/s.
+\textbf{Interfaz V1} acceso básico para la RDSI, sus funciones básicas son: $2B + D$ ($2 \cdot 64 kbps + 16 kbps$ canalización), temporización y sincronismo de trama, activación y desactivación del terminal de línea, operación y mantenimiento, alimentación... \textbf{V2 Interfaz para la conexión con concentradores}: 2048 kbit/s, $30B + D$. \textbf{V3 similar a V2 pero pensado para interfaz con centralitas (PABX)}: $30B + D$ a 2048 kbit/s y también $23B+D$ a 1544 kbit/s. \textbf{V4}: Interfaz con redes privadas no especificadas por la ITU-T. \textbf{V5}: Interfaz genérico entre la red de acceso y la central local, especifica los interfaces básicos para el acceso analógico y acceso RDSI. Incluye el control de los canales de acceso y funciones de señalización. Se utiliza en DLCs.
 
+\subsubsection{Perturbaciones en el bucle de abonado}
 
+Existen diversas fuentes de perturbación para las señales que viajan por el cable de pares en el bucle de abonado.
+
+	\begin{itemize}
+		\item \textbf{Distorsión de canal}: Causado por la variación no lineal en frecuencia de las velocidades de transmisión en el cable de pares.
+		\item \text{Atenuación}: Causado por el efecto Joule y por pérdida de energía por radiación electromagnética.
+		\item \textbf{Diafonía}: Causado por el acoplamiento de señales entre pares.
+		\item \textbf{Ruido}: Térmico (movimiento pseudoaleatorio de electrones) o Impulsivo (equipos y ruido humano).
+		\item \textbf{Interferencia Electromagnética}: Acoplamiento de señales de radiofrecuencia en el cable de pares.
+		\item \textbf{Eco}: Causado por desequilibrios en la bobina híbrida en el paso de dos hilos a cuatro hilos.
+	\end{itemize}
+
+\subsubsection{Atenuación}
+
+Cualquier señal al propagarse por un conductor no ideal pierde potencia. La pérdida en decibelios en el bucle de abonado es proporcional a la distancia y a la atenuación del cable de pares. La atenuacion se da en $\frac{dB}{Km}$ o $\frac{dB}{100 m}$ y depende fundamentalmente de las características del cable (conductor) y su grosor. La atenuación no es constante con la frecuencia. En el cable de pares aumenta rápidamente la atenuación kilométrica a frecuencias altas. Para la transmisión de la señal vocal no es un problema en los bucles de abonado típicos, el problema surge en la transmisión de datos utilizando dicho cable.
 
 \subsubsection{DLC (Digital Loop Carriers)}
 
+El bucle de abonado es el medio físico que une la central local con el terminal de abonado. Existen varios medios para unir estos abonados con la central: Reducción del número de cables (concentración), acortamiento del bucle de abonado, posibilidad de equipos de intemperie, densidades de población baja, reemplazar planta exterior obsoleta, introducción de nuevos servicios en puntos donde las centrales no los soportan. Los medios físicos no tienen por qué ser cables de pares, pueden ser de acceso por radio, fibra óptica...
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/DLC1}
+	\end{center}
+	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/DLC2}
+	\end{center}
+
+\textbf{Protocolo V.5}: Definido para el interfaz con la central local.
+
+	\begin{itemize}
+		\item \textbf{V.5-1}: Enlace digital de 2Mbps, necesita software necesario para la transmisión de los eventos de línea en los 30 puertos asociados a la interfaz. Los nodos extremos intercambias mensajes referentes a los protocolos.
+		\item \textbf{V.5-2}: Conjunto de enlaces de 2Mbps, hasta 16 enlaces. La asignación se realiza llamada a llamada (concentración), los extremos intercambian información.
+	\end{itemize}
+	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/DLCs}
+	\end{center}
+	
+\hrulefill
+
+\subsection{ADSL}
+
+La DSL (\textit{Digital Subscriber Line}) es una familia de tecnlologías que proporcionan el acceso a internet mediante la transmisión de datos digitales a través de los cables de una red telefónica local. El ADSL (\textit{Asymmetric Digital Subscriber Line}), la capacidad de descarga  y de subida no coinciden. Diseñado para que la capacidad de bajada sea mayor que la de subida.
+
+\subsubsection{Arquitectura ADSL}
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/ADSL}
+	\end{center}
+	
+	\begin{itemize}
+		\item \textbf{ATU-R}: Módem digital que se instala en el domicilio del usuario y que está conectado a la línea telefónica y a la computadora, los datos son modulados mediante DMT.
+		\item \textbf{Splitter}: Filtro que divide las frecuencias bajas en una banda de 0-4kHz y las altas frecuencias en una banda mayor a 4kHz. Al filtrar las bajas frecuencias se separa la voz y eliminan las interferencias provocadas sobre la transmisión de datos del usuario; de la misma forma al filtrar las altas frecuencias se separan los datos y permite que la transmisión de datos no afecte a la de voz.
+		\item \textbf{ATU-C}: Módem digital ubicado en el lado de la central, debe de utilizar el mismo tipo de modulación que el ATU-R. Generalmente es una tarjeta que se insertará en el equipo que concentra y mulitplexa el tráfico de datos o DSLAM (\textit{Digital Subscriber Line Access Multiplexer}).
+		\item \textbf{Multiplexor ADSL (DSLAM)}: Chasis que agrupa gran número de tarjetas, cada una consta de varios módems ATU-C y además concentra (multiplexa/demultiplexa) el tráfico de todos los enlaces ADSL hacia una red WAN. Realiza funciones de nivel de enlace (protocolo ATM sobre ADSL) entre el módem de usuario y el de central.
+	\end{itemize}
+	
+\subsubsection{Problemas y Soluciones}
+
+Uno de los mayores problemas es la atenuación de los cables, la diafonía, interferencias y ruido. Los errores se detectan y corrigen mediante FEC (\textit{Forward Error Coding}). Los bits se entrelazan para reducir los errores no corregibles (más tramas con errores, menos errores por trama). Los módems ADSL permiten definir circuitos virtuales especiales para aplicaciones sensibles al retardo. Los datos se transportan en tramas y supertramas (conjunto de 68 símbolos DMT), con 2 tipos de flujos: rápido y lento.
+
+\subsubsection{ADS Lite - ADSL Spliterless}
+
+Condiciones para la implantación óptima: Que no sea necesaria la instalación de un splitter por parte del proveedor de servicios, que el usuario pueda instalar el módem fácilmente, que no sea necesario re-cablear la línea, que exista compatibilidad espectral con otros servicios, velocidades adecuadas para el segmento del mercado al que se va a dar servicios, distancias en el bucle de abonado adecuadas para las velocidades a las que se va a dar servicio.\\
+
+A partir de 1997 con un 10\% de las capacidades de ADSL es suficiente para dar internet a alta velocidad. Una reducción en la velocidad de servicio de ADSL se traduciría en una reducción de complejidad del hardware. Se suprime el splitter y permite modulación 256-QAM como máximo.
+
+Para velocidades mayores se utiliza el VDSL que tiene un rango de frecuencias en el cable más amplio (30 MHz). HDSL pretende sustituir los sistemas T1 y E1. Ofrece un canal simétrico de 2Mbps y alcanza como máximo unos 4km. Se usa actualmente para líneas punto a punto de 2Mbps. tiene mayor alcance sin repetidores y al usar menor rango de frecuencias hay menos interferencias.
+
+\hrulefill
+
+\subsection{Sistemas MIC (PCM)}
+
+MIC (\textit{Modulación poro Impulsos Codificados}). Diseñado originalmente para la transmisión digital de señales de voz con el objetivo de aprovechar las ventajas de los sistemas digitales. Estudio de: muestreo, cuantificación, codificación de canal, codificación de línea, multiplexación por división en el tiempo, señalización y control.
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/SistemasMIC}
+	\end{center}	
+	
+\subsubsection{Muestreo}
+
+La frecuencia de muestro es la máxima frecuencia utilizable de la señal analógica (voz). En telefonía, el ancho de banda de voz es 300-3400Hz. En función del teorema de Nyquist se muestrea con $F_{S} = 2 \cdot F_{max}$ pero por cuestiones prácticas la frecuencia seleccionada es de 8kHz. El valor de la frecuencia de muestreo fija la longitud de la trama en la multiplexación TDM, $125\mu s$.
+
+\subsubsection{Cuantificación en sistemas MIC}
+
+El proceso de cuantificación en sistemas MIC consiste en dividir el rango de valores de entrada en un número finito de intervalos y asignar un único valor de salida a cada intervalo. Hay que tener en cuenta los factores de:
+
+	\begin{itemize}
+		\item Valores analógicos máximos y mínimos de entrada: rango dinámico de entrada del cuantificador.
+		\item Número de intervalos de cuantificación: Depende del número de bits de cuantificación e influye en el error de cuantificación.
+		\item Tipo de cuantificador: Lineal o logarítmico.
+	\end{itemize}
+
+\subsubsection{Niveles de entrada al cuantificador}
+
+Los valores extremos se conocen como valores virtuales de decisión. El nivel de máxima amplitud de una senoide sin recorte de crestas (nivel de sobrecarga). La UIT-T recomienda como nivel de sobrecarga como la amplitud de una señal de 3.14 dBm0 en el codificador situado tras la bobina híbrida (2h/4h). Las señales de entrada se normalizan a ese valor:  $P(dBm0) = 3.14 + 20 \log (V)$.
+
+\subsubsection{Número de bits de cuantificación}
+
+El parámetro de partida para fijar el número de bits es la relación señal a ruido de cuantificación $>60-70dB$, un valor habitual para los sistemas telefónicos. El objetivo es no cuantificar valores de señal menores que el ruido, en el caso de utilizar un cuantificador uniforme utilizar como número de bits 12. El cuantificador uniforme es óptimo para señales equiprobables en el ranngo de niveles de entrada. En la señal de voz los valores instantáneos de tensión siguen una distribución gamma: los valores bajos son muy probables y los altos poco probables. La potencia de ruido de cuantificación dependerá más de la amplitud del ruido de cuantificación en los niveles bajos. Será más eficiente utilizar un cuantificador adaptado al comportamiento estadístico de los valores de tensión de la señal vocal: Los intervalos pequeños cerca del origen tienen amplitud del error de cuantificación pequeña y estadísticamente contribuyen mucho a la potencia del error y los intervalos de cuantificación amplios tienen amplitud grande del error de cuantificación pero estadísticamente contribuyen poco a la potencia de error de cuantificación. Un cuantificador que cumple estas condiciones es el cuantificador logarítmico, con 8 bits se consigue una $(\frac{S}{N})_{Q}$ igual a la que se consigue con un cuantificador uniforme de 12 bits (sólo para señales de voz). La gananacia obtenida se conoce como ganancia de compansión y es de 24 dB: $G_{compansion} = 6 dB \cdot 4 bits = 24 dB$.
+
+En realidad, el cuantificador logarítmico se construye con un cuantificador uniforme, un compansor y un expansor.
+
+La UIT-T recomienda el uso de dos funciones logarítmicas para la cuantificación MIC:
+
+	\begin{itemize}
+		\item \textbf{Ley A}: Europa, es una función continua y se aproxima linealmente por tramo dando lugar a la ley A de 13 segmentos, $A = 87,6$. En el interior de cada segmento se hace una cuantificación uniforme con 4 bits: 16 subintervalos por segmento. La palabra MIC queda definida por 8 bits: 1 bit de signo, 3 bits por segmento y 4 bits por subintervalo dentro de cada segmento.
+		\item \textbf{Ley $\mu$}: Estados Unidos, Japón y Canadá.
+	\end{itemize}
+
+\subsubsection{Sistemas MIC 30 + 2}
+
+Hasta ahora se ha visto cómo digitalizar la señal vocal, para optimizar el uso de los recursos (enlaces) se multiplexan las señales vocales. En el caso de los sistemas MIC, esta multiplexación se realiza por división en el tiempo. De esta forma, los canales vocales correspondientes a 30 conversaciones se mltiplexan en el tiempo junto con información de alineación de trama y bits de servicio y señalización formando una trama MIC 30+2. Esta trama está compuesta por 32 intervalos temporales, cada uno de ellos correspondiente a una palabra MIC de una conversación, la duración de cada trama es de $125 \mu s$ (fijado por la frecuencia de muestreo $8kHz$. La velocidad de salida es de $32 intervalos \cdot 8 bits / intervalo \cdot 8 kHz = 2048 kbps$. Los intervalos se identifican como $I0 - I31$ y la estructura de la trama es:
+	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/TramaMIC}
+	\end{center}
+
+Hasta ahora (a falta de determinar la señales eléctricas que circulan por el medio físico, codificación de línea), un enlace a través de sistemas MIC 30+2:
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/EnlaceMIC}
+	\end{center}
+	
+\subsubsection{Codificación de Línea}
+
+Consiste en traducir los $0$ y $1$ a niveles de tensión en la línea de transmisión. LAs señales que se utilizan para ello han de cumplir unas condiciones:
+
+	\begin{itemize}
+		\item Ha de permitir la transmisión de señales en canales con bloqueo de continua. El código no ha de tener componente contínua, la densidad espectral de potencia debería tener un nulo en el origen y hay problemas con secuencias de ceros o unos consecutivos.
+		\item Ha de contener información de temporización para extraer en el receptor la señal de reloj. Suficiente número de transiciones y hay problemas con secuencias de ceros o unos consecutivos.
+		\item En algunos casos al introducir redundancia permitirán detectar errores.
+	\end{itemize}
+	
+	\begin{itemize}
+		\item \textbf{Código AMI} (\textit{Aternate Mark Inversion}): El cero se codifica con 0 voltios, el uno se codifica con $V^{+}$ o $V^{-}$ de forma alternada. Las secuencias largas de ceros dan problema con la información de reloj.
+		\item \textbf{Código HDB3} (\textit{High Density Bipolar}): Soluciona el problema de secuencias largas de ceros de AMI. No están permitidas secuencias de más de tres ceros seguidos. Si hay 4 ceros consecutivos el 4º se codifica como un 1 pero el nivel alto o bajo opuesto al que corresponda. Si entre el bit $V$ que se va a insertar y el bit $V$ precedente hay un número par de 1s, el primer 0 también se codifica como si fuera un 1 con el nivel alto o bajo que le corresponda.
+		\item \textbf{Código HDB4}: Igual que HDB3 pero con 4 ceros consecutivos
+		\item \textbf{Códigos de bloque}: Una secuencia de unos y ceros se sustituye por una secuencia de impulsos que puede ser binaria, ternaria o cuaternaria. 3B4B, 3 símbolos binarios se sustituyen por 4 símbolos binarios.
+	\end{itemize}
+	
+\subsubsection{Eficiencia y Redundancia de Código}
 
 
-\subsection{xDSL}
+Los códigos de línea mejoran las propiedades de la señal transmitida (frente al nivel de continua y atenuación en baja frecuencia y frente al transporte de la información de la señal de reloj). Estas ventajas se consiguen a costa de aumentar el bitrate del canald e transmisión que será por lo general mayor que el bitrate de fuente.
 
-\subsection{HFC y redes de fibra}
+Redundancia:
 
+	\begin{equation*}
+		R = \frac{r_{canal} - r_{fuente}}{r_{canal}}
+	\end{equation*}
+	
+Eficiencia de código:
 
-\subsection{Acceso Vía Radio}
+	\begin{equation*}
+		\eta = 1 - R = \frac{r_{fuente}}{r_{canal}}
+	\end{equation*}
+	
+\subsubsection{Regeneradores}
 
+Se reparten a lo largo de la línea de transmisión para tratar cualquier perturbación. Están dispuestos a intervalos regulares, operan a nivel de bit.
 
-\subsection{Sistemas PCM}
+\subsubsection{Transmisión a 64 Kbps}
+
+Transmisión a 64 Kbps \textbf{codireccional} se utiliza un par por cada sentido de la transmisión con código 1B4T. Transmisión a 64 Kbps \textbf{contradireccional}, las señales de temporización se envían desde un mismo extremo en los dos sentidos (TX/RX), dos pares (uno para los datos y otro para la temporización por dirección, código AMI (100\% datos / 50\% reloj.
+
+\subsubsection{ADPCM}
+
+\textbf{DPCM}: La base es codificar la diferencia entre muestras consecutivas. Las ventajas de este codificador estriban en la gran correlación entre muestras consecutivas de la señal vocal. En los decodificadores DPCM la diferencia se codifica con 4 bits. La calidad es inferior a PCM. 
+
+El codificador ADPCM funciona a varias velocidades (16-32 kbps). Completa el codificador DPCM incluyendo un bloque de predicción de la muestra actual. La predicción se compara con la muestra actual $\rightarrow$ error de predicción. El error de predicción se cuantifica y envía. Normalmente, la entrada al codificador es una señal MIC (codificada con Ley A o Ley $\mu$ por lo que previamente hay que convertir la codificación logarítmica en codificación uniforme).
+
+\textbf{ADPCM G.721}
+	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/ADPCM1}
+	\end{center}
+	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/ADPCM2}
+	\end{center}
+	
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tema 5
@@ -1345,36 +1515,81 @@ Aquí irían las tablas
 \subsubsection{Arquitectura de un operador}
 
 
+%%%%%%%%%%%%%%%%%%%%%
+TEMA 5
+
+\subsubsection{Tipos de Señalización}
+
+\textbf{Señalización de abonado}: Abonado-Central y Central-Abonado. Tiene que ser sencilla para permitir la retrocompatibilidad y permitir terminales sencillos y baratos.
+
+\textbf{Señalización interna de central}: Es dependiente del fabricante. Envía información de señales y control entre los equipos de la central. La señalización en la red fue en sus comienzos una esxtensión de este tipo de señalización.
+
+\textbf{Señalización entre centrales}: Elige los enlaces que se van a utilizar para la llamada y se encarga de liberarlos una vez se termine. Antes, consulta el \textbf{estado de enlace} para comprobar si está disponible. Hay que enviar las llamadas desde un extremo de la red hasta otro mediante el \textbf{rutado de llamadas}. \textbf{Envío de numeración entre centrales}. La información se envía \textbf{enlace a enlace}. \textbf{Extremo a extremo}, un nodo maestro dirige la señalización, conoce la red y va a organizar la comunicación, permite enviar menos información por la red.
+
+\textbf{Señalización por canal asociado}: Cada canal vocal tiene asociado un canal de comunicación propio para la señalización. Típica de los sistemas analógicos. Este canal de señalización está asignado durante la comunicación. Normalmente, un canal físico de señalización está asociado al canal vocal. El canal físico (medio de transmisión) se comparte por los usuarios pero aún así sigue siendo señalización por canal asociado. Conocido como CAS. El equipo de transmisión está activo or una mínima parte del tiempo total de utilización del canal. El equipo receptor está funcionando permanentemente pero su actividad es mínima. No es posible la señalización extremo a extremo sin establecer un circuito. Por la eficiencia, no es posible consultar bases de datos porque solo hay un canal de señalización activo con un canal de voz activo.
+
+	\begin{center}
+		\includegraphics[scale = 0.2]{SenalizacionAsociado}
+	\end{center}
+
+\textbf{Señalización por canal común}: Un único canal de señalización que es compartido por todos los usuarios. La señalización de cada usuario (canal vocal) se envía cuando se necesita. En algunos casos el canal físico de señalización y el de tráfico están separados pero no tiene por qué ser así. Conocido como CCS. Al suprimir los terminales de señalización se ahorra en los enlaces. Aumenta el vocabulario de señalización implementando más servicios. Incremento en velocidad en el establecimiento de llamadas. Aumento en la fiabilidad mediante el empleo de métodos mas eficac es de detección y corrección de errores. Permite el acceso a bases de datos. La señalización extremo a extremo es posible antes de establecer una comunicación.
+
+	\begin{center}
+		\includegraphics[scale = 0.2]{SenalizacionComun}
+	\end{center}
+
+Realizando una llamada a cobro revertido.
+
+	\begin{center}
+		\includegraphics[scale = 0.2]{CobroRevertido}
+	\end{center}
 
 
+\subsubsection{Evolución de los Sistemas de Señalización}
 
+\textbf{CAS} previo a 1970 con señalización en banda. \textbf{CCIS} (\textit{Common Channel Interoffice Signaling}), se utiliza SS6, un sistema de canal común. \textbf{SS7}, origen en los años 1980, la señalización se transporta sobre redes separadas del tráfico de voz y tiene una pila de protocolos.
 
+\subsubsection{SS7}
 
+Estándar de la UIT-T, diseñado específicamente para atender requerimientos avanzados de redes telefónicas digitales (RDSI). Basado en una red de datos independiente de la red de tráfico. Teniendo nodos, enlaces y protocolos propios. Su arquitectura es independiente de la(s) red(es) que soporta. 
 
+	\begin{center}
+		\includegraphics[scale = 0.2]{RedTrafico}
+	\end{center}
 
+\textbf{Arquitectura de la Red SS7} está compuesta por nodos y enlaces. Los nodos se conocen como Signaling Points y tiene un código (SPC) que lo identifica.
 
+	\begin{center}
+		\includegraphics[scale = 0.2]{SS7}
+	\end{center}
+	
+	\begin{center}
+		\includegraphics[scale = 0.2]{SP}
+	\end{center}
+	
+	\begin{itemize}
+		\item SSP (Service Switching Point): Genera y recibe mensajes de señalización.
+		\item STP (Service Transfer Point): Conmutador de paquetes de señalización. No genera ni termina mensajes y físicamente puede ser el mismo equipo que un SSP o separado.
+		\item SCP (Service Control Point): Nodos para aplicaciones.
+	\end{itemize}
 
+Los SCPs y STPs suelen estar redundados por motivos de seguridad y disponibilidad. La red de SSPs (enlaces de tráfico) puede tener cualquier topografía.
 
+	\begin{center}
+		\includegraphics[scale = 0.2]{RedSSP}
+	\end{center}
 
+	\begin{center}
+		\includegraphics[scale = 0.2]{PlanoSS7}
+	\end{center}
 
+Una central puede tener varios SCPs (en varios planos)
 
+	\begin{center}
+		\includegraphics[scale = 0.2]{NivelesSS7}
+	\end{center}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	
 
 
 
