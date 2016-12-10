@@ -21,9 +21,9 @@
 \usepackage{pdflscape}
 
 
-%\usepackage{draftwatermark}
-%\SetWatermarkText{Javier de Martín}
-%\SetWatermarkScale{0.8}
+\usepackage{draftwatermark}
+\SetWatermarkText{Javier de Martín}
+\SetWatermarkScale{0.8}
 
 % This sets page margins to .5 inch if using letter paper, and to 1cm
 % if using A4 paper. (This probably isn't strictly necessary.)
@@ -1288,6 +1288,45 @@ El codificador ADPCM funciona a varias velocidades (16-32 kbps). Completa el cod
 		\includegraphics[scale=0.2]{images/ADPCM2}
 	\end{center}
 	
+\hrulefill
+
+\subsection{HCF y Redes de Fibra}
+
+El acceso a través de fibra óptica es una alternativa más. Existen varias aproximaciones que se basan en criterios económicos y de necesidad de ancho de banda. FTT, Fiber to the X (cabinet, curb, building, home...). En su mayoría es una red óptica pasiva. 
+
+Analogía: Acceso con cable de pares
+	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/Analogia}
+	\end{center}
+
+Escenarios posibles de FTTx:
+
+	\begin{itemize}
+		\item \textbf{Sistemas basados en la Jerarquía Digital Síncrona (SDH)}: Anillos de acceso (DLCs o unidades remotas de usuario provistas con equipos de ADM), anillos de acceso NGDLC (New Generation Digital Loop Carriers) con gran número de usuarios atendidos, necesitan poco control por la central, ofrecen gran cantidad de servicios e integran DLCs y DSLAM (separación de los flujos de datos). El tramo final sigue siendo en la mayoría cable de pares.
+		\item \textbf{Sistemas basados en la Jerarquía Digital Plesiócrona}
+		\item \textbf{SDH hasta los negocios}
+	\end{itemize}
+
+PDH sobre fibra hasta el negocio
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/PDHSobreFibra}
+	\end{center}
+
+SDH hasta el negocio:
+
+	\begin{center}
+		\includegraphics[scale=0.2]{images/SDHNegocio}
+	\end{center}
+	
+\subsubsection{ATM Passive Optical Networks (APON)}
+
+Sistemas basados en ATM (\textit{Asynchronous Transfer Mode}), la distancia máxima depende del número de salidas de distribución (limitado por atenuación), el máximo número de salidas del splitter es 64. Habitualmente en el sentido descendente (difusión), para el sentido ascendente TDM con sincronismo complejo (sistema de gestión específico) pero tiene problemas para ecualizar los tiempos de cada usuario.
+	
+	\begin{center}
+		\includegraphics[scale=0.2]{images/APON}
+	\end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tema 5
