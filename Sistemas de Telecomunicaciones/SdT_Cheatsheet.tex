@@ -21,9 +21,9 @@
 \usepackage{pdflscape}
 
 
-%\usepackage{draftwatermark}
-%\SetWatermarkText{Javier de Martín}
-%\SetWatermarkScale{0.8}
+\usepackage{draftwatermark}
+\SetWatermarkText{Javier de Martín}
+\SetWatermarkScale{0.8}
 
 % This sets page margins to .5 inch if using letter paper, and to 1cm
 % if using A4 paper. (This probably isn't strictly necessary.)
@@ -1223,21 +1223,21 @@ Para velocidades mayores se utiliza el VDSL que tiene un rango de frecuencias en
 
 \hrulefill
 
-\subsection{Sistemas MIC (PCM)}
+\subsection{Sistemas MIC/PCM}
 
-MIC (\textit{Modulación por Impulsos Codificados}). Diseñado originalmente para la transmisión digital de señales de voz con el objetivo de aprovechar las ventajas de los sistemas digitales. Estudio de: muestreo, cuantificación, codificación de canal, codificación de línea, multiplexación por división en el tiempo, señalización y control.
+MIC (\textit{Modulación por Impulsos Codificados}) o PCM (\textit{Pulse Coded Modulation}). Diseñado originalmente para la transmisión digital de señales de voz con el objetivo de aprovechar las ventajas de los sistemas digitales. Estudio de: muestreo, cuantificación, codificación de canal, codificación de línea, multiplexación por división en el tiempo, señalización y control.
 
 	\begin{center}
-		\includegraphics[scale=0.4]{images/SistemasMIC}
+		\includegraphics[scale=0.45]{images/SistemasMIC}
 	\end{center}	
 	
-\subsubsection{Muestreo}
+%\subsubsection{Muestreo}
 
-La frecuencia de muestro es la máxima frecuencia utilizable de la señal analógica (voz). En telefonía, el ancho de banda de voz es 300-3400Hz. En función del teorema de Nyquist se muestrea con $F_{S} = 2 \cdot F_{max}$ pero por cuestiones prácticas la frecuencia seleccionada es de 8kHz. El valor de la frecuencia de muestreo fija la longitud de la trama en la multiplexación TDM, $125\mu s$.
+La frecuencia de \textbf{muestro} es la máxima frecuencia utilizable de la señal analógica (voz). En telefonía, el ancho de banda de voz es 300-3400Hz. En función del teorema de Nyquist se muestrea con $F_{S} = 2 \cdot F_{max}$ pero por cuestiones prácticas la frecuencia seleccionada es de 8kHz. El valor de la frecuencia de muestreo fija la longitud de la trama en la multiplexación TDM, $125\mu s$.
 
-\subsubsection{Cuantificación en sistemas MIC}
+%\subsubsection{Cuantificación en sistemas MIC}
 
-El proceso de cuantificación en sistemas MIC consiste en dividir el rango de valores de entrada en un número finito de intervalos y asignar un único valor de salida a cada intervalo. Hay que tener en cuenta los factores de:
+El proceso de \textbf{cuantificación} en sistemas MIC consiste en dividir el rango de valores de entrada en un número finito de intervalos y asignar un único valor de salida a cada intervalo. Hay que tener en cuenta los factores de:
 
 	\begin{itemize}
 		\item Valores analógicos máximos y mínimos de entrada: rango dinámico de entrada del cuantificador.
@@ -1245,43 +1245,54 @@ El proceso de cuantificación en sistemas MIC consiste en dividir el rango de va
 		\item Tipo de cuantificador: Lineal o logarítmico.
 	\end{itemize}
 
-\subsubsection{Niveles de entrada al cuantificador}
+%\subsubsection{Niveles de entrada al cuantificador}
 
-Los valores extremos se conocen como valores virtuales de decisión. El nivel de máxima amplitud de una senoide sin recorte de crestas (nivel de sobrecarga). La UIT-T recomienda como nivel de sobrecarga como la amplitud de una señal de 3.14 dBm0 en el codificador situado tras la bobina híbrida (2h/4h). Las señales de entrada se normalizan a ese valor:  $P(dBm0) = 3.14 + 20 \log (V)$.
+\textbf{Niveles de entrada al cuantificador}, los valores extremos se conocen como valores virtuales de decisión. El nivel de máxima amplitud de una senoide sin recorte de crestas (nivel de sobrecarga). La UIT-T recomienda como nivel de sobrecarga como la amplitud de una señal de $3.14 dBm0$ en el codificador situado tras la bobina híbrida (2h/4h). Las señales de entrada se normalizan a ese valor:  $P(dBm0) = 3.14 + 20 \log (V)$.
 
-\subsubsection{Número de bits de cuantificación}
+%\subsubsection{Número de bits de cuantificación}
 
-El parámetro de partida para fijar el número de bits es la relación señal a ruido de cuantificación $>60-70dB$, un valor habitual para los sistemas telefónicos. El objetivo es no cuantificar valores de señal menores que el ruido, en el caso de utilizar un cuantificador uniforme utilizar como número de bits 12. El cuantificador uniforme es óptimo para señales equiprobables en el ranngo de niveles de entrada. En la señal de voz los valores instantáneos de tensión siguen una distribución gamma: los valores bajos son muy probables y los altos poco probables. La potencia de ruido de cuantificación dependerá más de la amplitud del ruido de cuantificación en los niveles bajos. Será más eficiente utilizar un cuantificador adaptado al comportamiento estadístico de los valores de tensión de la señal vocal: Los intervalos pequeños cerca del origen tienen amplitud del error de cuantificación pequeña y estadísticamente contribuyen mucho a la potencia del error y los intervalos de cuantificación amplios tienen amplitud grande del error de cuantificación pero estadísticamente contribuyen poco a la potencia de error de cuantificación. Un cuantificador que cumple estas condiciones es el cuantificador logarítmico, con 8 bits se consigue una $(\frac{S}{N})_{Q}$ igual a la que se consigue con un cuantificador uniforme de 12 bits (sólo para señales de voz). La gananacia obtenida se conoce como ganancia de compansión y es de 24 dB: $G_{compansion} = 6 dB \cdot 4 bits = 24 dB$.
+\textbf{Número de bits de cuantificación}, el parámetro de partida para fijar el número de bits es la relación señal a ruido de cuantificación $>60-70dB$, un valor habitual para los sistemas telefónicos. El objetivo es no cuantificar valores de señal menores que el ruido, en el caso de utilizar un cuantificador uniforme utilizar como número de bits 12. El cuantificador uniforme es óptimo para señales equiprobables en el ranngo de niveles de entrada. En la señal de voz los valores instantáneos de tensión siguen una distribución gamma: los valores bajos son muy probables y los altos poco probables. La potencia de ruido de cuantificación dependerá más de la amplitud del ruido de cuantificación en los niveles bajos. Será más eficiente utilizar un cuantificador adaptado al comportamiento estadístico de los valores de tensión de la señal vocal: Los intervalos pequeños cerca del origen tienen amplitud del error de cuantificación pequeña y estadísticamente contribuyen mucho a la potencia del error y los intervalos de cuantificación amplios tienen amplitud grande del error de cuantificación pero estadísticamente contribuyen poco a la potencia de error de cuantificación. Un cuantificador que cumple estas condiciones es el cuantificador logarítmico, con 8 bits se consigue una $(\frac{S}{N})_{Q}$ igual a la que se consigue con un cuantificador uniforme de 12 bits (sólo para señales de voz). La gananacia obtenida se conoce como ganancia de compansión y es de 24 dB: $G_{compansion} = 6 dB \cdot 4 bits = 24 dB$.
 
-En realidad, el cuantificador logarítmico se construye con un cuantificador uniforme, un compansor y un expansor.
-
-La UIT-T recomienda el uso de dos funciones logarítmicas para la cuantificación MIC:
+En realidad, \textbf{el cuantificador logarítmico se construye con un cuantificador uniforme, un compansor y un expansor}. La UIT-T recomienda el uso de dos funciones logarítmicas para la cuantificación MIC:
 
 	\begin{itemize}
-		\item \textbf{Ley A}: Europa, es una función continua y se aproxima linealmente por tramo dando lugar a la ley A de 13 segmentos, $A = 87,6$. En el interior de cada segmento se hace una cuantificación uniforme con 4 bits: 16 subintervalos por segmento. La palabra MIC queda definida por 8 bits: 1 bit de signo, 3 bits por segmento y 4 bits por subintervalo dentro de cada segmento.
+		\item \textbf{Ley A}: Europa, es una función continua y se aproxima linealmente por tramo dando lugar a la ley A de 13 segmentos, $A = 87,6$. En el interior de cada segmento se hace una cuantificación uniforme con 4 bits: 16 subintervalos por segmento. La \textbf{palabra MIC} queda definida por 8 bits: 1 bit de signo, 3 bits por segmento (identificación de los 8 intervalos de decisión) y 4 bits por subintervalo dentro de cada segmento (escalón del tramo lineal).
 		\item \textbf{Ley $\mu$}: Estados Unidos, Japón y Canadá.
 	\end{itemize}
 
-\subsubsection{Sistemas MIC 30 + 2}
 
-Hasta ahora se ha visto cómo digitalizar la señal vocal, para optimizar el uso de los recursos (enlaces) se multiplexan las señales vocales. En el caso de los sistemas MIC, esta multiplexación se realiza por división en el tiempo. De esta forma, los canales vocales correspondientes a 30 conversaciones se mltiplexan en el tiempo junto con información de alineación de trama y bits de servicio y señalización formando una trama MIC 30+2. Esta trama está compuesta por 32 intervalos temporales, cada uno de ellos correspondiente a una palabra MIC de una conversación, la duración de cada trama es de $125 \mu s$ (fijado por la frecuencia de muestreo $8kHz$. La velocidad de salida es de $32 intervalos \cdot 8 bits / intervalo \cdot 8 kHz = 2048 kbps$. Los intervalos se identifican como $I0 - I31$ y la estructura de la trama es:
+%\subsubsection{Sistemas MIC 30 + 2}
+
+Hasta ahora se ha visto cómo digitalizar la señal vocal, para optimizar el uso de los recursos (enlaces) se multiplexan las señales vocales. En el caso de los sistemas MIC, esta multiplexación se realiza por división en el tiempo. De esta forma, los canales vocales correspondientes a 30 conversaciones se multiplexan en el tiempo junto con información de alineación de trama y bits de servicio y señalización formando una trama \textbf{MIC 30+2}. Esta trama está compuesta por 32 intervalos temporales, cada uno de ellos correspondiente a una palabra MIC de una conversación, la duración de cada trama es de $125 \mu s$ (fijado por la frecuencia de muestreo $8kHz$. La velocidad de salida es de $32 intervalos \cdot 8 bits / intervalo \cdot 8 kHz = 2048 kbps$. Los intervalos se identifican como $I0 - I31$ y la estructura de la trama es:
 	
-	\begin{center}
-		\includegraphics[scale=0.4]{images/TramaMIC}
-	\end{center}
+%	\begin{center}
+%		\includegraphics[scale=0.4]{images/TramaMIC}
+%	\end{center}
 
-Hasta ahora (a falta de determinar la señales eléctricas que circulan por el medio físico, codificación de línea), un enlace a través de sistemas MIC 30+2:
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/TramaMIC}
+		\caption{Estructura de Multitrama}
+	\end{figure}
 
-	\begin{center}
-		\includegraphics[scale=0.4]{images/EnlaceMIC}
-	\end{center}
+Un enlace a través de sistemas MIC 30+2 quedaría de la siguiente manera:
+
+%	\begin{center}
+%		\includegraphics[scale=0.4]{images/EnlaceMIC}
+%	\end{center}
 	
-\subsubsection{Codificación de Línea}
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/EnlaceMIC}
+		\caption{Enlace a través de un sistema MIC 30+2}
+	\end{figure}
+	
+%\subsubsection{Codificación de Línea}
 
-Consiste en traducir los $0$ y $1$ a niveles de tensión en la línea de transmisión. LAs señales que se utilizan para ello han de cumplir unas condiciones:
+La \textbf{codificación de línea} consiste en traducir los $0$ y $1$ a niveles de tensión en la línea de transmisión. Las señales que se utilizan para ello han de cumplir unas condiciones:
 
 	\begin{itemize}
-		\item Ha de permitir la transmisión de señales en canales con bloqueo de continua. El código no ha de tener componente contínua, la densidad espectral de potencia debería tener un nulo en el origen y hay problemas con secuencias de ceros o unos consecutivos.
+		\item Ha de permitir la transmisión de señales en canales con bloqueo de continua. El código no ha de tener componente continua, la densidad espectral de potencia debería tener un nulo en el origen y hay problemas con secuencias de ceros o unos consecutivos.
 		\item Ha de contener información de temporización para extraer en el receptor la señal de reloj. Suficiente número de transiciones y hay problemas con secuencias de ceros o unos consecutivos.
 		\item En algunos casos al introducir redundancia permitirán detectar errores.
 	\end{itemize}
@@ -1289,50 +1300,70 @@ Consiste en traducir los $0$ y $1$ a niveles de tensión en la línea de transmi
 	\begin{itemize}
 		\item \textbf{Código AMI} (\textit{Aternate Mark Inversion}): El cero se codifica con 0 voltios, el uno se codifica con $V^{+}$ o $V^{-}$ de forma alternada. Las secuencias largas de ceros dan problema con la información de reloj.
 		\item \textbf{Código HDB3} (\textit{High Density Bipolar}): Soluciona el problema de secuencias largas de ceros de AMI. No están permitidas secuencias de más de tres ceros seguidos. Si hay 4 ceros consecutivos el 4º se codifica como un 1 pero el nivel alto o bajo opuesto al que corresponda. Si entre el bit $V$ que se va a insertar y el bit $V$ precedente hay un número par de 1s, el primer 0 también se codifica como si fuera un 1 con el nivel alto o bajo que le corresponda.
-		\item \textbf{Código HDB4}: Igual que HDB3 pero con 4 ceros consecutivos
-		\item \textbf{Códigos de bloque}: Una secuencia de unos y ceros se sustituye por una secuencia de impulsos que puede ser binaria, ternaria o cuaternaria. 3B4B, 3 símbolos binarios se sustituyen por 4 símbolos binarios.
+		\item \textbf{Código HDB4}: Igual que HDB3 pero con 4 ceros consecutivos.
+		\item \textbf{Códigos de bloque}: Una secuencia de unos y ceros se sustituye por una secuencia de impulsos que puede ser binaria, ternaria o cuaternaria. Por ejemplo, 3B4B, 3 símbolos binarios se sustituyen por 4 símbolos binarios.
 	\end{itemize}
 	
-\subsubsection{Eficiencia y Redundancia de Código}
+%\subsubsection{Eficiencia y Redundancia de Código}
 
-
-Los códigos de línea mejoran las propiedades de la señal transmitida (frente al nivel de continua y atenuación en baja frecuencia y frente al transporte de la información de la señal de reloj). Estas ventajas se consiguen a costa de aumentar el bitrate del canald e transmisión que será por lo general mayor que el bitrate de fuente.
-
-Redundancia:
+Los códigos de línea mejoran las propiedades de la señal transmitida (frente al nivel de continua y atenuación en baja frecuencia y frente al transporte de la información de la señal de reloj). Estas ventajas se consiguen a costa de aumentar el bitrate del canal de transmisión que será por lo general mayor que el bitrate de fuente. \textbf{Redundancia}:
 
 	\begin{equation*}
 		R = \frac{r_{canal} - r_{fuente}}{r_{canal}}
 	\end{equation*}
 	
-Eficiencia de código:
+\textbf{Eficiencia de código}:
 
 	\begin{equation*}
 		\eta = 1 - R = \frac{r_{fuente}}{r_{canal}}
 	\end{equation*}
 	
-\subsubsection{Regeneradores}
+%\subsubsection{Regeneradores}
 
-Se reparten a lo largo de la línea de transmisión para tratar cualquier perturbación. Están dispuestos a intervalos regulares, operan a nivel de bit.
+Los \textbf{regeneradores} se reparten a lo largo de la línea de transmisión para tratar cualquier perturbación. Están dispuestos a intervalos regulares y operan a nivel de bit.
 
-\subsubsection{Transmisión a 64 Kbps}
+%\subsubsection{Transmisión a 64 Kbps}
 
-Transmisión a 64 Kbps \textbf{codireccional} se utiliza un par por cada sentido de la transmisión con código 1B4T. Transmisión a 64 Kbps \textbf{contradireccional}, las señales de temporización se envían desde un mismo extremo en los dos sentidos (TX/RX), dos pares (uno para los datos y otro para la temporización por dirección, código AMI (100\% datos / 50\% reloj.
+\textbf{Transmisión a 64 Kbps codireccional} se utiliza un par por cada sentido de la transmisión con código 1B4T. \textbf{Transmisión a 64 Kbps contradireccional}, las señales de temporización se envían desde un mismo extremo en los dos sentidos (TX/RX), dos pares (uno para los datos y otro para la temporización por dirección, código AMI (100\% datos / 50\% reloj.
 
-\subsubsection{ADPCM}
+%\subsubsection{ADPCM}
 
-\textbf{DPCM}: La base es codificar la diferencia entre muestras consecutivas. Las ventajas de este codificador estriban en la gran correlación entre muestras consecutivas de la señal vocal. En los decodificadores DPCM la diferencia se codifica con 4 bits. La calidad es inferior a PCM. 
+Existen otros métodos de codificación de la señal de voz. En \textbf{DPCM} (\textit{Differential Pulse Code Modulation}) la base es codificar la diferencia entre muestras consecutivas. Las ventajas de este codificador estriban en la gran correlación entre muestras consecutivas de la señal vocal. En los decodificadores DPCM la diferencia se codifica con 4 bits siendo la calidad inferior a PCM. 
 
-El codificador ADPCM funciona a varias velocidades (16-32 kbps). Completa el codificador DPCM incluyendo un bloque de predicción de la muestra actual. La predicción se compara con la muestra actual $\rightarrow$ error de predicción. El error de predicción se cuantifica y envía. Normalmente, la entrada al codificador es una señal MIC (codificada con Ley A o Ley $\mu$ por lo que previamente hay que convertir la codificación logarítmica en codificación uniforme).
+El codificador \textbf{ADPCM} (\textit{Adaptative Differential Pulse Code Modulation}) funciona a varias velocidades ($16-32 kbps$). Completa el codificador DPCM incluyendo un bloque de predicción de la muestra actual. La predicción se compara con la muestra actual $\rightarrow$ error de predicción. El error de predicción se cuantifica y envía. Normalmente, la entrada al codificador es una señal MIC (codificada con Ley A o Ley $\mu$ por lo que previamente hay que convertir la codificación logarítmica en codificación uniforme).
 
 \textbf{ADPCM G.721}
 	
-	\begin{center}
-		\includegraphics[scale=0.4]{images/ADPCM1}
-	\end{center}
+%	\begin{center}
+%		\includegraphics[scale=0.4]{images/ADPCM1}
+%	\end{center}
 	
-	\begin{center}
-		\includegraphics[scale=0.4]{images/ADPCM2}
-	\end{center}
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/ADPCM1}
+		\caption{CodificadorADPCM G.721}
+	\end{figure}	
+	
+	\begin{enumerate}
+		\item Obtiene el error de predicción
+		\item Cuantificación con 15 niveles (4 bits) $\rightarrow$ señal $32 kbps$
+		\item Se obtiene el error de predicción
+		\item Este error se combina con la versión reconstruida de la señal de entrada
+		\item Ambos se introducen al predictor adaptativo que obtiene una estimación de la señal de entrada
+		\item La estimación se usa para obtener el error de predicción
+	\end{enumerate}
+	
+%	\begin{center}
+%		\includegraphics[scale=0.4]{images/ADPCM2}
+%	\end{center}
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/ADPCM2}
+		\caption{Enlace Decodificador ADPCM G.721}
+	\end{figure}
+	
+Los bloques son análogos a los equivalentes en el codificador con la salvedad del ajuste de codificación síncrono. Este bloque intenta eliminar la distorsión acumulativa que se produce en enlaces en tándem ADPCM-PCM-ADPCM síncronos.	
 	
 \hrulefill
 
@@ -1342,9 +1373,15 @@ El acceso a través de fibra óptica es una alternativa más. Existen varias apr
 
 Analogía: Acceso con cable de pares
 	
-	\begin{center}
-		\includegraphics[scale=0.3]{images/Analogia}
-	\end{center}
+%	\begin{center}
+%		\includegraphics[scale=0.3]{images/Analogia}
+%	\end{center}
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.25]{images/Analogia}
+		\caption{Analogía del acceso con cable de pares con la fibra}
+	\end{figure}	
 
 Escenarios posibles de FTTx:
 
@@ -1354,62 +1391,95 @@ Escenarios posibles de FTTx:
 		\item \textbf{SDH hasta los negocios}
 	\end{itemize}
 
-PDH sobre fibra hasta el negocio
+%PDH sobre fibra hasta el negocio
 
-	\begin{center}
-		\includegraphics[scale=0.2]{images/PDHSobreFibra}
-	\end{center}
+%	\begin{center}
+%		\includegraphics[scale=0.2]{images/PDHSobreFibra}
+%	\end{center}
 
-SDH hasta el negocio:
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/PDHSobreFibra}
+		\caption{PDH sobre fibra hasta el negocio}
+	\end{figure}
 
-	\begin{center}
-		\includegraphics[scale=0.2]{images/SDHNegocio}
-	\end{center}
+%SDH hasta el negocio:
+
+%	\begin{center}
+%		\includegraphics[scale=0.2]{images/SDHNegocio}
+%	\end{center}
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/SDHNegocio}
+		\caption{SDH hasta el negocio}
+	\end{figure}
 	
-\subsubsection{ATM Passive Optical Networks (APON)}
+%\subsubsection{ATM Passive Optical Networks (APON)}
 
-Sistemas basados en ATM (\textit{Asynchronous Transfer Mode}), la distancia máxima depende del número de salidas de distribución (limitado por atenuación), el máximo número de salidas del splitter es 64. Habitualmente en el sentido descendente (difusión), para el sentido ascendente TDM con sincronismo complejo (sistema de gestión específico) pero tiene problemas para ecualizar los tiempos de cada usuario.
+\textbf{ATM Passive Optical Networks (APON)}.Sistemas basados en ATM (\textit{Asynchronous Transfer Mode}), la distancia máxima depende del número de salidas de distribución (limitado por atenuación), el máximo número de salidas del \textit{splitter} es 64. Habitualmente en el sentido descendente (difusión), para el sentido ascendente TDM con sincronismo complejo (sistema de gestión específico) pero tiene problemas para ecualizar los tiempos de cada usuario.
 	
-	\begin{center}
-		\includegraphics[scale=0.2]{images/APON}
-	\end{center}
+%	\begin{center}
+%		\includegraphics[scale=0.2]{images/APON}
+%	\end{center}
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.35]{images/APON}
+		\caption{Passive Optical Networks (APON)}
+	\end{figure}
 
 \hrulefill
 
 \subsection{HFC}
 
+Las \textbf{redes de cable} nacen ante la necesidad de resolver la mala calidad de las señales recibidas en poblaciones alejadas de los grandes núcleos urbanos. La arquitectura típica era árbol-rama. A partir de los años 80 a parecen las redes \textbf{HFC} (\textit{Hybrid Iber Coax}) que son redes de telecomunicaciones por cable que combinan la fibra óptica y el cable coaxial como soporte de transmisión de las señales. Se compone de cuatro partes: cabecera, red troncal, red de distribución y red de acometida a los abonados. Es bidireccional, sentido descendente del operador al usuario y ascendente del usuario al operador. En un primer tramo, las fibras ópticas llevan la información desde la cabecera hasta unos nodos finales donde se realiza la conversión óptico/eléctrico con una topología de estrella y a partir de los cuales se despliega la típica red de coaxial con estructura de árbol-rama hasta los usuarios.
 
-Las \textbf{redes de cable} nacen ante la necesidad de resolver la mala calidad de las señales recibidas en poblaciones alejadas de los grandes núcleos urbanos. La arquitectura típica era árbol-rama. A partir de los años 80 a parecen las redes HFC (\textit{Hybrid Iber Coax}) que es una combinación de fibra óptica y cable coaxial. Surge un cambio en la estructura de la red, ahora es una combinación de estrella con árbol-rama. En un primer tramo, las fibras ópticas llevan la inforamción desd ela cabecera hasta unos nodos finales donde se realiza la conversión óptico/eléctrico con una topología de estrella y a partir de los cuales se despliega la típica red de coaxial con estructura de árbol-rama hasta los usuarios.
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.35]{images/TopologiaHFC}
+		\caption{Topología de una red HFC}
+	\end{figure}	
 
 La red de fibra tiene una topología en estrella, los anillos son sólo un método para introducir redundancia (una fibra de subida y otra de bajada por cada lado del anillo) y conseguir una red más robusta ante averías. Entre cada nodo primario y nodo final hay 4 fibras dedicadas (2 de subida y 2 de bajada).
 
-La topología HFC mejora la calidad gracias a que con la fibra disminuyen las interferencias y el número de amplificadores. Lo último también mejora la fiabilidad. Necesita menor alimentación, proporcionando mayor sencillez y menor coste. Aumenta la capacidad por acercar las fibras dedicadas a los usuarios. Permite dirigir algunos servicios por la parte en la estrella de la topología frente a la difusión de las redes antiguas. La tendencia es acercar más la fibra al usuario: FTTF $\rightarrow$ FTTC $\rightarrow$ FTTB $\rightarrow$ FTTH.
+La topología HFC tiene varias \textbf{ventajas}, como la mejora de la calidad gracias a que con la fibra disminuyen las interferencias y el número de amplificadores. Lo último también mejora la fiabilidad. Necesita menor alimentación, proporcionando mayor sencillez y menor coste. Aumenta la capacidad por acercar las fibras dedicadas a los usuarios. Permite dirigir algunos servicios por la parte en la estrella de la topología frente a la difusión de las redes antiguas. La tendencia es acercar más la fibra al usuario: FTTF (Feeder) $\rightarrow$ FTTC (Curb) $\rightarrow$ FTTB (Building) $\rightarrow$ FTTH (Home).\\
 
-La \textbf{red HFC de Euskaltel} responde a la estructura de una red FTTC, es bidireccional y comparte la misma infraestructura que la red de transporte de Euskaltel destinada a los servicios de telefonía y datos. Se compone de: cabecera, red de contribución, red troncal, red de distribución y red de acometida de los abonados.
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Euskaltel}
+		\caption{Red HFC de Euskaltel}
+	\end{figure}	
 
-	\begin{center}
-		\includegraphics[scale=0.4]{images/Euskaltel}
-	\end{center}
+La \textbf{red HFC de Euskaltel} responde a la estructura de una red FTTC, es bidireccional y comparte la misma infraestructura que la red de transporte de Euskaltel destinada a los servicios de telefonía y datos. Se compone de: cabecera, red de contribución, red troncal, red de distribución y red de acometida de los abonados.\\
+
+%	\begin{center}
+%		\includegraphics[scale=0.4]{images/Euskaltel}
+%	\end{center}
 	
-La \textbf{red troncal}, para que la red no tenga degradaciones importantes la red ha de ser de fibra óptica. Realiza el transporte de las señales desde las cabeceras territoriales hasta los nodos finales a través de los tres niveles de red, habiendo rutas, equipamiento y fibras reduntantes. La red troncal primaria está constituida por anillos de fibra óptica que enlaza cada cabecera territorial con los nodos primarios de su provincia. La red troncal secundaria está constituida por anillos de fibra óptica que unen los nodos primarios con los secundarios. La red troncal terciaria está formada por anillos de fibra óptica que unen los nodos ópticos entre si y con los nodos secundarios.
-
-Elementos de la red troncal:
+La \textbf{red troncal}, para que la red no tenga degradaciones importantes la red ha de ser de fibra óptica. Realiza el transporte de las señales desde las cabeceras territoriales hasta los nodos finales a través de los tres niveles de red, habiendo rutas, equipamiento y fibras reduntantes. La red troncal primaria está constituida por anillos de fibra óptica que enlaza cada cabecera territorial con los nodos primarios de su provincia. La red troncal secundaria está constituida por anillos de fibra óptica que unen los nodos primarios con los secundarios. La red troncal terciaria está formada por anillos de fibra óptica que unen los nodos ópticos entre si y con los nodos secundarios. Los \textbf{elementos} de la red troncal son:
 
 	\begin{center}
 		\includegraphics[scale=0.4]{images/RedTroncal}
 	\end{center}
 	
-Elementos de la red de distribución:
+Elementos de la \textbf{red de distribución} (cable coaxial):
 
 	\begin{center}
 		\includegraphics[scale=0.4]{images/RedDistribucion}
 	\end{center}
 
-La red de abonado une el tap situado en la entrada de los edificios con la toma final en la vivienda del usuario.
+La \textbf{red de abonado} une el tap situado en la entrada de los edificios con la toma final en la vivienda del usuario.
 
-	\begin{center}
-		\includegraphics[scale=0.4]{images/Esquema}
-	\end{center}
+%	\begin{center}
+%		\includegraphics[scale=0.4]{images/Esquema}
+%	\end{center}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Esquema}
+		\caption{Esquema de Red, parte descendente}
+	\end{figure}	
 
 \hrulefill
 
@@ -1419,39 +1489,39 @@ Soluciona los problemas de realizar obras para instalar una red de bucle de abon
 
 \subsubsection{Características de los sistemas PMP}
 
-Tiene esctructura celular, optimiza el espectro y necesita baja potencia. Establece la conexión entre subscriptores y central a través de radioenlaces digitales bidireccionale (necesita visibilidad radioeléctrica entre el cliente y la estación base de red).
+Los sistemas \textbf{PMP} (\textit{Point to Multi-Point}) tienen esctructura celular, optimiza el espectro y necesita baja potencia. Establece la conexión entre subscriptores y central a través de radioenlaces digitales bidireccionale (necesita visibilidad radioeléctrica entre el cliente y la estación base de red).\\
 
-\subsubsection{Estructura de la Red}
+Algunos sistemas tienen \textbf{estructura} celular, éstas dependen de la orografía y de la densidad de clientes. Se reutilizan frecuencias dentro de una celda a otra. La utilización de polarizaciones diferentes permite optimizar más aún el espectro asignado.
+
+%	\begin{center}
+%		\includegraphics[scale=0.2]{images/Espectro}
+%	\end{center}
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Espectro}
+		\caption{Antena sectorial}
+	\end{figure}	
+
+%\subsubsection{Eficiencia}
+
+Para maximizar la \textbf{eficiencia} se utilizan asignación dinámica de anchos de banda. Consiste en gestionar el espectro dinámicamente para asignar recursos a los usuarios. Permite comportir parte del espectro entre varios clientes según sus necesidades. Generalmente replican sistemas de conmutación ATM o Frame Relay.
 
 	\begin{center}
-		\includegraphics[scale=0.2]{images/EstructuraRed}
+		\includegraphics[scale=0.3]{images/Eficiencia}
 	\end{center}
 	
-Algunos sistemas tienen estructura celular, éstas dependen de la orografía y de la densidad de clientes. Se reutilizan frecuencias dentro de una celda a otra. La utilización de polarizaciones diferentes permite optimizar más aún el espectro asignado.
+%\subsubsection{Modulaciones y Ancho de Banda}
 
-	\begin{center}
-		\includegraphics[scale=0.2]{images/Espectro}
-	\end{center}
+La \textbf{capacidad} de estos sistemas depende del ancho de banda disponible por el operador y la eficiencia espectral de la modulación empleada. Factor de utilización de frecuencias (doble uso de la banda asignada dentro de una celda con polarizaciones cruzadas), factor de compartición del espectro entre usuarios.\\
 
-\subsubsection{Eficiencia}
+%\subsubsection{MMDS}
 
-Estos sistemas utilizan asignación dinámica de anchos de banca. Consiste en gestionar el espectro dinámicamente para asignar recursos a los usuarios. Permite comportir parte del espectro entre varios clientes según sus necesidades. Generalmente replican sistemas de conmutación ATM o Frame Relay.
+\textbf{MMDS} (\textit{Multichannel Multipoint Distribution System}) fue pensado originalmente como un servicio de difusión. Opera en la banda de los $3.5 GHz$, las versiones posteriores son digitales con posibilidad de retorno, necesita visibilidad entre emisor-receptor, es sensible al multitrayecto, no se ve atenuado por la lluvia.
 
-	\begin{center}
-		\includegraphics[scale=0.2]{images/Eficiencia}
-	\end{center}
-	
-\subsubsection{Modulaciones y Ancho de Banda}
+%\subsubsection{LMDS}
 
-La capacidad de estos sistemas depende del ancho de banda disponible por el operador y la eficiencia espectral de la modulación empleada. Factor de utilización de frecuencias (doble uso de la banda asignada dentro de una celda con polarizaciones cruzadas), factor de compartición del espectro entre usuarios.
-
-\subsubsection{MMDS}
-
-Multichannel Multipoint Distribution System fue pensado originalmente como un servicio de difusión. Opera en la banda de los 3.5 GHz, las versiones posteriores son digitales con posibilidad de retorno, necesita visibilidad entre emisor-receptor, es sensible al multitrayecto, no se ve atenuado por la lluvia.
-
-\subsubsection{LMDS}
-
-Local Multipoint Distribution system utiliza la banda de frecuencias entre 24-40 GHz, emplea la modulación QPSK o 16 QAM. Sistema celular basado en células pequeñas, emplea transmisores de baja potencia, afectado por la atenuación atmosférica y en ocasiones no es necesario visión directa debido a las reflexiones.
+\textbf{LMDS} (\textit{Local Multipoint Distribution System}) utiliza la banda de frecuencias entre $24-40 GHz$, emplea la modulación QPSK o 16 QAM. Sistema celular basado en células pequeñas, emplea transmisores de baja potencia, afectado por la atenuación atmosférica y en ocasiones no es necesario visión directa debido a las reflexiones.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
