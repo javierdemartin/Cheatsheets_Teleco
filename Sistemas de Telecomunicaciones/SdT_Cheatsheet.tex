@@ -1527,6 +1527,8 @@ La \textbf{capacidad} de estos sistemas depende del ancho de banda disponible po
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tema 5
 
+\newpage
+
 \hrulefill
 
 \section{5. Redes Troncales y de Transporte}
@@ -1535,37 +1537,53 @@ La \textbf{capacidad} de estos sistemas depende del ancho de banda disponible po
 
 \subsection{PDH}
 
-\subsubsection{Introducción}
+La tecnología \textbf{PDH} (\textit{Plesiochronous \footnote{Forma de sincronización en una red digital en la que los equipos se sincronizan mediante relojes separados de similar precisión.} Digital Hierarchy}) permite multiplexar en tramas de orden superior afluentes MIC 30+2. Optimiza los recursos en los enlaces transmitiendo el mayor número de canales vocales posibles con el mínimo de recursos. Al ser sistemas digitales, la multiplexación es TDM. PDH consiste en una red en la que los relojes con ``casi'' síncronos, tendrán la misma velocidad pero estarán sujetos a una tolerancia. Existen varios estándares. Es coherente con la diferencia en el proceso de creación de la trama básica MIC.\\
 
-La tecnología PDH (\textit{Plesiochronous Digital Hierarchy}) permite multiplexar en tramas de orden superior afluentes MIC 30+2. Optimiza los recursos en los enlaces transmitiendo el mayor número de canales vocales posibles con el mínimo de recursos. Al ser sistemas digitales, la multiplexación es TDM. PDH consiste en una red en la que los relojes con ``casi'' síncronos, tendrán la misma velocidad pero estarán sujetos a una tolerancia. Existen varios estándares. Es coherente con la diferencia en el proceso de creación de la trama básica MIC.\\
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.3]{images/Jerarquia}
+		\caption{Jerarquías Digitales}
+	\end{figure}
 
 Las jerarquías digitales son la herramienta de transporte de las redes telefónicas digitales.
 
-	\begin{center}
-		\includegraphics[scale=0.2]{images/Jerarquia}
-	\end{center}
+%	\begin{center}
+%		\includegraphics[scale=0.2]{images/Jerarquia}
+%	\end{center}
 	
 La UIT especifica los niveles de multiplexación posible y la estructura de las tramas multiplexadas.
 
-	\begin{center}
-		\includegraphics[scale=0.2]{images/NivelesMUX}
-	\end{center}
+%	\begin{center}
+%		\includegraphics[scale=0.2]{images/NivelesMUX}
+%	\end{center}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.3]{images/NivelesMUX}
+		\caption{Niveles de multiplexación}
+	\end{figure}
 
 Las señales de entrada a un multiplexor son \textbf{tributarias} o \textbf{afluentes}. La multiplexación se realiza a nivel del bit.
 
-\subsubsection{Velocidades PDH}
+%\subsubsection{Velocidades PDH}
 
 	\begin{center}
 		\includegraphics[scale=0.2]{images/VelocidadPDH}
 	\end{center}
 
-	\begin{center}
-		\includegraphics[scale=0.2]{images/CaracteristicasPDH}
-	\end{center}	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.35]{images/VelocidadPDH}
+		\caption{Velocidades PDH}
+	\end{figure}
 
-\subsubsection{Justificación o Relleno}
+%	\begin{center}
+%		\includegraphics[scale=0.2]{images/CaracteristicasPDH}
+%	\end{center}	
 
-Los equipos de la red PDH no están sincronizados, utilizan distintos relojes con la misma velocidad pero con tolerancias sobre la velocidad nominal. Esto supone un problema para la multiplexación.
+%\subsubsection{Justificación o Relleno}
+
+Los equipos de la red PDH no están sincronizados, utilizan distintos relojes con la misma velocidad pero con tolerancias sobre la velocidad nominal. Esto supone un problema para la multiplexación. A cada señal tributaria se le añaden unos bits que son de \textbf{relleno} o \textbf{justificación} para que el extremo receptor pueda distinguir los bits que son de información y los de relleno. Con esto se consiguen salvar las diferencias de frecuencia que puedan tener los distintos tributarios. A los tributarios más lentos es necesario añadirles más bits de relleno que a los rápido.
 
 	\begin{center}
 		\includegraphics[scale=0.2]{images/JustificacionPDH}
@@ -1573,82 +1591,87 @@ Los equipos de la red PDH no están sincronizados, utilizan distintos relojes co
 
 Las tramas contemplan espacios para bits de relleno que se pueden utilizar como bits de información si es necesario $\rightarrow$ Justificación positiva
 	
-	\begin{center}
-		\includegraphics[scale=0.2]{images/Relleno}
-	\end{center}	
-
-La técnica de justificación tiene tres variantes: positiva, negativa (supresión de impulsos sobre los afluentes), positiva-nula-negativa (usada en la SDH). Si se ha utilizado justificación en la trama es necesario indicarlo, hay bits de control de justificación sobre qué afluente se ha realizado.
-
-\subsubsection{Estructura de la trama G.742 - 8 Mbps}
+%	\begin{center}
+%		\includegraphics[scale=0.4]{images/Relleno}
+%	\end{center}	
 	
-	\begin{center}
-		\includegraphics[scale=0.3]{images/TramaG742}
-	\end{center}	
-
-\subsubsection{Estructura de las tramas G.751 - 34 Mbps}
-
-	\begin{center}
-		\includegraphics[scale=0.3]{images/TramaG751}
-	\end{center}
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.35]{images/Relleno}
+		\caption{Justificación de señales plesiócronas}
+	\end{figure}
 	
-\subsubsection{Estructura de las tramas G.751 - 140 Mbps}
 
-	\begin{center}
-		\includegraphics[scale=0.3]{images/TramaG7512}
-	\end{center}		
+La técnica de justificación tiene tres variantes: 
 
-\subsubsection{Velocidades de trama de señales PDH}
-
-\textbf{Tasa Nominal de Justificación}: $\theta = \frac{F_{J}}{F_{A}}$\\
-	\quad $F_{A}$: Velocidad de justificación cuando el afluente llega a velocidad nominal\\
-	\quad $F_{J}$: Frecuencia Nominal de Justificación
-
-\textbf{Frecuencia de Redundancia}\\
-	\quad Frecuencia a la que se insertan los bits de control \\
-	\quad Tasa de redundancia $R$
+	\begin{itemize}
+		\item Positiva: Las tramas contemplan espacios para bits de relleno que se pueden utilizar como bits de información si es necesario.
+		\item Negativa: Supresión de impulsos sobre los afluentes
+		\item Positiva-Nula-Negativa: Utilizado en SDH
+	\end{itemize}
 	
-\textbf{Relación Nominal de Justificación}: Relación entre la velocidad nominal de justificación  y la velocidad máxima de justificación posible. $g = \frac{F_{J}}{F_{J}^{MAX}}$
+Si se ha utilizado justificación en la trama es necesario indicarlo, hay bits de control de justificación sobre qué afluente se ha realizado.
 
-\textbf{Frecuencia del Múltiplex}: $F_{M} = N \cdot F_{A} * (1 + \theta) (1 + R)$
+%\subsubsection{Estructura de la trama G.742 - 8 Mbps}
+	
+%	\begin{center}
+%		\includegraphics[scale=0.3]{images/TramaG742}
+%	\end{center}	
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.3]{images/TramaG742}
+		\caption{Estructura de la trama G.742 - 8 Mbps}
+	\end{figure}
+	
+%\subsubsection{Estructura de las tramas G.751 - 34 Mbps}
+
+%	\begin{center}
+%		\includegraphics[scale=0.3]{images/TramaG751}
+%	\end{center}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.3]{images/TramaG751}
+		\caption{Estructura de la trama G.751 - 34 Mbps}
+	\end{figure}
+	
+%\subsubsection{Estructura de las tramas G.751 - 140 Mbps}
+
+%	\begin{center}
+%		\includegraphics[scale=0.3]{images/TramaG7512}
+%	\end{center}	
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.3]{images/TramaG7512}
+		\caption{Estructura de la trama G.751 - 140 Mbps}
+	\end{figure}	
+
+\textbf{Velocidades de trama de señales PDH}
+
+	\begin{itemize}
+		\item \textbf{Tasa Nominal de Justificación}: $\theta = \frac{F_{J}}{F_{A}}$\\
+				\quad $F_{A}$: Velocidad de justificación cuando el afluente llega a velocidad nominal\\
+				\quad $F_{J}$: Frecuencia Nominal de Justificación
+		\item \textbf{Frecuencia de Redundancia}\\
+			\quad Frecuencia a la que se insertan los bits de control \\
+			\quad Tasa de redundancia $R$
+		\item \textbf{Relación Nominal de Justificación}: Relación entre la velocidad nominal de justificación  y la velocidad máxima de justificación posible. $g = \frac{F_{J}}{F_{J}^{MAX}}$
+		\item \textbf{Frecuencia del Múltiplex}: $F_{M} = N \cdot F_{A} * (1 + \theta) (1 + R)$
+	\end{itemize}
 
 
-\subsubsection{Tipos de Equipos en redes PDH}
+Existen distintos \textbf{tipos de equipos en redes PDH}
 
-\textbf{Terminales de línea}
-
-\textbf{Multiplexores}
-
-	\begin{center}
-		\includegraphics[scale=0.2]{images/Electrico}
-	\end{center}	
-
-\textbf{Radio}
-
-	\begin{center}
-		\includegraphics[scale=0.2]{images/Radio}
-	\end{center}
-
-\textbf{Optico}
-
-	\begin{center}
-		\includegraphics[scale=0.2]{images/Optico}
-	\end{center}
-
-\textbf{Multiplexores de acceso: canales de usuario / 2M}
-
-	\begin{center}
-		\includegraphics[scale=0.2]{images/Mux}
-	\end{center}
-
-	\begin{center}
-		\includegraphics[scale=0.2]{images/MuxTerminal}
-	\end{center}
-
-\textbf{Multiplexores de Inserción y Extracción}
-
-	\begin{center}
-		\includegraphics[scale=0.2]{images/MuxExtra}
-	\end{center}
+	\begin{itemize}
+		\item Terminales de línea: Elécricos, radio y ópticos
+		\item Multiplexores
+		\item Multiplexores de acceso
+		\item Multiplexores de Inserción y Extracción
+		\item Cross-Connect
+		\item Equipos integrados
+	\end{itemize}
 
 Tipos de conexiones:
 
@@ -1678,30 +1701,48 @@ Tipos de conexiones:
 
 \subsection{SDH}
 
-\subsubsection{Introducción}
+El antecedente a las redes \textbf{SDH} (Sinchronous Digital Hierarchy) son los sistemas PDH. Multiplexación de sistemas MIC 30+2, creación de múltiplex de orden superior mediante multiplexación ``casi'' síncrona, los equipos utilizan relojes no sincronizados $\rightarrow$ para poder realizar correctamente la multiplexación se requiere de técnicas de justificación.\\
 
-El antecedente a las redes SDH (Sinchronous Digital Hierarchy) son los sistemas PDH. Multiplexación de sistemas MIC 30+2, creación de múltiplex de orden superior mediante multiplexación ``casi'' síncrona, los equipos utilizan relojes no sincronizados $\rightarrow$ para poder realizar correctamente la multiplexación se requiere de técnicas de justificación. Tienen una serie de \textbf{problemas}: \textbf{No existe compatibilidad en los estándares utilizados en diferentes países} y los equipos de adaptación son costosos, \textbf{las capacidades máximas son limitadas}, \textbf{problemas para extraer flujos} ya que para extraer un flujo de nivel inferior directamente de un flujo de nivel superior hay que demultiplexar todos los flujos, \textbf{no está pensada para el uso de fibra óptica como medio de transmisión}, \textbf{carece de herramientas de gestión y no prevé sistemas de tolerancia a fallos en los enlaces} limitando el ancho de banda disponible para la señalización y la gestión de la red siendo los sistemas de gestión y mantenimiento propietarios.
+Las redes PDH tienen una serie de \textbf{problemas}: \textbf{No existe compatibilidad en los estándares utilizados en diferentes países} y los equipos de adaptación son costosos, \textbf{las capacidades máximas son limitadas}, \textbf{problemas para extraer flujos} ya que para extraer un flujo de nivel inferior directamente de un flujo de nivel superior hay que demultiplexar todos los flujos, \textbf{no está pensada para el uso de fibra óptica como medio de transmisión}, \textbf{carece de herramientas de gestión y no prevé sistemas de tolerancia a fallos en los enlaces} limitando el ancho de banda disponible para la señalización y la gestión de la red siendo los sistemas de gestión y mantenimiento propietarios.
 
-Extracción de una tributaria de 2 Mbps en un múltiplex de 139 Mbps
+%	\begin{center}
+%		\includegraphics[scale=0.2]{images/Extraccion}
+%	\end{center}
 
-	\begin{center}
-		\includegraphics[scale=0.2]{images/Extraccion}
-	\end{center}
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.3]{images/Extraccion}
+		\caption{Extracción de una tributaria de 2 Mbps en un múltiplex de 139 Mbps}
+	\end{figure}	
 
-Estos problemas los resuelve SDH. Da lugar a un estándar ANSI que se denominó SONET.
+Los problemas de PDH los resuelve SDH. Da lugar a un estándar ANSI que se denominó SONET (\textit{Synchronous Optical NETwork}). SDH compatibiliza los afluentes PDH y relevarlo al uso de enlaces de menor capacidad, permite velocidades de hasta $10 Gbps$, permite una extracción sencilla de flujos inferiores, compatible con sistemas de diferentes continentes (SONET $\rightarrow$ SDH), crea un reloj de referencia estándar para toda la red
 
-	\begin{center}
-		\includegraphics[scale=0.2]{images/AddDrop}
-	\end{center}
+%	\begin{center}
+%		\includegraphics[scale=0.2]{images/AddDrop}
+%	\end{center}
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.3]{images/AddDrop}
+		\caption{Add and Drop Multiplexers}
+	\end{figure}
+
+ADM se encarga de extraer o insertar señales tributarias plesiócronas o síncronas de cualquiera de las dos señales agregadas que recibe (una en cada sentido de la transmisión), .
+
+%\subsubsection{Velocidades SDH-SONET}
 
 
-\subsubsection{Velocidades SDH-SONET}
+%	\begin{center}
+%		\includegraphics[scale=0.2]{images/EjemploTrans}
+%	\end{center}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/EjemploTrans}
+		\caption{Ejemplo de transporte PDH sobre SONET/SDH}
+	\end{figure}
 
-Aquí irían las tablas
-
-	\begin{center}
-		\includegraphics[scale=0.2]{images/EjemploTrans}
-	\end{center}
+Equipos en las redes SDH:
 
 \begin{itemize}
 	\item \textbf{Regeneradores}: Regeneradores de señal utilizados en enlaces de larga distancia, donde las perturbaciones del medio de transmisión limitan el alcance del enlace.
@@ -1710,7 +1751,7 @@ Aquí irían las tablas
 	\item \textbf{Digital Cross-Connect}: Permiten la interconexión de diferentes secciones o anillos de la red SDH, tienen varias entradas y varias salidas.
 \end{itemize}
 
-\subsubsection{Topologías de Red}
+\textbf{Topologías de Red}
 
 \begin{itemize}
 	\item Punto a Punto
@@ -1729,36 +1770,286 @@ Aquí irían las tablas
 		\begin{center}
 			\includegraphics[scale=0.2]{images/SDHAnillo2}
 		\end{center}
+	\item Anillo múltiple
+		\begin{center}
+			\includegraphics[scale=0.2]{images/AnilloMultiple}
+		\end{center}
 \end{itemize}
 
-\subsubsection{Arquitectura SDH}
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/AveriaSDH}
+		\caption{Funcionamiento normal y avería en una red SDH}
+	\end{figure}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Enlace}
+		\caption{Enlaces en una red SONET-SDH}
+	\end{figure}
 
-\subsubsection{Estructura STM-1/STM-N/STM-Nc}
+	\begin{itemize}
+		\item Sección: Unión directa entre dos equipos cualesquiera
+		\item Línea: Unión entre dos ADMs contiguos
+		\item Ruta: Unión entre dos equipos finales
+	\end{itemize}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Arquitectura}
+		\caption{Arquitectura de Capas de SONET-SDH}
+	\end{figure}
+	
+SONET/SDH divide la capa física en cuatro subcapas:
 
-\subsubsection{Tara de Sección}
+	\begin{itemize}
+		\item Fotónica: transmisión de la señal y las fibras
+		\item Sección: Interconexión de equipos contiguos
+		\item Línte: Multiplexación/Demultiplexación de circuitos entre dos ADMs
+		\item Rutas: Comunicación extremo a extremo
+	\end{itemize}
+	
+El bloque básico de la construcción de SDH es el módulo STM-1 \footnote{Synchronous Transport Module}, consiste en una matriz de $9x270 bytes$. La transmisión se realiza por las filas de arriba a abajo y de izquierda a derecha, cada trama se envía en 125$\mu$s. A partir de este elemento básico se construyen por multiplexación síncrona byte a byte las velocidades (múltiplex) de orden superior STM-N.
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/TramaSMT}
+		\caption{Estructura de la trama STM-1}
+	\end{figure}
+	
+\textbf{SOH} (\textit{Section Over-Head}) incluye: datos para la alineación de trama, chequeo de paridad, bytes para transportar datos, señalización y punteros. La carga útil (tráfico) contendrá los datos apropiadamente dichos.
 
-\subsubsection{Contenedores y Punteros}
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/STM4}
+		\caption{Estructura de la trama STM-4}
+	\end{figure}
+	
+La tara de sección no se multiplexa, se vuelve a generar. La trama STM-1 se multiplexa byte a byte.
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/STM16}
+		\caption{Estructura de la trama STM-16}
+	\end{figure}
+		
+El multiplexado de orden STM-N se realiza por bloques de $N$ bytes.\\
 
-\subsubsection{Multiplexación y Mapeado de señales PDH sobre SDH}
+Para tramas de orden superior, \textbf{STM-N} se admiten afluentes cuya carga (bitrate) no exceda la capacidad de carga útil del módulo de transporte STM-1. Esta estructura limita a los afluentes a una velocidad máxima de 155 Mbps, no es suficiente para algunas aplicaciones. Para resolver este problema se prevee \textbf{STM-Nc}, STM-N concatenados. La estructura es idéntica a un STM-N con la salvedad de un flag que indica que dichas tramas no han de ser demultiplexadas en un múltiplex de STM-M, $m < N$.
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.5]{images/SOH}
+		\caption{Tara de Sección SOH}
+	\end{figure}
+	
+\textbf{Tara de sección de regeneración} se desensambla, evalúa y regenera en cada regenerador. \textbf{Tara de sección de multiplexión} se mantiene intacta hasta el multiplexor por donde se desensambla con la carga útil.
+	
+	\begin{itemize}
+		\item A1-A2: Alineamiento de trama
+		\item B1-B2: Monitorización de la calidad, bytes de paridad
+		\item D1-D3: Canal de gestión de red
+		\item D4-D12: Canal de gestión de red
+		\item E1-E2: Telefonía de servicio
+		\item F1: Mantenimiento
+		\item J0 (C1): Identificador de tramo
+		\item K1-K2: Control de la conmutación de automática de protección
+		\item S1: Indicador de la calidad de reloj empleado en la transmisión
+		\item M1: Reconocimiento de errores de transmisión. Detector en el extremo distante.
+		\item X: Reservado para uso futuro
+	\end{itemize}
+	
+		\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/VC}
+		\caption{Contenedores Virtuales y Punteros}
+	\end{figure}
+	
+	
+Para ser transportados en tramas STM-1, los datos se introducen en \textbf{contenedores virtuales}. Los contenedores se introducen en la carga útil del módulo STM-1 y son transportados a $8 \cdot 10^{3}$ tramas por segundo. Los contenedores no tienen una posición fija definida en la trama STM-1, para poder transmitirse correctamente en la tara de sección existe un puntero que indica el comienzo de un contenedor.
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/VCPointer}
+		\caption{Add/Drop de Contenedores Virtuales}
+	\end{figure}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/VC2}
+		\caption{Valores de los punteros dentro de un contenedor virtual}
+	\end{figure}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/VCPosit}
+		\caption{Bits de justificación positiva en un contenedor virtual}
+	\end{figure}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/VCNeg}
+		\caption{Bits de justificación negativa en un contenedor virtual}
+	\end{figure}
+	
+Los contenedores virtuales están formados por dos unidades administrativas: tara de trayecto y un contenedor. El conjunto de un contenedor virtual con el puntero indica su posición en la trama STM-1 forman una unidad administrativa. Este proceso permite transportar una señal PDH de 139 Mbps.
 
-\subsubsection{Gestión de red SDH}
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/VC3}
+		\caption{Transporte señal PDH 139 Mbps}
+	\end{figure}
 
-\subsubsection{Protección en SDH}
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Resumen}
+		\caption{Resumen}
+	\end{figure}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Contenedores}
+		\caption{Tipos de contenedores}
+	\end{figure}
 
-\subsubsection{Sincronismo}
+Hay varios \textbf{tipos de contenedores}, si a los contenedores anteriores se les añade la tara de trayecto el resultado es el contenedor virtual:
 
-\subsubsection{Arquitectura de un operador}
+	\begin{itemize}
+		\item Contenedores de orden superior: V-4 y V-3
+		\item Contenedores de orden inferior: V2, V-1 y V11
+	\end{itemize}
 
+La tara de trayecto es diferente en función del tipo de contenedor, para los contenedores de orden superior es de 9 bytes (una columna), para los de orden inferior es de un solo byte ya que se usan más bytes como señalización de un conjunto de tres contenedores de orden inferior.
 
-%%%%%%%%%%%%%%%%%%%%%
-TEMA 5
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/POH}
+		\caption{Tara de trayecto}
+	\end{figure}
+	
+Además de poder insertar una señal de 140 Mbps en un STM-1 a través de un contenedor virtual de orden 4 se pueden \textbf{multiplexar otros tipos de contenedores} a través de:
+
+	\begin{itemize}
+		\item Unidades tributarias
+		\item Grupos de unidades tributarias, multiplexando byte a byte unidades tributarias
+	\end{itemize}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/VCMux}
+		\caption{Multiplexación VC-4 y VC-3}
+	\end{figure}
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/PunterosMux}
+		\caption{Punteros en la multiplexación VC-4 y VC-3}
+	\end{figure}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/VC2Mux}
+		\caption{Multiplexación VC-2}
+	\end{figure}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/VC12Mux}
+		\caption{Multiplexación VC-12}
+	\end{figure}
+	
+\textbf{Mapeado de señales PDH en contenedores}, detalle de una fila del C-4 (20 bloques de 13 bytes)
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/PDHCont}
+		\caption{Bits de justificación negativa en un contenedor virtual}
+	\end{figure}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Mapeado}
+		\caption{Mapeado Asíncrono de señales de 2 Mbps}
+	\end{figure}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Mapeado2}
+		\caption{Mapeado Síncrono de señales de 2 Mbps}
+	\end{figure}
+
+\textbf{Funciones de gestión de red en SDH}:
+
+	\begin{itemize}
+		\item Anomalías: Errores de paridad e indicación de error remoto
+		\item Defectos: Persistentes en el tiempo, de señal, de alineamiento de trama, de puntero...
+		\item Fallos, incapacidad de una función de conseguir realizar una acción en un determinado límite de tiempo
+		\item Alarmas: Señales de mantenimiento que permiten avisar en el trayecto a otros equipos de alguna anomalía, fallo o defecto
+	\end{itemize}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Defectos}
+		\caption{Mapeado Síncrono de señales de 2 Mbps}
+	\end{figure}
+
+Existen \textbf{tipos de protección en SDH}, permite diseñar redes preparadas para la recuperación automática frente a fallos. Las taras permiten el envío de alarmas y mensajes de error que facilitan esa tarea. Hay varios tipos de protecciones:
+
+	\begin{itemize}
+		\item Protección de la Sección de Multiplexación (MSP)
+		\item Protección de la Conexión de Subred (SNCP)
+		\item Protección Add and Drop
+	\end{itemize}
+	
+La protección MSP (protección de sección de multiplexación) tiene dos tipos: $1+1$ y $m:n$.
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/MSP}
+		\caption{Protección MSP Lineal}
+	\end{figure}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/MS}
+		\caption{Protección MSP Dedicada (MS-SPRING}
+	\end{figure}
+	
+La \textbf{protección SNCP} es similar a la $1+1$ pero a nivel de camino de contenedor virtual.
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/SNCP}
+		\caption{Protección SNCP}
+	\end{figure}
+	
+La \textbf{protección Drop and Continue} se utiliza para conectar subredes.
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Drop}
+		\caption{Protección Drop and Continue}
+	\end{figure}
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Sync}
+		\caption{Sincronismo SDH}
+	\end{figure}
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/Final}
+		\caption{Arquitectura final de un operador}
+	\end{figure}
 
 \hrulefill
 
 \subsection{Señalización}
 
+La señalización en una red telefónica es el lenguaje utilizado entre los terminales de abonado, centrales de conmutación y equipos de inteligencia de red para establecer una comunicación, proveer los medios de control para ofrecer servicios suplementarios, proveer mecanismos para realizar consultas a bases de datos... \textbf{Es la información que se intercambia entre terminales y equipos/nodos de la red para que los servicios de usuario puedan ser ofrecidos de forma satisfactoria}
 
-\subsubsection{Tipos de Señalización}
+\textbf{Tipos de Señalización}
 
 \textbf{Señalización de abonado}: Abonado-Central y Central-Abonado. Tiene que ser sencilla para permitir la retrocompatibilidad y permitir terminales sencillos y baratos.
 
@@ -1767,35 +2058,34 @@ TEMA 5
 \textbf{Señalización entre centrales}: Elige los enlaces que se van a utilizar para la llamada y se encarga de liberarlos una vez se termine. Antes, consulta el \textbf{estado de enlace} para comprobar si está disponible. Hay que enviar las llamadas desde un extremo de la red hasta otro mediante el \textbf{rutado de llamadas}. \textbf{Envío de numeración entre centrales}. La información se envía \textbf{enlace a enlace}. \textbf{Extremo a extremo}, un nodo maestro dirige la señalización, conoce la red y va a organizar la comunicación, permite enviar menos información por la red.
 
 \textbf{Señalización por canal asociado}: Cada canal vocal tiene asociado un canal de comunicación propio para la señalización. Típica de los sistemas analógicos. Este canal de señalización está asignado durante la comunicación. Normalmente, un canal físico de señalización está asociado al canal vocal. El canal físico (medio de transmisión) se comparte por los usuarios pero aún así sigue siendo señalización por canal asociado. Conocido como CAS. El equipo de transmisión está activo or una mínima parte del tiempo total de utilización del canal. El equipo receptor está funcionando permanentemente pero su actividad es mínima. No es posible la señalización extremo a extremo sin establecer un circuito. Por la eficiencia, no es posible consultar bases de datos porque solo hay un canal de señalización activo con un canal de voz activo.
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/SenalizacionAsociado}
+		\caption{Señalización por canal asociado}
+	\end{figure}
 
-	\begin{center}
-		\includegraphics[scale = 0.2]{SenalizacionAsociado}
-	\end{center}
+\textbf{Señalización por canal común}: Un único canal de señalización que es compartido por todos los usuarios. La señalización de cada usuario (canal vocal) se envía cuando se necesita. En algunos casos el canal físico de señalización y el de tráfico están separados pero no tiene por qué ser así. Conocido como CCS. Al suprimir los terminales de señalización se ahorra en los enlaces. Aumenta el vocabulario de señalización implementando más servicios. Incremento en velocidad en el establecimiento de llamadas. Aumento en la fiabilidad mediante el empleo de métodos mas eficaces de detección y corrección de errores. Permite el acceso a bases de datos. La señalización extremo a extremo es posible antes de establecer una comunicación.
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/SenalizacionComun}
+		\caption{Señalización por Canal Común}
+	\end{figure}
 
-\textbf{Señalización por canal común}: Un único canal de señalización que es compartido por todos los usuarios. La señalización de cada usuario (canal vocal) se envía cuando se necesita. En algunos casos el canal físico de señalización y el de tráfico están separados pero no tiene por qué ser así. Conocido como CCS. Al suprimir los terminales de señalización se ahorra en los enlaces. Aumenta el vocabulario de señalización implementando más servicios. Incremento en velocidad en el establecimiento de llamadas. Aumento en la fiabilidad mediante el empleo de métodos mas eficac es de detección y corrección de errores. Permite el acceso a bases de datos. La señalización extremo a extremo es posible antes de establecer una comunicación.
-
-	\begin{center}
-		\includegraphics[scale = 0.2]{SenalizacionComun}
-	\end{center}
-
-Realizando una llamada a cobro revertido.
-
-	\begin{center}
-		\includegraphics[scale = 0.2]{CobroRevertido}
-	\end{center}
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/CobroRevertido}
+		\caption{Señalización por canal común y canal asociado en una llamada a cobro revertido automática}
+	\end{figure}
 
 
 \subsubsection{Evolución de los Sistemas de Señalización}
 
 \textbf{CAS} previo a 1970 con señalización en banda. \textbf{CCIS} (\textit{Common Channel Interoffice Signaling}), se utiliza SS6, un sistema de canal común. \textbf{SS7}, origen en los años 1980, la señalización se transporta sobre redes separadas del tráfico de voz y tiene una pila de protocolos.
 
-\subsubsection{SS7}
 
-Estándar de la UIT-T, diseñado específicamente para atender requerimientos avanzados de redes telefónicas digitales (RDSI). Basado en una red de datos independiente de la red de tráfico. Teniendo nodos, enlaces y protocolos propios. Su arquitectura es independiente de la(s) red(es) que soporta. 
-
-	\begin{center}
-		\includegraphics[scale = 0.2]{RedTrafico}
-	\end{center}
+El \textbf{Sistema de Señalización Número 7 (SS7)} es el estándar de la UIT-T, diseñado específicamente para atender requerimientos avanzados de redes telefónicas digitales (RDSI). Basado en una red de datos independiente de la red de tráfico. Teniendo nodos, enlaces y protocolos propios. Su arquitectura es independiente de la(s) red(es) que soporta. 
 
 \textbf{Arquitectura de la Red SS7} está compuesta por nodos y enlaces. Los nodos se conocen como Signaling Points y tiene un código (SPC) que lo identifica.
 
@@ -1837,9 +2127,11 @@ Una central puede tener varios SCPs (en varios planos)
 
 SS7 se diseña para minimizar los retardos en la señalización, para eso únicamente utiliza los niveles inferiores de OSI (Físico, Enlace y Red). Para gestionar los recursos de red se utiliza la señalización.
 	
-	\begin{center}
-		\includegraphics[scale = 0.5]{SS7OSI}
-	\end{center}
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/SS7OSI}
+		\caption{Relación entre OSI y los Protocolos SS7}
+	\end{figure}
 
 	\begin{itemize}
 		\item \textbf{MTP} (\textit{Message Transfer Part}): Compuesta por los tres primeros niveles OSI. MTP Capa 1 (Enlace de datos de señalización $\rightarrow$ Capa Física), MTP Capa 2 (Enlace de señalización $\rightarrow$ CApa de Enlace), MTP Capa 3 (Funciones de la red de señalización: tratamiento de mensajes y gestión de red).
@@ -1891,9 +2183,9 @@ Corresponde al nivel 3 OSI (red). Tiene las siguientes \textbf{funciones}:
 	\begin{itemize}
 		\item Discriminación de mensajes (decide ruta o usuario final): Determina si un mensaje ha llegado a su nodo final. Examina el DPC: Si coincide con el SPC entrega el mensaje ala parte de distribución de mensajes, si no coincide lo entrega a la parte de encaminamiento.
 		\item  Encaminamiento de mensajes (rutado): Utiliza la etiqueta de rutados y el SSF, el encaminamiento se basa en tablas de rutado, los encaminamiento son por defecto estáticos y en caso de fallo o congestión se utilizan enlaces alternativos.
-		\item , distribución de mensajes (asignación a la parte del usuario final: Entrega el mensaje a la parte de usuario correspondiente. Utilizando MTP3 sólo son posibles 16 usuarios diferentes (4 bits).
+		\item Distribución de mensajes (asignación a la parte del usuario final: Entrega el mensaje a la parte de usuario correspondiente. Utilizando MTP3 sólo son posibles 16 usuarios diferentes (4 bits).
 		\item  gestión del tráfico de señalización y gestión de las rutas de señalización: Entre dos SP contiguos para advertir de que un enlace está congestionado o enfallo y activación y desactivación de enlaces.
-		\item Gesstión de las rutas de señalización: Informa a SP cercanos del estado del enlace (congestión).
+		\item Gestión de las rutas de señalización: Informa a SP cercanos del estado del enlace (congestión).
 	\end{itemize}
 
 	\begin{center}
@@ -2105,7 +2397,52 @@ Al igual que las redes de conmutación espacial, las redes de conmutación tempo
 	
 \subsubsection{Redes de conmutación espacial - temporal}
 
-En la práctica, los conmutadores serán combinaciones de varias etapas. Éstas serán habitualmente combinación de etapas temporales y espaciales. Los objetivos son minimizar la probabilidad de bloqueo y la complejidad. Para ello hay múltiples alternativas
+En la práctica, los conmutadores serán combinaciones de varias etapas. Éstas serán habitualmente combinación de etapas temporales y espaciales. Los objetivos son minimizar la probabilidad de bloqueo y la complejidad. Para ello hay múltiples alternativas:
+
+	\begin{itemize}
+		\item ST - Espacial Temporal
+		\item TS - Temporal Espacial
+		\item STS - Espacial Temporal Espacial
+		\item TST - Temporal Espacial Temporal
+		\item ...
+	\end{itemize}
+	
+Un \textbf{conmutador temporal - espacial (TS)} es una etapa de conmutación temporal seguida de una etapa de conmutación espacial.	
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/TS}
+		\caption{Conmutación Temporal - Espacial}
+	\end{figure}
+	
+Un \text{conmutador espacial - temporal (ST)} es una etapa de conmutación espacial seguida de una etapa de conmutación temporal
+	
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/ST}
+		\caption{Conmutación Espacial - Temporal}
+	\end{figure}
+
+Un conmutador digital formado por una única etapa espacial es impracticable debido a la alta probabilidad de bloqueo. Un conmutador digital formado por una única etapa temporal puede utilizarse para una capacidad de 250 líneas. Los conmutadores de dos etapas ST o TS pueden utilizarse para conseguir una capacidad de conmutación baja-media. Las altas probabilidades de bloqueo obligan a aumentar el tamaño de los conmutadores temporales.\\
+
+Una etapa de \textbf{conmutación temporal-espacial-temporal} es una red de tres etapas, el control de la red de conexión no asocia una ranura de tiempo en un canal de entrada o salida con una ranura particular de la etapa espacial. La ranura de tiempo de la trama de entrada puede ser conectada a una ranura de tiempo de la salida a través de cualquier ranura de la matriz espacial que esté libre en ese momento. El proceso de captura del camino de conexión se convierte en la tarea de encontrar una ranura disponible en cada extremo de la matriz espacial. En este tipo de conmutador puede producirse bloqueo si no existe ranura de tiempo disponible entre las etapas T. Este tipo de conmutadores ofrecen unas capacidades de conmutación media-alta con bajas probabilidades de bloqueo.
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/TST}
+		\caption{Conmutador TST}
+	\end{figure}
+
+Un \textbf{conmutador STS} se trata de una red de tres etapas. El conmutador espacial de entrada conecta el bus de entrada con el conmutador temporal durante la ranura de tiempo de entrada. El conmutador espacial de salida conecta el conmutador temporal con el bus de salida durante la ranura de tiempo de salida.
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.4]{images/STS}
+		\caption{Conmutador STS}
+	\end{figure}
+
+	
+	
 	
 %\vfill
 
