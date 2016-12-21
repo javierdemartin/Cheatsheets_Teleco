@@ -20,7 +20,6 @@
 
 \usepackage{pdflscape}
 
-
 \usepackage{draftwatermark}
 \SetWatermarkText{Javier de Martín}
 \SetWatermarkScale{0.8}
@@ -169,7 +168,7 @@ Estas medidas están relacionadas por:
 	
 	\begin{IEEEeqnarray*}{rCl}
 		L(dBV) & = & L(dBm) - 10 \cdot \log_{10} \left( \frac{600}{R} \right) \\
-			    & = & 20 \cdot \log_{10} \left( \frac{V}{0,0775 (V)} \right)
+			    & = & 20 \cdot \log_{10} \left( \frac{V}{0,775 (V)} \right)
 	\end{IEEEeqnarray*}
 	
 
@@ -889,7 +888,7 @@ La \textbf{red} se define como un método de interconexión de centrales para po
 
 	\begin{itemize}
 		\item Malla (todos con todos): Eficiente en zonas con usuarios concentrados cerca de los nodos y si el tráfico de usuarios es alto, el número de enlaces es alto, $\frac{N(N-1)}{2}$, y la escalabilidad es compleja.
-		\item Estrella (a través de un centro de y estrella doble (varias estrellas a través de un centro de tránsito de segundo orden): Menor número de conexiones ($N$), necesita nodos intermedios de conmutación, óptimo en lugares con poco tráfico, permite dar acceso a zonas aisladas y su escalabilidad es sencilla.
+		\item Estrella (a través de un centro de y estrella doble (varias estrellas a través de un centrogg de tránsito de segundo orden): Menor número de conexiones ($N$), necesita nodos intermedios de conmutación, óptimo en lugares con poco tráfico, permite dar acceso a zonas aisladas y su escalabilidad es sencilla.
 		\item Estrella doble: Varias estrellas a través de un centro de tránsito de segundo orden.
 	\end{itemize}
 
@@ -902,13 +901,13 @@ La \textbf{red} se define como un método de interconexión de centrales para po
 La \textbf{red de acceso} son centrales digitales remotas, compuestas por:
 
 	\begin{itemize}
-		\item  \textbf{concentradores}: son equipos de conmutación para dar accesos a abonados alejados de la central, las funciones de conmutación las realiza la central autónoma, el camino telefónico de una llamada local pasa por la central autónoma.
+		\item  \textbf{Concentradores}: son equipos de conmutación para dar acceso a abonados alejados de la central, las funciones de conmutación las realiza la central autónoma, el camino telefónico de una llamada local pasa por la central autónoma.
 
 				\begin{center}
 					\includegraphics[scale=0.2]{images/RedAcceso}
 				\end{center}
 		
-		\item \textbf{Unidades remotas de abonados}: equipos con más capacidad de accesos que el concentrador, están conectados a la central autónoma mediante sistemas MIC por cable o bien enlaces de fibra, su funcionamiento es más autónomo que en el caso de los concentradores y tienen capacidad de conmutación para los enlaces locales.
+		\item \textbf{URA (Unidades Remotas de Abonados)}: equipos con más capacidad de accesos que el concentrador, están conectados a la central autónoma mediante sistemas MIC \footnote{Modulación por Impulsos Codificados} por cable o bien enlaces de fibra, su funcionamiento es más autónomo que en el caso de los concentradores y tienen capacidad de conmutación para los enlaces locales.
 
 			\begin{center}
 				\includegraphics[scale=0.2]{images/RDI}
@@ -924,15 +923,10 @@ La \textbf{red de acceso} son centrales digitales remotas, compuestas por:
 		\includegraphics[scale=0.3]{images/TerminalTelefonico}
 	\end{center}
 
-%\subsubsection{Transmisores y Receptores}
+El primer terminal telefónico era un sistema basado en \textbf{un transmisor, un receptor} y una batería dispuestos en serie y funcionaba por el principio de resistencia variable. El problema era la potencia del transmisor ya que no existían amplificadores. En la actualidad el transmisor es un micrófono de carbón (no lineal y muy sensible).
 
-El primer sistema basado en \textbf{un transmisor, un receptor} y una batería dispuestos en serie y funcionaba por el principio de resistencia variable. El problema era la potencia del transmisor ya que no existían amplificadores. En la actualizad el transmisor es un micrófono de carbón (no lineal y muy sensible).
+El \textbf{bucle de abonado} es una conexión física con la central telefónica, inicialmente era un único hilo (aprovechando la tierra) y actualmente son dos hilos (cable de pares). Nació como líneas dedicadas entre dos usuarios, posteriormente fueron líneas de conmutación manual (centralitas) y finalmente son centrales de conmutación (strowger \footnote{Conmutador basado en telerruptores})
 
-%\subsubsection{El bucle de Abonado}
-
-El \textbf{bucle de abonado} es una conexión física con la central telefónica, inicialmente era un único hilo (aprovechando la tierra) y actualmente son dos hilos (cable de pares). Nació como líneas dedicadas entre dos usuarios, posteriormente fueron líneas de conmutación manual (centralitas) y finalmente son centrales de conmutación (strowger).
-
-%\subsubsection{La Bobina de Inducción}
 
 La \textbf{bobina de inducción} era inicialmente un transmisor y un receptor en serie. Tenían \textbf{problemas} como la impedancia del altavoz, difícil adaptación de impedancias y la corriente continua que circulaba a través del receptor reducía su eficiencia. Como \textbf{solución} se utiliza la bobina de inducción, se aíslan los TX y RX facilitando la adaptación y evitando que circule corriente continua por el altavoz.
 
@@ -951,7 +945,7 @@ La \textbf{marcación} puede realizarse de dos formas: por pulsos/decamétrica o
 \subsubsection{Otros tipos de terminales: Módems}
 
 	\begin{center}
-		\includegraphics[scale=0.2]{images/SpecsModem}
+		\includegraphics[scale=0.3]{images/SpecsModem}
 	\end{center}
 
 La ITU define dos tipos de módems:
@@ -1204,10 +1198,12 @@ La DSL (\textit{Digital Subscriber Line}) es una familia de tecnlologías que pr
 	
 	\begin{itemize}
 		\item \textbf{ATU-R}: Módem digital que se instala en el domicilio del usuario y que está conectado a la línea telefónica y a la computadora, los datos son modulados mediante DMT.
-		\item \textbf{Splitter}: Filtro que divide las frecuencias bajas en una banda de 0-4kHz y las altas frecuencias en una banda mayor a 4kHz. Al filtrar las bajas frecuencias se separa la voz y eliminan las interferencias provocadas sobre la transmisión de datos del usuario; de la misma forma al filtrar las altas frecuencias se separan los datos y permite que la transmisión de datos no afecte a la de voz.
+		\item \textbf{Splitter}: Filtro que divide las frecuencias bajas en una banda de $0-4kHz$ y las altas frecuencias en una banda mayor a 4kHz. Al filtrar las bajas frecuencias se separa la voz y eliminan las interferencias provocadas sobre la transmisión de datos del usuario; de la misma forma al filtrar las altas frecuencias se separan los datos y permite que la transmisión de datos no afecte a la de voz.
 		\item \textbf{ATU-C}: Módem digital ubicado en el lado de la central, debe de utilizar el mismo tipo de modulación que el ATU-R. Generalmente es una tarjeta que se insertará en el equipo que concentra y mulitplexa el tráfico de datos o DSLAM (\textit{Digital Subscriber Line Access Multiplexer}).
 		\item \textbf{Multiplexor ADSL (DSLAM)}: Chasis que agrupa gran número de tarjetas, cada una consta de varios módems ATU-C y además concentra (multiplexa/demultiplexa) el tráfico de todos los enlaces ADSL hacia una red WAN. Realiza funciones de nivel de enlace (protocolo ATM sobre ADSL) entre el módem de usuario y el de central.
 	\end{itemize}
+	
+Cuando se pasa de ADSL a ADSL Lite la instalación se hace en la centralita por lo que se puede quitar el splitter de la casa del cliente.
 	
 \subsubsection{Problemas y Soluciones}
 
@@ -1233,7 +1229,7 @@ MIC (\textit{Modulación por Impulsos Codificados}) o PCM (\textit{Pulse Coded M
 	
 %\subsubsection{Muestreo}
 
-La frecuencia de \textbf{muestro} es la máxima frecuencia utilizable de la señal analógica (voz). En telefonía, el ancho de banda de voz es 300-3400Hz. En función del teorema de Nyquist se muestrea con $F_{S} = 2 \cdot F_{max}$ pero por cuestiones prácticas la frecuencia seleccionada es de 8kHz. El valor de la frecuencia de muestreo fija la longitud de la trama en la multiplexación TDM, $125\mu s$.
+La frecuencia de \textbf{muestreo} es la máxima frecuencia utilizable de la señal analógica (voz). En telefonía, el ancho de banda de voz es 300-3400Hz. En función del teorema de Nyquist se muestrea con $F_{S} = 2 \cdot F_{max}$ pero por cuestiones prácticas la frecuencia seleccionada es de 8kHz. El valor de la frecuencia de muestreo fija la longitud de la trama en la multiplexación TDM, $125\mu s$.
 
 %\subsubsection{Cuantificación en sistemas MIC}
 
@@ -1256,14 +1252,14 @@ El proceso de \textbf{cuantificación} en sistemas MIC consiste en dividir el ra
 En realidad, \textbf{el cuantificador logarítmico se construye con un cuantificador uniforme, un compansor y un expansor}. La UIT-T recomienda el uso de dos funciones logarítmicas para la cuantificación MIC:
 
 	\begin{itemize}
-		\item \textbf{Ley A}: Europa, es una función continua y se aproxima linealmente por tramo dando lugar a la ley A de 13 segmentos, $A = 87,6$. En el interior de cada segmento se hace una cuantificación uniforme con 4 bits: 16 subintervalos por segmento. La \textbf{palabra MIC} queda definida por 8 bits: 1 bit de signo, 3 bits por segmento (identificación de los 8 intervalos de decisión) y 4 bits por subintervalo dentro de cada segmento (escalón del tramo lineal).
+		\item \textbf{Ley A}: Europa, es una función continua y se aproxima linealmente por tramo dando lugar a la ley A de 13 segmentos (realmente son 16 segmentos), $A = 87,6$. En el interior de cada segmento se hace una cuantificación uniforme con 4 bits: 16 subintervalos por segmento. La \textbf{palabra MIC} queda definida por 8 bits: 1 bit de signo, 3 bits por segmento (identificación de los 8 intervalos de decisión) y 4 bits por subintervalo dentro de cada segmento (escalón del tramo lineal).
 		\item \textbf{Ley $\mu$}: Estados Unidos, Japón y Canadá.
 	\end{itemize}
 
 
 %\subsubsection{Sistemas MIC 30 + 2}
 
-Hasta ahora se ha visto cómo digitalizar la señal vocal, para optimizar el uso de los recursos (enlaces) se multiplexan las señales vocales. En el caso de los sistemas MIC, esta multiplexación se realiza por división en el tiempo. De esta forma, los canales vocales correspondientes a 30 conversaciones se multiplexan en el tiempo junto con información de alineación de trama y bits de servicio y señalización formando una trama \textbf{MIC 30+2}. Esta trama está compuesta por 32 intervalos temporales, cada uno de ellos correspondiente a una palabra MIC de una conversación, la duración de cada trama es de $125 \mu s$ (fijado por la frecuencia de muestreo $8kHz$. La velocidad de salida es de $32 intervalos \cdot 8 bits / intervalo \cdot 8 kHz = 2048 kbps$. Los intervalos se identifican como $I0 - I31$ y la estructura de la trama es:
+Hasta ahora se ha visto cómo digitalizar la señal vocal, para optimizar el uso de los recursos (enlaces) se multiplexan las señales vocales. En el caso de los sistemas MIC, esta multiplexación se realiza por división en el tiempo. De esta forma, los canales vocales correspondientes a 30 conversaciones se multiplexan en el tiempo junto con información de alineación de trama y bits de servicio y señalización formando una trama \textbf{MIC 30+2}, compuesta por 32 intervalos temporales, la duración de cada trama es de $125 \mu s$ (fijado por la frecuencia de muestreo $8kHz$. La velocidad de salida es de $32 intervalos \cdot 8 bits / intervalo \cdot 8 kHz = 2048 kbps$. Los intervalos se identifican como $I0 - I31$ y la estructura de la trama es:
 	
 %	\begin{center}
 %		\includegraphics[scale=0.4]{images/TramaMIC}
@@ -1272,8 +1268,15 @@ Hasta ahora se ha visto cómo digitalizar la señal vocal, para optimizar el uso
 	\begin{figure}[!ht]
  		\centering
   		 \includegraphics[scale = 0.4]{images/TramaMIC}
-		\caption{Estructura de Multitrama}
+		\caption{Estructura de Multitrama MIC 30+2}
 	\end{figure}
+
+Los 32 bytes de la trama tienen los siguientes significados:
+
+	\begin{itemize}
+		\item \texttt{I0}: Información de alineamiento de trama, si no se detecta la secuencia \texttt{X0011011} se ha realizado mal el conteo y se activa la alarma.
+		\item \texttt{I16}: Información de señalización (4 bits), por tanto, en cada trama sólo se puede enviar información de dos canales. Se utiliza una multitrama para señalizar 30 canales. Todos los bits que van dentro de IX, en esta sección, son palabras MIC.
+	\end{itemize}
 
 Un enlace a través de sistemas MIC 30+2 quedaría de la siguiente manera:
 
@@ -1567,10 +1570,6 @@ Las señales de entrada a un multiplexor son \textbf{tributarias} o \textbf{aflu
 
 %\subsubsection{Velocidades PDH}
 
-	\begin{center}
-		\includegraphics[scale=0.2]{images/VelocidadPDH}
-	\end{center}
-
 	\begin{figure}[!ht]
  		\centering
   		 \includegraphics[scale = 0.35]{images/VelocidadPDH}
@@ -1583,10 +1582,10 @@ Las señales de entrada a un multiplexor son \textbf{tributarias} o \textbf{aflu
 
 %\subsubsection{Justificación o Relleno}
 
-Los equipos de la red PDH no están sincronizados, utilizan distintos relojes con la misma velocidad pero con tolerancias sobre la velocidad nominal. Esto supone un problema para la multiplexación. A cada señal tributaria se le añaden unos bits que son de \textbf{relleno} o \textbf{justificación} para que el extremo receptor pueda distinguir los bits que son de información y los de relleno. Con esto se consiguen salvar las diferencias de frecuencia que puedan tener los distintos tributarios. A los tributarios más lentos es necesario añadirles más bits de relleno que a los rápido.
+Los equipos de la red PDH no están sincronizados, utilizan distintos relojes con la misma velocidad pero con tolerancias sobre la velocidad nominal. Esto supone un problema para la multiplexación. A cada señal tributaria se le añaden unos bits que son de \textbf{relleno} o \textbf{justificación} para que el extremo receptor pueda distinguir los bits que son de información y los de relleno. Con esto se consiguen salvar las diferencias de frecuencia que puedan tener los distintos tributarios. A los tributarios \footnote{Número $N$ de señales numéricas que recibe un equipo multiplicador digital} más lentos es necesario añadirles más bits de relleno que a los rápido.
 
 	\begin{center}
-		\includegraphics[scale=0.2]{images/JustificacionPDH}
+		\includegraphics[scale=0.35]{images/JustificacionPDH}
 	\end{center}	
 
 Las tramas contemplan espacios para bits de relleno que se pueden utilizar como bits de información si es necesario $\rightarrow$ Justificación positiva
@@ -1610,7 +1609,7 @@ La técnica de justificación tiene tres variantes:
 		\item Positiva-Nula-Negativa: Utilizado en SDH
 	\end{itemize}
 	
-Si se ha utilizado justificación en la trama es necesario indicarlo, hay bits de control de justificación sobre qué afluente se ha realizado.
+Si se ha utilizado justificación en la trama es necesario indicarlo, para ello hay bits de control de justificación sobre qué afluente se ha realizado.
 
 %\subsubsection{Estructura de la trama G.742 - 8 Mbps}
 	
@@ -1623,6 +1622,8 @@ Si se ha utilizado justificación en la trama es necesario indicarlo, hay bits d
   		 \includegraphics[scale = 0.3]{images/TramaG742}
 		\caption{Estructura de la trama G.742 - 8 Mbps}
 	\end{figure}
+	
+Al multiplexar 4 tramas de 2 Mbps el resultado no es $8192 = 4 \cdot 1024$ sino más ya que se añade información extra. Cada trama tiene longitud diferente ya que la multiplexación se realiza a nivel de bit.
 	
 %\subsubsection{Estructura de las tramas G.751 - 34 Mbps}
 
@@ -1715,7 +1716,7 @@ Las redes PDH tienen una serie de \textbf{problemas}: \textbf{No existe compatib
 		\caption{Extracción de una tributaria de 2 Mbps en un múltiplex de 139 Mbps}
 	\end{figure}	
 
-Los problemas de PDH los resuelve SDH. Da lugar a un estándar ANSI que se denominó SONET (\textit{Synchronous Optical NETwork}). SDH compatibiliza los afluentes PDH y relevarlo al uso de enlaces de menor capacidad, permite velocidades de hasta $10 Gbps$, permite una extracción sencilla de flujos inferiores, compatible con sistemas de diferentes continentes (SONET $\rightarrow$ SDH), crea un reloj de referencia estándar para toda la red
+Los problemas de PDH los resuelve SDH. Da lugar a un estándar ANSI que se denominó SONET (\textit{Synchronous Optical NETwork}). SDH compatibiliza los afluentes PDH y pretende relevarlo al uso de enlaces de menor capacidad, permite velocidades de hasta $10 Gbps$, permite una extracción sencilla de flujos inferiores, compatible con sistemas de diferentes continentes (SONET $\rightarrow$ SDH), crea un reloj de referencia estándar para toda la red
 
 %	\begin{center}
 %		\includegraphics[scale=0.2]{images/AddDrop}
@@ -1738,7 +1739,7 @@ ADM se encarga de extraer o insertar señales tributarias plesiócronas o síncr
 	
 	\begin{figure}[!ht]
  		\centering
-  		 \includegraphics[scale = 0.4]{images/EjemploTrans}
+  		 \includegraphics[scale = 0.3]{images/EjemploTrans}
 		\caption{Ejemplo de transporte PDH sobre SONET/SDH}
 	\end{figure}
 
@@ -1940,6 +1941,8 @@ Además de poder insertar una señal de 140 Mbps en un STM-1 a través de un con
 		\caption{Multiplexación VC-4 y VC-3}
 	\end{figure}
 
+
+
 	\begin{figure}[!ht]
  		\centering
   		 \includegraphics[scale = 0.4]{images/PunterosMux}
@@ -2051,17 +2054,16 @@ La señalización en una red telefónica es el lenguaje utilizado entre los term
 
 \textbf{Tipos de Señalización}
 
-\textbf{Señalización de abonado}: Abonado-Central y Central-Abonado. Tiene que ser sencilla para permitir la retrocompatibilidad y permitir terminales sencillos y baratos.
-
-\textbf{Señalización interna de central}: Es dependiente del fabricante. Envía información de señales y control entre los equipos de la central. La señalización en la red fue en sus comienzos una esxtensión de este tipo de señalización.
-
-\textbf{Señalización entre centrales}: Elige los enlaces que se van a utilizar para la llamada y se encarga de liberarlos una vez se termine. Antes, consulta el \textbf{estado de enlace} para comprobar si está disponible. Hay que enviar las llamadas desde un extremo de la red hasta otro mediante el \textbf{rutado de llamadas}. \textbf{Envío de numeración entre centrales}. La información se envía \textbf{enlace a enlace}. \textbf{Extremo a extremo}, un nodo maestro dirige la señalización, conoce la red y va a organizar la comunicación, permite enviar menos información por la red.
-
-\textbf{Señalización por canal asociado}: Cada canal vocal tiene asociado un canal de comunicación propio para la señalización. Típica de los sistemas analógicos. Este canal de señalización está asignado durante la comunicación. Normalmente, un canal físico de señalización está asociado al canal vocal. El canal físico (medio de transmisión) se comparte por los usuarios pero aún así sigue siendo señalización por canal asociado. Conocido como CAS. El equipo de transmisión está activo or una mínima parte del tiempo total de utilización del canal. El equipo receptor está funcionando permanentemente pero su actividad es mínima. No es posible la señalización extremo a extremo sin establecer un circuito. Por la eficiencia, no es posible consultar bases de datos porque solo hay un canal de señalización activo con un canal de voz activo.
+	\begin{itemize}
+		\item \textbf{Señalización de abonado}: Abonado-Central y Central-Abonado. Tiene que ser sencilla para permitir la retrocompatibilidad y permitir terminales sencillos y baratos.
+		\item \textbf{Señalización interna de central}: Es dependiente del fabricante. Envía información de señales y control entre los equipos de la central. La señalización en la red fue en sus comienzos una esxtensión de este tipo de señalización.
+		\item \textbf{Señalización entre centrales}: Elige los enlaces que se van a utilizar para la llamada y se encarga de liberarlos una vez se termine. Antes, consulta el \textbf{estado de enlace} para comprobar si está disponible. Hay que enviar las llamadas desde un extremo de la red hasta otro mediante el \textbf{rutado de llamadas}. \textbf{Envío de numeración entre centrales}. La información se envía \textbf{enlace a enlace}. \textbf{Extremo a extremo}, un nodo maestro dirige la señalización, conoce la red y va a organizar la comunicación, permite enviar menos información por la red.
+		\item \textbf{Señalización por canal asociado}: Cada canal vocal tiene asociado un canal de comunicación propio para la señalización. Típica de los sistemas analógicos. Este canal de señalización está asignado durante la comunicación. Normalmente, un canal físico de señalización está asociado al canal vocal. El canal físico (medio de transmisión) se comparte por los usuarios pero aún así sigue siendo señalización por canal asociado. Conocido como CAS. El equipo de transmisión está activo or una mínima parte del tiempo total de utilización del canal. El equipo receptor está funcionando permanentemente pero su actividad es mínima. No es posible la señalización extremo a extremo sin establecer un circuito. Por la eficiencia, no es posible consultar bases de datos porque solo hay un canal de señalización activo con un canal de voz activo.
+	\end{itemize}
 	
 	\begin{figure}[!ht]
  		\centering
-  		 \includegraphics[scale = 0.4]{images/SenalizacionAsociado}
+  		 \includegraphics[scale = 0.3]{images/SenalizacionAsociado}
 		\caption{Señalización por canal asociado}
 	\end{figure}
 
@@ -2069,13 +2071,13 @@ La señalización en una red telefónica es el lenguaje utilizado entre los term
 	
 	\begin{figure}[!ht]
  		\centering
-  		 \includegraphics[scale = 0.4]{images/SenalizacionComun}
+  		 \includegraphics[scale = 0.3]{images/SenalizacionComun}
 		\caption{Señalización por Canal Común}
 	\end{figure}
 
 	\begin{figure}[!ht]
  		\centering
-  		 \includegraphics[scale = 0.4]{images/CobroRevertido}
+  		 \includegraphics[scale = 0.3]{images/CobroRevertido}
 		\caption{Señalización por canal común y canal asociado en una llamada a cobro revertido automática}
 	\end{figure}
 
@@ -2129,7 +2131,7 @@ SS7 se diseña para minimizar los retardos en la señalización, para eso única
 	
 	\begin{figure}[!ht]
  		\centering
-  		 \includegraphics[scale = 0.4]{images/SS7OSI}
+  		 \includegraphics[scale = 0.5]{images/SS7OSI}
 		\caption{Relación entre OSI y los Protocolos SS7}
 	\end{figure}
 
@@ -2259,6 +2261,13 @@ ISUP (\textit{ISDN User Part}) pensado para la red digital de servicios integrad
 	\begin{center}
 		\includegraphics[scale = 0.3]{ej2}
 	\end{center}	
+
+	\begin{figure}[!ht]
+ 		\centering
+  		 \includegraphics[scale = 0.15]{Rutado}
+		\caption{Rutado MTP}
+	\end{figure}	
+
 
 \subsubsection{ISUP: Ejemplo de llamada en RTB}
 
