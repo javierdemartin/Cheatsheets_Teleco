@@ -1,0 +1,339 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{color,graphicx,overpic}
+\graphicspath{ {images/} }
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{esint}
+\usepackage{bm}
+\usepackage{relsize}
+\usepackage{datetime}
+\usepackage[utf8] {inputenc}
+\usepackage[spanish, activeacute] {babel}
+\usepackage{IEEEtrantools}
+\usepackage{framed}
+
+\usepackage{draftwatermark}
+\SetWatermarkText{Javier de Martín}
+\SetWatermarkScale{4.8}
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+    {\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+    }
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+\newcommand{\Lagr}{\mathcal{L}}
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+%My Environments
+\newtheorem{example}[section]{Example}
+% ---------------------------------------------------------------
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{framed}
+	\begin{center}
+    	\Large{\underline{Planificación de Redes y Modelado}} \\
+	Parte 2:  ''Modelado de Tráfico'' \\
+    	\scriptsize{3º Ingeniería de Telecomunicaciones | UPV/EHU}\\
+     	%Actualizado por Ãºltima vez el \today \\
+     	"\textsl{Under-promise and over-deliver}." \\
+     	%\hspace{5 pt} \\
+     	\small{\textbf{Javier de Martín -- 2016/17}}
+	\end{center}
+\end{framed}
+
+%
+% Cheatsheet code below 
+%                             
+
+\section{\underline{Fundamentos de la Teoría de Colas}}
+
+\subsection{Modelo simple de una cola}
+
+	\begin{itemize}
+		\item Tasa de llegada de usuarios ($\lambda$)
+		\item Tasa de servicio a usuarios ($\mu$)
+	\end{itemize}
+
+	\begin{itemize}
+		\item $C$: Capacidad del canal
+		\item $1 /  \mu$: Tiempo medio de una llamada
+		\item $l = 1 / \mu'$: Longitud media de un paquete
+	\end{itemize}
+	
+Tasa de servicio: 
+
+	\begin{equation*}
+		\mu = \frac{C}{1 / \mu'} = \mu' \cdot C
+	\end{equation*}
+
+\subsection{Estado de la cola}
+
+Cuando $\lambda \rightarrow \mu$ la cola se hace inestable, para que sea \textbf{estable}: $\lambda < \mu$.
+
+\textbf{Utilización} (o intensidad de tráfico):
+
+	\begin{equation*}
+		\rho = \frac{\lambda}{\mu}
+	\end{equation*}
+	
+Si $\rho \rightarrow 1$ los tiempos de espera aumentan y la cola se llena rápidamente.
+
+El \textbf{estado de la cola} es el número de usuarios/paquetes en la cola incluido el que pueda estar en el servidor.
+
+\subsection{Procesos de Poisson}
+
+
+Un proceso de Poisson es un caso particular del proceso de Markov en el cual la probabilidad de ocurrencia de un evento en $t + \Delta t$ es independiente de sucesos anteriores.
+
+En una \textbf{distribución de Poisson} la probabilidad de $k$ llegadas es:
+
+	\begin{equation*}
+		p(k) = \frac{(\lambda \cdot T)^k}{k!} \cdot e^{- \lambda T} \hspace{10 pt} \rightarrow \hspace{10 pt}  \sum_{k=0}^{\infty} p(k) = 1
+	\end{equation*}
+	
+La \textbf{esperanza} es $E(k)= \lambda \cdot T$ y \textbf{varianza} $\sigma^{2} (k) = \lambda \cdot T$.
+
+\subsection{Tiempo entre eventos sucesivos}
+
+Función de densidad de probabilidad:
+
+	\begin{equation*}
+		f_{\tau} (\tau) = \lambda e^{- \lambda \tau}	 = \frac{\partial F_{\tau}(x)}{\partial x}
+	\end{equation*}
+
+\subsection{Relación de los procesos exponenciales con los poissonianos}
+
+Probabilidad de una llegada en un intervalo:
+
+	\begin{equation*}
+		Pr\{ \tau > x \} = p_{x}(0) = e^{\lambda x}
+	\end{equation*}
+	
+Función de distribución de probabilidad acumulativa:
+
+	\begin{equation*}
+		F_{\tau}(x) = 1 - e^{\lambda x}
+	\end{equation*}
+	
+\subsection{Distribución del tiempo de servicio}
+
+\textbf{Propiedad}: Suponer $m$ procesos de Poisson independientes de tasas $\lambda_{1}$, $\lambda_{2}$, ..., $\lambda_{m}$ que se combinan, el proceso resultante será también de Poisson con una tasa $\lambda = \sum_{i = 1}^{m} \lambda_{i}$
+	
+\subsection{Notación Kendall}
+	
+	\begin{center}
+		\large{A/B/m/K/c/z}
+	\end{center}
+	
+	\begin{itemize}
+		\item \textbf{A}: Distribución del tiempo entre llegadas
+		\item \textbf{B}: Distribución del tiempo de servicio
+		\item \textbf{m}: Número de servidores en paralelo en el sistema
+		\item \textbf{K}: Capacidad de la cola (incluyendo servidores)
+		\item \textbf{c}: Tamaño de la fuente
+		\item \textbf{z}: Disciplina de la cola
+	\end{itemize}
+
+Las distribuciones de llegadas y servicio pueden ser:
+
+	\begin{itemize}
+		\item \textbf{M}: Exponencial
+		\item \textbf{$E_{k}$}: Erlang de $k$ etapas
+		\item \textbf{$H_{k}$}: Hiperexponencial de $k$ etapas
+		\item \textbf{G}: General
+		\item \textbf{D}: Determinística (constante)
+	\end{itemize}
+	
+Por defecto para colas A/B/N la cola es infinita y la disciplina FIFO.
+
+\subsection{Parámetros medidos en las colas}
+
+Cuando el sistema alcanza su estado más estable se supone que la probabilidad de usuarios en el mismo no varía con el tiempo. Con el tiempo los valores de $p_{n}$ se irán aproximando a los valores más estables.
+
+\subsection{Ecuaciones de Balance en M/M/1}
+
+Es condición necesaria que $\rho < 1$:
+
+	\begin{equation*}
+		p_{0} = (1 - \rho) \hspace{20 pt} p_{n} = (1-\rho) \cdot \rho^{n} \hspace{20 pt} \forall \rho = \frac{\lambda}{\mu}
+	\end{equation*}
+	
+\subsection{Ecuaciones de Balance en M/M/1/N}
+
+Es condición necesaria que $\rho < 1$:
+
+	\begin{equation*}
+		p_{0} = \frac{1 - \rho}{1 - \rho^{N+1}} \hspace{20 pt} p_{n} =\frac{1 - \rho}{1 - \rho^{N+1}} \cdot \rho^{n} \hspace{20 pt} \forall \rho = \frac{\lambda}{\mu}
+	\end{equation*}
+
+La \textbf{probabilidad de bloqueo} es $P_{N} = p_{n}$.
+
+\subsection{Throughput ($\gamma$)}
+
+	\begin{center}
+	\begin{tikzpicture}
+		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,0) {Sistema\\ de Colas};
+%		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,-1) {$F_2$};	
+	
+%		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,0) {$P_1$};
+%		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,-1) {$P_2$};
+	
+		\draw (-1.75,0.2) -- node[above left] {$\lambda$} (-0.646,0.2);
+		\draw (-1.75,-0.2) -- node[above left] {$\lambda P_{B}$} (-0.646,-0.2);
+		\draw (0.67,0) -- node[above left] {$\gamma$} (1.75,0);
+		
+%		\draw (0.25,-1) -- node[above left] {} (1.75,-1);
+%		\draw [blue,  -to, thick] (0.5,0) -- (1.5,0) node [right] {};
+%		\draw [red,  -to, thick] (0.5,0) .. controls (1.10,0) and (0.7,-1) .. (1.5,-1);
+%		\draw [red,  -to, thick] (0.5,0) .. controls (1.05,0) and (0.88,-1) .. (0.5,-1);
+	\end{tikzpicture}
+\end{center}
+
+	\begin{IEEEeqnarray*}{rCl}
+		\gamma & = & \lambda \cdot (1 - P_{B}) \\
+			     & = & \mu \cdot (1 - p_{0}		
+	\end{IEEEeqnarray*}
+	
+Para una \textbf{cola infinita}:
+
+	\begin{equation*}
+		\gamma = \mu \cdot \rho = \lambda
+	\end{equation*}
+	
+Para una \textbf{cola finita}:
+
+	\begin{equation*}
+		P_{B} = \frac{1 - \rho}{1 - \rho^{N+1}} \cdot \rho^{N} = P_{N}
+	\end{equation*}
+	
+\subsection{Cola M/M/1/N en función de $\rho$}
+
+	\begin{equation*}
+		p_{n} = \frac{1 - \rho}{1 - \rho^{N+1}} \cdot \rho^{n}
+	\end{equation*}
+	
+	\textbf{Región de congestión}
+	
+\subsection{Throughput Normalizado ($\gamma / \mu$)}
+
+Mide la relación entre los usuarios que son atendidos en el sistema por unidad de tiempo y los que potencialmente podrían haber sido atendidos.
+
+	\begin{equation*}
+		\frac{\gamma}{\mu} = \frac{1 - \rho^{N}}{1 - \rho^{N+1}} \cdot \rho = \frac{Usuarios atendidos / seg}{Usuarios potenciales / seg}
+	\end{equation*}
+	
+	\text{Insertar Gráfica}
+	
+\subsection{Número medio de usuarios en la cola M/M/1 E(n)}
+
+	\begin{equation*}
+		E(n) = \frac{\rho}{1 - \rho}
+	\end{equation*}
+	
+\subsection{Tiempo Medio de Estancia en la Cola E(T)}
+	
+	\begin{equation*}
+		E(T) = \frac{E(n)}{\gamma} \hspace{15pt} \rightarrow \hspace{15pt} E(T)_{M/M/1} =  \frac{1}{(1 - \rho) \cdot \mu} = \frac{1}{\mu - \lambda}
+	\end{equation*}
+	
+\subsection{Tiempo Medio de Espera en la Cola E(w)}
+	
+	\begin{equation*}
+		E(w) = E(T) - 1 / \mu
+	\end{equation*}
+	
+\subsection{Número medio de usuarios esperando en la cola E(q)}
+	
+	\begin{equation*}
+		E(q) = \gamma \cdot E(w)
+	\end{equation*}
+
+\subsection{Colas dependientes del estado: Proceso de nacimiento y muerte}
+
+En las \textbf{colas dependientes del estado} las tasas de llegada $\lambda$ y las de servicio $\mu$ dependen del estado del sistema. Un \textbf{proceso de nacimiento} como un caso de procesos de Markov donde las tasas de llegada son función del estado. Un \textbf{proceso de muerte} es otro caso de procesos de Markov donde también las salidas son función del estado de la cola.
+
+
+\subsection{Ecuaciones de Balance}
+
+	\begin{equation*}
+	p_{n} = \frac{\prod_{i = 0}^{n-1} \lambda_{i}}{\prod_{i = 1}^{n} \mu_{i}} \cdot p_{0}
+	\end{equation*}
+
+\subsection{Fórmulas de Pollaczek Khinchine}
+
+Número medio de usuarios E(n):
+
+	\begin{equation*}
+	E(n) = \frac{\rho}{1 - \rho} \cdot \left( 1 - \frac{\rho}{2} (1 - \mu^{2} \sigma^{2} \right)
+	\end{equation*}
+
+Tiempo medio de estancia en la cola E(T):
+
+	\begin{equation*}
+	E(T) = \frac{E(n)}{\gamma} = \frac{\rho}{\mu (1 - \rho)} \cdot \left( 1 - \frac{\rho}{2} (1 - \mu^{2} \sigma^{2} \right)
+	\end{equation*}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{multicols}
+\end{document}
