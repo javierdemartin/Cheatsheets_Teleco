@@ -111,7 +111,6 @@ $\mu$: Tasa de servicio\\
 $\rho$: Factor de utilización (intensidad de tráfico)\\
 $N$: Estado del sistema, número de clientes en el sistema\\
 
-\section{\underline{Fundamentos de la Teoría de Colas}}
 
 \subsection{Modelo simple de una cola}
 
@@ -525,7 +524,11 @@ n  &    $n \cdot t_{T}$    &      $p^{n-1} (1-p) $       \\ \hline
 \draw[-to] (0,-.5)--(5.9,-.5) node[midway, fill = white]{$t_{T}$};
 
 \end{tikzpicture}
+
+\textit{Transmisión con errores}
+
 	\end{center}
+	
 	
 \begin{center}
 \begin{tabular}{|l|l|l|}
@@ -602,8 +605,42 @@ Tiempo medio de transmisión correcta de una trama:
 \Large{TERMINAR}
 
 
+\section{\underline{Modelado de N.Red y Control de Flujo}}
 
+\begin{center}
+\begin{tikzpicture}[node distance = 2cm, auto]
+\tikzstyle{every state}=[fill=gray,draw=none,text=white, scale = 0.6]
 
+\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (-1.5,0) {A};
+\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (5,0) {B};
+
+\draw (1,.5)--(2.5,.5) node[midway, fill = white]{\scriptsize{CFL}};
+\draw (0,-2)--(4,-2) node[midway, fill = white]{\scriptsize{CFNO/ND}};
+\draw (-1.5,-3)--(5,-3) node[midway, fill = white]{\scriptsize{CFEE}};
+
+\node[state] (A) {};
+\node[state] (B) [right of=A] {};
+\node[state] (C) [right of=B] {};
+\node[state] (D) [right of=C] {};
+\node[state] (F) [above of=B] {};
+\node[state] (G) [right of=F] {};
+\node[state] (H) [below of=B] {};
+\node[state] (I) [right of=H] {};
+
+\draw (A) -- (B)
+	 (B) -- (C)
+	 (C) -- (D)
+	 (D) -- (G)
+	 (F) -- (G)
+	 (A) -- (F)
+	 (A) -- (H)
+	 (H) -- (I)
+	 (I) -- (D)
+	 (-1.14,0) -- (A)
+	 (4.66,0) -- (D)
+	 ;
+\end{tikzpicture}
+\end{center}
 
 
 
