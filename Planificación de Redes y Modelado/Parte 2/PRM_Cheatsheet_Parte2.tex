@@ -602,10 +602,144 @@ Throughput normalizado:
 	\lambda_{max_{GBN}} = a \cdot \lambda_{max_{S\&W}}
 	\end{equation*}
 
+\textbf{ACKs embebidos en tramas B-A}
 
-\subsection{sACK}
+\text{Influencia de la tasa de error}
 
+\begin{center}
+\begin{tikzpicture}[scale = .8]
+%\draw[help lines, color=gray!30, dashed] (-4.9,-4.9) grid (4.9,4.9);
+%\draw[ultra thick] (0,0)--(8,0) node[right]{$tiempo$};
+\draw [-to, thick] (0,0) -- (8,0) node[right]{t};
+
+\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (1,.5) {Trama A1 \\ $t_{I}$};
+\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (6,.5) {Trama A1 ó A2 \\ $t_{I}$};
+
+\draw[-to] (0,1.3)--(2,1.3) node[midway, fill = white]{$t_{I}$};
+\draw[-to] (4.55,1.3)--(7.4,1.3) node[midway, fill = white]{$t_{I}$};
+
+\draw[-to] (2,.5)--(4.55,.5) node[midway, fill = white]{$t_{out}$};
+\draw[-to] (0,-.5)--(4.55,-.5) node[midway, fill = white]{$t_{T}$};
+
+\end{tikzpicture}
+\end{center}
+
+	\begin{center}
+		\begin{tikzpicture}[scale = 0.6]
+			\fill[gray!40!white] (0,0) rectangle (2,1);
+			\draw[white] (1,.5) node{Control};
+			\fill[gray!40!black] (2.05,0) rectangle (5,1);
+			\draw[white] (3.5,.5) node{Información};
+			
+			\draw[-to] (0,1.4)--(2,1.4) node[midway, fill = white]{$l^{'}$};
+			\draw[-to] (2.05,1.4)--(5,1.4) node[midway, fill = white]{$l$};
+		\end{tikzpicture}
+	\end{center}
+	
+\textbf{Erorres en enlaces de satélite}, como \textbf{hipótesis} se toma que $p_{b}$ es la probabilidad de error de bit independiente de la posición del bit debido al ruido aleatorio. Probabilidad de error de trama $p$: $p = 1 - (1 - p_{b})^{l + l^{'}} = 1 - q_{b}^{l + l^{'}} $. Si $p_{b} << 1 \rightarrow p \approx (l + l^{'}) p_{b} \rightarrow p << 1$.
+
+\textbf{Errores en enlaces terrestres}, los errores se producen en ráfagas. $p$ es proporcional a $l + l^{'}$, si $p_{b} << 1 \rightarrow p \approx (l + l^{'}) k$.\\
+
+\textbf{Tasa de datos normalizada D/C}, la estación emisora está en saturación ($\lambda_{max}$) y se utiliza el protocolo tipo Go-Back-N.
+
+	\begin{IEEEeqnarray*}{rCl}
+		D & = & \lambda_{max} \cdot l = l \cdot \frac{1 - p}{ t_{I} \cdot (1 + (a-1)) p} \hspace {20pt} t_{I} = \frac{l + l^{'}}{C} \\
+		C & \equiv & Capacidad del canal\\
+		\frac{D}{C} & = & \frac{l}{l + l^{'}} \cdot  \frac{1 - p}{ t_{I} \cdot (1 + (a-1)) p} \leq 1
+	\end{IEEEeqnarray*}	
+
+
+\textbf{Cálculo de la longitud óptima}
+
+\textbf{Hipótesis}: $a = 1$ (Stop \& Wait) o $(a-1) \cdot p \ll 1$.\\
+
+Caso general de \textbf{satélite}:
+
+	\begin{IEEEeqnarray*}{rCl}
+	l_{opt} & = & \frac{l^{'}}{2} \cdot \left( \sqrt{1 - \frac{4}{l^{'} \cdot L_{n} q_{b}}} - 1 \right) \\
+	           & \approx & \sqrt{\frac{l^{'}}{p_{b}}} \hspace{10pt} \text{suponiendo } p_{b} \ll 1 \rightarrow p_{b} \cdot l^{'} \ll 1
+	\end{IEEEeqnarray*}	
+
+Caso \textbf{terrestre/satélite} simplificado $p = p_{b} (l + l^{'})$:
+
+	\begin{equation*}
+		l_{opt} = \approx \sqrt{\frac{l^{'}}{p_{b}}} 
+	\end{equation*}
+	
 \subsection{Protocolo HDLC}
+
+	\begin{center}
+		\begin{tikzpicture}[scale = 0.6]
+			\fill[gray!40!white] (0,0) rectangle (1,1);
+			\draw[white] (.5,.5) node{A};
+			
+			\draw[-to] (.5,0) |- (1.5,-4) node[right] {Direcciones};
+			
+			\fill[gray!40!white] (1.05,0) rectangle (2.05,1);
+			\draw[white] (1.5,.5) node{C};
+			
+			\draw[-to] (1.5,0) |- (2,-1.7) node[right] {Información:};
+			
+			\fill[gray!40!white] (5,-2.2) rectangle (6,-1.2);
+			\draw[white] (5.5,-1.7) node{0};
+			\fill[gray!40!white] (6.05,-2.2) rectangle (7.5,-1.2);
+			\draw[white] (6.8,-1.7) node{N(S)};
+			\fill[gray!40!white] (7.55,-2.2) rectangle (9.05,-1.2);
+			\draw[white] (8.3,-1.7) node{P/F};
+			\fill[gray!40!white] (9.1,-2.2) rectangle (10.5,-1.2);
+			\draw[white] (9.8,-1.7) node{N(R)};
+			
+			\draw[-to] (1.5,0) |- (2,-2.8) node[right] {Supervisión:};
+			
+			\fill[gray!40!white] (5,-3.3) rectangle (6,-2.3);
+			\draw[white] (5.5,-2.8) node{1 0};
+			\fill[gray!40!white] (6.05,-3.3) rectangle (7.5,-2.3);
+			\draw[white] (6.8,-2.8) node{SS};
+			\fill[gray!40!white] (7.55,-3.3) rectangle (9.05,-2.3);
+			\draw[white] (8.3,-2.8) node{P/F};
+			\fill[gray!40!white] (9.1,-3.3) rectangle (10.5,-2.3);
+			\draw[white] (9.8,-2.8) node{N(R)};
+			
+			\fill[gray!40!white] (2.1,0) rectangle (5.1,1);
+			\draw[white] (3.6,.5) node{Información};
+			\fill[gray!40!white] (5.15,0) rectangle (7.15,1);
+			\draw[white] (6.2,.5) node{CRC};
+			
+			\draw[-to] (6.2,0) |- (7,-.5) node[right] {Control de Errores};
+			
+		\end{tikzpicture}
+	\end{center}
+
+SS $\rightarrow$ tipos de tramas de supervisión:
+
+	\begin{itemize}
+		\item RR (\textit{Ready to Receive}): Confirma las tramas hasta $N(R) - 1$.
+		\item RNR (\textit{Not Ready to Receive}): Confirma las tramas hasta $N(R) - 1$ y establece control de flujo con condición de bloqueo.
+		\item REJ (\textit{Reject}): Confirma las tramas hasta $N(R) - 1$ y retransmisión desde la trama $N(R)$.
+		\item SREJ (\textit{Selective Reject}): Pide retransmisión de la trama $N(R)$.
+	\end{itemize}
+	
+\textbf{Análisis en HDLC/ABM}:
+
+	\begin{itemize}
+		\item Se \textbf{diferencia respecto a Go-Back-N} de que tiene numeración de secuencia finita y procedimiento de control de errores específico.
+		\item \textbf{Procedimiento de control de errores}, se define una implementación específica sobre la cual se realiza el análisis del protocolo:
+			\begin{itemize}
+				\item Recuperación vía REJ siempre que se pueda acelerar el procedimiento de recuperación. Sólo una vez por la misma trama.
+				\item Recuperación por temporizador (además de REJ) para las retransmisiones sucesivas y errores no detectados por REJ.
+				\item Envío de tramas P/F para obligar a respuestas forzadas en situaciones especiales de recuperación.
+			\end{itemize}
+	\end{itemize}
+	
+\textbf{Hipótesis} para el análisis:
+
+	\begin{itemize}
+		\item Sólo se transmite en el sentido $A \rightarrow B$.
+		\item $A$ transmite en el régimen de saturación.
+		\item $B$ responde con $RR$ ($ACK$) y $REJ$ ($NACK$).
+	\end{itemize}
+	
+\textbf{Datos} para el análisis:
 
 \textbf{Módulo}: Número de tramas con diferente numeración que pueden ser enviadas.\\
 \textbf{Ventana}: Número máximo de tramas que pueden estar en circulación sin haber sido confirmadas.\\
@@ -615,7 +749,7 @@ Throughput normalizado:
 	\end{equation*}
 \textbf{Retardo de propagación} (incluyendo $t_{proc}$): $t_{p}$\\
 \textbf{Tiempo de confirmación}: $t_{ack} = 2 \cdot t_{p} + t_{s}$\\
-\textbf{Temporizador de reenvío}: $t_{out} = 2 \cdot t_{p} + 2 \cdot t_{I} > t_{ack}$\\
+\textbf{Temporizador de reenvío}: $t_{out} = 2 \cdot t_{p} + 2 \cdot t_{I} > t_{ack}$\\	
 	
 Cuando ocurre un error se puede recuperar por REJ (primer caso) o TEMPORIZACIÓN (en todos los casos).
 	
