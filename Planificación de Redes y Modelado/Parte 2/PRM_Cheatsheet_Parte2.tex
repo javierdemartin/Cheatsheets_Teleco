@@ -104,51 +104,36 @@
 
 \section{Variables}
 
-$\lambda$: Tasa de llegada \\
+$\lambda$: Tasa de llegada de usuarios (nº usuarios llegados / tiempo) \\
 	\quad $1 / \lambda$: Tiempo medio entre llegadas consecutivas\\
 $\mu$: Tasa de servicio\\
 	\quad $1 / \mu$: Tiempo medio de servicio\\
-$\rho$: Factor de utilización (intensidad de tráfico)\\
+$C$: Capacidad del canal\\
+$\rho = \frac{\lambda}{\mu}$: Factor de utilización (intensidad de tráfico)\\
 $N$: Estado del sistema, número de clientes en el sistema\\
 
+\section{\underline{Fundamentos de la Teoría de Colas}}
 
-\subsection{Modelo simple de una cola}
+		\begin{center}
+	\begin{tikzpicture}
+		
+		\draw[-to] (-1,-.5)--(0,-.5) node[midway, fill = white]{$\lambda$};
+		\draw[thick] (0,0) -- (1.5,0) -- (1.5,-1) -- (0, -1);
+		\draw (.75,-.5) node {Cola};
+		\draw (1.5,-.5)--(2,-.5);
+		\draw (2.4,-.5) circle (.4 cm);
+		\draw (2.4,-.5) node {$\mu$};
+		\draw[-to] (2.8,-.5)--(3.3,-.5);
+	\end{tikzpicture}
+\end{center}
 
-	\begin{itemize}
-		\item Tasa de llegada de usuarios ($\lambda$)
-		\item Tasa de servicio a usuarios ($\mu$)
-	\end{itemize}
-
-	\begin{itemize}
-		\item $C$: Capacidad del canal
-		\item $1 /  \mu$: Tiempo medio de una llamada
-		\item $l = 1 / \mu'$: Longitud media de un paquete
-	\end{itemize}
-	
-Tasa de servicio: 
-
-	\begin{equation*}
-		\mu = \frac{C}{1 / \mu'} = \mu' \cdot C
-	\end{equation*}
-
-\subsection{Estado de la cola}
-
-Cuando $\lambda \rightarrow \mu$ la cola se hace inestable, para que sea \textbf{estable}: $\lambda < \mu$.
-
-\textbf{Utilización} (o intensidad de tráfico):
-
-	\begin{equation*}
-		\rho = \frac{\lambda}{\mu}
-	\end{equation*}
+Cuando $\lambda \rightarrow \mu$ la cola se hace inestable, para que sea \textbf{estable}: $\lambda < \mu$.\\
 	
 Si $\rho \rightarrow 1$ los tiempos de espera aumentan y la cola se llena rápidamente.
 
-El \textbf{estado de la cola} es el número de usuarios/paquetes en la cola incluido el que pueda estar en el servidor.
+El \textbf{estado de la cola} es el número de usuarios/paquetes en la cola incluido el que pueda estar en el servidor.\\
 
-\subsection{Procesos de Poisson}
-
-
-Un proceso de Poisson es un caso particular del proceso de Markov en el cual la probabilidad de ocurrencia de un evento en $t + \Delta t$ es independiente de sucesos anteriores.
+Un \textbf{proceso de Poisson} es un caso particular del proceso de Markov en el cual la probabilidad de ocurrencia de un evento en $t + \Delta t$ es independiente de sucesos anteriores.
 
 En una \textbf{distribución de Poisson} la probabilidad de $k$ llegadas es:
 
@@ -158,29 +143,31 @@ En una \textbf{distribución de Poisson} la probabilidad de $k$ llegadas es:
 	
 La \textbf{esperanza} es $E(k)= \lambda \cdot T$ y \textbf{varianza} $\sigma^{2} (k) = \lambda \cdot T$.
 
-\subsection{Tiempo entre eventos sucesivos}
 
-Función de densidad de probabilidad:
+\textbf{Tiempo entre eventos sucesivos}, función de densidad de probabilidad:
 
 	\begin{equation*}
 		f_{\tau} (\tau) = \lambda e^{- \lambda \tau}	 = \frac{\partial F_{\tau}(x)}{\partial x}
 	\end{equation*}
 
-\subsection{Relación de los procesos exponenciales con los poissonianos}
 
-Probabilidad de una llegada en un intervalo:
+\textbf{Relación de los procesos exponenciales con los poissonianos}, probabilidad de una llegada en un intervalo:
 
 	\begin{equation*}
-		Pr\{ \tau > x \} = p_{x}(0) = e^{\lambda x}
+		Pr\{ \tau > x \} = p_{x}(0) = e^{-\lambda x}
 	\end{equation*}
 	
-Función de distribución de probabilidad acumulativa:
+Función de distribución de probabilidad acumulativa, mide la probabilidad de que $\tau$ sea menor o igual a $x$:
 
 	\begin{equation*}
 		F_{\tau}(x) = 1 - e^{\lambda x}
 	\end{equation*}
 	
-\subsection{Distribución del tiempo de servicio}
+\textbf{Distribución del tiempo de servicio}:
+
+	\begin{equation*}
+	f_{r}(r) = \mu \cdot e^{- \mu r}
+	\end{equation*}
 
 \textbf{Propiedad}: Suponer $m$ procesos de Poisson independientes de tasas $\lambda_{1}$, $\lambda_{2}$, ..., $\lambda_{m}$ que se combinan, el proceso resultante será también de Poisson con una tasa $\lambda = \sum_{i = 1}^{m} \lambda_{i}$
 	
@@ -211,19 +198,11 @@ Las distribuciones de llegadas y servicio pueden ser:
 	
 Por defecto para colas A/B/N la cola es infinita y la disciplina FIFO.
 
-\subsection{Parámetros medidos en las colas}
-
 Cuando el sistema alcanza su estado más estable se supone que la probabilidad de usuarios en el mismo no varía con el tiempo. Con el tiempo los valores de $p_{n}$ se irán aproximando a los valores más estables.
 
-\subsection{Ecuaciones de Balance en M/M/1}
+\subsection{M/M/1}
 
-Es condición necesaria que $\rho < 1$:
-
-	\begin{equation*}
-		p_{0} = (1 - \rho) \hspace{20 pt} p_{n} = (1-\rho) \cdot \rho^{n} \hspace{20 pt} \forall \rho = \frac{\lambda}{\mu}
-	\end{equation*}
-	
-\subsection{Ecuaciones de Balance en M/M/1/N}
+Las \textbf{ecuaciones de balance} permiten calcular la probabilidad de estado $p_{n}$. En el diagrama de estados, el $\#$ es el número de clientes en el sistema. El factor de utilización es $\rho = \lambda / \mu$.
 
 \begin{center}
 \begin{tikzpicture}[node distance = 1.5cm]
@@ -251,11 +230,38 @@ Es condición necesaria que $\rho < 1$:
 %        (E) edge [bend left]  node {1,0,R} (A);
 ;
 
-\node[draw] at (3,-2) {$\rho = \frac{\lambda}{\mu}$};
+%\node[draw] at (3,-2) {$\rho = \frac{\lambda}{\mu}$};
 
 
 \end{tikzpicture}
 \end{center}
+
+\begin{align*}
+  \begin{cases}
+      (n-1) & \rightarrow \text{Ha llegado un usuario} \\ 
+      n & \rightarrow \text{No ha llegado ni salido nadie} \\
+      (n+1) & \rightarrow \text{Ha salido un usuario}
+    \end{cases}
+\end{align*}
+
+	
+	\begin{IEEEeqnarray*}{rCl}
+		\lambda \cdot p_{n} & = & \mu \cdot p_{n+1}  \hspace{10pt} n = 0,1,2... \hspace{10pt} \sum_{n=0}^{\infty} p_{n} = 1\\
+			p_{n+1} & = & \rho \cdot p_{n}
+	\end{IEEEeqnarray*}
+	
+
+
+
+
+
+Es condición necesaria que $\rho < 1$:
+
+	\begin{equation*}
+		p_{0} = \frac{1}{\sum_{n=0}^{\infty} p_{n} = 1} =(1 - \rho) \hspace{20 pt} p_{n} = (1-\rho) \cdot \rho^{n} \hspace{20 pt} \forall \rho = \frac{\lambda}{\mu}
+	\end{equation*}
+	
+
 
 Es condición necesaria que $\rho < 1$:
 
@@ -265,7 +271,21 @@ Es condición necesaria que $\rho < 1$:
 
 La \textbf{probabilidad de bloqueo} es $P_{N} = p_{n}$.
 
+Tiempo medio por cliente en el sistema:
+
+	\begin{equation*}
+	\frac{1}{\mu ( 1 - \rho)}
+	\end{equation*}
+	
+Tiempo medio de espera en cola:
+
+	\begin{equation*}
+	\frac{\rho}{\mu (1 - \rho)}
+	\end{equation*}
+
 \subsection{Cola M/M/N}
+
+Permite procesamiento en paralelo al tener múltiples servidores, el factor de utilización es $\rho = \lambda / m \mu$.
 
 La tasa media de llegada $\lambda$ es constante e independiente del estado del sistema ($\lambda_{n} = \lambda$).
 
@@ -275,8 +295,8 @@ La tasa media de llegada $\lambda$ es constante e independiente del estado del s
 \node[state] (A) {$0$};
 \node[state] (B) [right of=A] {$1$};
 \node[state] (C) [right of=B] {$2$};
-\node[state] (D) [right of=C] {$...$};
-\node[state] (E) [right of=D] {$N-2$};
+%\node[state] (D) [right of=C] {$...$};
+\node[state] (E) [right of=C] {$N-2$};
 \node[state] (F) [right of=E] {$N-1$};
 \node[state] (G) [right of=F] {$N$};
 
@@ -284,10 +304,10 @@ La tasa media de llegada $\lambda$ es constante e independiente del estado del s
 (B) edge [bend left] node[below] {$\mu$} (A);
 \path (B) edge [bend left] node[above] {$\lambda$} (C)
 (C) edge [bend left] node[below] {$2\mu$} (B);
-\path (C) edge [bend left] node[above] {$\lambda$} (D)
-(D) edge [bend left] node[below] {$\mu$} (C);
-\path (D) edge [bend left] node {} (E)
-(E) edge [bend left] node {} (D);
+%\path (C) edge [bend left] node[above] {$\lambda$} (D)
+%(D) edge [bend left] node[below] {$\mu$} (C);
+%\path (D) edge [bend left] node {} (E)
+%(E) edge [bend left] node {} (D);
 \path (E) edge [bend left] node[above] {$\lambda$} (F)
 (F) edge [bend left] node[below] {$\mu (N-1)$} (E);
 \path (F) edge [bend left] node[above] {$\lambda$} (G)
@@ -304,9 +324,16 @@ La tasa media de llegada $\lambda$ es constante e independiente del estado del s
 ;
 
 
-\node[draw] at (3,-2) {$\rho = \frac{\lambda}{N \mu}$};
+%\node[draw] at (3,-2) {$\rho = \frac{\lambda}{N \mu}$};
 
 \end{tikzpicture}
+
+	\begin{IEEEeqnarray*}{rCl}
+		p_{n} & =  &\frac{n+1}{N \rho} \cdot p_{n+1} \hspace{10pt} n = 0,..., N-1\\
+      p_{n+1} & =  &\rho \cdot  p_{n} \hspace{38pt} n \geq N 
+	\end{IEEEeqnarray*}
+
+
 
 \subsection{Throughput ($\gamma$)}
 
@@ -347,6 +374,18 @@ Para una \textbf{cola finita}:
 	\end{equation*}
 	
 \subsection{Cola M/M/1/N en función de $\rho$}
+
+Si el sistema está lleno, $N$, no se permite la entrada a nuevos clientes al sistema. La tasa de llegadas no es constante y varía con el tiempo en función de si el sistema está lleno o no:
+	
+	\begin{equation*}
+	\lambda_{ef} = \lambda (1 - p_{k})
+	\end{equation*}
+	
+	\begin{equation*}
+	p_{n} = \rho^{n} \cdot p_{0}
+	\end{equation*}
+	
+Para estos sistemas no existe el estado $k+1$.
 
 	\begin{equation*}
 		p_{n} = \frac{1 - \rho}{1 - \rho^{N+1}} \cdot \rho^{n}
@@ -399,18 +438,18 @@ En las \textbf{colas dependientes del estado} las tasas de llegada $\lambda$ y l
 	p_{n} = \frac{\prod_{i = 0}^{n-1} \lambda_{i}}{\prod_{i = 1}^{n} \mu_{i}} \cdot p_{0}
 	\end{equation*}
 
-\subsection{Fórmulas de Pollaczek Khinchine}
+\textbf{Fórmulas de Pollaczek Khinchine} para distribuciones M/D/1:
 
 Número medio de usuarios E(n):
 
 	\begin{equation*}
-	E(n) = \frac{\rho}{1 - \rho} \cdot \left( 1 - \frac{\rho}{2} (1 - \mu^{2} \sigma^{2} \right)
+	E(n) = \frac{\rho}{1 - \rho} \cdot \left( 1 - \frac{\rho}{2} \right)% (1 - \mu^{2} \sigma^{2} \right)
 	\end{equation*}
 
 Tiempo medio de estancia en la cola E(T):
 
 	\begin{equation*}
-	E(T) = \frac{E(n)}{\gamma} = \frac{\rho}{\mu (1 - \rho)} \cdot \left( 1 - \frac{\rho}{2} (1 - \mu^{2} \sigma^{2}) \right)
+	E(T) = \frac{E(n)}{\gamma} = \frac{1}{\mu (1 - \rho)} \cdot \left( 1 - \frac{\rho}{2} \right) %(1 - \mu^{2} \sigma^{2}) \right)
 	\end{equation*}
 
 
@@ -419,6 +458,13 @@ Tiempo medio de estancia en la cola E(T):
 ``\textit{Su función principal es el control del enlace de datos entre dos nodos adyacentes.}''\\
 
 \subsection{Stop \& Wait}
+
+Envía cada trama y espera recibir un ACK o NACK:
+
+	\begin{itemize}
+		\item Si llega un ACK se libera el buffer que almacenaba el paquete transmitido y se envía otra trama.
+		\item Si llega un NACK o expira el temporizador, se retransmite la trama.
+	\end{itemize}
 
 \begin{center}
 \begin{tikzpicture}[scale = .8]
@@ -438,12 +484,6 @@ Tiempo medio de estancia en la cola E(T):
 \end{tikzpicture}
 \end{center}
 
-Envía cada trama y espera recibir un ACK o NACK:
-
-	\begin{itemize}
-		\item Si lelga un ACK se libera el buffer que almacenaba el paquete transmitido y se envía otra trama.
-		\item Si llega un NACK o expira el temporizador, se retransmite la trama.
-	\end{itemize}
 
 	\begin{itemize}
 		\item $t_{I}$: Tiempo requerido para transmitir una trama
@@ -476,14 +516,14 @@ Tiempo medio para una transmisión correcta:
 Throughput máximo:
 	
 	\begin{IEEEeqnarray*}{rCl}
-		\gamma_{max}  = \lambda_{max} & = & \frac{1}{t_{v}} = \frac{1 - p}{t_{T}}	\\
-								   & = & \frac{1 - p}{a \cdot t_{I}} (paq / seg)
+		TH_{max_{S\&W}}  = \lambda_{max_{S\&W}} = \frac{1}{t_{v}} & = & \frac{1 - p}{t_{T}}	\\
+								   & = & \frac{1 - p}{a \cdot t_{I}} (paq / seg) \hspace{15 pt} a = \frac{t_{T}}{t_{I}} \geq 1
 	\end{IEEEeqnarray*}
 	
 Throughput normalizado real $\rho$:
 
 	\begin{equation*}
-	\rho = \lambda \cdot t_{I} \leq \lambda_{max} \cdot t_{I} = \frac{1 - p}{a} < 1
+	\rho \equiv \lambda \cdot t_{I} \leq \lambda_{max} \cdot t_{I} = \frac{1 - p}{a} < 1
 	\end{equation*}
 	
 \begin{center}
@@ -493,7 +533,7 @@ Throughput normalizado real $\rho$:
 nº & Tiempo & Probabilidad \\ \hline
 1  &    $t_{T} = t_{I} + t_{out}$    &        $1 - p$      \\ \hline
 2  & $2 \cdot t_{T} $        &   $p(1 - p)$          \\ \hline
-$\downarrow$   &    $\downarrow$    &     $\downarrow$         \\ \hline
+...   &    ...    &     ...        \\ \hline
 n  &    $n \cdot t_{T}$    &      $p^{n-1} (1-p) $       \\ \hline
 \end{tabular}
 \end{center}
@@ -542,13 +582,9 @@ n  &    $t_{I} + (n - 1) \cdot t_{T}$    &      $p^{n-1} (1-p) $       \\ \hline
 \end{tabular}
 \end{center}
 	
-	\begin{IEEEeqnarray*}{rCl}
-		t_{V} & = & (1-p) \cdot t_{I} + (1-p) \cdot p (t_{T} + t_{I}) + (1-p) \cdot p^{2} (2 t_{T} + \cdot t_{I}) + ... = \\
-			 & = & (1-p) \cdot t_{I} + (1-p) t_{T} \sum_{i=1}^{\infty} i \cdot p^{i} + (1-p) \cdot t_{I} \sum_{i = 1}^{\infty} p^{i} = \\
-			 & = & (1-p) \cdot t_{I} + a \cdot t_{I} \cdot (1 - p) \frac{p}{(1-p)^{2}} + t_{I} \cdot (1-p) \cdot \frac{p}{1-p} = \\
-			 & = & t_{I} ( 1 - p + \frac{a p}{1 - p} + p)  = t_{I} \frac{1 - p + ap}{1 - p} = \\
-			 & = & t_{I} \frac{1 + (a - 1) p}{1 - p}
-	\end{IEEEeqnarray*}
+	\begin{equation*}
+	t_{v} = t_{I} \frac{1 + (a - 1) p}{1 - p} \hspace{15pt} a \equiv \frac{t_{T}}{t_{I}} = \frac{t_{I} + t_{out}}{t_{I}} = 1 + \frac{t_{out}}{t_{I}}
+	\end{equation*}
 
 Throughput máximo:
 
@@ -602,7 +638,7 @@ Tiempo medio de transmisión correcta de una trama:
 	\end{IEEEeqnarray*}	
 
 
-\Large{TERMINAR}
+\textbf{TERMINAR}
 
 
 \section{\underline{Modelado de N.Red y Control de Flujo}}
@@ -615,6 +651,7 @@ Tiempo medio de transmisión correcta de una trama:
 \node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (5,0) {B};
 
 \draw (1,.5)--(2.5,.5) node[midway, fill = white]{\scriptsize{CFL}};
+\draw (-1.5,.5)--(0,.5) node[midway, fill = white]{\scriptsize{CFAR}};
 \draw (0,-2)--(4,-2) node[midway, fill = white]{\scriptsize{CFNO/ND}};
 \draw (-1.5,-3)--(5,-3) node[midway, fill = white]{\scriptsize{CFEE}};
 
@@ -642,14 +679,53 @@ Tiempo medio de transmisión correcta de una trama:
 \end{tikzpicture}
 \end{center}
 
+\textbf{CFL}: Control de Flujo Local\\
+\textbf{CFEE}: Control de Flujo Entre Extremos\\
+\textbf{CFNO/ND}: Control de Flujo entre Nodos Origen y Destino\\
 
 
+\newpage
 
+\section{\underline{Demostraciones}}
 
+\subsection{Esperanza y varianza en eventos Poissonianos}
 
+	\begin{IEEEeqnarray*}{rCl}
+		E(k) & = & \sum_{k=0}^{\infty} k \cdot p(k) = \sum_{k = 0}^{\infty} k \cdot \frac{{(\lambda \cdot T)}^{k}}{k!} \cdot e^{- \lambda T} = \\
+			& = &   e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty} \lambda T \cdot \frac{ k \cdot{(\lambda \cdot T})^{k-1}}{k \cdot (k-1)!} \right) = e^{- \lambda T} \cdot \lambda \cdot T \cdot e^{\lambda T} = \\
+			& = & \lambda \cdot T
+	\end{IEEEeqnarray*}	
+	
+	\begin{IEEEeqnarray*}{rCl}
+		\sigma^{2}_{k} & = & E \left[ (k - E[k])^{2} \right] = E[k^{2}] - E^{2}[k] = \sum_{k = 0}^{\infty} k^{2} \cdot p(k) - (\lambda \cdot T)^{2} = \\
+				       & = & \sum_{k = 0}^{\infty} k^{2} \cdot \frac{{(\lambda \cdot T)}^{k}}{k!} e^{-\lambda T} - \lambda^{2} T^{2} = \\
+				       & = & e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty} \lambda T \cdot \frac{ k \cdot{(\lambda \cdot T})^{k-1}}{k \cdot (k-1)!} \right) - \lambda^{2} T^{2} = \\
+				       & = & \lambda T e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty} \frac{ (k-1+1) \cdot{(\lambda \cdot T})^{k-1}}{(k-1)!} \right) - \lambda^{2} T^{2} = \\
+				       & = & \lambda T e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty}  \frac{ (k-1) \cdot{(\lambda \cdot T})^{k-1}}{(k-1)(k-2)!} + \sum_{k=1}^{\infty} \frac{(\lambda T)^{k-1}}{(k-1)!} \right) - \lambda^{2} T^{2} = \\
+				       & = & \lambda T e^{- \lambda T} \cdot \left( \lambda T \cdot  \sum_{k = 1}^{\infty} \frac{{(\lambda \cdot T})^{k-2}}{(k-2)!} + e^{\lambda T}\right) - \lambda^{2} T^{2} =\\
+				       & = & \lambda T e^{-\lambda T} (\lambda T e^{ \lambda T} + e^{\lambda T}) - \lambda^{2} T^{2} =\\
+				       & = & \lambda \cdot T
+	\end{IEEEeqnarray*}	
+	
+\subsection{Demostración de la distribución de Poisson}
 
+\subsection{Stop \& Wait Tiempo medio para una transmisión correcta}
 
+	\begin{IEEEeqnarray*}{rCl}
+		t_{v} & = & t_{T} (1-p) + 2 t_{T} (1-p) p + 3 t_{T} (1-p) p^{2} + ... = \\
+		        & = & t_{T} (1-p) \sum_{i=1}^{\infty} i \cdot p^{i-1} = t_{T} (1-p) \frac{1}{(1-p)^{2}} = \\
+		        & = & \frac{t_{T}}{1-p}
+	\end{IEEEeqnarray*}	
 
+\subsection{Go Back N Tiempo medio para  una transmisión correcta}
+
+\begin{IEEEeqnarray*}{rCl}
+		t_{V} & = & (1-p) \cdot t_{I} + (1-p) \cdot p (t_{T} + t_{I}) + (1-p) \cdot p^{2} (2 t_{T} + \cdot t_{I}) + ... = \\
+			 & = & (1-p) \cdot t_{I} + (1-p) t_{T} \sum_{i=1}^{\infty} i \cdot p^{i} + (1-p) \cdot t_{I} \sum_{i = 1}^{\infty} p^{i} = \\
+			 & = & (1-p) \cdot t_{I} + a \cdot t_{I} \cdot (1 - p) \frac{p}{(1-p)^{2}} + t_{I} \cdot (1-p) \cdot \frac{p}{1-p} = \\
+			 & = & t_{I} ( 1 - p + \frac{a p}{1 - p} + p)  = t_{I} \frac{1 - p + ap}{1 - p} = \\
+			 & = & t_{I} \frac{1 + (a - 1) p}{1 - p}
+	\end{IEEEeqnarray*}
 
 
 \end{multicols}
