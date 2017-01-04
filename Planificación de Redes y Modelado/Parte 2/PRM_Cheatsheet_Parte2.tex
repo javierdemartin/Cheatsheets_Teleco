@@ -1,4 +1,4 @@
-\documentclass[9pt,landscape]{article}
+\documentclass[9pt,landscape]{extarticle}
 \usepackage{multicol}
 \usepackage{calc}
 \usepackage[landscape]{geometry}
@@ -15,6 +15,8 @@
 \usepackage[spanish, activeacute] {babel}
 \usepackage{IEEEtrantools}
 \usepackage{framed}
+\usepackage{wrapfig}
+
 \usetikzlibrary{arrows}
 
 \usepackage{pgfplots}
@@ -24,7 +26,7 @@
 
 \usepackage{draftwatermark}
 \SetWatermarkText{Javier de Martín}
-\SetWatermarkScale{4.8}
+\SetWatermarkScale{2}
 
 
 \ifthenelse{\lengthtest { \paperwidth = 11in}}
@@ -104,22 +106,30 @@
 % Cheatsheet code below 
 %                             
 
-\section{Variables}
-
-$\lambda$: Tasa de llegada de usuarios (nº usuarios llegados / tiempo) \\
-	\quad $1 / \lambda$: Tiempo medio entre llegadas consecutivas\\
-$\mu$: Tasa de servicio\\
-	\quad $1 / \mu$: Tiempo medio de servicio\\
-$C$: Capacidad del canal\\
-$\rho = \frac{\lambda}{\mu}$: Factor de utilización (intensidad de tráfico)\\
-$N$: Estado del sistema, número de clientes en el sistema\\
-$P_{B}$: Probabilidad de bloqueo.\\
-$\gamma$: Throughput
+%\section{Variables}
+%
+%$\lambda$: Tasa de llegada de usuarios (nº usuarios llegados / tiempo) \\
+%	\quad $1 / \lambda$: Tiempo medio entre llegadas consecutivas\\
+%$\mu$: Tasa de servicio\\
+%	\quad $1 / \mu$: Tiempo medio de servicio\\
+%$C$: Capacidad del canal\\
+%$\rho = \frac{\lambda}{\mu}$: Factor de utilización (intensidad de tráfico)\\
+%$N$: Estado del sistema, número de clientes en el sistema\\
+%$P_{B}$: Probabilidad de bloqueo.\\
+%$\gamma$: Throughput\\
+%$u(n)$: Tasa de servicio dependiente del estado\\
+%$u(n,M)$: Tasa de servicio dependiente del estado de $M$ etapas\\
+%$E(n)$: Número medio de usuarios en la cola.\\
+%$E(T)$: Tiempo medio de espera en la cola.
 
 \section{\underline{Fundamentos de la Teoría de Colas}}
 
-		\begin{center}
-	\begin{tikzpicture}[scale=0.6, every node/.style={scale = 0.8}]
+
+
+\begin{wrapfigure}{L}{0.12\textwidth}
+ \vspace{-20pt}
+  \begin{center}
+\begin{tikzpicture}[scale=0.6, every node/.style={scale = 0.8}]
 		
 		\draw[-to] (-1,-.5)--(0,-.5) node[midway, fill = white]{$\lambda$};
 		\draw[thick] (0,0) -- (1.5,0) -- (1.5,-1) -- (0, -1);
@@ -128,13 +138,40 @@ $\gamma$: Throughput
 		\draw (2.4,-.5) circle (.4 cm);
 		\draw (2.4,-.5) node {$\mu$};
 		\draw[-to] (2.8,-.5)--(3.3,-.5);
+		
+		\draw [-to] (0,0.4) -- (1.5,0.4) node[midway, fill = white]{$E(w)$};
+		\draw [-to] (1.55,0.4) -- (3,0.4) node[midway, fill = white]{$1/\mu$};
+		\draw [-to] (0,-1.5) -- (3,-1.5) node[midway, fill = white]{$E(T)$};
+		
 	\end{tikzpicture}
-\end{center}
+  \end{center}
+   \vspace{-20pt}
+\end{wrapfigure}
 
-Cuando $\lambda \rightarrow \mu$ la cola se hace inestable, para que sea \textbf{estable}: $\lambda < \mu$.\\
+
+%		\begin{center}
+%	\begin{tikzpicture}[scale=0.6, every node/.style={scale = 0.8}]
+%		
+%		\draw[-to] (-1,-.5)--(0,-.5) node[midway, fill = white]{$\lambda$};
+%		\draw[thick] (0,0) -- (1.5,0) -- (1.5,-1) -- (0, -1);
+%		\draw (.75,-.5) node {Cola};
+%		\draw (1.5,-.5)--(2,-.5);
+%		\draw (2.4,-.5) circle (.4 cm);
+%		\draw (2.4,-.5) node {$\mu$};
+%		\draw[-to] (2.8,-.5)--(3.3,-.5);
+%		
+%		\draw [-to] (0,0.4) -- (1.5,0.4) node[midway, fill = white]{$E(w)$};
+%		\draw [-to] (1.55,0.4) -- (3,0.4) node[midway, fill = white]{$1/\mu$};
+%		\draw [-to] (0,-1.5) -- (3,-1.5) node[midway, fill = white]{$E(T)$};
+%		
+%	\end{tikzpicture}
+%\end{center}
+
+$\lambda$ y $\mu$ para una cola de un servidor:
+
+	\quad $\lambda \rightarrow \mu$ la cola se hace inestable, para que sea \textbf{estable}: $\lambda < \mu$.\\
+	\quad Si $\rho \rightarrow 1$ los tiempos de espera aumentan y la cola se llena rápidamente.\\
 	
-Si $\rho \rightarrow 1$ los tiempos de espera aumentan y la cola se llena rápidamente.
-
 El \textbf{estado de la cola} es el número de usuarios/paquetes en la cola incluido el que pueda estar en el servidor.\\
 
 Un \textbf{proceso de Poisson} es un caso particular del proceso de Markov en el cual la probabilidad de ocurrencia de un evento en $t + \Delta t$ es independiente de sucesos anteriores.
@@ -151,7 +188,7 @@ La \textbf{esperanza} es $E(k)= \lambda \cdot T$ y \textbf{varianza} $\sigma^{2}
 \textbf{Tiempo entre eventos sucesivos}, función de densidad de probabilidad:
 
 	\begin{equation*}
-		f_{\tau} (\tau) = \lambda e^{- \lambda \tau}	 = \frac{\partial F_{\tau}(x)}{\partial x}
+		f_{\tau} (\tau) = \lambda e^{- \lambda \tau}	 = \frac{\partial F_{\tau}(x)}{\partial x} \text{,   } E(\tau) = \frac{1}{\lambda} \text{  y } \sigma^{2} (\tau) = \frac{1}{\lambda^{2}}
 	\end{equation*}
 
 
@@ -175,17 +212,23 @@ Función de distribución de probabilidad acumulativa, mide la probabilidad de q
 
 \textbf{Propiedad}: Suponer $m$ procesos de Poisson independientes de tasas $\lambda_{1}$, $\lambda_{2}$, ..., $\lambda_{m}$ que se combinan, el proceso resultante será también de Poisson con una tasa $\lambda = \sum_{i = 1}^{m} \lambda_{i}$
 	
-\subsection{Notación Kendall}
+	\quad \textbf{Notación Kendall}
+%	
+%	\begin{center}
+%		\large{A/B/m/K/c/z}
+%	\end{center}
 	
-	\begin{center}
-		\large{A/B/m/K/c/z}
-	\end{center}
+\begin{wrapfigure}{L}{0.12\textwidth}
+  \begin{center}
+\large{A/B/m/K/c/z}
+  \end{center}
+\end{wrapfigure}
 	
-	\quad \textbf{A}: Distribución del tiempo entre llegadas
-	\quad \textbf{B}: Distribución del tiempo de servicio
-	\quad \textbf{m}: Número de servidores en paralelo en el sistema
-	\quad \textbf{K}: Capacidad de la cola (incluyendo servidores)
-	\quad \textbf{c}: Tamaño de la fuente
+	\quad \textbf{A}: Distribución del tiempo entre llegadas\\
+	\quad \textbf{B}: Distribución del tiempo de servicio\\
+	\quad \textbf{m}: Número de servidores en paralelo en el sistema\\
+	\quad \textbf{K}: Capacidad de la cola (incluyendo servidores)\\
+	\quad \textbf{c}: Tamaño de la fuente\\
 	\quad \textbf{z}: Disciplina de la cola\\
 
 Las distribuciones de llegadas y servicio pueden ser:\\
@@ -196,16 +239,22 @@ Las distribuciones de llegadas y servicio pueden ser:\\
 	\quad \textbf{G}: General\\
 	\quad \textbf{D}: Determinística (constante)\\
 	
-Por defecto para colas A/B/N la cola es infinita y la disciplina FIFO.
+Por defecto para colas A/B/N la cola es infinita y la disciplina FIFO.\\
 
-Cuando el sistema alcanza su estado más estable se supone que la probabilidad de usuarios en el mismo no varía con el tiempo. Con el tiempo los valores de $p_{n}$ se irán aproximando a los valores más estables.
+\textbf{Parámetros medidos en las colas}:\\
+	\quad \textbf{Medidas de rendimiento en las colas}: $E(n)$, $E(T)$, $\gamma$ y $P_{N}$.\\
+	\quad \textbf{Probabilidad de estado $n(p_{n})$}: Probabilidad de que haya $n$ usuarios en la cola, incluyendo los que hay en los servidores.\\
 
-\subsection{M/M/1}
+Cuando el sistema alcanza su estado más estable se supone que la probabilidad de usuarios en el mismo no varía con el tiempo. Con el tiempo los valores de $p_{n}$ se irán aproximando a los valores más estables.\\
 
-Las \textbf{ecuaciones de balance} permiten calcular la probabilidad de estado $p_{n}$. En el diagrama de estados, el $\#$ es el número de clientes en el sistema. El factor de utilización es $\rho = \lambda / \mu$.
 
+	\quad \textbf{M/M/1}
+
+Las \textbf{ecuaciones de balance} permiten calcular la probabilidad de estado $p_{n}$. En el diagrama de estados, el $\#$ es el número de clientes en el sistema.
+
+ \vspace{-10pt}
 \begin{center}
-\begin{tikzpicture}[node distance = 1.5cm,scale=0.3, every node/.style={scale = 0.8}]
+\begin{tikzpicture}[scale=0.2, every node/.style={scale = 0.7}]
 
   \node[state] (A)                    {$0$};
   \node[state]         (B) [right of=A] {$1$};
@@ -218,22 +267,10 @@ Las \textbf{ecuaciones de balance} permiten calcular la probabilidad de estado $
   		(C) edge [bend left]  node[below] {$\mu$} (B);
 	\path (C) edge [bend left]  node[above] {$\lambda$} (D)
   		(D) edge [bend left]  node[below] {$\mu$} (C);
-	   
-%            edge              node {1,1,R} (C)
-%        (B) edge [loop above] node {1,1,L} (B)
-%            edge              node {0,1,L} (C)
-%        (C) edge              node {0,1,L} (D)
-%            edge [bend left]  node {1,0,R} (E)
-%        (D) edge [loop below] node {1,1,R} (D)
-%            edge              node {0,1,R} (A)
-%        (E) edge [bend left]  node {1,0,R} (A);
-;
-
-%\node[draw] at (3,-2) {$\rho = \frac{\lambda}{\mu}$};
-
-
+\node[draw] at (6,-2.7) {$(\lambda + \mu) \cdot p_{n}(t) = \lambda \cdot p_{n-1}(t) + \mu \cdot p_{n+1}(t)$};
 \end{tikzpicture}
 \end{center}
+ \vspace{-10pt}
 
 \begin{align*}
   \begin{cases}
@@ -243,38 +280,37 @@ Las \textbf{ecuaciones de balance} permiten calcular la probabilidad de estado $
     \end{cases}
 \end{align*}
 
+\textbf{Principio de balance estacionario}:\\
+	\quad $(\lambda + \mu) p_{n}$: Tasa de salida de $n$.\\
+	\quad $\lambda p_{n-1} + \mu p_{n+1}$: Tasa de llegada al estado $n$.\\
 	
 	\begin{IEEEeqnarray*}{rCl}
 		\lambda \cdot p_{n} & = & \mu \cdot p_{n+1}  \hspace{10pt} n = 0,1,2... \hspace{10pt} \sum_{n=0}^{\infty} p_{n} = 1\\
 			p_{n+1} & = & \rho \cdot p_{n}
 	\end{IEEEeqnarray*}
 	
-
-
-
-
-
-Es condición necesaria que $\rho < 1$:
-
-	\begin{equation*}
-		p_{0} = \frac{1}{\sum_{n=0}^{\infty} p_{n} = 1} =(1 - \rho) \hspace{20 pt} p_{n} = (1-\rho) \cdot \rho^{n} \hspace{20 pt} \forall \rho = \frac{\lambda}{\mu}
-	\end{equation*}
+	\begin{IEEEeqnarray*}{rCl}
+		p_{0} & = & (1 - \rho) \\
+		p_{n} & = & (1 - \rho) \rho^{n}
+	\end{IEEEeqnarray*}
 	
+Para una cola M/M/1/N:
+	
+	\begin{IEEEeqnarray*}{rCl}
+		p_{0} & = & \frac{1 - \rho}{1 - \rho^{N+1}} \\
+		p_{n} & = & \frac{1 - \rho}{1 - \rho^{N+1}} \cdot \rho^{n}
+	\end{IEEEeqnarray*}
 
-
-Es condición necesaria que $\rho < 1$:
-
-	\begin{equation*}
-		p_{0} = \frac{1 - \rho}{1 - \rho^{N+1}} \hspace{20 pt} p_{n} =\frac{1 - \rho}{1 - \rho^{N+1}} \cdot \rho^{n} \hspace{20 pt} \forall \rho = \frac{\lambda}{\mu}
-	\end{equation*}
-
-La \textbf{probabilidad de bloqueo} es $P_{N} = p_{n}$.
+La \textbf{probabilidad de bloqueo} es $P_{N} = p_{n}$, es decir, cuando la última cola se llena.
 
 Tiempo medio por cliente en el sistema:
 
 	\begin{equation*}
 	\frac{1}{\mu ( 1 - \rho)}
 	\end{equation*}
+
+\textbf{Fórmula de Little}: $\gamma \cdot E(T) = E(n)$.\\
+\textbf{Número de usuarios en la cola}: $E(q) = \lambda E(w)$.\\
 	
 Tiempo medio de espera en cola:
 
@@ -282,12 +318,19 @@ Tiempo medio de espera en cola:
 	\frac{\rho}{\mu (1 - \rho)}
 	\end{equation*}
 
+Número medio de usuarios en la cola M/M/1:
+
+	\begin{equation*}
+		E(n) = \frac{\rho}{1 - \rho}
+	\end{equation*}
+
 \subsection{Cola M/M/N}
 
 Permite procesamiento en paralelo al tener múltiples servidores, el factor de utilización es $\rho = \lambda / m \mu$.
 
-La tasa media de llegada $\lambda$ es constante e independiente del estado del sistema ($\lambda_{n} = \lambda$).
+La tasa media de llegadas $\lambda$ es constante e independiente del estado del sistema ($\lambda_{n} = \lambda$).
 
+ \vspace{-5pt}
 \begin{center}
 \begin{tikzpicture}[node distance = 1.4cm,scale=0.5, every node/.style={scale = 0.8}]
 
@@ -326,6 +369,7 @@ La tasa media de llegada $\lambda$ es constante e independiente del estado del s
 
 \end{tikzpicture}
 \end{center}
+ \vspace{-10pt}
 
 	\begin{IEEEeqnarray*}{rCl}
 		p_{n} & =  &\frac{n+1}{N \rho} \cdot p_{n+1} \hspace{10pt} n = 0,..., N-1\\
@@ -335,38 +379,34 @@ La tasa media de llegada $\lambda$ es constante e independiente del estado del s
 
 
 \subsection{Throughput ($\gamma$)}
-
-	\begin{center}
-	\begin{tikzpicture}
-		\node [draw, align=center] at (0,0) {Sistema\\ de Colas};
-%		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,-1) {$F_2$};	
-	
-%		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,0) {$P_1$};
-%		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,-1) {$P_2$};
-	
-		\draw[to-] (-1.75,0.2) -- node[above left] {$\lambda$} (-0.646,0.2);
-		\draw[-to] (-1.75,-0.2) -- node[above left] {$\lambda P_{B}$} (-0.646,-0.2);
-		\draw (0.67,0) -- node[above left] {$\gamma$} (1.75,0);
-		
-%		\draw (0.25,-1) -- node[above left] {} (1.75,-1);
-%		\draw [blue,  -to, thick] (0.5,0) -- (1.5,0) node [right] {};
-%		\draw [red,  -to, thick] (0.5,0) .. controls (1.10,0) and (0.7,-1) .. (1.5,-1);
-%		\draw [red,  -to, thick] (0.5,0) .. controls (1.05,0) and (0.88,-1) .. (0.5,-1);
-	\end{tikzpicture}
-\end{center}
+%
+%	\begin{center}
+%	\begin{tikzpicture}
+%		\node [draw, align=center] at (0,0) {Sistema\\ de Colas};
+%%		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (0,-1) {$F_2$};	
+%	
+%%		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,0) {$P_1$};
+%%		\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (2,-1) {$P_2$};
+%	
+%		\draw[to-] (-1.75,0.2) -- node[above left] {$\lambda$} (-0.646,0.2);
+%		\draw[-to] (-1.75,-0.2) -- node[above left] {$\lambda P_{B}$} (-0.646,-0.2);
+%		\draw (0.67,0) -- node[above left] {$\gamma$} (1.75,0);
+%		
+%%		\draw (0.25,-1) -- node[above left] {} (1.75,-1);
+%%		\draw [blue,  -to, thick] (0.5,0) -- (1.5,0) node [right] {};
+%%		\draw [red,  -to, thick] (0.5,0) .. controls (1.10,0) and (0.7,-1) .. (1.5,-1);
+%%		\draw [red,  -to, thick] (0.5,0) .. controls (1.05,0) and (0.88,-1) .. (0.5,-1);
+%	\end{tikzpicture}
+%\end{center}
 
 
 
 	\begin{IEEEeqnarray*}{rCl}
 		\gamma & = & \lambda \cdot (1 - P_{B}) \\
-			     & = & \mu \cdot (1 - p_{0}		
+			     & = & \mu \cdot (1 - p_{0})		
 	\end{IEEEeqnarray*}
 	
-Para una \textbf{cola infinita}:
-
-	\begin{equation*}
-		\gamma = \mu \cdot \rho = \lambda
-	\end{equation*}
+Para una \textbf{cola infinita}: $\gamma = \mu \cdot \rho = \lambda$.
 	
 Para una \textbf{cola finita}:
 
@@ -374,9 +414,7 @@ Para una \textbf{cola finita}:
 		P_{B} = \frac{1 - \rho}{1 - \rho^{N+1}} \cdot \rho^{N} = P_{N}
 	\end{equation*}
 	
-\subsection{Cola M/M/1/N en función de $\rho$}
-
-Si el sistema está lleno, $N$, no se permite la entrada a nuevos clientes al sistema. La tasa de llegadas no es constante y varía con el tiempo en función de si el sistema está lleno o no:
+\textbf{Cola M/M/1/N en función de $\rho$}: Si el sistema está lleno, $N$, no se permite la entrada a nuevos clientes al sistema. La tasa de llegadas no es constante y varía con el tiempo en función de si el sistema está lleno o no:
 	
 	\begin{equation*}
 	\lambda_{ef} = \lambda (1 - p_{k})
@@ -394,9 +432,7 @@ Para estos sistemas no existe el estado $k+1$.
 	
 	\textbf{Región de congestión}
 	
-\subsection{Throughput Normalizado ($\gamma / \mu$)}
-
-Mide la relación entre los usuarios que son atendidos en el sistema por unidad de tiempo y los que potencialmente podrían haber sido atendidos.
+\textbf{Throughput Normalizado ($\gamma / \mu$)}: Mide la relación entre los usuarios que son atendidos en el sistema por unidad de tiempo y los que potencialmente podrían haber sido atendidos.
 
 	\begin{equation*}
 		\frac{\gamma}{\mu} = \frac{1 - \rho^{N}}{1 - \rho^{N+1}} \cdot \rho = \frac{Usuarios atendidos / seg}{Usuarios potenciales / seg}
@@ -404,29 +440,15 @@ Mide la relación entre los usuarios que son atendidos en el sistema por unidad 
 	
 	\text{Insertar Gráfica}
 	
-\subsection{Número medio de usuarios en la cola M/M/1 E(n)}
-
-	\begin{equation*}
-		E(n) = \frac{\rho}{1 - \rho}
-	\end{equation*}
-	
-\subsection{Tiempo Medio de Estancia en la Cola E(T)}
+\textbf{Tiempo Medio de Estancia en la Cola E(T)}
 	
 	\begin{equation*}
-		E(T) = \frac{E(n)}{\gamma} \hspace{15pt} \rightarrow \hspace{15pt} E(T)_{M/M/1} =  \frac{1}{(1 - \rho) \cdot \mu} = \frac{1}{\mu - \lambda}
+		E(T) = \frac{E(n)}{\gamma} \hspace{15pt} \rightarrow \hspace{15pt} E(T)_{M/M/1} = \frac{1}{\mu - \lambda}
 	\end{equation*}
 	
-\subsection{Tiempo Medio de Espera en la Cola E(w)}
-	
-	\begin{equation*}
-		E(w) = E(T) - 1 / \mu
-	\end{equation*}
-	
-\textbf{Número medio de usuarios esperando en la cola E(q)}: $E(q) = \gamma \cdot E(w)$
+\textbf{Colas dependientes del estado: Proceso de nacimiento y muerte}
 
-\subsection{Colas dependientes del estado: Proceso de nacimiento y muerte}
-
-En las \textbf{colas dependientes del estado} las tasas de llegada $\lambda$ y las de servicio $\mu$ dependen del estado del sistema, presentes en colas de servidores múltiples: $M/M/m$ y . 
+En las \textbf{colas dependientes del estado} las tasas de llegada $\lambda$ y las de servicio $\mu$ dependen del estado del sistema, presentes en colas de servidores múltiples: $M/M/m$ y $M/M/1/N$. 
 
 	\begin{IEEEeqnarray*}{rCl}
 		\lambda & = & \lambda (n) = \lambda_{n} \rightarrow \text{ Procesos de nacimiento}\\
@@ -434,7 +456,7 @@ En las \textbf{colas dependientes del estado} las tasas de llegada $\lambda$ y l
 	\end{IEEEeqnarray*}	
 	
 
-Un \textbf{proceso de nacimiento} como un caso de procesos de Markov donde las tasas de llegada son función del estado. Un \textbf{proceso de muerte} es otro caso de procesos de Markov donde también las salidas son función del estado de la cola.
+Un \textbf{proceso de nacimiento} tasas de llegada son función del estado. Un \textbf{proceso de muerte} salidas son función del estado de la cola.
 
 
 \subsection{Ecuaciones de Balance}
@@ -443,9 +465,12 @@ Un \textbf{proceso de nacimiento} como un caso de procesos de Markov donde las t
 	p_{n} = \frac{\prod_{i = 0}^{n-1} \lambda_{i}}{\prod_{i = 1}^{n} \mu_{i}} \cdot p_{0} \hspace{10pt}  p_{0} = \frac{1}{\sum_{n = 1}^{N} \prod_{i = 1}^{n} \frac{\lambda_{i-1}}{\mu_{i}} +1}
 	\end{equation*}
 	
-	\begin{center}
-		\includegraphics[scale = .4]{Graficas}
-	\end{center}
+%	\begin{center}
+%		\includegraphics[scale = .4]{Graficas}
+%	\end{center}
+
+	
+\subsection{Cola M/G/1}
 
 \textbf{Fórmulas de Pollaczek Khinchine} para distribuciones M/D/1:
 
@@ -462,9 +487,10 @@ Tiempo medio de estancia en la cola E(T):
 	\end{equation*}
 
 
+
 \section{\underline{Modelado de Protocolos de N.Enlace}}
 
-``\textit{Su función principal es el control del enlace de datos entre dos nodos adyacentes.}''\\
+%``\textit{Su función principal es el control del enlace de datos entre dos nodos adyacentes.}''\\
 
 \qquad \textbf{Stop \& Wait}
 
@@ -475,12 +501,9 @@ Tiempo medio de estancia en la cola E(T):
 	
 
 
-Envía cada trama y espera recibir un ACK o NACK:
-
-	\begin{itemize}
-		\item Si llega un ACK se libera el buffer que almacenaba el paquete transmitido y se envía otra trama.
-		\item Si llega un NACK o expira el temporizador, se retransmite la trama.
-	\end{itemize}
+Envía cada trama y espera recibir un ACK o NACK:\\
+	\quad Si llega un ACK se libera el buffer que almacenaba el paquete transmitido y se envía otra trama.\\
+	\quad Si llega un NACK o expira el temporizador, se retransmite la trama.\\
 
 \begin{center}
 \begin{tikzpicture}[scale=0.6, every node/.style={scale = 0.75}]
@@ -507,33 +530,21 @@ Envía cada trama y espera recibir un ACK o NACK:
 nº & Tiempo & Probabilidad \\ \hline
 1  &    $t_{T} = t_{I} + t_{out}$    &        $1 - p$      \\ \hline
 2  & $2 \cdot t_{T} $        &   $p(1 - p)$          \\ \hline
-...   &    ...    &     ...        \\ \hline
+%...   &    ...    &     ...        \\ \hline
 n  &    $n \cdot t_{T}$    &      $p^{n-1} (1-p) $       \\ \hline
 \end{tabular}
 \end{center}
 
+	\quad $t_{I}$: Tiempo requerido para transmitir una trama\\
+	\quad $t_{out}$: Tiempo del temporizador de espera de ACK\\ \hspace{25pt} $t_{out} \geq 2 \cdot t_{p} + t_{proc} + t_{s}$\\
+		\qquad $t_{p}$: Tiempo de retardo de propagación\\
+		\qquad $t_{proc}$: Tiempo de procesado en recepción\\
+		\qquad $t_{s}$: Tiempo de transmisión de respuesta\\
+	\quad $t_{T}$: Tiempo mínimo entre tramas de datos sucesivas: $t_{T} = t_{I} + t_{out}$\\ 
 
-	\begin{itemize}
-		\item $t_{I}$: Tiempo requerido para transmitir una trama
-		\item $t_{out}$: Tiempo del temporizador de espera de ACK\\
-			\qquad $t_{out} \geq 2 \cdot t_{p} + t_{proc} + t_{s}$
-			
-			\begin{itemize}
-				\item $t_{p}$: Tiempo de retardo de propagación
-				\item $t_{proc}$: Tiempo de procesado en recepción
-				\item $t_{s}$: Tiempo de transmisión de respuesta
-			\end{itemize}
-		\item $t_{T}$: Tiempo mínimo entre tramas de datos sucesivas \\
-			\qquad $t_{T} = t_{I} + t_{out}$
-	\end{itemize}
-
-Apropiado para la transmisión semiduplex \footnote{Envío bidireccional pero no simultáneo}. No es apropiado para transmisión duplex si el tiempo de propagación es mucho mayor que el tiempo empleado para transmitir la trama.
-
-Debido a retransmisiones provocadas por tramas erróneas:
-
-	\begin{equation*}
-	\gamma_{real} < \gamma_{max}
-	\end{equation*}
+%Apropiado para la transmisión semiduplex \footnote{Envío bidireccional pero no simultáneo}. No es apropiado para transmisión duplex si el tiempo de propagación es mucho mayor que el tiempo empleado para transmitir la trama.
+%
+%Debido a retransmisiones provocadas por tramas erróneas: $\gamma_{real} < \gamma_{max}$
 	
 Tiempo medio para una transmisión correcta:
 	
@@ -561,12 +572,7 @@ Tiempo medio para una transmisión correcta:
 
 Envía continuamente las tramas, mejorando el throughput. Es útil para comunicaciones full-duplex.\\
 
-Se realizan las siguientes \textbf{suposiciones}:\\
-	\quad Los números de secuencia se consideran indefinidos.\\
-	\quad La retransmisión por \texttt{NACK} o $t_{out}$ se estudian igual.\\
-	\quad Transmisión en régimen de saturación de \texttt{A} $\rightarrow$ \texttt{B}.\\
-	\quad Longitud de trama $t_{I}$ fija.\\
-	\quad Temporizador $t_{out}$ fijo y es múltiplo de $t_{I}$.\\
+Se realizan las siguientes \textbf{suposiciones}: Los números de secuencia se consideran indefinidos, la retransmisión por \texttt{NACK} o $t_{out}$ se estudian igual, transmisión en régimen de saturación de \texttt{A} $\rightarrow$ \texttt{B}, longitud de trama $t_{I}$ fija y temporizador $t_{out}$ fijo y es múltiplo de $t_{I}$.
 
 \textbf{Mínimo tiempo entre transmisiones} es el tiempo de transmisión de una trama $t_{I}$.
 
@@ -594,9 +600,6 @@ Se realizan las siguientes \textbf{suposiciones}:\\
 \draw[-to] (0,-.5)--(5.9,-.5) node[midway, fill = white]{$t_{T}$};
 
 \end{tikzpicture}
-
-\textit{Transmisión con errores}
-
 	\end{center}
 	
 	
@@ -607,7 +610,7 @@ Se realizan las siguientes \textbf{suposiciones}:\\
 nº & Tiempo & Probabilidad \\ \hline
 1  &    $t_{I}$    &        $1 - p$      \\ \hline
 2  & $t_{I} + t_{T} $        &   $p(1 - p)$          \\ \hline
-...   &    ...    &     ...        \\ \hline
+%...   &    ...    &     ...        \\ \hline
 n  &    $t_{I} + (n - 1) \cdot t_{T}$    &      $p^{n-1} (1-p) $       \\ \hline
 \end{tabular}
 \end{center}
@@ -642,7 +645,9 @@ Throughput normalizado:
 
 \text{Influencia de la tasa de error}
 
-	\begin{center}
+\begin{wrapfigure}{L}{0.12\textwidth}
+ \vspace{-20pt}
+  \begin{center}
 		\begin{tikzpicture}[scale=0.5, every node/.style={scale = 0.8}]
 			\fill[gray!40!white] (0,0) rectangle (2,1);
 			\draw[white] (1,.5) node{Control};
@@ -652,7 +657,23 @@ Throughput normalizado:
 			\draw[-to] (0,1.4)--(2,1.4) node[midway, fill = white]{$l^{'}$};
 			\draw[-to] (2.05,1.4)--(5,1.4) node[midway, fill = white]{$l$};
 		\end{tikzpicture}
-	\end{center}
+  \end{center}
+   \vspace{-20pt}
+\end{wrapfigure}
+
+%	\begin{center}
+%		\begin{tikzpicture}[scale=0.5, every node/.style={scale = 0.8}]
+%			\fill[gray!40!white] (0,0) rectangle (2,1);
+%			\draw[white] (1,.5) node{Control};
+%			\fill[gray!40!black] (2.05,0) rectangle (5,1);
+%			\draw[white] (3.5,.5) node{Información};
+%			
+%			\draw[-to] (0,1.4)--(2,1.4) node[midway, fill = white]{$l^{'}$};
+%			\draw[-to] (2.05,1.4)--(5,1.4) node[midway, fill = white]{$l$};
+%		\end{tikzpicture}
+%	\end{center}
+	
+
 	
 \textbf{Erorres en enlaces de satélite}, como \textbf{hipótesis} se toma que $p_{b}$ es la probabilidad de error de bit independiente de la posición del bit debido al ruido aleatorio. Probabilidad de error de trama $p$: $p = 1 - (1 - p_{b})^{l + l^{'}} = 1 - q_{b}^{l + l^{'}} $. Si $p_{b} << 1 \rightarrow p \approx (l + l^{'}) p_{b} \rightarrow p << 1$.
 
@@ -682,77 +703,74 @@ Caso general de \textbf{satélite}:
 Caso \textbf{terrestre/satélite} simplificado $p = p_{b} (l + l^{'})$:
 
 	\begin{equation*}
-		l_{opt} = \approx \sqrt{\frac{l^{'}}{p_{b}}} 
+		l_{opt} = \approx \sqrt{\frac{l^{'}}{p_{b}}} - l^{'}
 	\end{equation*}
 	
 \subsection{Protocolo HDLC}
 
-	\begin{center}
-		\begin{tikzpicture}[scale=0.35, every node/.style={scale = 0.6}]
-			\fill[gray!40!white] (0,0) rectangle (1,1);
-			\draw (.5,.5) node{A};
-			
-			\draw[-to] (.5,0) |- (1.5,-4) node[right] {Direcciones};
-			
-			\fill[gray!40!white] (1.05,0) rectangle (2.05,1);
-			\draw (1.5,.5) node{C};
-			
-			\draw[-to] (1.5,0) |- (2,-1.7) node[right] {Información:};
-			
-			\fill[gray!40!white] (5,-2.2) rectangle (6,-1.2);
-			\draw (5.5,-1.7) node{0};
-			\fill[gray!40!white] (6.05,-2.2) rectangle (7.5,-1.2);
-			\draw (6.8,-1.7) node{N(S)};
-			\fill[gray!40!white] (7.55,-2.2) rectangle (9.05,-1.2);
-			\draw (8.3,-1.7) node{P/F};
-			\fill[gray!40!white] (9.1,-2.2) rectangle (10.5,-1.2);
-			\draw (9.8,-1.7) node{N(R)};
-			
-			\draw[-to] (1.5,0) |- (2,-2.8) node[right] {Supervisión:};
-			
-			\fill[gray!40!white] (5,-3.3) rectangle (6,-2.3);
-			\draw (5.5,-2.8) node{1 0};
-			\fill[gray!40!white] (6.05,-3.3) rectangle (7.5,-2.3);
-			\draw (6.8,-2.8) node{SS};
-			\fill[gray!40!white] (7.55,-3.3) rectangle (9.05,-2.3);
-			\draw (8.3,-2.8) node{P/F};
-			\fill[gray!40!white] (9.1,-3.3) rectangle (10.5,-2.3);
-			\draw (9.8,-2.8) node{N(R)};
-			
-			\fill[gray!40!white] (2.1,0) rectangle (5.1,1);
-			\draw (3.6,.5) node{Información};
-			\fill[gray!40!white] (5.15,0) rectangle (7.15,1);
-			\draw (6.2,.5) node{CRC};
-			
-			\draw[-to] (6.2,0) |- (7,-.5) node[right] {Control de Errores};
-			
-		\end{tikzpicture}
-	\end{center}
+%	\begin{center}
+%		\begin{tikzpicture}[scale=0.35, every node/.style={scale = 0.6}]
+%			\fill[gray!40!white] (0,0) rectangle (1,1);
+%			\draw (.5,.5) node{A};
+%			
+%			\draw[-to] (.5,0) |- (1.5,-4) node[right] {Direcciones};
+%			
+%			\fill[gray!40!white] (1.05,0) rectangle (2.05,1);
+%			\draw (1.5,.5) node{C};
+%			
+%			\draw[-to] (1.5,0) |- (2,-1.7) node[right] {Información:};
+%			
+%			\fill[gray!40!white] (5,-2.2) rectangle (6,-1.2);
+%			\draw (5.5,-1.7) node{0};
+%			\fill[gray!40!white] (6.05,-2.2) rectangle (7.5,-1.2);
+%			\draw (6.8,-1.7) node{N(S)};
+%			\fill[gray!40!white] (7.55,-2.2) rectangle (9.05,-1.2);
+%			\draw (8.3,-1.7) node{P/F};
+%			\fill[gray!40!white] (9.1,-2.2) rectangle (10.5,-1.2);
+%			\draw (9.8,-1.7) node{N(R)};
+%			
+%			\draw[-to] (1.5,0) |- (2,-2.8) node[right] {Supervisión:};
+%			
+%			\fill[gray!40!white] (5,-3.3) rectangle (6,-2.3);
+%			\draw (5.5,-2.8) node{1 0};
+%			\fill[gray!40!white] (6.05,-3.3) rectangle (7.5,-2.3);
+%			\draw (6.8,-2.8) node{SS};
+%			\fill[gray!40!white] (7.55,-3.3) rectangle (9.05,-2.3);
+%			\draw (8.3,-2.8) node{P/F};
+%			\fill[gray!40!white] (9.1,-3.3) rectangle (10.5,-2.3);
+%			\draw (9.8,-2.8) node{N(R)};
+%			
+%			\fill[gray!40!white] (2.1,0) rectangle (5.1,1);
+%			\draw (3.6,.5) node{Información};
+%			\fill[gray!40!white] (5.15,0) rectangle (7.15,1);
+%			\draw (6.2,.5) node{CRC};
+%			
+%			\draw[-to] (6.2,0) |- (7,-.5) node[right] {Control de Errores};
+%			
+%		\end{tikzpicture}
+%	\end{center}
 
-SS $\rightarrow$ tipos de tramas de supervisión:
-
-	\begin{itemize}
-		\item RR (\textit{Ready to Receive}): Confirma las tramas hasta $N(R) - 1$.
-		\item RNR (\textit{Not Ready to Receive}): Confirma las tramas hasta $N(R) - 1$ y establece control de flujo con condición de bloqueo.
-		\item REJ (\textit{Reject}): Confirma las tramas hasta $N(R) - 1$ y retransmisión desde la trama $N(R)$.
-		\item SREJ (\textit{Selective Reject}): Pide retransmisión de la trama $N(R)$.
-	\end{itemize}
+%SS $\rightarrow$ tipos de tramas de supervisión: \\
+%	\quad RR (\textit{Ready to Receive}): Confirma las tramas hasta $N(R) - 1$.
+%	\quad RNR (\textit{Not Ready to Receive}): Confirma las tramas hasta $N(R) - 1$ y establece control de flujo con condición de bloqueo.\\
+%	\quad REJ (\textit{Reject}): Confirma las tramas hasta $N(R) - 1$ y retransmisión desde la trama $N(R)$.\\
+%	\quad SREJ (\textit{Selective Reject}): Pide retransmisión de la trama $N(R)$.\\
 	
-\textbf{Análisis en HDLC/ABM}:\\
-	\quad Se \textbf{diferencia respecto a Go-Back-N} de que tiene numeración de secuencia finita y procedimiento de control de errores específico.\\
-	\quad \textbf{Procedimiento de control de errores}, se define una implementación específica sobre la cual se realiza el análisis del protocolo:\\
-		\qquad Recuperación vía REJ siempre que se pueda acelerar el procedimiento de recuperación. Sólo una vez por la misma trama.\\
-		\qquad Recuperación por temporizador (además de REJ) para las retransmisiones sucesivas y errores no detectados por REJ.\\
-		\qquad Envío de tramas P/F para obligar a respuestas forzadas en situaciones especiales de recuperación.\\
-	
-\textbf{Hipótesis} para el análisis:\\
-		\quad Sólo se transmite en el sentido $A \rightarrow B$.\\
-		\quad $A$ transmite en el régimen de saturación.\\
-		\quad $B$ responde con $RR$ ($ACK$) y $REJ$ ($NACK$).\\
-	
-\textbf{Datos} para el análisis:\\
-	\quad \textbf{Módulo}: Número de tramas con diferente numeración que pueden ser enviadas.\\
-	\quad \textbf{Ventana}: Número máximo de tramas que pueden estar en circulación sin haber sido confirmadas.\\
+%\textbf{Análisis en HDLC/ABM}:\\
+%	\quad Se \textbf{diferencia respecto a Go-Back-N} de que tiene numeración de secuencia finita y procedimiento de control de errores específico.\\
+%	\quad \textbf{Procedimiento de control de errores}, se define una implementación específica sobre la cual se realiza el análisis del protocolo:\\
+%		\qquad Recuperación vía REJ siempre que se pueda acelerar el procedimiento de recuperación. Sólo una vez por la misma trama.\\
+%		\qquad Recuperación por temporizador (además de REJ) para las retransmisiones sucesivas y errores no detectados por REJ.\\
+%		\qquad Envío de tramas P/F para obligar a respuestas forzadas en situaciones especiales de recuperación.\\
+%	
+%\textbf{Hipótesis} para el análisis:\\
+%		\quad Sólo se transmite en el sentido $A \rightarrow B$.\\
+%		\quad $A$ transmite en el régimen de saturación.\\
+%		\quad $B$ responde con $RR$ ($ACK$) y $REJ$ ($NACK$).\\
+%	
+%\textbf{Datos} para el análisis:\\
+%	\quad \textbf{Módulo}: Número de tramas con diferente numeración que pueden ser enviadas.\\
+%	\quad \textbf{Ventana}: Número máximo de tramas que pueden estar en circulación sin haber sido confirmadas.\\
 	\quad \textbf{Longitud de tramas}: Información ($t_{I}$) y de supervisión ($t_{S}$):
 		\begin{equation*}
 			t_{I} = \frac{l + l^{'}}{C} \hspace{15 pt} t_{S} = \frac{l^{'}}{C}
@@ -788,159 +806,329 @@ Tiempo medio de transmisión correcta de una trama:
 
 \section{\underline{Modelado de N.Red y Control de Flujo}}
 
-Las redes se diseñan con recursos suficientes para soportar un tráfico nominal. Se pueden producir situaciones de congestión y bloqueo.
-
-\begin{center}
-\begin{tikzpicture}[node distance = 2cm,scale=0.5, every node/.style={scale = 0.55}]
-\tikzstyle{every state}=[fill=gray,draw=none,text=white, scale=0.5, every node/.style={transform shape}]
-
-\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (-1.5,0) {A};
-\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (5,0) {B};
-
-\draw (1,.5)--(2.,.5) node[midway, fill = white]{\scriptsize{CFL}};
-\draw (-1.5,.5)--(0,.5) node[midway, fill = white]{\scriptsize{CFAR}};
-\draw (0,-1.8)--(3.5,-1.8) node[midway, fill = white]{\scriptsize{CFNO/ND}};
-\draw (-1.5,-2.3)--(5,-2.3) node[midway, fill = white]{\scriptsize{CFEE}};
-
-\node[state] (A) {};
-\node[state] (B) [right of=A] {};
-\node[state] (C) [right of=B] {};
-\node[state] (D) [right of=C] {};
-\node[state] (F) [above of=B] {};
-\node[state] (G) [right of=F] {};
-\node[state] (H) [below of=B] {};
-\node[state] (I) [right of=H] {};
-
-\draw (A) -- (B)
-	 (B) -- (C)
-	 (C) -- (D)
-	 (D) -- (G)
-	 (F) -- (G)
-	 (A) -- (F)
-	 (A) -- (H)
-	 (H) -- (I)
-	 (I) -- (D)
-	 (-1.14,0) -- (A)
-	 (4.66,0) -- (D)
-	 ;
-\end{tikzpicture}
-
-	\textit{Niveles en el control de flujo}
-\end{center}
-
-\textbf{CFL}: Control de Flujo Local\\
-\textbf{CFAR}: Control de Flujo de Acceso a la Red\\
-\textbf{CFEE}: Control de Flujo Entre Extremos\\
-\textbf{CFNO/ND}: Control de Flujo entre Nodos Origen y Destino\\
+%Las redes se diseñan con recursos suficientes para soportar un tráfico nominal. Se pueden producir situaciones de congestión y bloqueo.
+%
+%\begin{center}
+%\begin{tikzpicture}[node distance = 2cm,scale=0.5, every node/.style={scale = 0.55}]
+%\tikzstyle{every state}=[fill=gray,draw=none,text=white, scale=0.5, every node/.style={transform shape}]
+%
+%\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (-1.5,0) {A};
+%\node [draw, align=center, fill={rgb:black,1;white,2}, text = white] at (5,0) {B};
+%
+%\draw (1,.5)--(2.,.5) node[midway, fill = white]{\scriptsize{CFL}};
+%\draw (-1.5,.5)--(0,.5) node[midway, fill = white]{\scriptsize{CFAR}};
+%\draw (0,-1.8)--(3.5,-1.8) node[midway, fill = white]{\scriptsize{CFNO/ND}};
+%\draw (-1.5,-2.3)--(5,-2.3) node[midway, fill = white]{\scriptsize{CFEE}};
+%
+%\node[state] (A) {};
+%\node[state] (B) [right of=A] {};
+%\node[state] (C) [right of=B] {};
+%\node[state] (D) [right of=C] {};
+%\node[state] (F) [above of=B] {};
+%\node[state] (G) [right of=F] {};
+%\node[state] (H) [below of=B] {};
+%\node[state] (I) [right of=H] {};
+%
+%\draw (A) -- (B)
+%	 (B) -- (C)
+%	 (C) -- (D)
+%	 (D) -- (G)
+%	 (F) -- (G)
+%	 (A) -- (F)
+%	 (A) -- (H)
+%	 (H) -- (I)
+%	 (I) -- (D)
+%	 (-1.14,0) -- (A)
+%	 (4.66,0) -- (D)
+%	 ;
+%\end{tikzpicture}
+%
+%	\textit{Niveles en el control de flujo}
+%\end{center}
+%
+%\textbf{CFL}: Control de Flujo Local\\
+%\textbf{CFAR}: Control de Flujo de Acceso a la Red\\
+%\textbf{CFEE}: Control de Flujo Entre Extremos\\
+%\textbf{CFNO/ND}: Control de Flujo entre Nodos Origen y Destino\\
 
 	\begin{equation*}
 		\text{Potencia} = \frac{\text{Caudal}^{\alpha}}{\text{Retardo}}
 	\end{equation*}
 
-\textbf{Modelo del Circuito Virtual}
+%\textbf{Modelo del Circuito Virtual}
+%
+%\begin{center}
+%	\begin{tikzpicture}[node distance = 2cm]
+%\tikzstyle{every state}=[fill=gray,draw=none,text=white, scale=0.5, every node/.style={transform shape}]
+%
+%\node[state] (A) {1};
+%\node[state] (B) [above right of=A] {2};
+%\node[state] (C) [below right of=A] {3};
+%\node[state] (D) [above right of = C] {4};
+%\node[state] (F) [above right of=D] {5};
+%
+%
+%\draw (A) -- (B)
+%	(B) -- (D)
+%	(A) -- (D)
+%	(A) -- (C)
+%	(C) -- (D)
+%	(D) -- (F)
+%%	 (-1.14,0) -- (A)
+%%	 (4.66,0) -- (D)
+%	 ;
+%\end{tikzpicture}
+%\end{center}
+
+\textbf{Retardos medios en redes abiertas sin mecanismos de control de flujo}:\\
+	\quad En CV $\rightarrow$ $E(T) = \sum_{i = 1}^{N} \frac{1}{\mu_{i} - \lambda_{i}}$ (ROC)\\
+	\quad En Red $\rightarrow$ $E(T) = 1/\gamma \sum_{i = 1}^{N} \frac{\lambda_{i}}{\mu_{i} - \lambda_{i}}$ (NOC)\\
+	
+\textbf{Mecanismos ROC} 
+
+	\quad \textbf{Ventana deslizante}: CV. Homogéneo (M/M/1 idénticos en serie)
 
 \begin{center}
-	\begin{tikzpicture}[node distance = 2cm]
-\tikzstyle{every state}=[fill=gray,draw=none,text=white, scale=0.5, every node/.style={transform shape}]
 
-\node[state] (A) {1};
-\node[state] (B) [above right of=A] {2};
-\node[state] (C) [below right of=A] {3};
-\node[state] (D) [above right of = C] {4};
-\node[state] (F) [above right of=D] {5};
-
-
-\draw (A) -- (B)
-	(B) -- (D)
-	(A) -- (D)
-	(A) -- (C)
-	(C) -- (D)
-	(D) -- (F)
-%	 (-1.14,0) -- (A)
-%	 (4.66,0) -- (D)
-	 ;
-\end{tikzpicture}
+\begin{tikzpicture}[scale=0.4, every node/.style={scale = 0.6}]
+		
+		\draw[-to] (-1,-.5)--(0,-.5) node[midway, fill = white]{$\lambda$};
+		\draw[thick] (0,0) -- (.5,0) -- (.5,-1) -- (0, -1);
+		\draw (.5,-.5)--(1,-.5);
+		\draw (1.4,-.5) circle (.4 cm);
+		\draw (1.4,-.5) node {$\mu$};
+		\draw[-to] (1.8,-.5)--(2.3,-.5);
+		
+		\draw[thick] (2,0) -- (2.5,0) -- (2.5,-1) -- (2, -1);
+		\draw (2.5,-.5)--(3,-.5);
+		\draw (3.4,-.5) circle (.4 cm);
+		\draw (3.4,-.5) node {$\mu$};
+		\draw[-to] (3.8,-.5)--(4.3,-.5);
+		
+		\draw (5,-.5) node {...};
+		
+		\draw[thick] (6,0) -- (6.5,0) -- (6.5,-1) -- (6, -1);
+		\draw (6.5,-.5)--(7,-.5);
+		\draw (7.4,-.5) circle (.4 cm);
+		\draw (7.4,-.5) node {$\mu$};
+		\draw[-to] (7.8,-.5)--(8.3,-.5);
+		
+		\draw[*-] (8.6,-.35) |- (5,-2.5);
+		
+		\draw (5,-2) -| (4.5,-3) -- (5, -3);
+		\draw (4.5,-2.5)--(4,-2.5);
+		\draw (3.6,-2.5) circle (.4 cm);
+		\draw (3.6,-2.5) node {$\mu$};
+		\draw[-to] (3.2,-2.5)--(2.7,-2.5);
+		
+		\draw[-*] (2.6,-2.5) -| (-1.3,-.35);
+	\end{tikzpicture}
+	 \vspace{-10pt}
 \end{center}
 
-\textbf{Modelo de ventana deslizante} es un modelo de control según actúa el transmisor al encontrarse con la ventana 
-saturada. Se supone el caso más sencillo, el bloqueo de transmisión.\\
+\begin{equation*}
+	u(n,M) = \frac{n}{n + (M-1)} \cdot \mu
+\end{equation*}
 
-\textbf{Hipótesis}:\\
-	\quad Los \texttt{ACK}s del CV asociados al control de ventana se supone que se transmiten de vuelta por la red con prioridad máxima.\\
-	\quad Se desprecia el retardo de transmisión de \texttt{ACK}s.\\
-	\quad Se modela el control de ventana deslizante sobre un CV como un \textbf{sistema cerrado}.\\
-	
-	
-	\textbf{IMAGEN CV VENTANA}\\
-	
-La fuente y destino están unidas por una cola artificial (Cola $M+1$) con una tasa de servicio $\lambda$ que coincide con la de llegadas al CV. En situación de máxima sobrecarga hay un número fijo de paquetes $N$ circulando por el sistema cerrado. Si hay $N$ paquetes en el CV estarán en las $M$ colas del sistema, la cola $M+1$ estará vacía (condición de bloqueo). Cuando un paquete alcanza al receptor pasará a la cola $M+1$ ($t_s = 0$) y ésta podrá generar servicios. Si hay menos de $N$ paquetes en la ruta, el resto estarán en la cola $M+1$.\\
+\quad $\lambda \rightarrow \infty$ $\gamma = u(N) = \frac{N}{N + M - 1} $ $E(N) = N$ $E(T) = E(n) / \gamma = \frac{N + M -1}{\mu}$\\
+\quad $\lambda \approx \mu$ $\gamma = u(N) = \frac{N}{N + M - 1} $ $E(N) = N$ $E(T) = E(n) / \gamma = \frac{N + M -1}{\mu} \cdot \frac{M}{M+1}$\\
 
-\textbf{Teorema de Norton de agregación o descomposición de redes de colas}, en redes con solución en forma de producto puede reemplazarse una subred por una cola compuesta con tasa de servicio dependiente del estado. La red mantiene el mismo comportamiento estadístico extremo a extremo. Da
+	\quad \textbf{CV No Homogéneo}: Tabla cálculo recursivo\\
 
-\textbf{Ecuaciones de estado de la cola del CV}:
+\textbf{Confirmación al final de la ventana}
 
-	\begin{equation*}
-		p_{n} = \frac{\lambda_{e}^{n}}{\prod_{i = 1}^{n} u(i)} \cdot p_{0} \hspace{5pt} \text{, Condición de normalización} \sum_{n = 0}^{N} p_{n} = 1
-	\end{equation*}
+\begin{center}
+ \vspace{-10pt}
+\begin{tikzpicture}[scale=0.4, every node/.style={scale = 0.6}]
+		
+		\draw[-to] (-1,-.5)--(0,-.5) node[midway, fill = white]{$\lambda$};
+		\draw[thick] (0,0) -- (.5,0) -- (.5,-1) -- (0, -1);
+		\draw (.5,-.5)--(1,-.5);
+		\draw (1.4,-.5) circle (.4 cm);
+		\draw (1.4,-.5) node {$\mu$};
+		\draw[-to] (1.8,-.5)--(2.3,-.5);
+		
+		\draw[thick] (2,0) -- (2.5,0) -- (2.5,-1) -- (2, -1);
+		\draw (2.5,-.5)--(3,-.5);
+		\draw (3.4,-.5) circle (.4 cm);
+		\draw (3.4,-.5) node {$\mu$};
+		\draw[-to] (3.8,-.5)--(4.3,-.5);
+		
+		\draw (5,-.5) node {...};
+		
+		\draw[thick] (6,0) -- (6.5,0) -- (6.5,-1) -- (6, -1);
+		\draw (6.5,-.5)--(7,-.5);
+		\draw (7.4,-.5) circle (.4 cm);
+		\draw (7.4,-.5) node {$\mu$};
+		\draw[-to] (7.8,-.5)--(8.3,-.5);
+		
+		
+		\draw[*-to] (8.6,-.35) |- (5,-2.5);
+		
+		\fill[draw = black, fill = white] (6,-3) rectangle (7,-2);
+		\draw (6.5,-2.5) node {$W$};
+		
+		\draw (5,-2) -| (4.5,-3) -- (5, -3);
+		\draw (4.5,-2.5)--(4,-2.5);
+		\draw (3.6,-2.5) circle (.4 cm);
+		\draw (3.6,-2.5) node {$\mu$};
+		\draw[-to] (3.2,-2.5)--(2.7,-2.5);
+		
+		\draw[-*] (2.6,-2.5) -| (-1.3,-.35);
+	\end{tikzpicture}
+	 \vspace{-10pt}
+\end{center}
 
-\textbf{Hipótesis} validas para su uso:
-	\quad Enlaces con igual capacidad e igual tráfico total.\\
-	\quad Para redes con enlaces de capacidades diferentes ($\mu_{1}$ y $\mu_{2}$) siendo $\mu_{1} \gg \mu_{2}$ el cuello de botella estará en los enlaces de menor capacidad $\mu_{2}$, en los de mayor capacidad $\mu_{1}$ no se producen esperas $\rightarrow$ pueden ser eliminados.\\
-	
-	\quad \textbf{Análisis de un CV homogéneo}
-	
-	\begin{equation*}
-		u(n,M) = \frac{n}{n + (M-1)} \cdot \mu \text{Dependiente del estado}
-	\end{equation*}
-	
-	
-	
+\begin{equation*}
+	n = W - (i+j)
+\end{equation*}
 
 
 
-\newpage
 
-\section{\underline{Demostraciones}}
+%\textbf{Modelo de ventana deslizante} es un modelo de control según actúa el transmisor al encontrarse con la ventana 
+%saturada. Se supone el caso más sencillo, el bloqueo de transmisión.\\
 
-\subsection{Esperanza y varianza en eventos Poissonianos}
+%\textbf{Hipótesis}:\\
+%	\quad Los \texttt{ACK}s del CV asociados al control de ventana se supone que se transmiten de vuelta por la red con prioridad máxima.\\
+%	\quad Se desprecia el retardo de transmisión de \texttt{ACK}s.\\
+%	\quad Se modela el control de ventana deslizante sobre un CV como un \textbf{sistema cerrado}.\\
+%	
+%	
+%	\textbf{IMAGEN CV VENTANA}\\
+%	
+%La fuente y destino están unidas por una cola artificial (Cola $M+1$) con una tasa de servicio $\lambda$ que coincide con la de llegadas al CV. En situación de máxima sobrecarga hay un número fijo de paquetes $N$ circulando por el sistema cerrado. Si hay $N$ paquetes en el CV estarán en las $M$ colas del sistema, la cola $M+1$ estará vacía (condición de bloqueo). Cuando un paquete alcanza al receptor pasará a la cola $M+1$ ($t_s = 0$) y ésta podrá generar servicios. Si hay menos de $N$ paquetes en la ruta, el resto estarán en la cola $M+1$.\\
+%
+%\textbf{Teorema de Norton de agregación o descomposición de redes de colas}, en redes con solución en forma de producto puede reemplazarse una subred por una cola compuesta con tasa de servicio dependiente del estado. La red mantiene el mismo comportamiento estadístico extremo a extremo. Da
+%
+%\textbf{Ecuaciones de estado de la cola del CV}:
+%
+%	\begin{equation*}
+%		p_{n} = \frac{\lambda_{e}^{n}}{\prod_{i = 1}^{n} u(i)} \cdot p_{0} \hspace{5pt} \text{, Condición de normalización} \sum_{n = 0}^{N} p_{n} = 1
+%	\end{equation*}
+%
+%\textbf{Hipótesis} validas para su uso:\\
+%	\quad Enlaces con igual capacidad e igual tráfico total.\\
+%	\quad Para redes con enlaces de capacidades diferentes ($\mu_{1}$ y $\mu_{2}$) siendo $\mu_{1} \gg \mu_{2}$ el cuello de botella estará en los enlaces de menor capacidad $\mu_{2}$, en los de mayor capacidad $\mu_{1}$ no se producen esperas $\rightarrow$ pueden ser eliminados.\\
+%	
+%	\quad \textbf{Análisis de un CV homogéneo} $\rightarrow$ Enlaces de igual capacidad $\mu$
+%	
+%	\begin{equation*}
+%		u(n,M) = \frac{n}{n + (M-1)} \cdot \mu \text{ \scriptsize{(Dependiente del estado)}}
+%	\end{equation*}
+%	
+%	\begin{IEEEeqnarray*}{rCl}
+%		p_{n} & = & \rho^{n}  \binom{n+M-1}{n} p_{0} \hspace{20pt} \rho = \frac{\lambda_{e}}{\mu}\\
+%		p_{0} & = & \frac{1}{\sum_{n = 0}^{N} \rho^{n} \binom{n+M-1}{n}}
+%	\end{IEEEeqnarray*}	
+%	
+%\textbf{Cálculo de u(n,M) en un CV homogéneo}, se cortocircuita la red de colas entre $S$ y $D$ y se estudia su throughput $u(n)$ para los $n$ diferentes estados.\\
+%
+%$u(n) \leq \mu \rightarrow$ La probabilidad de cola no vacía es igual en todas las colas.\\
+%
+%	\quad $lambda \gg \mu$:
+%	
+%	\begin{equation*}
+%		E(n) = N \rightarrow \gamma = \frac{N}{N+M-1} \cdot \mu \hspace{15pt} E(T) = \frac{E(n)}{\gamma} = \frac{N+M-1}{\mu}
+%	\end{equation*}	
+%	
+%	\quad $\lambda \approx \mu$ (congestión), similar al caso anterior excepto con $M+1$ colas.\\
+%	
+%\textbf{Análisis simplificado del control de ventana deslizante}, realizado en la región de congestión ($\lambda \geq \mu$).\\
+%	\quad Throughput: Promedio ponderado de las $N$ tasas de servicio posibles, 
+%		\begin{equation*}
+%			\gamma = \sum_{n=1}^{N} u(n)\cdot p_{n}
+%		\end{equation*}
+%	\quad Retardo extremo a extremo (Little):
+%		\begin{equation*}
+%			E(T) = \frac{E(n)}{\gamma} = \frac{\sum_{n=1}^{N} n \cdot p_{n}}{\gamma}
+%		\end{equation*}
+%
+%\textbf{\Large FALTAN COSAS POR PONER}\\
+%
+%\textbf{Redes de Colas} sólo se modelizan las colas de los enlaces de salida, se desprecia el efecto de las colas en los nodos de procesamiento (útil con soluciones en forma de producto).\\
+%	\quad \textbf{Redes abiertas}: El tráfico entra y sale de la red, el flujo se conserva: $\lambda_{S} = \lambda_{D}$\\
+%	\quad \textbf{Redes cerradas}: El tráfico circula por la red de forma indefinida. No hay llegadas ni salidas. Una red abierta se puede convertir en cerrada poniendo las tasas de llegadas y salidas a cero.\\
+%	
+%\textbf{\Large Algoritmos de Enrutamiento}\\
+%
+%	\quad \textbf{Algoritmo A (camino más corto)} $\rightarrow$ Necesita conocimiento topológico global de la red y es centralizado.
+%
+%	
+%	\begin{itemize}
+%		\item Incorporar nodos paso a paso
+%		\item Construir un árbol de camino más corto, partiendo del nodo fuente y englobando a todos paso a paso.
+%		\item En cada paso $k$-ésimo se calcula el camino más corto de los $k$ nodos más cercanos a la fuente.
+%	\end{itemize}
+%	
+%	\qquad $D(v)$: Distancia en coste desde la fuente al nodo $v$.\\
+%	\qquad $l(i,j)$: Coste entre el nodo $i$ y $j$.
+%	
+%	\begin{enumerate}
+%		\item \textbf{Inicialización}: $N = \{ s\}$ $\rightarrow$ $s$ es el nodo fuente. Para el resto de nodos $v$ que no están en $N$ se construye una tabla de distancias $D(v) = l(s,v)$.
+%		\item \textbf{Repetición} hasta que todos los nodos están en $N$. Se introduce en $N$ el nodo $w$ que todavía no esté en $N$ y cuya distancia $D(w)$ sea mínima. Actualizar las distancias $D(v)$ mediante: $D(v) = \text{min} [ D(v), D(w) + l(w,v) ]$.
+%	\end{enumerate}
+%	
+%	\quad \textbf{Algoritmo B}: Camino más corto, centralizado o descentralizado.\\
+%	
+%	\qquad $D(v)$: Distancia más corta en coste desde $v$ al destino.
+%	\qquad $n$: Identificación del siguiente nodo al $v$ en el camino más corto calculado anteriormente.
+%	
+%	\begin{enumerate}
+%		\item \textbf{Inicialización}: $D(d) = 0$, siendo $d$ el destino, el resto de nodos $v$ se etiquetan con $(.,\infty)$.
+%		\item \textbf{Repetición}: Hasta que no se produzcan cambios. Se actualizan las distancias $D(v)$ para todos los nodos $v$ utilizando las distancias $D(w)$ de los nodos $w$ vecinos: $D(v) = \text{min}_{w} [D(w) + l(v,w)]$
+%	\end{enumerate}
+%
+%	\quad \textbf{Algoritmo B Descentralizado} TERRERERMEINTAR
+%
+%
+%
+%
 
-	\begin{IEEEeqnarray*}{rCl}
-		E(k) & = & \sum_{k=0}^{\infty} k \cdot p(k) = \sum_{k = 0}^{\infty} k \cdot \frac{{(\lambda \cdot T)}^{k}}{k!} \cdot e^{- \lambda T} = \\
-			& = &   e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty} \lambda T \cdot \frac{ k \cdot{(\lambda \cdot T})^{k-1}}{k \cdot (k-1)!} \right) = e^{- \lambda T} \cdot \lambda \cdot T \cdot e^{\lambda T} = \\
-			& = & \lambda \cdot T
-	\end{IEEEeqnarray*}	
-	
-	\begin{IEEEeqnarray*}{rCl}
-		\sigma^{2}_{k} & = & E \left[ (k - E[k])^{2} \right] = E[k^{2}] - E^{2}[k] = \sum_{k = 0}^{\infty} k^{2} \cdot p(k) - (\lambda \cdot T)^{2} = \\
-				       & = & \sum_{k = 0}^{\infty} k^{2} \cdot \frac{{(\lambda \cdot T)}^{k}}{k!} e^{-\lambda T} - \lambda^{2} T^{2} = \\
-				       & = & e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty} \lambda T \cdot \frac{ k \cdot{(\lambda \cdot T})^{k-1}}{k \cdot (k-1)!} \right) - \lambda^{2} T^{2} = \\
-				       & = & \lambda T e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty} \frac{ (k-1+1) \cdot{(\lambda \cdot T})^{k-1}}{(k-1)!} \right) - \lambda^{2} T^{2} = \\
-				       & = & \lambda T e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty}  \frac{ (k-1) \cdot{(\lambda \cdot T})^{k-1}}{(k-1)(k-2)!} + \sum_{k=1}^{\infty} \frac{(\lambda T)^{k-1}}{(k-1)!} \right) - \lambda^{2} T^{2} = \\
-				       & = & \lambda T e^{- \lambda T} \cdot \left( \lambda T \cdot  \sum_{k = 1}^{\infty} \frac{{(\lambda \cdot T})^{k-2}}{(k-2)!} + e^{\lambda T}\right) - \lambda^{2} T^{2} =\\
-				       & = & \lambda T e^{-\lambda T} (\lambda T e^{ \lambda T} + e^{\lambda T}) - \lambda^{2} T^{2} =\\
-				       & = & \lambda \cdot T
-	\end{IEEEeqnarray*}	
-	
-\subsection{Demostración de la distribución de Poisson}
 
-\subsection{Stop \& Wait Tiempo medio para una transmisión correcta}
-
-	\begin{IEEEeqnarray*}{rCl}
-		t_{v} & = & t_{T} (1-p) + 2 t_{T} (1-p) p + 3 t_{T} (1-p) p^{2} + ... = \\
-		        & = & t_{T} (1-p) \sum_{i=1}^{\infty} i \cdot p^{i-1} = t_{T} (1-p) \frac{1}{(1-p)^{2}} = \\
-		        & = & \frac{t_{T}}{1-p}
-	\end{IEEEeqnarray*}	
-
-\subsection{Go Back N Tiempo medio para  una transmisión correcta}
-
-\begin{IEEEeqnarray*}{rCl}
-		t_{V} & = & (1-p) \cdot t_{I} + (1-p) \cdot p (t_{T} + t_{I}) + (1-p) \cdot p^{2} (2 t_{T} + \cdot t_{I}) + ... = \\
-			 & = & (1-p) \cdot t_{I} + (1-p) t_{T} \sum_{i=1}^{\infty} i \cdot p^{i} + (1-p) \cdot t_{I} \sum_{i = 1}^{\infty} p^{i} = \\
-			 & = & (1-p) \cdot t_{I} + a \cdot t_{I} \cdot (1 - p) \frac{p}{(1-p)^{2}} + t_{I} \cdot (1-p) \cdot \frac{p}{1-p} = \\
-			 & = & t_{I} ( 1 - p + \frac{a p}{1 - p} + p)  = t_{I} \frac{1 - p + ap}{1 - p} = \\
-			 & = & t_{I} \frac{1 + (a - 1) p}{1 - p}
-	\end{IEEEeqnarray*}
-
+%\newpage
+%
+%\section{\underline{Demostraciones}}
+%
+%\subsection{Esperanza y varianza en eventos Poissonianos}
+%
+%	\begin{IEEEeqnarray*}{rCl}
+%		E(k) & = & \sum_{k=0}^{\infty} k \cdot p(k) = \sum_{k = 0}^{\infty} k \cdot \frac{{(\lambda \cdot T)}^{k}}{k!} \cdot e^{- \lambda T} = \\
+%			& = &   e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty} \lambda T \cdot \frac{ k \cdot{(\lambda \cdot T})^{k-1}}{k \cdot (k-1)!} \right) = e^{- \lambda T} \cdot \lambda \cdot T \cdot e^{\lambda T} = \\
+%			& = & \lambda \cdot T
+%	\end{IEEEeqnarray*}	
+%	
+%	\begin{IEEEeqnarray*}{rCl}
+%		\sigma^{2}_{k} & = & E \left[ (k - E[k])^{2} \right] = E[k^{2}] - E^{2}[k] = \sum_{k = 0}^{\infty} k^{2} \cdot p(k) - (\lambda \cdot T)^{2} = \\
+%				       & = & \sum_{k = 0}^{\infty} k^{2} \cdot \frac{{(\lambda \cdot T)}^{k}}{k!} e^{-\lambda T} - \lambda^{2} T^{2} = \\
+%				       & = & e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty} \lambda T \cdot \frac{ k \cdot{(\lambda \cdot T})^{k-1}}{k \cdot (k-1)!} \right) - \lambda^{2} T^{2} = \\
+%				       & = & \lambda T e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty} \frac{ (k-1+1) \cdot{(\lambda \cdot T})^{k-1}}{(k-1)!} \right) - \lambda^{2} T^{2} = \\
+%				       & = & \lambda T e^{- \lambda T} \cdot \left( \sum_{k = 1}^{\infty}  \frac{ (k-1) \cdot{(\lambda \cdot T})^{k-1}}{(k-1)(k-2)!} + \sum_{k=1}^{\infty} \frac{(\lambda T)^{k-1}}{(k-1)!} \right) - \lambda^{2} T^{2} = \\
+%				       & = & \lambda T e^{- \lambda T} \cdot \left( \lambda T \cdot  \sum_{k = 1}^{\infty} \frac{{(\lambda \cdot T})^{k-2}}{(k-2)!} + e^{\lambda T}\right) - \lambda^{2} T^{2} =\\
+%				       & = & \lambda T e^{-\lambda T} (\lambda T e^{ \lambda T} + e^{\lambda T}) - \lambda^{2} T^{2} =\\
+%				       & = & \lambda \cdot T
+%	\end{IEEEeqnarray*}	
+%	
+%\subsection{Demostración de la distribución de Poisson}
+%
+%\subsection{Stop \& Wait Tiempo medio para una transmisión correcta}
+%
+%	\begin{IEEEeqnarray*}{rCl}
+%		t_{v} & = & t_{T} (1-p) + 2 t_{T} (1-p) p + 3 t_{T} (1-p) p^{2} + ... = \\
+%		        & = & t_{T} (1-p) \sum_{i=1}^{\infty} i \cdot p^{i-1} = t_{T} (1-p) \frac{1}{(1-p)^{2}} = \\
+%		        & = & \frac{t_{T}}{1-p}
+%	\end{IEEEeqnarray*}	
+%
+%\subsection{Go Back N Tiempo medio para  una transmisión correcta}
+%
+%\begin{IEEEeqnarray*}{rCl}
+%		t_{V} & = & (1-p) \cdot t_{I} + (1-p) \cdot p (t_{T} + t_{I}) + (1-p) \cdot p^{2} (2 t_{T} + \cdot t_{I}) + ... = \\
+%			 & = & (1-p) \cdot t_{I} + (1-p) t_{T} \sum_{i=1}^{\infty} i \cdot p^{i} + (1-p) \cdot t_{I} \sum_{i = 1}^{\infty} p^{i} = \\
+%			 & = & (1-p) \cdot t_{I} + a \cdot t_{I} \cdot (1 - p) \frac{p}{(1-p)^{2}} + t_{I} \cdot (1-p) \cdot \frac{p}{1-p} = \\
+%			 & = & t_{I} ( 1 - p + \frac{a p}{1 - p} + p)  = t_{I} \frac{1 - p + ap}{1 - p} = \\
+%			 & = & t_{I} \frac{1 + (a - 1) p}{1 - p}
+%	\end{IEEEeqnarray*}
+%
 
 \end{multicols}
 \end{document}
