@@ -767,6 +767,77 @@ Máximo nivel de señal en la entrada para no tener distorsión a la salida.
 
 \section{\underline{3. Respuesta en Frecuencia}}
 
+\subsection{Amplificadores Reales}
+
+Las señales son amplificadas de forma distinta según sea su frecuencia.
+ 
+\begin{equation*}
+	A_{v} = \frac{V_{o}}{V_{i}} \hspace{10pt} \rightarrow \text{frecuencia} \rightarrow \hspace{10pt} A_{v}(f) = \frac{V_{o}(f)}{V_{i}(f)}
+\end{equation*}
+
+\begin{center}
+	\begin{tikzpicture}[scale = .5]
+	\begin{axis}[axis lines = middle,xmin=-0.1,xmax = 3.2,ymin=-0.3,ymax=3, xticklabels={,,}, yticklabels={,,}] %,grid=both]
+				
+		% Valores del eje X
+		\node at (axis cs:1, 0) [anchor=north] {$f_a$};
+		\node at (axis cs:2.5, 0) [anchor=north] {$f_b$};
+		
+		\node at (axis cs:0, 3) [anchor=north west] {$|A(f)|$};
+		\node at (axis cs:3.2, 0) [anchor=south east] {$f$};
+		
+		
+		
+	\end{axis}
+	
+	\draw[dashed, gray] (2.28,.5) -- (2.28,5);
+	\draw[dashed, gray] (5.4,.5) -- (5.4,5);
+	
+%	\draw (5,1) node[left]{Frecuencias Medias};
+	\draw[red,thick] (2.28,3) -- (5.4,3);
+	
+	\draw (1,1) node[left]{Bajas Frecuencias};
+	\draw[orange, thick] (.5,.6) .. controls (1.5,.7) and (1.5,2.8) .. (2.28,3);
+	
+%	\draw (5,5) node[left]{Altas Frecuencias};
+	\draw[orange, thick] (5.4,3) .. controls (6,2.8) and (6,.8) .. (6.5,.6);
+\end{tikzpicture}
+\end{center}
+
+Debido a los efectos de las capacidades, de paso y parásitas, $|A(f)| \downarrow$.
+
+\subsection{Diagramas de Bode}
+
+\begin{equation*}
+|A(f)|(dB) \rightarrow 20 \cdot \log_{10} \left| \frac{A(f)}{A_{o}} \right|
+\end{equation*}
+
+\subsection{Expresión de la Ganancia}
+
+La \textbf{ganancia de un amplificador} para la región útil y zonas no muy alejadas de ella se expresa en función de $s$:
+
+	\begin{equation*}
+		A(s) = A_{o} \frac{s}{s + w_{b}} \frac{w_{a}}{s + w_{a}}
+	\end{equation*}
+
+Si el amplificador está bien diseñado, $w_{a} \gg w_{b}$. $w_{a}$ y $w_{b}$ son siempre números reales (circuitos RC no realimentados).
+
+\subsection{Comportamiento Asintótico}
+
+\subsection{Frecuencias de Corte}
+
+Son aquellas frecuencias en las que la ganancia se reduce $\sqrt{2}$ veces $\rightarrow 20 \log (1 / \sqrt{2}) = -3 \text{dB}$
+
+\subsection{Respuesta en Bajas Frecuencias}
+
+\textbf{Terminar}
+
+
+
+
+
+
+
 \section{\underline{4. Fuentes de Corriente y Cargas Activas}}
 
 Una \textbf{carga activa o carga dinámica} es un componente de circuito que se comporta como una resistencia no lineal estable contra corriente. Utilizado frecuentemente en la entrada de amplificadores operacionales para incrementar considerablemente la ganancia.
