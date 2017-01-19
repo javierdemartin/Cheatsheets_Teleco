@@ -627,7 +627,7 @@ Permite trabajar con \textbf{mayores tensiones de salida}. Buen comportamiento e
 
 \subsubsection{Clasificación}
 
-\textbf{De alterna o de acoplo RC} Se agrupan en cascada de amplificadores monoetapa conectándose mediante condensadores de acoplo. \textbf{De continua o de acoplo directo} No existen condensadores de paso y amplifican tensiones continuas.
+\textbf{De alterna o de acoplo RC}: Se agrupan en cascada de amplificadores monoetapa conectándose mediante condensadores de acoplo. \textbf{De continua o de acoplo directo} No existen condensadores de paso y amplifican tensiones continuas.
 
 \subsubsection{Análisis en Continua}
 
@@ -689,18 +689,48 @@ La \textbf{ganancia total} es el producto de las ganancias de cada etapa:
 	\begin{equation*}
 		A_{v} = \frac{v_{o}}{v_{s}} = \frac{v_{o}}{v_{o(n-1)}} \dots \frac{v_{o2}}{v_{o1}} 
 	\end{equation*}
+	
+\textbf{Ganancia de una etapa:}
 
-\subsubsection{Margen Dinámico a la Entrada}
+	\begin{center}
+		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+
+			\draw[-latex] (8,.4) -- (8,1.7) node[left] {$V_{o(k-1)}$};
+			\draw[-latex] (11.4,.4) -- (11.4,1.7) node[left] {$V_{ok}$};
+			  \draw (8,.3) to [short] (9,.3)
+			  	 (8,1.8) to [short] (9,1.8);
+			\node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west, color = blue] at (9,0){Etapa K ($A_{Vk}$)};
+			 \draw (11.2,.3) to [short, color = blue] (12.5,.3)
+			  	 (11.2,1.8) to [C, color = blue] (12.5,1.8)
+				 (12.5,.3) to [R, l_=$Z_{i(k+1)}$, color = blue] (12.5,1.8);
+		\end{circuitikz}
+	\end{center}	
+	
+Es preciso tener en cuenta la impedancia de la siguiente etapa.
+
+	\begin{equation*}
+		A_{vk} = \frac{v_{ok}}{v_{o(k-1)}} |_{Z_{i(k+1)}}
+	\end{equation*}
+	
+
+\subsubsection{Margen dinámico a la Salida}
 
 Máxima señal obtenible en la carga sin distorsión, se mide en $V_{P}$ o en $V_{PP}$. Viene determinado por las situaciones de corte/saturación de los transistores.
 
 \textbf{Margen dinámico debido a una etapa}: Si la etapa k-ésima tiene un margen dinámico a su salida permitirá a la salida del amplificador un margen dinámico.\\
 
+	\begin{equation*}
+		M_{dko} = M_{dk} \cdot | A_{v(k+1)} \cdot A_{v(k+2)} \cdot ... \cdot A_{vn} |
+	\end{equation*}
+
 \textbf{Margen dinámico del amplificador}: Menor de los márgenes dinámicos debidos a cada etapa.
 
-\subsubsection{Margen dinámico a la salida}
+	\begin{equation*}
+		M_{do} = min \{  M_{d1o}, M_{d12}, ..., M_{dn} \}
+	\end{equation*}
 
-\subsubsection{Margen dinámico a la entrada}
+\subsubsection{Margen dinámico a la Entrada}
+
 
 
 \begin{center}
