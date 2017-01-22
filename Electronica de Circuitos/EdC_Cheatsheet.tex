@@ -149,10 +149,10 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 	\vspace{-20pt}
 
 \begin{itemize}
-	\item \textbf{Región Activa}: La corriente de colector $I_C$ depende directamente de la corriente de base $I_B$, de la ganancia de corriente $\beta$ y de las resistencias conectadas al colector y emisor. En esta región se produce amplificación de la señal.
+	\item \textbf{Región Activa}:  $I_C$ depende directamente de la corriente de base $I_B$, de la ganancia de corriente $\beta$ y de las resistencias conectadas al colector y emisor. En esta región se produce amplificación de la señal.
 	\item \textbf{Región Inversa}: 
-	\item \textbf{Región de Saturación}: La corriente $I_C = I_E = I_{max}$. La corriente depende del voltaje de alimentación del circuito y de las resistencias conectadas al colector y emisor. Este modo aparece cuando la corriente de base es lo suficientemente grande como para inducir una corriente de colector $\beta$ veces más grande.
-	\item \textbf{Región de Corte}: La corriente $I_C = I_E = 0$. El voltaje $V_{CE}$ es el de alimentación del circuito, al no haber corriente circulando no hay caí­da tensión. Este modo aparece, normalmente, cuando $I_B = 0$.
+	\item \textbf{Región de Saturación}: $I_C = I_E = I_{max}$. La corriente depende del $V_{CC}$ y de las resistencias conectadas al colector y emisor. Este modo aparece cuando la corriente de base es lo suficientemente grande como para inducir una corriente de colector $\beta$ veces más grande.
+	\item \textbf{Región de Corte}:  $I_C = I_E = 0$. $V_{CE}$ es la alimentación del circuito, al no haber corriente circulando no hay caí­da tensión. Este modo se da cuando $I_B = 0$.
 \end{itemize}
 
 \subsection{Configuraciones de Montaje}
@@ -375,19 +375,6 @@ Base Común                              & Emisor Común & Colector Común \\ \h
     		
 		\end{tikzpicture}
 	\end{center}
-	
-	
-	\begin{center}
-		\begin{tikzpicture}[scale = 0.45, transform shape]
-		    \draw (-0.2,0) -- (3,0) node[right] {$V_{DS}$};
-    		\draw (0,-0.2) -- (0,3) node[above] {$I_{D_{SS}}$};
-    		
-    		\node[text width=3cm] at (2.7,1.2) {Saturación};
-    		\node[text width=3cm] at (3,0.1) {Corte};
-    		\node[text width=3cm, rotate = 70] at (.7,2.2) {Óhmica};
-    		
-		\end{tikzpicture}
-	\end{center}
 
 \section{\underline{Equivalencias}}
 
@@ -430,8 +417,10 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 
 Condensador entre dos patas de un BJT.
 
+	\vspace{-20pt}
+
 	\begin{center}
-		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+		\begin{circuitikz}[scale=.4,american voltages, american currents, transform shape]
 			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
 				to [short, -] (1,-1)
 				to [generic, l=$h_{ie}$] (1,-2)
@@ -832,28 +821,28 @@ Permite trabajar con \textbf{mayores tensiones de salida}. Buen comportamiento e
 
 \textbf{Amplificadores RC}: Cada etapa puede analizarse independientemente. No existe dependencia entre los puntos de trabajo de las distintas etapas.
 
-	\begin{center}
-		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
-			 \draw (-1.6,.3) to [short] (1,.3)
-			  	 (0,1.8) to [C, color = red] (1,1.8)
-				  (-1.6,1.8) to [R, l=$R_{S}$] (0,1.8)
-				 (-1.6,.3) to [sV, l=$V_{S}$] (-1.6,1.8);
-			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (1,0){Etapa 1 ($A_{V1}$)};
-			  \draw (3.15,.3) to [short] (4,.3)
-			  	 (3.15,1.8) to [C, color = red] (4,1.8);
-			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (4,0){Etapa 2 ($A_{V2}$)};
-			   \draw (6.15,.3) to [short] (7,.3)
-			  	 (6.15,1.8) to [C, color = red] (7,1.8);
-			 \draw [densely dashed] (7,.3)--(8,.3);
-			  \draw [densely dashed] (7,1.8)--(8,1.8);
-			  \draw (8,.3) to [short] (9,.3)
-			  	 (8,1.8) to [C, color = red] (9,1.8);
-			\node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (9,0){Etapa n ($A_{Vn}$)};
-			 \draw (11.2,.3) to [short] (12,.3)
-			  	 (11.2,1.8) to [C, color = red] (12,1.8)
-				 (12,.3) to [R, l_=$R_{L}$] (12,1.8);
-		\end{circuitikz}
-	\end{center}
+%	\begin{center}
+%		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+%			 \draw (-1.6,.3) to [short] (1,.3)
+%			  	 (0,1.8) to [C, color = red] (1,1.8)
+%				  (-1.6,1.8) to [R, l=$R_{S}$] (0,1.8)
+%				 (-1.6,.3) to [sV, l=$V_{S}$] (-1.6,1.8);
+%			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (1,0){Etapa 1 ($A_{V1}$)};
+%			  \draw (3.15,.3) to [short] (4,.3)
+%			  	 (3.15,1.8) to [C, color = red] (4,1.8);
+%			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (4,0){Etapa 2 ($A_{V2}$)};
+%			   \draw (6.15,.3) to [short] (7,.3)
+%			  	 (6.15,1.8) to [C, color = red] (7,1.8);
+%			 \draw [densely dashed] (7,.3)--(8,.3);
+%			  \draw [densely dashed] (7,1.8)--(8,1.8);
+%			  \draw (8,.3) to [short] (9,.3)
+%			  	 (8,1.8) to [C, color = red] (9,1.8);
+%			\node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (9,0){Etapa n ($A_{Vn}$)};
+%			 \draw (11.2,.3) to [short] (12,.3)
+%			  	 (11.2,1.8) to [C, color = red] (12,1.8)
+%				 (12,.3) to [R, l_=$R_{L}$] (12,1.8);
+%		\end{circuitikz}
+%	\end{center}
 	
 \textbf{Amplificadores de continua}: Todas las etapas están inter-relacionadas, es aconsejable seguir un orden para su análisis.
 			
@@ -930,32 +919,30 @@ Máxima señal obtenible en la carga sin distorsión, se mide en $V_{P}$ o en $V
 
 \subsubsection{Margen dinámico a la Entrada}
 
-
-
-\begin{center}
-		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
-			 
-			 \draw[blue, thick] (-.25,.95) sin (0,1.45) cos (.25,.95) sin (.5,.45) cos (.75,.95);
-			 
-			 \draw (0,.3) to [short] (1,.3)
-			  	 (0,1.8) to [C, color = red] (1,1.8);
-			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (1,0){Etapa 1 ($A_{V1}$)};
-			  \draw (3.15,.3) to [short] (4,.3)
-			  	 (3.15,1.8) to [C, color = red] (4,1.8);
-			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (4,0){Etapa 2 ($A_{V2}$)};
-			   \draw (6.15,.3) to [short] (7,.3)
-			  	 (6.15,1.8) to [C, color = red] (7,1.8);
-			 \draw [densely dashed] (7,.3)--(8,.3);
-			  \draw [densely dashed] (7,1.8)--(8,1.8);
-			  \draw (8,.3) to [short] (9,.3)
-			  	 (8,1.8) to [C, color = red] (9,1.8);
-			\node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (9,0){Etapa n ($A_{Vn}$)};
-			 \draw (11.2,.3) to [short] (12,.3)
-			  	 (11.2,1.8) to [C, color = red] (12,1.8);
-				 
-			\draw[blue, thick] (12,.95) sin (12.25,1.95) cos (12.5,.95) sin (12.75,.05) cos (13,.95);
-		\end{circuitikz}
-	\end{center}
+%\begin{center}
+%		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+%			 
+%			 \draw[blue, thick] (-.25,.95) sin (0,1.45) cos (.25,.95) sin (.5,.45) cos (.75,.95);
+%			 
+%			 \draw (0,.3) to [short] (1,.3)
+%			  	 (0,1.8) to [C, color = red] (1,1.8);
+%			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (1,0){Etapa 1 ($A_{V1}$)};
+%			  \draw (3.15,.3) to [short] (4,.3)
+%			  	 (3.15,1.8) to [C, color = red] (4,1.8);
+%			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (4,0){Etapa 2 ($A_{V2}$)};
+%			   \draw (6.15,.3) to [short] (7,.3)
+%			  	 (6.15,1.8) to [C, color = red] (7,1.8);
+%			 \draw [densely dashed] (7,.3)--(8,.3);
+%			  \draw [densely dashed] (7,1.8)--(8,1.8);
+%			  \draw (8,.3) to [short] (9,.3)
+%			  	 (8,1.8) to [C, color = red] (9,1.8);
+%			\node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (9,0){Etapa n ($A_{Vn}$)};
+%			 \draw (11.2,.3) to [short] (12,.3)
+%			  	 (11.2,1.8) to [C, color = red] (12,1.8);
+%				 
+%			\draw[blue, thick] (12,.95) sin (12.25,1.95) cos (12.5,.95) sin (12.75,.05) cos (13,.95);
+%		\end{circuitikz}
+%	\end{center}
 	
 Máximo nivel de señal en la entrada para no tener distorsión a la salida.
 
@@ -974,34 +961,34 @@ Las señales son amplificadas de forma distinta según sea su frecuencia.
 	A_{v} = \frac{V_{o}}{V_{i}} \hspace{10pt} \rightarrow \text{frecuencia} \rightarrow \hspace{10pt} A_{v}(f) = \frac{V_{o}(f)}{V_{i}(f)}
 \end{equation*}
 
-\begin{center}
-	\begin{tikzpicture}[scale = .5,transform shape]
-	\begin{axis}[axis lines = middle,xmin=-0.1,xmax = 3.2,ymin=-0.3,ymax=2, xticklabels={,,}, yticklabels={,,}] %,grid=both]
-				
-		% Valores del eje X
-		\node at (axis cs:1, 0) [anchor=north] {$f_a$};
-		\node at (axis cs:2.5, 0) [anchor=north] {$f_b$};
-		
-		\node at (axis cs:0, 3) [anchor=north west] {$|A(f)|$};
-		\node at (axis cs:3.2, 0) [anchor=south east] {$f$};
-		
-		
-		
-	\end{axis}
-	
-	\draw[dashed, gray] (2.28,.5) -- (2.28,5);
-	\draw[dashed, gray] (5.4,.5) -- (5.4,5);
-	
-%	\draw (5,1) node[left]{Frecuencias Medias};
-	\draw[red,thick] (2.28,3) -- (5.4,3);
-	
-	\draw (1,1) node[left]{Bajas Frecuencias};
-	\draw[orange, thick] (.5,.6) .. controls (1.5,.7) and (1.5,2.8) .. (2.28,3);
-	
-%	\draw (5,5) node[left]{Altas Frecuencias};
-	\draw[orange, thick] (5.4,3) .. controls (6,2.8) and (6,.8) .. (6.5,.6);
-\end{tikzpicture}
-\end{center}
+%\begin{center}
+%	\begin{tikzpicture}[scale = .5,transform shape]
+%	\begin{axis}[axis lines = middle,xmin=-0.1,xmax = 3.2,ymin=-0.3,ymax=2, xticklabels={,,}, yticklabels={,,}] %,grid=both]
+%				
+%		% Valores del eje X
+%		\node at (axis cs:1, 0) [anchor=north] {$f_a$};
+%		\node at (axis cs:2.5, 0) [anchor=north] {$f_b$};
+%		
+%		\node at (axis cs:0, 3) [anchor=north west] {$|A(f)|$};
+%		\node at (axis cs:3.2, 0) [anchor=south east] {$f$};
+%		
+%		
+%		
+%	\end{axis}
+%	
+%	\draw[dashed, gray] (2.28,.5) -- (2.28,5);
+%	\draw[dashed, gray] (5.4,.5) -- (5.4,5);
+%	
+%%	\draw (5,1) node[left]{Frecuencias Medias};
+%	\draw[red,thick] (2.28,3) -- (5.4,3);
+%	
+%	\draw (1,1) node[left]{Bajas Frecuencias};
+%	\draw[orange, thick] (.5,.6) .. controls (1.5,.7) and (1.5,2.8) .. (2.28,3);
+%	
+%%	\draw (5,5) node[left]{Altas Frecuencias};
+%	\draw[orange, thick] (5.4,3) .. controls (6,2.8) and (6,.8) .. (6.5,.6);
+%\end{tikzpicture}
+%\end{center}
 
 Debido a los efectos de las capacidades, de paso y parásitas, $|A(f)| \downarrow$.
 
@@ -1150,23 +1137,6 @@ Variación del circuito anterior con una resistencia en el emisor del transistor
 			\draw (npn3.C) [short, -o, ,i<_=$I_O$] to (7,1.5);
 			\draw[blue, thick] (6,-2.78) [short, *-] to (6, -3.28) node[ground, color = blue]{} (6, -3.5); 
 			
-		\end{circuitikz}
-	\end{center}
-
-	\begin{center}
-		\begin{circuitikz} [scale=.6, transform shape]
-			\draw[blue, thick] (0,0) to[D*, color = blue] (0,-2)
-				(0,0) |- (npn2.B)
-				(0,0) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$}
-				;
-			\draw (2,0) node[npn, xscale = 1, yscale = 1, rotate = 0](npn2) {$Q_2$}
-				(npn2.E) to [R, l=$R_1$] (2,-2.78)
-				(npn2.B) to [short] (.78,0)
-				;
-			\draw[blue] (npn1.E) to [short, blue] (0, -2.78) -- (1, -2.78);
-			\draw (1,-2.78) -- (2, -2.78);
-			\draw (npn2.C) [short, -o, ,i<_=$I_O$] to (2,1.5);
-			\draw[blue, thick] (1,-2.78) [short, *-] to (1, -3.28) node[ground, color = blue]{} (1, -3.5); 
 		\end{circuitikz}
 	\end{center}
 
@@ -1418,6 +1388,111 @@ Permite obtener alta ganancia de corriente e impedancia de salida elevada.
 	
 \subsubsection{Corrientes de Polarización}
 
+\subsubsection{Topologías}
+
+Paralelo-Paralelo
+
+	\begin{center}
+		\begin{circuitikz}[scale=.4, transform shape]
+			
+			\draw (-2,.25) to [american current source] (-2,2.25)
+				(-2,.25) -- (0,.25)
+				(-2,2.25) -- (0,2.25);
+				
+			\draw (5,0.25) to[R, l = $R_{L}$] (5,2.25)
+				(2.5,2.25) -- (5,2.25)
+				(2.5,.25) -- (5,.25);	
+		
+ 		 	\draw (1.25, 1.25) node[plain amp] (opamp) {$A$}
+				  (0,0) rectangle (2.5,2.5)
+				   (0,-.75) -| (-.5,2.25)
+				  (0,-2.75) -| (-1.5,.25);
+
+			 \draw (1.25, -1.75) node[plain amp, xscale = -1] (opamp) {$B$}
+     				  (0,-3) rectangle (2.5,-.5)
+				  (2.5,-.75) -| (3,2.25)
+				  (2.5,-2.75) -| (4,.25);
+
+
+		\end{circuitikz}
+	\end{center}
+	
+Paralelo-Serie	
+	
+	\begin{center}
+		\begin{circuitikz}[scale=.4, transform shape]
+			
+			\draw (-2,.25) to [american current source] (-2,2.25)
+				(-2,.25) -- (0,.25)
+				(-2,2.25) -- (0,2.25);
+				
+			\draw (5,0.25) to[R, l = $R_{L}$] (5,2.25)
+				(2.5,2.25) -- (5,2.25)
+				(5,.25) |- (2.5,-2.75)
+				(2.5,.25) -| (3,-.75) -- (2.5,-.75);	
+		
+ 		 	\draw (1.25, 1.25) node[plain amp] (opamp) {$A$}
+				  (0,0) rectangle (2.5,2.5);
+
+			 \draw (1.25, -1.75) node[plain amp, xscale = -1] (opamp) {$B$}
+     				  (0,-3) rectangle (2.5,-.5)
+				  (0,-.75) -| (-.5,2.25)
+				  (0,-2.75) -| (-1.5,.25);
+
+
+		\end{circuitikz}
+	\end{center}
+	
+Serie-Paralelo	
+	
+	\begin{center}
+
+	
+	
+		\begin{circuitikz}[scale=.4, transform shape]
+			
+			\draw (-2,.25) to [american current source] (-2,2.25)
+				(-2,.25) |- (0,-2.75)
+				(-2,2.25) -- (0,2.25);
+				
+			\draw (5,0.25) to[R, l = $R_{L}$] (5,2.25)
+				(2.5,2.25) -- (5,2.25)
+				(2.5,.25) -- (5,.25);	
+		
+ 		 	\draw (1.25, 1.25) node[plain amp] (opamp) {$A$}
+				  (0,0) rectangle (2.5,2.5)
+				   (0,-.75) -| (-.5,.25) -- (0,.25);
+
+			 \draw (1.25, -1.75) node[plain amp, xscale = -1] (opamp) {$B$}
+     				  (0,-3) rectangle (2.5,-.5)
+				  (2.5,-2.75) -| (4,.25);
+		\end{circuitikz}
+	\end{center}
+	
+Serie-Serie	
+	
+	\begin{center}
+		\begin{circuitikz}[scale=.4, transform shape]
+			
+			\draw (-2,.25) to [american current source] (-2,2.25)
+				(-2,.25) |- (0,-2.75)
+				(-2,2.25) -- (0,2.25);
+				
+			\draw (5,0.25) to[R, l = $R_{L}$] (5,2.25)
+				(2.5,2.25) -- (5,2.25)
+				(2.5,-2.75) -| (5,.25);	
+		
+ 		 	\draw (1.25, 1.25) node[plain amp] (opamp) {$A$}
+				  (0,0) rectangle (2.5,2.5)
+				   (0,-.75) -| (-.5,.25) -- (0,.25);
+
+			 \draw (1.25, -1.75) node[plain amp, xscale = -1] (opamp) {$B$}
+     				  (0,-3) rectangle (2.5,-.5)
+%				  (2.5,-2.75) -| (4,.25);
+				 (2.5,-.75) -| (3.5,.25) -- (2.5,.25);
+				  
+		\end{circuitikz}
+	\end{center}
 
 
 \section{\underline{7. Realimentación}}
