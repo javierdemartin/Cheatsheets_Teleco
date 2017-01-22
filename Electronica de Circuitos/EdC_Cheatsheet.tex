@@ -558,7 +558,7 @@ Las resistencias de emisor permiten estabilizar el circuito tensión.
  			\draw (1,0.78) [short, -*, i<_=$I_C$] to (1, 1.5) node[anchor=east] {C};
 			
 			 \draw (-2,1) node {$\frac{I_C}{I_B} \approx \beta_1 \beta_2$};
-	 		\draw (-2.3,0) node {$h_{ie_{D}} = 2 \cdot h_{ie_{1}}$};
+	 		\draw (-2.3,0) node {$h_{ie_{D}} = \frac{2 V_{T} \beta_{D}}{I_{C_{D}}}$};
 			\draw (-2,-.5) node {$h_{fe_{D}} \approx h_{fe_{1}} \cdot h_{fe_{2}}$};
 			\draw (-2,-1) node {$h_{oe_{D}} \approx h_{oe_{1}} \cdot h_{fe_{2}}$};
 		\end{scope}
@@ -1146,7 +1146,7 @@ Variación del circuito anterior con una resistencia en el emisor del transistor
 				(5,0) to [R, color = blue, l=$R_{CC}$] (5,2) [short, -o, i<_=$I_{ref}$] to (5,3) node[anchor=east] {$V_{CC}$}
 				;
 			\draw[blue] (5,-2) to [short, blue] (5, -2.78) -- (6, -2.78);
-			\draw (6,-2.78) -- (8, -2.78);
+			\draw (6,-2.78) -- (7, -2.78);
 			\draw (npn3.C) [short, -o, ,i<_=$I_O$] to (7,1.5);
 			\draw[blue, thick] (6,-2.78) [short, *-] to (6, -3.28) node[ground, color = blue]{} (6, -3.5); 
 			
