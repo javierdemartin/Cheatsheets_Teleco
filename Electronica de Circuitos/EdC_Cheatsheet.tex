@@ -215,36 +215,63 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 
 \subsubsection{Emisor Común}
 
-\begin{center}
-\begin{circuitikz} %[scale=1]
-	\draw (0,0) node[npn](npn)	{}
-		(npn.C) node[anchor=east] {C} % Collector
-    	(npn.B) node[anchor=north east] {B} % Gate
-        (npn.E) node[anchor= east] {E} % Emisor
-        (npn.B) [short, -*] to (-1, 0)
-        (npn.E) -- (0, -1) [short, -*] to (1, -1)
-        (0, -1) [short, -*] to (-1, -1)
-        (npn.C) -- (0, 1) [short, -*] to (1, 1);
-	%\draw (1,0) -- (0,0) -- (0,1);
-	%\draw (-1, 0) -- (pnp.C);
-\end{circuitikz}
-\end{center}
+%\begin{center}
+%\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+%	\draw (0,0) node[npn](npn)	{}
+%		(npn.C) node[anchor=east] {C} % Collector
+%    	(npn.B) node[anchor=north east] {B} % Gate
+%        (npn.E) node[anchor= east] {E} % Emisor
+%        (npn.B) [short, -*] to (-1, 0)
+%        (npn.E) -- (0, -1) [short, -*] to (1, -1)
+%        (0, -1) [short, -*] to (-1, -1)
+%        (npn.C) -- (0, 1) [short, -*] to (1, 1);
+%	%\draw (1,0) -- (0,0) -- (0,1);
+%	%\draw (-1, 0) -- (pnp.C);
+%\end{circuitikz}
+%\end{center}
 
-	\begin{center}
-		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
-			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
-				to [short, -] (1,-1)
-				to [generic, l=$h_{ie}$] (1,-2)
-				to [short] (1,-3) -- (3,-3) -- (3,-2)
-				(3,-1) to [I, i= $h_{fe} \cdot i_b$] (3,-2)
-				to [short] (3,0)
-				to [short, i<_=$i_c$, -o] (4,0)
-				;		
-			\draw (2,-3) to [short, -o] (2,-4) node[anchor=east] {$E$};
-			\draw (0,0) node[anchor=east] {$B$};
-			\draw (4,0) node[anchor=west] {$C$};
-		\end{circuitikz}
-	\end{center}
+%	\begin{center}
+%		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+%			\draw (0,0) node[npn](npn)	{}
+%		(npn.C) node[anchor=east] {C} % Collector
+%    	(npn.B) node[anchor=north east] {B} % Gate
+%        (npn.E) node[anchor= east] {E} % Emisor
+%        (npn.B) [short, -*] to (-1, 0)
+%        (npn.E) -- (0, -1) [short, -*] to (1, -1)
+%        (0, -1) [short, -*] to (-1, -1)
+%        (npn.C) -- (0, 1) [short, -*] to (1, 1);
+%	%\draw (1,0) -- (0,0) -- (0,1);
+%	%\draw (-1, 0) -- (pnp.C);
+%		
+%			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
+%				to [short, -] (1,-1)
+%				to [generic, l=$h_{ie}$] (1,-2)
+%				to [short] (1,-3) -- (3,-3) -- (3,-2)
+%				(3,-1) to [I, i= $h_{fe} \cdot i_b$] (3,-2)
+%				to [short] (3,0)
+%				to [short, i<_=$i_c$, -o] (4,0)
+%				;		
+%			\draw (2,-3) to [short, -o] (2,-4) node[anchor=east] {$E$};
+%			\draw (0,0) node[anchor=east] {$B$};
+%			\draw (4,0) node[anchor=west] {$C$};
+%			
+%			\draw (5,0) to [short,i_=$i_b$, o-] (6,0)
+%				to [short, -] (6,-1)
+%				to [generic, l=$h_{ie}$] (6,-2)
+%				to [short] (6,-3) -- (8,-3) -- (8,-2)
+%				(8,-1) to [I, i= $h_{fe} \cdot i_b$] (8,-2)
+%				to [short] (8,0)
+%				to [short] (10,0)
+%				to [short, , i<_=$i_c$, -o] (11,0)
+%				;
+%			\draw (8,-3) to [short] (10,-3) -- (10,-2)
+%				to [generic, l_=$h_{oe}^{-1}$] (10,-1)
+%				to [short] (10,0);		
+%			\draw (7,-3) to [short, -o] (7,-4) node[anchor=east] {$E$};
+%			\draw (5,0) node[anchor=east] {$B$};
+%			\draw (11,0) node[anchor=west] {$C$};
+%		\end{circuitikz}
+%	\end{center}
 	
 	\begin{center}
 		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
@@ -275,20 +302,20 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 
 \subsubsection{Colector Común}
 
-\begin{center}
-\begin{circuitikz} %[scale=1]
-	\draw (0,0) node[npn](npn)	{}
-		(npn.C) node[anchor=east] {C} % Collector
-    	(npn.B) node[anchor=north east] {B} % Gate
-        (npn.E) node[anchor= east] {E} % Emisor
-        (npn.B) [short, -*] to (-1, 0)
-        (npn.E) -- (0, -1) [short, -*] to (1, -1)
-        (0, -1) [short, -*] to (-1, -1)
-        (npn.C) -- (0, 1) [short, -*] to (1, 1);
-	%\draw (1,0) -- (0,0) -- (0,1);
-	%\draw (-1, 0) -- (pnp.C);
-\end{circuitikz}
-\end{center}
+%\begin{center}
+%\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+%	\draw (0,0) node[npn](npn)	{}
+%		(npn.C) node[anchor=east] {C} % Collector
+%    	(npn.B) node[anchor=north east] {B} % Gate
+%        (npn.E) node[anchor= east] {E} % Emisor
+%        (npn.B) [short, -*] to (-1, 0)
+%        (npn.E) -- (0, -1) [short, -*] to (1, -1)
+%        (0, -1) [short, -*] to (-1, -1)
+%        (npn.C) -- (0, 1) [short, -*] to (1, 1);
+%	%\draw (1,0) -- (0,0) -- (0,1);
+%	%\draw (-1, 0) -- (pnp.C);
+%\end{circuitikz}
+%\end{center}
 
 	\begin{center}
 		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
@@ -296,9 +323,9 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 				to [short, -] (1,-1)
 				to [generic, l=$h_{ic}$] (1,-2)
 				to [short] (1,-3) -- (3,-3) -- (3,-2)
-				(3,-1) to [I, i= $h_{fc} \cdot i_b$] (3,-2)
+				(3,-1) to [I, i^= $h_{fc} \cdot i_b$] (3,-2)
 				to [short] (3,0)
-				to [short, i<_=$i_e$, -o] (4,0)
+				to [short, i<^=$i_e$, -o] (4,0)
 				;		
 			\draw (2,-3) to [short, -o] (2,-4) node[anchor=east] {$C$};
 			\draw (0,0) node[anchor=east] {$B$};
@@ -362,7 +389,26 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 		\end{tikzpicture}
 	\end{center}
 
-\section{\underline{Resolución de Ejercicios}}
+\section{\underline{Equivalencias}}
+
+	\begin{center}
+		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+			\draw (0,0) node[npn](npn1) {}
+				(npn1.C) -| (npn1.B);	
+			\draw[-latex] (1,0) -- (2,0) ;
+			\draw (3,1) to[diode] (3,-1);
+			
+			\draw (6,0) node[pnp](npn1) {}
+				(npn1.C) -| (npn1.B);	
+			\draw[-latex] (7,0) -- (8,0) ;
+			\draw (9,1) to[diode] (9,-1);
+
+
+		\end{circuitikz}
+	\end{center}
+
+
+\section{\underline{Resolución de Ejercicios con Transistores}}
 
 \subsubsection{Puntos de Polarización}
 
@@ -428,6 +474,9 @@ Condensador entre dos patas de un BJT.
 		\end{circuitikz}
 	\end{center}
 	
+	\begin{equation*}
+		\frac{1}{2 \pi \cdot f \cdot C} = \text{(Componentes en paralelo con el C)}
+	\end{equation*}
 	
 \begin{equation*}
 	C_{M} = C \left( 1 - \frac{V_{B}}{V_{A}} \right) \hspace{10pt} C = C \left( 1 - \frac{V_{A}}{V_{B}} \right)
@@ -442,6 +491,12 @@ Condensador entre dos patas de un BJT.
 	\end{equation*}
 	
 Para mejorar CMRR $\rightarrow$ disminuir la ganancia en el modo común $\rightarrow$ incrementar $R_{E}$. Sustituir las resistencias por cargas activas (fuentes de corriente que en alterna se comportan como resistencias).
+
+\section{\underline{Resolución de Ejercicios con Operacionales}}
+
+\begin{itemize}
+	\item Identificar redes de realimentación $\rightarrow$ cuando hya un camino que une la salida de una etapa con la entrada.
+\end{itemize}
 
 
 \section{\underline{1. Etapas de Dos Transistores}}
@@ -491,20 +546,40 @@ Las resistencias de emisor permiten estabilizar el circuito tensión.
 \subsubsection{Configuración Darlington}
 
 	\begin{center}
-	\begin{circuitikz}
-  		\draw (0,0) node[npn](npn1) {}
-  		(npn1.base) node[anchor=east] {B};
- 		\draw (1,-0.78) node[npn](npn2) {};
- 		\draw (npn1.E) [short, -, i_=$I_{B2}$] to (npn2.B);
- 		\draw (npn2.E) node[anchor=east] {E};
- 		%\draw (npn1.C)--(npn2.C);
- 		\draw (npn1.C) [short, -, i<^=$I_{C1}$] to (1, 0.78) [short, -, i_=$I_{C2}$] to (npn2.C);
- 		\draw (1,0.78) [short, -*, i<_=$I_C$] to (1, 1.5) node[anchor=east] {C};
+	\begin{circuitikz}[scale=1,american voltages, american currents, transform shape]
+  		\begin{scope}[scale = .7, transform shape]
+			\draw (0,0) node[npn](npn1) {}
+  			(npn1.base) node[anchor=east] {B};
+ 			\draw (1,-0.78) node[npn](npn2) {};
+ 			\draw (npn1.E) [short, -, i_=$I_{B2}$] to (npn2.B);
+ 			\draw (npn2.E) node[anchor=east] {E};
+ 			%\draw (npn1.C)--(npn2.C);
+ 			\draw (npn1.C) [short, -, i<^=$I_{C1}$] to (1, 0.78) [short, -, i_=$I_{C2}$] to (npn2.C);
+ 			\draw (1,0.78) [short, -*, i<_=$I_C$] to (1, 1.5) node[anchor=east] {C};
+			
+			 \draw (-2,1) node {$\frac{I_C}{I_B} \approx \beta_1 \beta_2$};
+	 		\draw (-2.3,0) node {$h_{ie_{D}} = 2 \cdot h_{ie_{1}}$};
+			\draw (-2,-.5) node {$h_{fe_{D}} \approx h_{fe_{1}} \cdot h_{fe_{2}}$};
+			\draw (-2,-1) node {$h_{oe_{D}} \approx h_{oe_{1}} \cdot h_{fe_{2}}$};
+		\end{scope}
  		
- 		\draw (-2,1) node {$\frac{I_C}{I_B} \approx \beta_1 \beta_2$};
- 		\draw (-2.3,0) node {$h_{ie_{D}} = 2 \cdot h_{ie_{1}}$};
-		\draw (-2,-.5) node {$h_{fe_{D}} \approx h_{fe_{1}} \cdot h_{fe_{2}}$};
-		\draw (-2,-1) node {$h_{oe_{D}} \approx h_{oe_{1}} \cdot h_{fe_{2}}$};
+		\begin{scope}[scale = .5, transform shape]
+			\draw (3,2) to [short,i_=$i_b$, o-] (4,2)
+				to [short, -] (4,1)
+				to [generic, l=$h_{ie_D}$] (4,0)
+				to [short] (4,-1) -- (6,-1) -- (6,0)
+				(6,1) to [I, i= $h_{fe_D} \cdot i_{b_D}$] (6,0)
+				to [short] (6,2)
+				to [short] (8,2)
+				to [short, , i<_=$i_c$, -o] (9,2)
+				;
+			\draw (6,-1) to [short, -] (8,-1) -- (8,0)
+				to [generic, l_=$h_{oe_D}^{-1}$] (8,1)
+				to [short, -*] (8,2);		
+			\draw (6,-1) to [short, *-o] (6,-2) node[anchor=east] {$E_D$};
+			\draw (3,2) node[anchor=east] {$B_D$};
+			\draw (9,2) node[anchor=west] {$C_D$};
+		\end{scope}
 	\end{circuitikz}
 	\end{center}
 
@@ -514,27 +589,27 @@ Las resistencias de emisor permiten estabilizar el circuito tensión.
 
 \textbf{Gran ganancia de corriente} pero \textbf{baja impedancia de salida}. Las fugas del primer transistor son amplificadas por el segundo, sólo es aconsejable en agrupaciones de 2 transistores.
 	
-	\begin{center}
-		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
-			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
-				to [short, -] (1,-1)
-				to [R, l=$h_{ie_D}$] (1,-2)
-				to [short] (1,-3) -- (3,-3) -- (3,-2)
-				(3,-1) to [I, i= $h_{fe_D} \cdot i_{b_D}$] (3,-2)
-				to [short] (3,0)
-				to [short] (5,0)
-				to [short, , i<_=$i_c$, -o] (6,0)
-				;
-			\draw (3,-3) to [short, -] (5,-3) -- (5,-2)
-				to [R, l_=$h_{oe_D}^{-1}$] (5,-1)
-				to [short, -*] (5,0);		
-			\draw (3,-3) to [short, *-o] (3,-4) node[anchor=east] {$E_D$};
-			\draw (0,0) node[anchor=east] {$B_D$};
-			\draw (6,0) node[anchor=west] {$C_D$};
-			
-			
-		\end{circuitikz}
-	\end{center}
+%	\begin{center}
+%		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+%			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
+%				to [short, -] (1,-1)
+%				to [R, l=$h_{ie_D}$] (1,-2)
+%				to [short] (1,-3) -- (3,-3) -- (3,-2)
+%				(3,-1) to [I, i= $h_{fe_D} \cdot i_{b_D}$] (3,-2)
+%				to [short] (3,0)
+%				to [short] (5,0)
+%				to [short, , i<_=$i_c$, -o] (6,0)
+%				;
+%			\draw (3,-3) to [short, -] (5,-3) -- (5,-2)
+%				to [R, l_=$h_{oe_D}^{-1}$] (5,-1)
+%				to [short, -*] (5,0);		
+%			\draw (3,-3) to [short, *-o] (3,-4) node[anchor=east] {$E_D$};
+%			\draw (0,0) node[anchor=east] {$B_D$};
+%			\draw (6,0) node[anchor=west] {$C_D$};
+%			
+%			
+%		\end{circuitikz}
+%	\end{center}
 
 	\begin{equation*}
 		\beta_T \approx \beta_1 \cdot \beta_2 \approx \frac{I_C}{I_B}
@@ -1058,6 +1133,40 @@ Variación del circuito anterior con una resistencia en el emisor del transistor
 			\draw (npn2.C) [short, -o, ,i<_=$I_O$] to (2,1.5);
 			%\draw (1,-0.78) [short] to (npn2.E);
 			\draw[blue, thick] (1,-2.78) [short, *-] to (1, -3.28) node[ground, color = blue]{} (1, -3.5); 
+			
+			%Dibujo derecha
+			
+		
+			\draw (7,0) node[npn, xscale = 1, yscale = 1, rotate = 0](npn3) {$Q_2$}
+				(npn3.E) to [R, l=$R_1$] (7,-2.78)
+				(npn3.B) to [short] (5.78,0)
+				;
+			\draw [blue, thick] (5,0) to[D*, color = blue] (5,-2)
+				(5,0) -| (npn3.B)
+				(5,0) to [R, color = blue, l=$R_{CC}$] (5,2) [short, -o, i<_=$I_{ref}$] to (5,3) node[anchor=east] {$V_{CC}$}
+				;
+			\draw[blue] (5,-2) to [short, blue] (5, -2.78) -- (6, -2.78);
+			\draw (6,-2.78) -- (8, -2.78);
+			\draw (npn3.C) [short, -o, ,i<_=$I_O$] to (7,1.5);
+			\draw[blue, thick] (6,-2.78) [short, *-] to (6, -3.28) node[ground, color = blue]{} (6, -3.5); 
+			
+		\end{circuitikz}
+	\end{center}
+
+	\begin{center}
+		\begin{circuitikz} [scale=.6, transform shape]
+			\draw[blue, thick] (0,0) to[D*, color = blue] (0,-2)
+				(0,0) |- (npn2.B)
+				(0,0) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$}
+				;
+			\draw (2,0) node[npn, xscale = 1, yscale = 1, rotate = 0](npn2) {$Q_2$}
+				(npn2.E) to [R, l=$R_1$] (2,-2.78)
+				(npn2.B) to [short] (.78,0)
+				;
+			\draw[blue] (npn1.E) to [short, blue] (0, -2.78) -- (1, -2.78);
+			\draw (1,-2.78) -- (2, -2.78);
+			\draw (npn2.C) [short, -o, ,i<_=$I_O$] to (2,1.5);
+			\draw[blue, thick] (1,-2.78) [short, *-] to (1, -3.28) node[ground, color = blue]{} (1, -3.5); 
 		\end{circuitikz}
 	\end{center}
 
@@ -1210,14 +1319,20 @@ Permite obtener alta ganancia de corriente e impedancia de salida elevada.
   (opamp.-) to[R, l=$R_{1}$] (-3, 0.5)
   (opamp.-) to[short,*-] ++(0,1.5) coordinate (leftC)
   to[R, l = $R_{2}$] (leftC -| opamp.out)
-  to[short,-*] (opamp.out)
+  to[short,-*] (opamp.out) -- (2,0)
 %  (opamp.+)  to[short,*-, -|] ++(0,-1) % coordinate (leftC)
 %	-| (1.5,-1.5)
 %	(-3,-1.5) -| (0,-1.5);
 ;	
-	\draw (1.2,-.1) node[right] {$V_{o}$};
+%	\draw (1.5,-.1) node[right] {$V_{o}$};
 	\draw (opamp.+) node[above] {$V_{i}$};
-	\draw (-3,.5) [short, *-] to (-3,.5) node[ground]{} (-3,.4); 
+	\draw (-3,.5) [short, *-] to (-3,.5);% node[ground]{} (-3,.4); 
+	
+	\draw (opamp.+) |- (-1.2,-1.25);
+	\draw (-3,-1.25) -- (2,-1.25);
+	
+	\draw[-latex] (2,-1.2) -- (2,-.1) node[right] {$V_{o}$};
+	\draw[-latex] (-3,-1.2) -- (-3,.45) node[left] {$V_{i}$};
 	
 	\draw (3.5,1) node {$V_{o} = - R_{2} / R_{1} V_{i}$};
 	\draw (3.5,.5) node {$Z_{i} = \frac{V_{i}}{i_{1}} = R_{1}$};
@@ -1228,7 +1343,40 @@ Permite obtener alta ganancia de corriente e impedancia de salida elevada.
 
 \textbf{Amplificador No Inversor}:\\
 	
+
 \begin{center}
+\begin{circuitikz}[scale=.6, transform shape, european]
+  \draw
+  (0, 0) node[op amp] (opamp) {}
+  (opamp.-) to[R, l=$R_{1}$] (-3, 0.5)
+  (opamp.-) to[short,*-] ++(0,1.5) coordinate (leftC)
+  to[R, l = $R_{2}$] (leftC -| opamp.out)
+  to[short,-*] (opamp.out) -- (2,0);
+  	
+	\draw (opamp.+) node[above] {$V_{i}$};
+	\draw (-3,.5) [short, -] to (-3,.5) -- (-3,-0);% node[ground]{} (-3,.4); 
+	\draw (-3.25,0) -- (-2.75,0);
+	
+%	\draw (opamp.+) |- (-1.2,-1.25);
+%	\draw (-3,-1.25) -- (2,-1.25);
+	
+%	\draw[-latex] (2,-1.2) -- (2,-.1) node[right] {$V_{o}$};
+%	\draw[-latex] (-3,-1.2) -- (-3,.45) node[left] {$V_{i}$};
+	
+	\draw (3.5,1) node {$V_{o} =  V_{i} (1 + R_{2} / R_{1})$};
+	\draw (3.5,.5) node {$Z_{i} = \frac{V_{i}}{I_{i}} = \infty$};
+	\draw (3.25,0) node {$Z_{o} = 0$};
+	
+\end{circuitikz}
+\end{center}
+
+\textbf{Seguidor}:\\
+
+%	$V_{o} = V_{i}$\\
+%	$Z_{i} = \frac{V_{i}}{I_{i}} = \infty$\\
+%	$Z_{o} = 0$
+	
+	\begin{center}
 \begin{circuitikz}[scale=.6, transform shape, european]
   \draw
   (0, 0) node[op amp] (opamp) {}
@@ -1241,17 +1389,35 @@ Permite obtener alta ganancia de corriente e impedancia de salida elevada.
 	\draw (opamp.+) node[above] {$V_{i}$};
 %	\draw (-3,.5) [short, *-] to (-3,.5) node[ground]{} (-3,.4); 
 
-	\draw (3.5,1) node {$V_{o} = V_{i} \left( 1 + R_{2} / R_{1} \right)$};
-	\draw (3.5,.5) node {$Z_{i} = \frac{V_{i}}{I_{1}} = R_{1}$};
+	\draw (3.5,1) node {$V_{o} = V_{i}$};
+	\draw (3.5,.5) node {$Z_{i} = \frac{V_{i}}{I_{i}} = \infty$};
 	\draw (3.5,0) node {$Z_{o} = 0$};
 
 \end{circuitikz}
 \end{center}
 
-\textbf{Seguidor}:\\
-	$V_{o} = V_{i}$\\
-	$Z_{i} = \frac{V_{i}}{I_{i}} = \infty$\\
-	$Z_{o} = 0$
+\subsubsection{Efectos no ideales}
+
+\begin{center}
+		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+			 			 
+			 \draw (0,.3) to [short, o-] (1,.3)
+			  	 (0,1.8) to [short, o-] (1,1.8);
+				 
+			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (1,0){Etapa Diferencial};
+			  \draw (3.5,1.05) to [short] (4.5,1.05);
+				 
+			  \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (4.5,0){Etapa de Ganancia};
+			   \draw (7.25,1.05) to [short] (8.2,1.05);
+;
+			\node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (8.2,0){Etapa de Salida};
+			 \draw (10.5,1.05) to [short, -o] (11,1.05);
+				 
+		\end{circuitikz}
+	\end{center}
+	
+\subsubsection{Corrientes de Polarización}
+
 
 
 \section{\underline{7. Realimentación}}
