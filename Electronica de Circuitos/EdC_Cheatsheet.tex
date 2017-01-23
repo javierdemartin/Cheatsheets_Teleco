@@ -26,7 +26,7 @@
 
 \usepackage{draftwatermark}
 \SetWatermarkText{Javier de Martí­­n}
-%\SetWatermarkColor[gray]{0.5}
+%%\SetWatermarkColor[gray]{0.5}
 \SetWatermarkColor{red}
 \SetWatermarkScale{4.8}
 
@@ -91,7 +91,7 @@
 \setlength{\postmulticols}{1pt}
 \setlength{\multicolsep}{1pt}
 \setlength{\columnsep}{2pt}
-
+   
 \begin{framed}
 	\begin{center}
     	\Large{\underline{Electrónica de Circuitos}} \\
@@ -110,6 +110,40 @@
 	\vspace{-15pt}
 
 \section{\underline{Transistor BJT}}
+
+	\begin{center}
+		\begin{tikzpicture}[scale = 0.6, transform shape]
+			\draw (0,0) node[pnp](pnp){}
+				(pnp.E) to[short,-o] (0,1)
+    				(pnp.C) to[short,-o] (0,-1)
+				(pnp.B) to[short,-o] (-1,0)
+				
+				(-1,0) node[anchor=east] {B} 
+				(0,1) node[anchor=west] {E} 
+				(0,-1) node[anchor=west] {C};
+			\draw[-latex] (.4,.9) -- (.4,.2); 
+			\draw (.4,.5) node[anchor=west] {$I_{C}$} ;
+			\draw[-latex] (.4,-.2) -- (.4,-.9); 
+			\draw (.4,-.5) node[anchor=west] {$I_{E}$} ;
+			
+			\begin{scope}[shift={(3,0)}]
+			\draw (0,0) node[npn](npn){}
+				(npn.E) to[short,-o] (0,-1)
+    				(npn.C) to[short,-o] (0,1)
+				(npn.B) to[short,-o] (-1,0)
+				
+				(-1,0) node[anchor=east] {B} 
+				(0,1) node[anchor=west] {E} 
+				(0,-1) node[anchor=west] {C};
+			\draw[-latex] (.4,.9) -- (.4,.2); 
+			\draw (.4,.5) node[anchor=west] {$I_{C}$} ;
+			\draw[-latex] (.4,-.2) -- (.4,-.9); 
+			\draw (.4,-.5) node[anchor=west] {$I_{E}$} ;
+			\end{scope}
+		\end{tikzpicture}
+		
+		
+	\end{center}
 
 \subsection{Parámetros}
 
@@ -131,31 +165,31 @@ Base Común                              & Emisor Común & Colector Común \\ \h
      $\displaystyle h_{ob} = \frac{i_c}{v_{cb}}$      &       $\displaystyle h_{oe} = \frac{i_{c}}{v_{ce}}$       &     $\displaystyle h_{oc} = \frac{i_{e}}{v_{ec}}$           \\ \hline
 \end{tabular}
 
-\subsection{Regiones Operativas}
-
-	\vspace{-20pt}
-
-	\begin{center}
-		\begin{tikzpicture}[scale = 0.6, transform shape]
-		
-		    \draw (-0.2,0) -- (2.5,0) node[right] {$I_C$};
-    		\draw (0,-0.2) -- (0,2.5) node[above] {$V_{CE}$};
-    		
-    		\node[text width=3cm] at (2.5,1) {Activa};
-    		\node[text width=3cm] at (2.3,0.2) {Saturación};
-    		\node[text width=3cm, rotate = 90] at (.1,2.2) {Corte};
-    		
-		\end{tikzpicture}
-	\end{center}
-	
-	\vspace{-20pt}
-
-\begin{itemize}
-	\item \textbf{Región Activa}:  $I_C$ depende directamente de la corriente de base $I_B$, de la ganancia de corriente $\beta$ y de las resistencias conectadas al colector y emisor. En esta región se produce amplificación de la señal.
-	\item \textbf{Región Inversa}: 
-	\item \textbf{Región de Saturación}: $I_C = I_E = I_{max}$. La corriente depende del $V_{CC}$ y de las resistencias conectadas al colector y emisor. Este modo aparece cuando la corriente de base es lo suficientemente grande como para inducir una corriente de colector $\beta$ veces más grande.
-	\item \textbf{Región de Corte}:  $I_C = I_E = 0$. $V_{CE}$ es la alimentación del circuito, al no haber corriente circulando no hay caí­da tensión. Este modo se da cuando $I_B = 0$.
-\end{itemize}
+%\subsection{Regiones Operativas}
+%
+%	\vspace{-20pt}
+%
+%	\begin{center}
+%		\begin{tikzpicture}[scale = 0.6, transform shape]
+%		
+%		    \draw (-0.2,0) -- (2.5,0) node[right] {$I_C$};
+%    		\draw (0,-0.2) -- (0,2.5) node[above] {$V_{CE}$};
+%    		
+%    		\node[text width=3cm] at (2.5,1) {Activa};
+%    		\node[text width=3cm] at (2.3,0.2) {Saturación};
+%    		\node[text width=3cm, rotate = 90] at (.1,2.2) {Corte};
+%    		
+%		\end{tikzpicture}
+%	\end{center}
+%	
+%	\vspace{-20pt}
+%
+%\begin{itemize}
+%	\item \textbf{Región Activa}:  $I_C$ depende directamente de la corriente de base $I_B$, de la ganancia de corriente $\beta$ y de las resistencias conectadas al colector y emisor. En esta región se produce amplificación de la señal.
+%	\item \textbf{Región Inversa}: 
+%	\item \textbf{Región de Saturación}: $I_C = I_E = I_{max}$. La corriente depende del $V_{CC}$ y de las resistencias conectadas al colector y emisor. Este modo aparece cuando la corriente de base es lo suficientemente grande como para inducir una corriente de colector $\beta$ veces más grande.
+%	\item \textbf{Región de Corte}:  $I_C = I_E = 0$. $V_{CE}$ es la alimentación del circuito, al no haber corriente circulando no hay caí­da tensión. Este modo se da cuando $I_B = 0$.
+%\end{itemize}
 
 \subsection{Configuraciones de Montaje}
 
@@ -207,12 +241,7 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 %		\end{circuitikz}
 %	\end{center}
 
-\begin{itemize}
-	\item Baja impedancia de entrada.
-	\item Alta impedancia de salida
-	\item Ganancia unidad, o menor, de corriente.
-	\item Ganancia alta de tensión.
-\end{itemize}
+Baja impedancia de entrada, alta impedancia de salida, ganancia unidad, o menor, de corriente y ganancia alta de tensión.
 
 
 \subsubsection{Emisor Común}
@@ -295,12 +324,7 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 		\end{circuitikz}
 	\end{center}
 
-\begin{itemize}
-	\item Impedancia de entrada media.
-	\item Impedancia de salida media.
-	\item Alta ganancia de corriente.
-	\item Alta ganancia de tensión.
-\end{itemize}
+Impedancia de entrada media, impedancia de salida media, alta ganancia de corriente y alta ganancia de tensión.
 
 \subsubsection{Colector Común}
 
@@ -335,48 +359,99 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 		\end{circuitikz}
 	\end{center}
 
-\begin{itemize}
-	\item Alta impedancia de entrada.
-	\item Muy baja impedancia de salida.
-	\item Alta ganancia de corriente.
-	\item Unidad, o menor, ganancia de tensión.
-\end{itemize}
+Alta impedancia de entrada, muy baja impedancia de salida, alta ganancia de corriente y unidad, o menor, ganancia de tensión.
 
 \section{\underline{Transistor FET}}
 
 \begin{equation*}
-	g_{m} = \frac{2}{|G_{GS_{OFF}}|} \sqrt{I_{D} \cdot I_{DSS}}
+	g_{m} = \frac{2}{|V_{T}|} \sqrt{I_{D} \cdot I_{DSS}}
 \end{equation*}
 
+%	\begin{center}
+%		\begin{tikzpicture}[scale = 0.3, transform shape]
+%		    \draw (-4,0) -- (4,0) node[right] {$V_{GS}$};
+%    		\draw (0,-3) -- (0,3) node[above] {$I_D$};
+%			\draw[scale=2,domain=0:1,thick,variable=\x,blue] plot (\x + 1,\x*\x) node[left] {$nMOS acum$};
+%			\draw (1.7,-0.2) node[right] {$V_T$};
+%			
+%			\draw[scale=2,domain=0:1,thick,variable=\x,red] plot (\x - 1,\x*\x) node[left] {$nMOS depl$};
+%			\draw (-1.9,-0.2) node[right] {$V_T$};
+%			\draw (.05,2) node[right] {$I_{D_{SS}}$};
+%			
+%			\draw[scale=2,domain=0:1,thick,variable=\x,orange] plot (-\x + 1,-\x*\x) node[right] {$pMOS depl$};
+%			
+%			\draw[scale=2,domain=0:1,thick,variable=\x,purple] plot (-\x - 1,-\x*\x) node[right] {$pMOS acum$};
+%    		
+%		\end{tikzpicture}
+%		
+%		\hspace{5pt}
+%		
+%		\begin{tikzpicture}[scale = 0.6, transform shape]
+%		    \draw (-0.2,0) -- (3,0) node[right] {$V_{DS}$};
+%    		\draw (0,-0.2) -- (0,3) node[above] {$I_{D_{SS}}$};
+%    		
+%    		\node[text width=3cm] at (2.7,1.2) {Saturación};
+%    		\node[text width=3cm] at (3,0.1) {Corte};
+%    		\node[text width=3cm, rotate = 70] at (.7,2.2) {Óhmica};
+%    		
+%		\end{tikzpicture}
+%	\end{center}
+	
 	\begin{center}
-		\begin{tikzpicture}[scale = 0.3, transform shape]
-		    \draw (-4,0) -- (4,0) node[right] {$V_{GS}$};
-    		\draw (0,-3) -- (0,3) node[above] {$I_D$};
-			\draw[scale=2,domain=0:1,thick,variable=\x,blue] plot (\x + 1,\x*\x) node[left] {$nMOS acum$};
-			\draw (1.7,-0.2) node[right] {$V_T$};
+		\begin{tikzpicture}[scale = 0.5, transform shape]
+			\draw (0,0) node[njfet](njfet){}
+			(njfet.G) node[anchor=east] {G} 
+			(njfet.D) node[anchor=south] {D} 
+			(njfet.S) node[anchor=north] {S};
+			\draw (0,-1.55) node[above]{nJFET};
 			
-			\draw[scale=2,domain=0:1,thick,variable=\x,red] plot (\x - 1,\x*\x) node[left] {$nMOS depl$};
-			\draw (-1.9,-0.2) node[right] {$V_T$};
-			\draw (.05,2) node[right] {$I_{D_{SS}}$};
+			\begin{scope}[shift = {(2,0)}]
+			\draw (0,0) node[pjfet](pjfet){}
+			(pjfet.G) node[anchor=east] {G} 
+			(pjfet.D) node[anchor=north] {D} 
+			(pjfet.S) node[anchor=south] {S};
+			\draw (0,-1.55) node[above] {pJFET};
+			\end{scope}
 			
-			\draw[scale=2,domain=0:1,thick,variable=\x,orange] plot (-\x + 1,-\x*\x) node[right] {$pMOS depl$};
+			\begin{scope}[shift = {(4,0)}]
+			\draw (0,0) node[nigfetd](nigfetd){}
+			(nigfetd.G) node[anchor=east] {G} 
+			(nigfetd.D) node[anchor=south] {D} 
+			(nigfetd.S) node[anchor=north] {S};
+			\draw (0,-1.55) node[above] {nMOS Dep};
+			\end{scope}
 			
-			\draw[scale=2,domain=0:1,thick,variable=\x,purple] plot (-\x - 1,-\x*\x) node[right] {$pMOS acum$};
-    		
+			\begin{scope}[shift = {(6,0)}]
+			\draw (0,0) node[pigfetd](pigfetd){}
+			(pigfetd.G) node[anchor=east] {G} 
+			(pigfetd.D) node[anchor=south] {D} 
+			(pigfetd.S) node[anchor=north] {S};
+			\draw (0,-1.55) node[above] {nMOS Dep};
+			\end{scope}
+			
+			\begin{scope}[shift = {(8,0)}]
+			\draw (0,0) node[nigfete](nigfete){}
+			(nigfete.G) node[anchor=east] {G} 
+			(nigfete.D) node[anchor=south] {D} 
+			(nigfete.S) node[anchor=north] {S};
+			\draw (0,-1.55) node[above] {nMOS Ac};
+			\end{scope}
+			
+			\begin{scope}[shift = {(10,0)}]
+			\draw (0,0) node[pigfete](pigfete){}
+			(pigfete.G) node[anchor=east] {G} 
+			(pigfete.D) node[anchor=south] {D} 
+			(pigfete.S) node[anchor=north] {S};
+			\draw (0,-1.55) node[above] {pMOS Ac};
+			\end{scope}
 		\end{tikzpicture}
 		
-		\hspace{5pt}
+\begin{equation*}
+	I_{D} = I_{D_{SS}} \left( 1 - \frac{V_{gs}}{V_{gs_{off}}} \right)
+\end{equation*}
 		
-		\begin{tikzpicture}[scale = 0.6, transform shape]
-		    \draw (-0.2,0) -- (3,0) node[right] {$V_{DS}$};
-    		\draw (0,-0.2) -- (0,3) node[above] {$I_{D_{SS}}$};
-    		
-    		\node[text width=3cm] at (2.7,1.2) {Saturación};
-    		\node[text width=3cm] at (3,0.1) {Corte};
-    		\node[text width=3cm, rotate = 70] at (.7,2.2) {Óhmica};
-    		
-		\end{tikzpicture}
 	\end{center}
+
 
 \section{\underline{Equivalencias}}
 
@@ -508,6 +583,9 @@ Para mejorar CMRR $\rightarrow$ disminuir la ganancia en el modo común $\righta
 \begin{enumerate}
 	\item \text{Identificar redes de realimentación} $\rightarrow$ camino que une la salida de una etapa con la entrada.
 	\item \textbf{Identificar el tipo de alimentación}:
+		
+		\vspace{-9pt}
+		
 		\begin{enumerate}
 			\item Entrada:
 				\begin{enumerate}
@@ -520,6 +598,9 @@ Para mejorar CMRR $\rightarrow$ disminuir la ganancia en el modo común $\righta
 					\item Paralelo: La red de realimentación \textbf{está} directamente unida a la \textbf{salida} de la etapa.
 				\end{enumerate}
 		\end{enumerate}
+		
+			\vspace{-20pt}
+		
 			\begin{IEEEeqnarray*}{rCl}
 				\text{Entrada (Muestreo)} \begin{cases}
 				\text{Serie} \rightarrow \text{Tensión}\\
@@ -533,17 +614,9 @@ Para mejorar CMRR $\rightarrow$ disminuir la ganancia en el modo común $\righta
 			
 	\item \textbf{Asignar signos a las entradas del OPAMP}: Suponer que la salida del OPAMP aumenta y recorrer el camino hasta la entrada del OPAMP. Si al llegar a la entrada la señal sigue aumentando $-$ y si la señal disminuye $+$.
 	\item \textbf{Punto de trabajo de los transistores}: Deducir que las entradas están a $0V$ y que por las redes de realimentación no circula corriente. Lo normal es que la red de realimentación una la entrada con la salida del circuito,  así que la salida es probable que esté también a $0V$.
-	\item \textbf{Ganancia en tensión}: Cuando hay más de una red de realimentación, hay una que engloba a las demás. Resolver primero las más pequeñas para que cuando se resuelva la externa se pueda sustituir cada una de ellas por un amplificador equivalente.
-		\begin{itemize}
-			\item Dibujar la red $\beta$ y sacar el valor (depende de cada configuración).
-		\end{itemize}
+	\item \textbf{Ganancia en tensión}: Cuando hay más de una red de realimentación, hay una que engloba a las demás. Resolver primero las más pequeñas para que cuando se resuelva la externa se pueda sustituir cada una de ellas por un amplificador equivalente $\rightarrow$ Dibujar la red $\beta$ y sacar el valor (depende de cada configuración).
 \end{enumerate}
 
-
-
-
-Emisor Común (-)\\
-Colector Común (+)
 
 \section{\underline{1. Etapas de Dos Transistores}}
 
@@ -701,6 +774,53 @@ Las resistencias de emisor permiten estabilizar el circuito tensión.
   				(0,-5.85) node[anchor=west] {$-V_{CC}$};
 				
 			\draw (3,-1) node[anchor=west] {$I_{C_{1}} = I_{C_{2}} = I_{E}/2$};
+			\draw (0,-5) node[]{Amplificador Diferencial};  	
+			
+			\begin{scope}[shift={(5,0)}, scale = .8]
+			\draw (0,0) to [short, o-*] (0,-0.5)
+				(0.5,0) node {$+V_{CC}$};
+			\draw (-1,-0.5) to [short] (1,-0.5)
+				(-1,-0.5) to [short] (-1,-1)
+				(1,-0.5) to [short] (1,-1);
+			\draw (-1,-1) to [R, l_=$R_1$] (-1,-2)
+				to [short] (-1,-2.2)
+				(-1,-2.2) to [short] (-1,-3.1);
+			\draw (1,-1) to [R, l=$R_L$] (1,-2)
+				to [short] (1,-2.2)
+				to [short, *-o] (1.5,-2.2)
+				(1,-2.2) to [short] (1,-2.4);
+			\draw (1,-3.1) node[npn](npn2) {}
+  				(npn2.base) node[anchor=south east] {$Q_2$}
+  				(npn2.base) to [short, -*] (-1,-3.1)
+  				to [short] (-2,-3.1)
+  				to [short] (-2,-3.5)
+  				to [C] (-2,-3.8)
+  				to [short] (-2,-4)
+  				(-2,-4) node[ground]{} (-2,-4.3)
+  				;
+  			\draw (-1,-3.1) to [short] (-1,-3.6)
+  				to [R, l=$R_2$] (-1,-5.3)
+  				to [short] (-1,-6.05)
+  				;
+  			\draw (npn2.emitter) to [R, l=$R_C$] (1,-5.3);
+  			\draw (1,-6.05) node[npn](npn1) {}
+  				(npn1.base) node[anchor=south east] {$Q_1$}
+  				(npn1.base) to [short, -*] (-1,-6.05)
+  				(-1,-6.05) to [short, -o] (-2, -6.05)
+  				(-2, -6.25) node {$V_i$}
+  				(-1, -6.05) to [short] (-1, -6.8)
+  				(-1, -6.8) to [R, l=$R_3$] (-1,-8)
+  				to [short] (-1,-8.2);
+			\draw (-1,-8.2) to [short] (1,-8.2)
+				(0,-8.2) to  [short, *-] (0,-8.3)
+				to node[ground]{} (0,-8.5);
+			\draw (1,-6.7) to [R, l=$R_L$] (1,-8.2)
+				(1,-6.7) to [short] (2.5,-6.7)
+				to [C] (2.5,-8.2)
+				to [short] (1,-8.2);
+				
+			\draw (0,-9.2) node[]{Circuito Cascodo};  	
+			\end{scope}
 		\end{circuitikz}
 
 	\end{center}
@@ -817,56 +937,56 @@ Las resistencias de emisor permiten estabilizar el circuito tensión.
 %	\end{center}
 
 
-\subsubsection{Circuito Cascodo}
+%\subsubsection{Circuito Cascodo}
+%
+%	\begin{center}
+%		\begin{circuitikz}[scale=.4,american voltages, american currents, transform shape]
+%			\draw (0,0) to [short, o-*] (0,-0.5)
+%				(0.5,0) node {$+V_{CC}$};
+%			\draw (-1,-0.5) to [short] (1,-0.5)
+%				(-1,-0.5) to [short] (-1,-1)
+%				(1,-0.5) to [short] (1,-1);
+%			\draw (-1,-1) to [R, l_=$R_1$] (-1,-2)
+%				to [short] (-1,-2.2)
+%				(-1,-2.2) to [short] (-1,-3.1);
+%			\draw (1,-1) to [R, l=$R_L$] (1,-2)
+%				to [short] (1,-2.2)
+%				to [short, *-o] (1.5,-2.2)
+%				(1,-2.2) to [short] (1,-2.4);
+%			\draw (1,-3.1) node[npn](npn2) {}
+%  				(npn2.base) node[anchor=south east] {$Q_2$}
+%  				(npn2.base) to [short, -*] (-1,-3.1)
+%  				to [short] (-2,-3.1)
+%  				to [short] (-2,-3.5)
+%  				to [C] (-2,-3.8)
+%  				to [short] (-2,-4)
+%  				(-2,-4) node[ground]{} (-2,-4.3)
+%  				;
+%  			\draw (-1,-3.1) to [short] (-1,-3.6)
+%  				to [R, l=$R_2$] (-1,-5.3)
+%  				to [short] (-1,-6.05)
+%  				;
+%  			\draw (npn2.emitter) to [R, l=$R_C$] (1,-5.3);
+%  			\draw (1,-6.05) node[npn](npn1) {}
+%  				(npn1.base) node[anchor=south east] {$Q_1$}
+%  				(npn1.base) to [short, -*] (-1,-6.05)
+%  				(-1,-6.05) to [short, -o] (-2, -6.05)
+%  				(-2, -6.25) node {$V_i$}
+%  				(-1, -6.05) to [short] (-1, -6.8)
+%  				(-1, -6.8) to [R, l=$R_3$] (-1,-8)
+%  				to [short] (-1,-8.2);
+%			\draw (-1,-8.2) to [short] (1,-8.2)
+%				(0,-8.2) to  [short, *-] (0,-8.3)
+%				to node[ground]{} (0,-8.5);
+%			\draw (1,-6.7) to [R, l=$R_L$] (1,-8.2)
+%				(1,-6.7) to [short] (2.5,-6.7)
+%				to [C] (2.5,-8.2)
+%				to [short] (1,-8.2);  			
+%		\end{circuitikz}
+%	\end{center}
 
-	\begin{center}
-		\begin{circuitikz}[scale=.4,american voltages, american currents, transform shape]
-			\draw (0,0) to [short, o-*] (0,-0.5)
-				(0.5,0) node {$+V_{CC}$};
-			\draw (-1,-0.5) to [short] (1,-0.5)
-				(-1,-0.5) to [short] (-1,-1)
-				(1,-0.5) to [short] (1,-1);
-			\draw (-1,-1) to [R, l_=$R_1$] (-1,-2)
-				to [short] (-1,-2.2)
-				(-1,-2.2) to [short] (-1,-3.1);
-			\draw (1,-1) to [R, l=$R_L$] (1,-2)
-				to [short] (1,-2.2)
-				to [short, *-o] (1.5,-2.2)
-				(1,-2.2) to [short] (1,-2.4);
-			\draw (1,-3.1) node[npn](npn2) {}
-  				(npn2.base) node[anchor=south east] {$Q_2$}
-  				(npn2.base) to [short, -*] (-1,-3.1)
-  				to [short] (-2,-3.1)
-  				to [short] (-2,-3.5)
-  				to [C] (-2,-3.8)
-  				to [short] (-2,-4)
-  				(-2,-4) node[ground]{} (-2,-4.3)
-  				;
-  			\draw (-1,-3.1) to [short] (-1,-3.6)
-  				to [R, l=$R_2$] (-1,-5.3)
-  				to [short] (-1,-6.05)
-  				;
-  			\draw (npn2.emitter) to [R, l=$R_C$] (1,-5.3);
-  			\draw (1,-6.05) node[npn](npn1) {}
-  				(npn1.base) node[anchor=south east] {$Q_1$}
-  				(npn1.base) to [short, -*] (-1,-6.05)
-  				(-1,-6.05) to [short, -o] (-2, -6.05)
-  				(-2, -6.25) node {$V_i$}
-  				(-1, -6.05) to [short] (-1, -6.8)
-  				(-1, -6.8) to [R, l=$R_3$] (-1,-8)
-  				to [short] (-1,-8.2);
-			\draw (-1,-8.2) to [short] (1,-8.2)
-				(0,-8.2) to  [short, *-] (0,-8.3)
-				to node[ground]{} (0,-8.5);
-			\draw (1,-6.7) to [R, l=$R_L$] (1,-8.2)
-				(1,-6.7) to [short] (2.5,-6.7)
-				to [C] (2.5,-8.2)
-				to [short] (1,-8.2);  			
-		\end{circuitikz}
-	\end{center}
 
-
-Permite trabajar con \textbf{mayores tensiones de salida}. Buen comportamiento en \textbf{alta frecuencia}. Se utiliza como etapa de entrada, no intermedia.
+Circuito Cascodo: Permite trabajar con \textbf{mayores tensiones de salida}. Buen comportamiento en \textbf{alta frecuencia}. Se utiliza como etapa de entrada, no intermedia.
 
 %\subsubsection{Etapas CMOS}
 %
@@ -1078,16 +1198,11 @@ Permite trabajar con \textbf{mayores tensiones de salida}. Buen comportamiento e
 %\textbf{Terminar}
 
 
-
-
-
-
-
 \section{\underline{4. Fuentes de Corriente y Cargas Activas}}
 
-Una \textbf{carga activa o carga dinámica} es un componente de circuito que se comporta como una resistencia no lineal estable contra corriente. Utilizado frecuentemente en la entrada de amplificadores operacionales para incrementar considerablemente la ganancia.
+%Una \textbf{carga activa o carga dinámica} es un componente de circuito que se comporta como una resistencia no lineal estable contra corriente. Utilizado frecuentemente en la entrada de amplificadores operacionales para incrementar considerablemente la ganancia.
 
-\subsubsection{Introducción y Figura de Mérito}
+%\subsubsection{Introducción y Figura de Mérito}
 
 La \textbf{figura de mérito} de un amplificador es el producto de la ganancia por el ancho de banda.
 
@@ -1199,7 +1314,7 @@ Variación del circuito anterior con una resistencia en el emisor del transistor
 Proporciona impedancia de salida alta, mucho mayor que en las otras fuentes.
 
 	\begin{center}
-		\begin{circuitikz} [scale=.6, transform shape]
+		\begin{circuitikz} [scale=.4, transform shape]
 			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
 				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
 				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
@@ -1219,14 +1334,9 @@ Proporciona impedancia de salida alta, mucho mayor que en las otras fuentes.
 				(npn3.E) [short, thick, blue, -|] to (1,-2.78);
 			\draw (npn4.C) [short, -o] to (2,-.5);
 			\draw (1,-2.78) [short] to (npn4.E);
-		\end{circuitikz}
-	\end{center}
-
-
-\subsubsection{Fuente de Wilson}
-
-	\begin{center}
-		\begin{circuitikz} [scale=.6, transform shape]
+			\draw (0,-4.5) node[anchor=south] {Cascodo};
+			
+			\begin{scope}[shift = {(4,0)}]
 			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
 				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
 				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
@@ -1246,10 +1356,40 @@ Proporciona impedancia de salida alta, mucho mayor que en las otras fuentes.
 				(npn3.E) [short, thick, blue, -|] to (1,-2.78);
 			\draw (npn4.C) [short, -o] to (2,-.5);
 			\draw (1,-2.78) [short] to (npn4.E);
+			\draw (0,-4.5) node[anchor=south] {Wilson};
+			\end{scope}
 		\end{circuitikz}
 	\end{center}
 
-Permite obtener alta ganancia de corriente e impedancia de salida elevada.
+
+%\subsubsection{Fuente de Wilson}
+%
+%	\begin{center}
+%		\begin{circuitikz} [scale=.4, transform shape]
+%			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
+%				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
+%				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
+%			\draw (2,0) node[npn, xscale = 1, yscale = 1, rotate = 0](npn2) {$Q_2$}
+%				(npn2.B) -- (npn1.B)
+%				%(npn1.E) [short, thick, blue, -|] to (1,-.78);
+%				;
+%			\draw (npn2.C) [short, -o,i<_=$I_O$] to (2,1.5);
+%			\draw[blue, thick] (1,-2.78) [short, *-] to (1, -3.28) node[ground, color = blue]{} (1, -2.5); 
+%			
+%			\draw[blue, thick] (0,-2) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn3) {$Q_3$}
+%				(npn3.C) to [short, blue, *-] (.84,-1.22) to [short, blue, i=$I_{BB}$] (npn3.B)
+%				(npn1.E) -- (npn3.C)
+%				;
+%			\draw (2,-2) node[npn, xscale = 1, yscale = 1, rotate = 0](npn4) {$Q_4$}
+%				(npn4.B) -- (npn3.B)
+%				(npn3.E) [short, thick, blue, -|] to (1,-2.78);
+%			\draw (npn4.C) [short, -o] to (2,-.5);
+%			\draw (1,-2.78) [short] to (npn4.E);
+%		\end{circuitikz}
+%	\end{center}
+
+Wilson: Permite obtener alta ganancia de corriente e impedancia de salida elevada.
+
 %
 %\subsection{Cargas Activas}
 %
@@ -1305,13 +1445,7 @@ Permite obtener alta ganancia de corriente e impedancia de salida elevada.
 
 \section{\underline{6. Amplificador Operacional}}
 
-\begin{itemize}
-	\item Impedancia de entrada infinita
-	\item Impedancia de salida nula
-	\item Ganancia diferencial infinita
-	\item CMRR infinito
-	\item Margen dinámico $\pm V_{CC}$
-\end{itemize}
+Impedancia de entrada infinita, impedancia de salida nula, ganancia diferencial infinita, CMRR infinito y margen dinámico $\pm V_{CC}$.
 
 %\begin{center}
 %\begin{circuitikz}[scale=.6, transform shape, european]
@@ -1330,10 +1464,9 @@ Permite obtener alta ganancia de corriente e impedancia de salida elevada.
 %\end{circuitikz}
 %\end{center}
 
-\textbf{Amplificador Inversor}:
 
 \begin{center}
-\begin{circuitikz}[scale=.5, transform shape, european]
+\begin{circuitikz}[scale=.4, transform shape, european]
   \draw
   (0, 0) node[op amp] (opamp) {}
   (opamp.-) to[R, l=$R_{1}$] (-3, 0.5)
@@ -1421,13 +1554,12 @@ Permite obtener alta ganancia de corriente e impedancia de salida elevada.
 %		\end{circuitikz}
 %	\end{center}
 %	
-\subsubsection{Corrientes de Polarización}
 
 \subsubsection{Topologías}
 
 
 	\begin{center}
-		\begin{circuitikz}[scale=.5, transform shape]
+		\begin{circuitikz}[scale=.4, transform shape]
 			
 			\draw (-2,.25) to [american current source] (-2,2.25)
 				(-2,.25) -- (0,.25)
