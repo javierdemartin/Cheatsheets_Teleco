@@ -26,7 +26,7 @@
 
 \usepackage{draftwatermark}
 \SetWatermarkText{Javier de Martí­­n}
-%%\SetWatermarkColor[gray]{0.5}
+%\SetWatermarkColor[gray]{0.5}
 \SetWatermarkColor{red}
 \SetWatermarkScale{4.8}
 
@@ -159,9 +159,9 @@ $h_{ox} (\Omega^{-1})$: Admitancia de salida\\
 \begin{tabular}{| c | c | c |}
 \hline
 Base Común                              & Emisor Común & Colector Común \\ \hline
-    $\displaystyle h_{ib} = \frac{v_{eb}}{i_e}$       &  $\displaystyle h_{ie} = \frac{v_{be}}{i_b} = \frac{V_{T} \beta}{I_{C}}$            &   $\displaystyle h_{ic} = \frac{v_{bc}}{i_b}$             \\ \hline
+    $\displaystyle h_{ib} = \frac{v_{eb}}{i_e} = \frac{h_{ie}}{1 + h_{fe}}$       &  $\displaystyle h_{ie} = \frac{v_{be}}{i_b} = \frac{V_{T} \beta}{I_{C}}$            &   $\displaystyle h_{ic} = \frac{v_{bc}}{i_b}$             \\ \hline
     $\displaystyle h_{rb} = \frac{v_{eb}}{v_{cb}}$   &   $\displaystyle h_{re} = \frac{v_{be}}{v_{ce}}$           &   $\displaystyle h_{rc} = \frac{v_{bc}}{v_{ec}}$             \\ \hline
-    $\displaystyle h_{fb} = \frac{i_c}{i_e}$       &  $\displaystyle h_{fe} = \frac{i_{c}}{i_{b}} $            &    $\displaystyle h_{fc} = \frac{i_{e}}{i_{b}}$            \\ \hline
+    $\displaystyle h_{fb} = \frac{i_c}{i_e} = -\frac{-h_{fe}}{1 + h_{fe}}$       &  $\displaystyle h_{fe} = \frac{i_{c}}{i_{b}} = \beta$            &    $\displaystyle h_{fc} = \frac{i_{e}}{i_{b}}$            \\ \hline
      $\displaystyle h_{ob} = \frac{i_c}{v_{cb}}$      &       $\displaystyle h_{oe} = \frac{i_{c}}{v_{ce}}$       &     $\displaystyle h_{oc} = \frac{i_{e}}{v_{ec}}$           \\ \hline
 \end{tabular}
 
@@ -499,7 +499,7 @@ Alta impedancia de entrada, muy baja impedancia de salida, alta ganancia de corr
 
 Condensador entre dos patas de un BJT.
 
-	\vspace{-20pt}
+	\vspace{-10pt}
 
 	\begin{center}
 		\begin{circuitikz}[scale=.4,american voltages, american currents, transform shape]
@@ -602,11 +602,11 @@ Para mejorar CMRR $\rightarrow$ disminuir la ganancia en el modo común $\righta
 			\vspace{-20pt}
 		
 			\begin{IEEEeqnarray*}{rCl}
-				\text{Entrada (Muestreo)} \begin{cases}
+				\text{Entrada (Realimentación)} \begin{cases}
 				\text{Serie} \rightarrow \text{Tensión}\\
 				\text{Paralelo} \rightarrow \text{Corriente}
  				\end{cases}\\
-				\text{Salida  (Realimentación)} \begin{cases}
+				\text{Salida  (Muestreo)} \begin{cases}
 				\text{Serie} \rightarrow \text{Corriente}\\
 				\text{Paralelo} \rightarrow \text{Tensión}
 				\end{cases}
