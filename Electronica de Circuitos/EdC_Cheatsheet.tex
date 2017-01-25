@@ -26,8 +26,8 @@
 
 \usepackage{draftwatermark}
 \SetWatermarkText{Javier de Martí­­n}
-%\SetWatermarkColor[gray]{0.5}
-\SetWatermarkColor{red}
+\SetWatermarkColor[gray]{0.5}
+%%\SetWatermarkColor{red}
 \SetWatermarkScale{4.8}
 
 % This sets page margins to .5 inch if using letter paper, and to 1cm
@@ -112,7 +112,7 @@
 \section{\underline{Transistor BJT}}
 
 	\begin{center}
-		\begin{tikzpicture}[scale = 0.6, transform shape]
+		\begin{tikzpicture}[scale = 0.8, transform shape]
 			\draw (0,0) node[pnp](pnp){}
 				(pnp.E) to[short,-o] (0,1)
     				(pnp.C) to[short,-o] (0,-1)
@@ -125,20 +125,25 @@
 			\draw (.4,.5) node[anchor=west] {$I_{C}$} ;
 			\draw[-latex] (.4,-.2) -- (.4,-.9); 
 			\draw (.4,-.5) node[anchor=west] {$I_{E}$} ;
+			\draw[-latex] (-.2,1) -- (-1,0.2); 
+			\draw (-.5,.8) node[anchor=east] {$-V_{BE}$};
 			
-			\begin{scope}[shift={(3,0)}]
+			\begin{scope}[shift={(4,0)}]
 			\draw (0,0) node[npn](npn){}
 				(npn.E) to[short,-o] (0,-1)
     				(npn.C) to[short,-o] (0,1)
 				(npn.B) to[short,-o] (-1,0)
 				
 				(-1,0) node[anchor=east] {B} 
-				(0,1) node[anchor=west] {E} 
-				(0,-1) node[anchor=west] {C};
+				(0,1) node[anchor=west] {C} 
+				(0,-1) node[anchor=west] {E};
 			\draw[-latex] (.4,.9) -- (.4,.2); 
 			\draw (.4,.5) node[anchor=west] {$I_{C}$} ;
 			\draw[-latex] (.4,-.2) -- (.4,-.9); 
 			\draw (.4,-.5) node[anchor=west] {$I_{E}$} ;
+			\draw[-latex] (-1,-0.2) -- (-.2,-.8); 
+			\draw (-.5,-.8) node[anchor=east] {$-V_{BE}$} ;
+			
 			\end{scope}
 		\end{tikzpicture}
 		
@@ -159,58 +164,65 @@ $h_{ox} (\Omega^{-1})$: Admitancia de salida\\
 \begin{tabular}{| c | c | c |}
 \hline
 Base Común                              & Emisor Común & Colector Común \\ \hline
-    $\displaystyle h_{ib} = \frac{v_{eb}}{i_e} = \frac{h_{ie}}{1 + h_{fe}}$       &  $\displaystyle h_{ie} = \frac{v_{be}}{i_b} = \frac{V_{T} \beta}{I_{C}}$            &   $\displaystyle h_{ic} = \frac{v_{bc}}{i_b}$             \\ \hline
+    $\displaystyle h_{ib} = \frac{h_{ie}}{1 + h_{ie}} \ll h_{ie}$       &  $\displaystyle h_{ie} = \frac{v_{be}}{i_b} = \frac{V_{T} \beta}{I_{C}}$            &   $\displaystyle h_{ic} = \frac{v_{bc}}{i_b}$             \\ \hline
     $\displaystyle h_{rb} = \frac{v_{eb}}{v_{cb}}$   &   $\displaystyle h_{re} = \frac{v_{be}}{v_{ce}}$           &   $\displaystyle h_{rc} = \frac{v_{bc}}{v_{ec}}$             \\ \hline
-    $\displaystyle h_{fb} = \frac{i_c}{i_e} = -\frac{-h_{fe}}{1 + h_{fe}}$       &  $\displaystyle h_{fe} = \frac{i_{c}}{i_{b}} = \beta$            &    $\displaystyle h_{fc} = \frac{i_{e}}{i_{b}}$            \\ \hline
-     $\displaystyle h_{ob} = \frac{i_c}{v_{cb}}$      &       $\displaystyle h_{oe} = \frac{i_{c}}{v_{ce}}$       &     $\displaystyle h_{oc} = \frac{i_{e}}{v_{ec}}$           \\ \hline
+    $\displaystyle h_{fb} = \frac{-h_{fe}}{1 + h_{fe}} \approx -1$       &  $\displaystyle h_{fe} = \frac{i_{c}}{i_{b}} = \beta$            &    $\displaystyle h_{fc} = \frac{i_{e}}{i_{b}}$            \\ \hline
+     $\displaystyle h_{ob} = \frac{h_{oe}}{1 + h_{fe}}$      &       $\displaystyle h_{oe} = \frac{i_{c}}{v_{ce}}$       &     $\displaystyle h_{oc} = \frac{i_{e}}{v_{ec}}$           \\ \hline
 \end{tabular}
 
-%\subsection{Regiones Operativas}
-%
-%	\vspace{-20pt}
-%
-%	\begin{center}
-%		\begin{tikzpicture}[scale = 0.6, transform shape]
-%		
-%		    \draw (-0.2,0) -- (2.5,0) node[right] {$I_C$};
-%    		\draw (0,-0.2) -- (0,2.5) node[above] {$V_{CE}$};
-%    		
-%    		\node[text width=3cm] at (2.5,1) {Activa};
-%    		\node[text width=3cm] at (2.3,0.2) {Saturación};
-%    		\node[text width=3cm, rotate = 90] at (.1,2.2) {Corte};
-%    		
-%		\end{tikzpicture}
-%	\end{center}
-%	
-%	\vspace{-20pt}
-%
-%\begin{itemize}
-%	\item \textbf{Región Activa}:  $I_C$ depende directamente de la corriente de base $I_B$, de la ganancia de corriente $\beta$ y de las resistencias conectadas al colector y emisor. En esta región se produce amplificación de la señal.
-%	\item \textbf{Región Inversa}: 
-%	\item \textbf{Región de Saturación}: $I_C = I_E = I_{max}$. La corriente depende del $V_{CC}$ y de las resistencias conectadas al colector y emisor. Este modo aparece cuando la corriente de base es lo suficientemente grande como para inducir una corriente de colector $\beta$ veces más grande.
-%	\item \textbf{Región de Corte}:  $I_C = I_E = 0$. $V_{CE}$ es la alimentación del circuito, al no haber corriente circulando no hay caí­da tensión. Este modo se da cuando $I_B = 0$.
-%\end{itemize}
+\subsection{Regiones Operativas}
+
+	\vspace{-20pt}
+
+	\begin{center}
+		\begin{tikzpicture}[scale = 0.7, transform shape]
+		
+		    \draw (-0.2,0) -- (2.5,0) node[right] {$I_C$};
+    		\draw (0,-0.2) -- (0,2.5) node[above] {$V_{CE}$};
+    		
+    		\node[text width=3cm] at (2.5,1) {Activa};
+    		\node[text width=3cm] at (2.3,0.2) {Saturación};
+    		\node[text width=3cm, rotate = 90] at (.1,2.2) {Corte};
+    		
+		\end{tikzpicture}
+	\end{center}
+	
+	\vspace{-20pt}
+
+\textbf{Región Activa}:  $I_C$ depende directamente de la corriente de base $I_B$, de la ganancia de corriente $\beta$ y de las resistencias conectadas al colector y emisor. En esta región se produce amplificación de la señal.\\
+
+\textbf{Región Inversa}: \\
+
+\textbf{Región de Saturación}: $I_C = I_E = I_{max}$. La corriente depende del $V_{CC}$ y de las resistencias conectadas al colector y emisor. Este modo aparece cuando la corriente de base es lo suficientemente grande como para inducir una corriente de colector $\beta$ veces más grande.\\
+
+\textbf{Región de Corte}:  $I_C = I_E = 0$. $V_{CE}$ es la alimentación del circuito, al no haber corriente circulando no hay caí­da tensión. Este modo se da cuando $I_B = 0$.\\
+
 
 \subsection{Configuraciones de Montaje}
 
 \subsubsection{Base Común}
 
 \begin{center}
-\begin{circuitikz}[scale=.4,american voltages, american currents, transform shape]
-	\draw (0,0) node[npn](npn)	{}
-		(npn.C) node[anchor=east] {C} % Collector
-    	(npn.B) node[anchor=north west] {B} % Gate
-        (npn.E) node[anchor= north east] {E} % Emisor
-        (npn.B) -- (-1, 0)
+\begin{circuitikz}[scale=.8,american voltages, american currents, transform shape]
+	\begin{scope}[shift = {(-1.5,.7)}, rotate = 90]
+	\draw (0,0) node[npn, yscale = -1](npn)	{}
+		        (npn.B) -- (-1, 0)
         (-1, 0) [short, -*] to (-1, 1)
         (-1, 0) [short, -*] to (-1, -1)
-        (npn.E) [short, -*] to (0, -1) 
-        (npn.C) [short, -*] to (0, 1);
+        (npn.E) [short, -*] to (0, 1) 
+        (npn.C) [short, -*] to (0, -1);
 	%\draw (1,0) -- (0,0) -- (0,1);
 	%\draw (-1, 0) -- (pnp.C);
 	;
+	\end{scope}
 	
+	\draw (npn.C) node[anchor=north] {C} % Collector
+    	(npn.B) node[anchor=west] {B} % Gate
+        (npn.E) node[anchor= north] {E} % Emisor
+        ;
+
 	
+	\begin{scope}[scale = .6, shift = {(0,2)}]
 	\draw (2,0) to [short,i_=$i_b$, o-] (3,0)
 				to [short, -] (3,-1)
 				to [generic, l=$h_{ib}$] (3,-2)
@@ -222,6 +234,7 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 			\draw (4,-3) to [short, -o] (4,-4) node[anchor=east] {$B$};
 			\draw (2,0) node[anchor=east] {$E$};
 			\draw (6,0) node[anchor=west] {$C$};
+	\end{scope}
 \end{circuitikz}
 \end{center}
 
@@ -240,6 +253,8 @@ Base Común                              & Emisor Común & Colector Común \\ \h
 %			\draw (4,0) node[anchor=west] {$C$};
 %		\end{circuitikz}
 %	\end{center}
+
+Entrada por el emisor, salida por el colector.\\
 
 Baja impedancia de entrada, alta impedancia de salida, ganancia unidad, o menor, de corriente y ganancia alta de tensión.
 
@@ -305,7 +320,27 @@ Baja impedancia de entrada, alta impedancia de salida, ganancia unidad, o menor,
 %	\end{center}
 	
 	\begin{center}
-		\begin{circuitikz}[scale=.4,american voltages, american currents, transform shape]
+		\begin{circuitikz}[scale=.7,american voltages, american currents, transform shape]
+			
+			\begin{scope}[shift = {(-1.5,.7)}, rotate = 0]
+	\draw (0,0) node[npn](npn)	{}
+		        (npn.B) -- (-1, 0)
+%        (-1, 0) [short, -*] to (-1, 1)
+        (-1, 0) [short, -*] to (-2, 0)
+        (npn.E) [short, -] to (0, -1) 
+        (-2,-1) [short, -] to (1,-1)
+        (npn.C) [short, -] to (0, 1);
+	%\draw (1,0) -- (0,0) -- (0,1);
+	%\draw (-1, 0) -- (pnp.C);
+	;
+	\end{scope}
+	
+	\draw (npn.C) node[anchor=east] {C} % Collector
+    	(npn.B) node[anchor=south] {B} % Gate
+        (npn.E) node[anchor= east] {E} % Emisor
+        ;
+		
+			\begin{scope}[shift = {(1,1.5)}, scale = .7]
 			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
 				to [short, -] (1,-1)
 				to [generic, l=$h_{ie}$] (1,-2)
@@ -321,12 +356,15 @@ Baja impedancia de entrada, alta impedancia de salida, ganancia unidad, o menor,
 			\draw (2,-3) to [short, -o] (2,-4) node[anchor=east] {$E$};
 			\draw (0,0) node[anchor=east] {$B$};
 			\draw (6,0) node[anchor=west] {$C$};
+			\end{scope}
 		\end{circuitikz}
 	\end{center}
 
+Entrada por la base y salida por el colector.\\
+
 Impedancia de entrada media, impedancia de salida media, alta ganancia de corriente y alta ganancia de tensión.
 
-\subsubsection{Colector Común}
+\subsubsection{Colector Común o Seguidor de Emisor}
 
 %\begin{center}
 %\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
@@ -344,7 +382,27 @@ Impedancia de entrada media, impedancia de salida media, alta ganancia de corrie
 %\end{center}
 
 	\begin{center}
-		\begin{circuitikz}[scale=.4,american voltages, american currents, transform shape]
+		\begin{circuitikz}[scale=.7,american voltages, american currents, transform shape]
+					\begin{scope}[shift = {(-1.5,.7)}, rotate = 0]
+	\draw (0,0) node[npn, yscale = -1](npn)	{}
+		        (npn.B) -- (-1, 0)
+%        (-1, 0) [short, -*] to (-1, 1)
+        (-1, 0) [short, -*] to (-2, 0)
+        (npn.E) [short, -] to (0, 1) 
+        (-2,-1) [short, -] to (1,-1)
+        (npn.C) [short, -] to (0, -1);
+	%\draw (1,0) -- (0,0) -- (0,1);
+	%\draw (-1, 0) -- (pnp.C);
+	;
+	\end{scope}
+	
+	\draw (npn.C) node[anchor=east] {C} % Collector
+    	(npn.B) node[anchor=south] {B} % Gate
+        (npn.E) node[anchor= east] {E} % Emisor
+        ;
+
+
+		\begin{scope}[scale = .7, shift = {(1,2.5)}]
 			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
 				to [short, -] (1,-1)
 				to [generic, l=$h_{ic}$] (1,-2)
@@ -356,8 +414,11 @@ Impedancia de entrada media, impedancia de salida media, alta ganancia de corrie
 			\draw (2,-3) to [short, -o] (2,-4) node[anchor=east] {$C$};
 			\draw (0,0) node[anchor=east] {$B$};
 			\draw (4,0) node[anchor=west] {$E$};
+		\end{scope}
 		\end{circuitikz}
 	\end{center}
+	
+Entrada por base y salida por emisor.\\
 
 Alta impedancia de entrada, muy baja impedancia de salida, alta ganancia de corriente y unidad, o menor, ganancia de tensión.
 
@@ -367,38 +428,38 @@ Alta impedancia de entrada, muy baja impedancia de salida, alta ganancia de corr
 	g_{m} = \frac{2}{|V_{T}|} \sqrt{I_{D} \cdot I_{DSS}}
 \end{equation*}
 
-%	\begin{center}
-%		\begin{tikzpicture}[scale = 0.3, transform shape]
-%		    \draw (-4,0) -- (4,0) node[right] {$V_{GS}$};
-%    		\draw (0,-3) -- (0,3) node[above] {$I_D$};
-%			\draw[scale=2,domain=0:1,thick,variable=\x,blue] plot (\x + 1,\x*\x) node[left] {$nMOS acum$};
-%			\draw (1.7,-0.2) node[right] {$V_T$};
-%			
-%			\draw[scale=2,domain=0:1,thick,variable=\x,red] plot (\x - 1,\x*\x) node[left] {$nMOS depl$};
-%			\draw (-1.9,-0.2) node[right] {$V_T$};
-%			\draw (.05,2) node[right] {$I_{D_{SS}}$};
-%			
-%			\draw[scale=2,domain=0:1,thick,variable=\x,orange] plot (-\x + 1,-\x*\x) node[right] {$pMOS depl$};
-%			
-%			\draw[scale=2,domain=0:1,thick,variable=\x,purple] plot (-\x - 1,-\x*\x) node[right] {$pMOS acum$};
-%    		
-%		\end{tikzpicture}
-%		
-%		\hspace{5pt}
-%		
-%		\begin{tikzpicture}[scale = 0.6, transform shape]
-%		    \draw (-0.2,0) -- (3,0) node[right] {$V_{DS}$};
-%    		\draw (0,-0.2) -- (0,3) node[above] {$I_{D_{SS}}$};
-%    		
-%    		\node[text width=3cm] at (2.7,1.2) {Saturación};
-%    		\node[text width=3cm] at (3,0.1) {Corte};
-%    		\node[text width=3cm, rotate = 70] at (.7,2.2) {Óhmica};
-%    		
-%		\end{tikzpicture}
-%	\end{center}
+	\begin{center}
+		\begin{tikzpicture}[scale = 0.55, transform shape]
+		    \draw (-4,0) -- (4,0) node[right] {$V_{GS}$};
+    		\draw (0,-3) -- (0,3) node[above] {$I_D$};
+			\draw[scale=2,domain=0:1,thick,variable=\x,blue] plot (\x + 1,\x*\x) node[left] {$nMOS acum$};
+			\draw (1.7,-0.2) node[right] {$V_T$};
+			
+			\draw[scale=2,domain=0:1,thick,variable=\x,red] plot (\x - 1,\x*\x) node[left] {$nMOS depl$};
+			\draw (-1.9,-0.2) node[right] {$V_T$};
+			\draw (.05,2) node[right] {$I_{D_{SS}}$};
+			
+			\draw[scale=2,domain=0:1,thick,variable=\x,orange] plot (-\x + 1,-\x*\x) node[right] {$pMOS depl$};
+			
+			\draw[scale=2,domain=0:1,thick,variable=\x,purple] plot (-\x - 1,-\x*\x) node[right] {$pMOS acum$};
+    		
+		\end{tikzpicture}
+		
+		\hspace{5pt}
+		
+		\begin{tikzpicture}[scale = 0.7, transform shape]
+		    \draw (-0.2,0) -- (3,0) node[right] {$V_{DS}$};
+    		\draw (0,-0.2) -- (0,3) node[above] {$I_{D_{SS}}$};
+    		
+    		\node[text width=3cm] at (2.7,1.2) {Saturación};
+    		\node[text width=3cm] at (3,0.1) {Corte};
+    		\node[text width=3cm, rotate = 70] at (.7,2.2) {Óhmica};
+    		
+		\end{tikzpicture}
+	\end{center}
 	
 	\begin{center}
-		\begin{tikzpicture}[scale = 0.5, transform shape]
+		\begin{tikzpicture}[scale = 0.6, transform shape]
 			\draw (0,0) node[njfet](njfet){}
 			(njfet.G) node[anchor=east] {G} 
 			(njfet.D) node[anchor=south] {D} 
@@ -447,10 +508,37 @@ Alta impedancia de entrada, muy baja impedancia de salida, alta ganancia de corr
 		\end{tikzpicture}
 		
 \begin{equation*}
-	I_{D} = I_{D_{SS}} \left( 1 - \frac{V_{gs}}{V_{gs_{off}}} \right)
+	I_{D} = I_{D_{SS}} \left( 1 - \frac{V_{gs}}{V_{T}} \right)^{2}
 \end{equation*}
 		
 	\end{center}
+
+	\begin{center}
+		\begin{circuitikz}[scale=.5,american voltages, american currents, transform shape]
+			\draw (0,0) to [short, o-*] (1,0)
+%				to [short, -] (1,-1)
+%				to [generic, l=$h_{ie}$] (1,-2)
+				(1,-3) -- (3,-3) -- (3,-2)
+				(3,-1) to [I, i= $g_{m} \cdot v_{gs}$] (3,-2)
+				to [short] (3,0)
+				to [short] (5,0)
+				to [short, -o] (6,0)
+				;
+			\draw (3,-3) to [short] (5,-3) -- (5,-2)
+				to [generic, l_=$r_{o}$] (5,-1)
+				to [short] (5,0);		
+				
+			\draw[-latex] (1,-2.8) -- (1,-.2);	
+			\draw (1,-1.5) node[anchor=east] {$V_{GS}$};
+				
+			\draw (2,-3) to [short, -o] (2,-4) node[anchor=east] {$s$};
+			\draw (0,0) node[anchor=east] {$G$};
+			\draw (6,0) node[anchor=west] {$D$};
+
+
+		\end{circuitikz}
+	\end{center}
+
 
 
 \section{\underline{Equivalencias}}
@@ -472,158 +560,13 @@ Alta impedancia de entrada, muy baja impedancia de salida, alta ganancia de corr
 	\end{center}
 
 
-\section{\underline{Resolución de Ejercicios con Transistores}}
 
-\subsubsection{Puntos de Polarización}
+\section{\underline{Amplificadores Multietapa}}
 
-	\begin{enumerate}
-		\item Poner $v_{i}$, y a veces $v_{o}$, a cero voltios.
-		\item Buscar rama de diferencial $\rightarrow$ Corriente de referencia.
-	\end{enumerate}
-	
-\subsubsection{Pequeña Señal}
-
-	\begin{enumerate}
-		\item \textbf{Localizar entradas inversora y no inversora}: Recorrer el camino desde la entrada hasta la salida:
-			\begin{itemize}
-				\item $E.C.$ o $S.C$ $\rightarrow$ cambiar el signo
-				\item $B.C$ o $G.C$ $\rightarrow$ mantener el signo
-				\item $C.C$ o $D.C$ $\rightarrow$ mantener el signo
-			\end{itemize}
-	\end{enumerate}
-
-	\begin{itemize}
-		\item Modo Diferencial $\rightarrow$ $v_{i}/2$ y puntos de unión a tierra.
-		\item Modo Común $\rightarrow$ $v_{i}$ y puntos de unión mediante $R$ a tierra.
-	\end{itemize}
-
-Condensador entre dos patas de un BJT.
-
-	\vspace{-10pt}
+\subsubsection{Paralelo}
 
 	\begin{center}
-		\begin{circuitikz}[scale=.4,american voltages, american currents, transform shape]
-			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
-				to [short, -] (1,-1)
-				to [generic, l=$h_{ie}$] (1,-2)
-				to [short] (1,-3) -- (3,-3) -- (3,-2)
-				(3,-1) to [I, i= $h_{fe} \cdot i_b$] (3,-2)
-				to [short] (3,0)
-				to [short] (4,0)
-%				to [short, i<=$i_c$, -o] (5,0)
-				;
-			\draw (.9,0) -- (.9,.5) to[C, l = $C$] (3.1,.5) -- (3.1,0);
-%			\draw (3,-3) to [short] (5,-3) -- (5,-2)
-%				to [generic, l_=$h_{oe}^{-1}$] (5,-1)
-%				to [short] (5,0);		
-			\draw (2,-3) to [short, -o] (2,-4) node[anchor=east] {$E$};
-			\draw (-1,0) node[anchor=north] {$B$};
-			\draw (5,0) node[anchor=west] {$C$};
-			
-			
-			\draw (7,0) to [short,i^=$i_b$, o-] (8,0)
-				-| (9,-1)
-				to [generic, l=$h_{ie}$] (9,-2)
-				to [short] (9,-3) -- (11,-3) -- (11,-2)
-				(11,-1) to [I, i= $h_{fe} \cdot i_b$] (11,-2)
-				to [short] (11,0)
-				to [short] (13,0)
-				to [short, , i<^=$i_c$, -o] (14,0)
-				;
-			
-			\draw (8,0) circle [radius = 1.5pt] node[anchor = south]{$V_{A}$};
-			\draw (13,0) circle [radius = 1.5pt] node[anchor = south]{$V_{B}$};
-
-			\draw (8,0) to[C, l_= $C_{M}$] (8,-3)
-				(7.75,-3) -- (8.25,-3);
-			\draw (13,0) to[C, l= $C'$] (13,-3)
-				(12.75,-3) -- (13.25,-3);
-	
-			\draw (10,-3) to [short, -o] (10,-4) node[anchor=east] {$E$};
-			\draw (7,0) node[anchor=north] {$B$};
-			\draw (14,0) node[anchor=west] {$C$};
-		\end{circuitikz}
-	\end{center}
-	
-	\begin{equation*}
-		\frac{1}{2 \pi \cdot f \cdot C} = \text{(Componentes en paralelo con el C)}
-	\end{equation*}
-	
-\begin{equation*}
-	C_{M} = C \left( 1 - \frac{V_{B}}{V_{A}} \right) \hspace{10pt} C' = C \left( 1 - \frac{V_{A}}{V_{B}} \right)
-\end{equation*}
-
-Si entre dos ramas del circuito hay:
-	\begin{itemize}
-		\item \textbf{Condensador}: En pequeña señal y para el análisis en frecuencia colocarlo como $2C$.
-		\item \textbf{Resistencia}: En pequeña señal colocar $R/2$.	
-	\end{itemize}
-
-\subsubsection{Impedancias de Entrada y Salida}
-
-\subsubsection{Factor de Rechazo al Modo Común}
-	
-	\begin{equation*}
-		\text{CMRR} = 20 \cdot \log_{10} \left| \frac{g_{D}}{g_{C}} \right|
-	\end{equation*}
-	
-Para mejorar CMRR $\rightarrow$ disminuir la ganancia en el modo común $\rightarrow$ incrementar $R_{E}$. Sustituir las resistencias por cargas activas (fuentes de corriente que en alterna se comportan como resistencias).
-
-\section{\underline{Resolución de Ejercicios con Opamps}}
-
-%\begin{enumerate}
-%	\item Encontrar el tipo de topología
-%	\item Determinar los parámetros privilegiados
-%	\item Obtener dichos parámetros de cada cuadripolo
-%	\item Obtener los cuadripolos ideales
-%	\item Calcular A' y $\beta$'
-%\end{enumerate}
-
-
-\begin{enumerate}
-	\item \text{Identificar redes de realimentación} $\rightarrow$ camino que une la salida de una etapa con la entrada.
-	\item \textbf{Identificar el tipo de alimentación}:
-		
-		\vspace{-9pt}
-		
-		\begin{enumerate}
-			\item Entrada:
-				\begin{enumerate}
-					\item \textbf{Serie}: El camino de realimentación \textbf{no está} directamente unido a la \textbf{entrada} de la etapa.
-					\item \textbf{Paralelo}: El camino de realimentación \textbf{está} unido a la \textbf{entrada} de la etapa.
-				\end{enumerate}
-			\item Salida:
-				\begin{enumerate}
-					\item Serie: El camino de realimentación \textbf{no está} directamente unido a la \textbf{salida} de la etapa.
-					\item Paralelo: La red de realimentación \textbf{está} directamente unida a la \textbf{salida} de la etapa.
-				\end{enumerate}
-		\end{enumerate}
-		
-			\vspace{-20pt}
-		
-			\begin{IEEEeqnarray*}{rCl}
-				\text{Entrada (Realimentación)} \begin{cases}
-				\text{Serie} \rightarrow \text{Tensión}\\
-				\text{Paralelo} \rightarrow \text{Corriente}
- 				\end{cases}\\
-				\text{Salida  (Muestreo)} \begin{cases}
-				\text{Serie} \rightarrow \text{Corriente}\\
-				\text{Paralelo} \rightarrow \text{Tensión}
-				\end{cases}
-			\end{IEEEeqnarray*}
-			
-	\item \textbf{Asignar signos a las entradas del OPAMP}: Suponer que la salida del OPAMP aumenta y recorrer el camino hasta la entrada del OPAMP. Si al llegar a la entrada la señal sigue aumentando $-$ y si la señal disminuye $+$.
-	\item \textbf{Punto de trabajo de los transistores}: Deducir que las entradas están a $0V$ y que por las redes de realimentación no circula corriente. Lo normal es que la red de realimentación una la entrada con la salida del circuito,  así que la salida es probable que esté también a $0V$.
-	\item \textbf{Ganancia en tensión}: Cuando hay más de una red de realimentación, hay una que engloba a las demás. Resolver primero las más pequeñas para que cuando se resuelva la externa se pueda sustituir cada una de ellas por un amplificador equivalente $\rightarrow$ Dibujar la red $\beta$ y sacar el valor (depende de cada configuración).
-\end{enumerate}
-
-
-\section{\underline{1. Etapas de Dos Transistores}}
-
-\subsubsection{Configuración en Paralelo}
-
-	\begin{center}
-		\begin{circuitikz}[scale=.6,american voltages, american currents, transform shape]
+		\begin{circuitikz}[scale=.7,american voltages, american currents, transform shape]
 			\draw (0,0) node[npn](npn1) {$Q_1$}
 				(npn1.E) to [R, l=$R$] (0,-2) -- (0,-2.5) 
 				(npn1.B) to [short, -o]  (-1,0) node[left] {$B_P$}; 
@@ -662,7 +605,7 @@ Las resistencias de emisor permiten estabilizar el circuito tensión.
 		I_{CN} = \frac{I_{CP}}{N} \hspace{20pt} V_{BE_N} + I_{C_N}
 	\end{equation*}
 
-\subsubsection{Configuración Darlington}
+\subsubsection{Darlington}
 
 	\begin{center}
 	\begin{circuitikz}[scale=1,american voltages, american currents, transform shape]
@@ -774,7 +717,7 @@ Las resistencias de emisor permiten estabilizar el circuito tensión.
   				(0,-5.85) node[anchor=west] {$-V_{CC}$};
 				
 			\draw (3,-1) node[anchor=west] {$I_{C_{1}} = I_{C_{2}} = I_{E}/2$};
-			\draw (0,-5) node[]{Amplificador Diferencial};  	
+			\draw (0,-7) node[]{Amplificador Diferencial};  	
 			
 			\begin{scope}[shift={(5,0)}, scale = .8]
 			\draw (0,0) to [short, o-*] (0,-0.5)
@@ -1215,7 +1158,7 @@ La \textbf{figura de mérito} de un amplificador es el producto de la ganancia p
 \textbf{Espejo de Corriente}: Permite obtener una corriente constante (fuente de corriente).
 
 	\begin{center}
-		\begin{circuitikz} [scale=.6, transform shape]
+		\begin{circuitikz} [scale=.7, transform shape]
 			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
 				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
 				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
@@ -1263,12 +1206,12 @@ La \textbf{figura de mérito} de un amplificador es el producto de la ganancia p
 		\end{circuitikz}
 	\end{center}
 	
-\subsubsection{Fuente Widlar}
+\subsubsection{Widlar + R}
 
 Variación del circuito anterior con una resistencia en el emisor del transistor de salida para obtener corrientes pequeñas constantes en la salida.
 
 	\begin{center}
-		\begin{circuitikz} [scale=.4, transform shape]
+		\begin{circuitikz} [scale=.55, transform shape]
 			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
 				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
 				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$}
@@ -1309,12 +1252,14 @@ Variación del circuito anterior con una resistencia en el emisor del transistor
 		I_0^{(k+1)} = \frac{V_T}{R_E} ln \left( \frac{I_{ref}}{I_O^{(k)}} \right)
 	\end{equation*}
 
+Esta configuración se puede encontrar sin $R_{1}$ y sería Widlar.
+
 \subsubsection{Fuente de Cascodo}
 
 Proporciona impedancia de salida alta, mucho mayor que en las otras fuentes.
 
 	\begin{center}
-		\begin{circuitikz} [scale=.4, transform shape]
+		\begin{circuitikz} [scale=.7, transform shape]
 			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
 				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
 				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
@@ -1362,33 +1307,33 @@ Proporciona impedancia de salida alta, mucho mayor que en las otras fuentes.
 	\end{center}
 
 
-%\subsubsection{Fuente de Wilson}
-%
-%	\begin{center}
-%		\begin{circuitikz} [scale=.4, transform shape]
-%			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
-%				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
-%				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
-%			\draw (2,0) node[npn, xscale = 1, yscale = 1, rotate = 0](npn2) {$Q_2$}
-%				(npn2.B) -- (npn1.B)
-%				%(npn1.E) [short, thick, blue, -|] to (1,-.78);
-%				;
-%			\draw (npn2.C) [short, -o,i<_=$I_O$] to (2,1.5);
-%			\draw[blue, thick] (1,-2.78) [short, *-] to (1, -3.28) node[ground, color = blue]{} (1, -2.5); 
-%			
-%			\draw[blue, thick] (0,-2) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn3) {$Q_3$}
-%				(npn3.C) to [short, blue, *-] (.84,-1.22) to [short, blue, i=$I_{BB}$] (npn3.B)
-%				(npn1.E) -- (npn3.C)
-%				;
-%			\draw (2,-2) node[npn, xscale = 1, yscale = 1, rotate = 0](npn4) {$Q_4$}
-%				(npn4.B) -- (npn3.B)
-%				(npn3.E) [short, thick, blue, -|] to (1,-2.78);
-%			\draw (npn4.C) [short, -o] to (2,-.5);
-%			\draw (1,-2.78) [short] to (npn4.E);
-%		\end{circuitikz}
-%	\end{center}
+\subsubsection{Fuente de Wilson}
 
-Wilson: Permite obtener alta ganancia de corriente e impedancia de salida elevada.
+	\begin{center}
+		\begin{circuitikz} [scale=.7, transform shape]
+			\draw[blue, thick] (0,0) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn1) {$Q_1$}
+				(npn1.C) to [short, blue, *-] (.84,.78) to [short, blue, i=$I_{BB}$] (npn1.B)
+				(npn1.C) to [R, color = blue, l=$R_{CC}$] (0,2) [short, -o, i<_=$I_{ref}$] to (0,3) node[anchor=east] {$V_{CC}$};
+			\draw (2,0) node[npn, xscale = 1, yscale = 1, rotate = 0](npn2) {$Q_2$}
+				(npn2.B) -- (npn1.B)
+				%(npn1.E) [short, thick, blue, -|] to (1,-.78);
+				;
+			\draw (npn2.C) [short, -o,i<_=$I_O$] to (2,1.5);
+			\draw[blue, thick] (1,-2.78) [short, *-] to (1, -3.28) node[ground, color = blue]{} (1, -2.5); 
+			
+			\draw[blue, thick] (0,-2) node[npn, color = blue, xscale = 1, yscale = -1, rotate = 180](npn3) {$Q_3$}
+				(npn3.C) to [short, blue, *-] (.84,-1.22) to [short, blue, i=$I_{BB}$] (npn3.B)
+				(npn1.E) -- (npn3.C)
+				;
+			\draw (2,-2) node[npn, xscale = 1, yscale = 1, rotate = 0](npn4) {$Q_4$}
+				(npn4.B) -- (npn3.B)
+				(npn3.E) [short, thick, blue, -|] to (1,-2.78);
+			\draw (npn4.C) [short, -o] to (2,-.5);
+			\draw (1,-2.78) [short] to (npn4.E);
+		\end{circuitikz}
+	\end{center}
+
+Permite obtener alta ganancia de corriente e impedancia de salida elevada.
 
 %
 %\subsection{Cargas Activas}
@@ -1443,7 +1388,17 @@ Wilson: Permite obtener alta ganancia de corriente e impedancia de salida elevad
 %
 %\subsubsection{Consideraciones Térmicas}
 
-\section{\underline{6. Amplificador Operacional}}
+\section{\underline{Etapas de Potencia}}
+
+\subsection{Clase A}
+
+\subsection{Clase B}
+
+\section{\underline{Circuitos de Protección de Cortocircuitos}}
+
+
+
+\section{\underline{Amplificador Operacional}}
 
 Impedancia de entrada infinita, impedancia de salida nula, ganancia diferencial infinita, CMRR infinito y margen dinámico $\pm V_{CC}$.
 
@@ -1466,7 +1421,7 @@ Impedancia de entrada infinita, impedancia de salida nula, ganancia diferencial 
 
 
 \begin{center}
-\begin{circuitikz}[scale=.4, transform shape, european]
+\begin{circuitikz}[scale=.5, transform shape, european]
   \draw
   (0, 0) node[op amp] (opamp) {}
   (opamp.-) to[R, l=$R_{1}$] (-3, 0.5)
@@ -1559,7 +1514,7 @@ Impedancia de entrada infinita, impedancia de salida nula, ganancia diferencial 
 
 
 	\begin{center}
-		\begin{circuitikz}[scale=.4, transform shape]
+		\begin{circuitikz}[scale=.5, transform shape]
 			
 			\draw (-2,.25) to [american current source] (-2,2.25)
 				(-2,.25) -- (0,.25)
@@ -1648,6 +1603,191 @@ Impedancia de entrada infinita, impedancia de salida nula, ganancia diferencial 
 			\end{scope}
 		\end{circuitikz}
 	\end{center}
+	
+\newpage
+
+\section{\underline{Ejercicios con Transistores}}
+
+\subsubsection{Puntos de Polarización}
+
+	\begin{enumerate}
+		\item Poner $v_{i}$, y a veces $v_{o}$, a cero voltios.
+		\item Buscar rama de diferencial $\rightarrow$ Corriente de referencia.
+	\end{enumerate}
+	
+\subsubsection{Pequeña Señal}
+
+	\begin{enumerate}
+		\item \textbf{Localizar entradas inversora y no inversora}: Recorrer el camino desde la entrada hasta la salida:
+			\begin{itemize}
+				\item $E.C.$ o $S.C$ $\rightarrow$ cambiar el signo
+				\item $B.C$ o $G.C$ $\rightarrow$ mantener el signo
+				\item $C.C$ o $D.C$ $\rightarrow$ mantener el signo
+			\end{itemize}
+	\end{enumerate}
+
+	\begin{itemize}
+		\item Modo Diferencial $\rightarrow$ $v_{i}/2$ y puntos de unión a tierra.
+		\item Modo Común $\rightarrow$ $v_{i}$ y puntos de unión mediante $R$ a tierra.
+	\end{itemize}
+
+Condensador entre dos patas de un BJT.
+
+	\vspace{-10pt}
+
+	\begin{center}
+		\begin{circuitikz}[scale=.4,american voltages, american currents, transform shape]
+			\draw (0,0) to [short,i_=$i_b$, o-] (1,0)
+				to [short, -] (1,-1)
+				to [generic, l=$h_{ie}$] (1,-2)
+				to [short] (1,-3) -- (3,-3) -- (3,-2)
+				(3,-1) to [I, i= $h_{fe} \cdot i_b$] (3,-2)
+				to [short] (3,0)
+				to [short] (4,0)
+%				to [short, i<=$i_c$, -o] (5,0)
+				;
+			\draw (.9,0) -- (.9,.5) to[C, l = $C$] (3.1,.5) -- (3.1,0);
+%			\draw (3,-3) to [short] (5,-3) -- (5,-2)
+%				to [generic, l_=$h_{oe}^{-1}$] (5,-1)
+%				to [short] (5,0);		
+			\draw (2,-3) to [short, -o] (2,-4) node[anchor=east] {$E$};
+			\draw (-1,0) node[anchor=north] {$B$};
+			\draw (5,0) node[anchor=west] {$C$};
+			
+			
+			\draw (7,0) to [short,i^=$i_b$, o-] (8,0)
+				-| (9,-1)
+				to [generic, l=$h_{ie}$] (9,-2)
+				to [short] (9,-3) -- (11,-3) -- (11,-2)
+				(11,-1) to [I, i= $h_{fe} \cdot i_b$] (11,-2)
+				to [short] (11,0)
+				to [short] (13,0)
+				to [short, , i<^=$i_c$, -o] (14,0)
+				;
+			
+			\draw (8,0) circle [radius = 1.5pt] node[anchor = south]{$V_{A}$};
+			\draw (13,0) circle [radius = 1.5pt] node[anchor = south]{$V_{B}$};
+
+			\draw (8,0) to[C, l_= $C_{M}$] (8,-3)
+				(7.75,-3) -- (8.25,-3);
+			\draw (13,0) to[C, l= $C'$] (13,-3)
+				(12.75,-3) -- (13.25,-3);
+	
+			\draw (10,-3) to [short, -o] (10,-4) node[anchor=east] {$E$};
+			\draw (7,0) node[anchor=north] {$B$};
+			\draw (14,0) node[anchor=west] {$C$};
+		\end{circuitikz}
+	\end{center}
+	
+	\begin{equation*}
+		\frac{1}{2 \pi \cdot f \cdot C} = \text{(Componentes en paralelo con el C)}
+	\end{equation*}
+	
+\begin{equation*}
+	C_{M} = C \left( 1 - \frac{V_{B}}{V_{A}} \right) \hspace{10pt} C' = C \left( 1 - \frac{V_{A}}{V_{B}} \right)
+\end{equation*}
+
+Si entre dos ramas del circuito diferencial hay:
+	\begin{itemize}
+		\item \textbf{Condensador}: En pequeña señal y para el análisis en frecuencia colocarlo como $2C$.
+		\item \textbf{Resistencia}: En pequeña señal colocar $R/2$.	
+	\end{itemize}
+
+Al realizar el \textbf{modo diferencial} no se tienen en cuenta las impedancias y $h_{oe}$ de los transitores que hay en los caminos cruzados. Para el \textbf{modo común} se hace una impedancia equivalente (colocarla como $2\cdot > Z_{eq}$):
+	
+	\begin{equation*}
+		Z_{eq} = h_{oe_{x}}^{-1} \cdot \left( 1 + \frac{V_{R_{X}}}{V_{T}} \right)
+	\end{equation*}
+
+\subsubsection{Impedancias de Entrada y Salida}
+
+Impedancia de entrada:
+
+	\begin{equation*}
+	Z_{i} = \frac{V_{i}}{I_{i}}
+	\end{equation*}
+	
+Impedancia de salida:
+
+	\begin{enumerate}
+	\item Eliminar la excitación de entrtada
+	\item Sustituir $R_{L}$ por un generador de tensión.
+	\end{enumerate}
+
+	\begin{equation*}
+		Z_{o} = \frac{V_{o}}{I_{o}}
+	\end{equation*}
+	
+\subsubsection{Factor de Rechazo al Modo Común}
+	
+	\begin{equation*}
+		\text{CMRR} = 20 \cdot \log_{10} \left| \frac{g_{D}}{g_{C}} \right|
+	\end{equation*}
+	
+Para mejorar CMRR $\rightarrow$ disminuir la ganancia en el modo común $\rightarrow$ incrementar $R_{E}$. Sustituir las resistencias por cargas activas (fuentes de corriente que en alterna se comportan como resistencias).
+
+\subsubsection{Potencia Disipada en una Carga}
+
+\begin{equation*}
+	P_{R_{L}} = \frac{2 \cdot V_{CC}^{2}}{\pi^{2} \cdot R_{L}}
+\end{equation*}
+
+\section{\underline{Ejercicios con Opamps}}
+
+%\begin{enumerate}
+%	\item Encontrar el tipo de topología
+%	\item Determinar los parámetros privilegiados
+%	\item Obtener dichos parámetros de cada cuadripolo
+%	\item Obtener los cuadripolos ideales
+%	\item Calcular A' y $\beta$'
+%\end{enumerate}
+
+
+\begin{enumerate}
+	\item \text{Identificar redes de realimentación} $\rightarrow$ camino que une la salida de una etapa con la entrada.
+	\item \textbf{Identificar el tipo de alimentación}:
+		
+		\vspace{-9pt}
+		
+		\begin{enumerate}
+			\item Entrada:
+				\begin{enumerate}
+					\item \textbf{Serie}: El camino de realimentación \textbf{no está} directamente unido a la \textbf{entrada} de la etapa.
+					\item \textbf{Paralelo}: El camino de realimentación \textbf{está} unido a la \textbf{entrada} de la etapa.
+				\end{enumerate}
+			\item Salida:
+				\begin{enumerate}
+					\item Serie: El camino de realimentación \textbf{no está} directamente unido a la \textbf{salida} de la etapa.
+					\item Paralelo: La red de realimentación \textbf{está} directamente unida a la \textbf{salida} de la etapa.
+				\end{enumerate}
+		\end{enumerate}
+		
+			\vspace{-20pt}
+		
+			\begin{IEEEeqnarray*}{rCl}
+				\text{Entrada (Realimentación)} \begin{cases}
+				\text{Serie} \rightarrow \text{Tensión}\\
+				\text{Paralelo} \rightarrow \text{Corriente}
+ 				\end{cases}\\
+				\text{Salida  (Muestreo)} \begin{cases}
+				\text{Serie} \rightarrow \text{Corriente}\\
+				\text{Paralelo} \rightarrow \text{Tensión}
+				\end{cases}
+			\end{IEEEeqnarray*}
+			
+	\item \textbf{Asignar signos a las entradas del OPAMP}: Suponer que la salida del OPAMP aumenta y recorrer el camino hasta la entrada del OPAMP. Si al llegar a la entrada la señal sigue aumentando $-$ y si la señal disminuye $+$.
+	\item \textbf{Punto de trabajo de los transistores}: Deducir que las entradas están a $0V$ y que por las redes de realimentación no circula corriente. Lo normal es que la red de realimentación una la entrada con la salida del circuito,  así que la salida es probable que esté también a $0V$.
+	\item \textbf{Ganancia en tensión}: Cuando hay más de una red de realimentación, hay una que engloba a las demás. Resolver primero las más pequeñas para que cuando se resuelva la externa se pueda sustituir cada una de ellas por un amplificador equivalente $\rightarrow$ Dibujar la red $\beta$ y sacar el valor (depende de cada configuración). Dibujar la etapa entera con realimentación incluida en pequeña señal. Repartir la realimentación entre los lados. Si la entrada es de corriente $\rightarrow$ sustituir el generador de tensión por uno de corriente con resistencia en paralelo. Resolver el circuito en pequeña señal y calcular $A$:
+	
+	\begin{equation*}
+		G = \frac{A}{1 + A \beta}
+	\end{equation*}
+	
+	También, para obtener la ganancia total se puede hacer de forma aproximada, dibujando la red $\beta$ del circuito exterior y asumiendo que $A \gg 1/\beta$ por tanto $G = 1 / \beta$.
+	
+\end{enumerate}
+
+\newpage
 
 
 %\section{\underline{7. Realimentación}}
