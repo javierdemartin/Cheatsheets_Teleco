@@ -365,15 +365,207 @@ La distancia a la cual los campos radiados son considerados como ondas planas y 
 				\text{Densidad de Potencia Radiada Normalizada}&:& 10 \cdot \log \frac{S_{rad} (\theta, \varphi)}{S_{rad_{max}}}
 			\end{IEEEeqnarray*}
 
-		Debido a las propiedades de las ondas planas ambos diagramas son iguales y el campo magnético puede ser usado con el mismo resultado. El patrón de radiación es un gráfico que ayuda a visualizar dónde transmite/recibe potencia la antena.
-
+		Debido a las propiedades de las ondas planas ambos diagramas son iguales y el campo magnético puede ser usado con el mismo resultado. El patrón de radiación es un gráfico que ayuda a visualizar dónde transmite/recibe potencia la antena.\\
+		
+		En muchos casos es mucho más sencillo y suficiente representar el patrón de radiación mediante cortes. Los más utilizados son $\theta$ constante (paralelo) y $\phi$ constante (meridianos). Para la mayoría de antenas (antenas polarizadas linealmente) hay dos planos principales:
+		
+			\begin{itemize}
+			\item \textbf{Plano E}: Definido por la dirección de la radiación máxima y el vector campo eléctrico en esa dirección.
+			\item \textbf{Plano H}: Definido por la dirección de la radiadión máxima y el vector campo magnético en esa dirección.
+			\end{itemize}
+			
+		Los dos planos son perpendiculares y su intersección es la dirección de máxima ganancia. Una onda está polarizada según su plano $\vec{E}$. Si la antena no está polarizada correctamente hay pérdidas de despolarización. Los cortes pueden representarse en coordenadas cartesianas o polares.
+		
+		\item \text{PIRE} (\textit{Potencia Isotrópica Radiada Efectiva}): Potencia que tendría que radiar una antena isotrópica para obtener la misma densidad de potencia que produciría una antena direccional en la dirección de máxima radiación. El efecto de la direccionalidad es que en algunas direcciones hay una ganancia de potencia relativa al radiador isotrópico.
+		
+		\begin{IEEEeqnarray*}{rCl}
+			\textbf{PIRE} & = & D \cdot P_{r} \\
+					     & = & G \cdot P_{in}
+		\end{IEEEeqnarray*}
+	
+		\item \textbf{PRA} (\textit{Potencia Radiada Aparente}) es la potencia que tendría que radiar una antena dipolo de media onda para obtener la misma densidad d epotencia qu eproduciría una antena direccional en la dirección de máxima radiación. Es la misma definición que PIRE pero utilizando un dipolo de media onda en lugar de una antena isotrópica.
+		
+			\begin{equation*}
+				\text{PIRE} = \text{PRA} + 2.15 (\text{dB})
+			\end{equation*}
 	\end{itemize}
 
 \hrulefill
 
+
+\newpage
+
+Falta dónde poner esto:
+
+\begin{figure}[h]
+	\centering
+     \begin{circuitikz}[scale=.8, transform shape, european]
+
+	\draw[fill] (-.15,0) circle[radius = 1pt];
+	\draw[fill] (-.15,-2) circle[radius = 1pt] node[below]{g};
+	\draw[fill] (5, -2) node[below]{d};
 	
+	\draw (-3,0) 
+		to[sV, l_= $V_{TX}$] (-3,-2)
+		(-3,0) to[R  = $Z_{O}$] (0,0);
+	\draw (0,0) 
+		to[R  = $R_{\Omega}$] (2,0)
+		to[R  = $jX_{in}$] (4,0)
+		-- (5,0)
+		to[R  = $R_{r}$] (5,-2)
+		-- (-3,-2);
+		
+	\draw[-latex] (-.3,-1.9) -- (-.3,-.1) node[midway, left] {$P_{in}^{'}$};
+	\draw[-latex] (0,-1.9) -- (0,-.1) node[midway, right] {$P_{in}$};
 	
+	\draw (-1.5, -.5) node[]{(1)};
+	\draw (2.5, -.5) node[left]{(2)};
+\end{circuitikz}
+      \caption{Antena Transmisora}
+  \end{figure}
 	
+Las \textbf{pérdidas por desadaptación} (1) se producen en el generador del transmisor y las \textbf{pérdidas de desadaptación} en la antena transmisora.
+
+	\begin{IEEEeqnarray*}{rCl}
+		Z_{in} & = & R_{in} \\
+		X_{in} & = & R_{R} + R_{\Omega} + j \cdot X_{in}
+	\end{IEEEeqnarray*}
+
+La potencia 
+
+	\begin{IEEEeqnarray*}{rCl}
+		P_{in} & = & P_{in}^{'} (1 - |\rho|^{2}) \\
+		P_{R} & = & \eta \cdot P_{in} = I^{2} \cdot R_{R}
+	\end{IEEEeqnarray*}	
+	
+Donde:
+
+	\begin{equation*}
+	\rho = \frac{Z_{in} - Z_{O}}{Z_{in} + Z_{O}} \hspace{20pt} \eta = \frac{R_{R}}{R_{R} + R_{\Omega}}
+	\end{equation*}
+	
+En el aire se trabaja con densidad de potencia:
+
+	\begin{equation*}
+	D \text{y} S \rightarrow S = \frac{P_{r}}{4 \pi r^2} \cdot D = \frac{P_{in}}{4 \pi r^{2}} \cdot G = \left( \frac{W}{m^{2}} \right)
+	\end{equation*}
+
+	\begin{IEEEeqnarray*}{rCl}
+		S & = & E \cdot H \\
+		\left( \frac{W}{m^{2}} \right) & = & \left( \frac{V}{m} \right) \cdot \left( \frac{A}{m} \right)
+	\end{IEEEeqnarray*}	
+	
+	\begin{equation*}
+		G \cdot P_{in} = D \cdot P_{r}	
+	\end{equation*}
+	
+Onda plana (campo lejano): $E = H \cdot \eta_{0}$ con $\eta_{0} = 120 \pi (\Omega)$.\\
+
+\textbf{Antena Receptora}: La energía la da la antena receptora, no es un generador pero actúa como él.
+
+\begin{figure}[h]
+	\centering
+     \begin{circuitikz}[scale=.8, transform shape, european]
+
+	\draw[fill] (4,0) circle[radius = 1pt];
+	\draw[fill] (4,-2) circle[radius = 1pt] node[below]{$g_{RX}$};
+	\draw[fill] (-2, -2) circle[radius = 1pt] node[below]{$d_{RX}$};
+	
+	\draw (-3,0) 
+		to[sV, l_= $V_{TX}$] (-3,-2)
+		(-3.5,-1) node[right]{$P_{RX}$}
+		(-3,0) to[R  = $R_{r}$] (0,0);
+	\draw (0,0) 
+		to[R  = $R_{\Omega}$] (2,0)
+		to[R  = $jX_{in}$] (4,0)
+		-- (5.5,0)
+		to[R  = $R_{RX}$] (5.5,-2)
+		-- (-3,-2);
+		
+	\draw[-latex] (3.9,-1.9) -- (3.9,-.1) node[midway, left] {$P_{RX}^{'}$};
+	\draw[-latex] (4.1,-1.9) -- (4.1,-.1) node[midway, right] {$P_{RX}$};
+	\draw[-latex] (0,-1.9) -- (0,-.1) node[midway, left] {$P_{L}$};
+	
+	\draw[dashed] node[draw,minimum width=2cm,minimum height=2.4cm,anchor=south west] at (4.9,-2.2){}
+		(6,-2.4) node[]{Bloque Receptor};
+		
+	\draw (-.4, -.5) node[]{(1)};
+	\draw (5.5, -.5) node[left]{(2)};
+\end{circuitikz}
+      \caption{Antena Receptora}
+  \end{figure}
+ 
+ Las \textbf{pérdidas óhmicas} (1) se producen en el generador y las \textbf{pérdidas por desadaptación} (2) se producen en el bloque receptor.\\
+  
+$P_{L}$ es la potencia generada de la antena, no tiene en cuenta las pérdidas óhmicas. Se reciben $\left( \frac{W}{m^{2}} \right)$, para pasarlo a $W$ multiplicar $S$ por el área efectiva de la antena:
+
+	\begin{equation*}
+	S \cdot A_{ef} = \left( \frac{W}{m^{2}} \right) \cdot m^{2} 
+	\end{equation*}
+	
+Donde:
+
+	\begin{equation*}
+	A_{ef} = \frac{\lambda^{2}}{4 \pi} \cdot D_{RX} (m^{2})
+	\end{equation*}
+
+\textbf{?`Qué potencia llega a $R_{RX}$?}:
+
+	\begin{IEEEeqnarray*}{rCl}
+		\text{P.Ohmicas}&:& P_{RX}^{'} = P_{L} \cdot \eta_{l_{RX}} \hspace{10pt} \eta_{l_{RX}} = \frac{R_{r}}{R_{r} + R_{\Omega}} \\
+		\text{P.Desadaptacion}&:& P_{RX} = P_{RX}^{'} (1 - |P_{RX}|^{2}) \hspace{10pt} \rho_{RX} = \frac{Z_{RX} - Z_{ANT_{RX}}}{Z_{RX} + Z_{ANT_{RX}}}
+	\end{IEEEeqnarray*}	
+
+	\begin{IEEEeqnarray*}{rCl}
+		p_{L} & = & \frac{P_{R} \cdot D_{TX}}{4 \pi r^2} \cdot \frac{\lambda^{2}}{4 \pi} \cdot D_{RX} \\
+		          & = & P_{R} \cdot D_{TX} \left( \frac{\lambda}{4 \pi r} \right)^{2} \cdot D_{RX} \\
+		P_{L} & = & 10 \cdot \log \left(  P_{R} \cdot D_{TX} \left( \frac{\lambda}{4 \pi r} \right)^{2} \cdot D_{RX} \right) = 10 \cdot \log p_{L}
+	\end{IEEEeqnarray*}	
+	
+	\begin{IEEEeqnarray*}{rCl}
+		P_{L} & = & 10 \cdot \log \left(  P_{R} \cdot D_{TX} \left( \frac{\lambda}{4 \pi r} \right)^{2} \cdot D_{RX} \right) = 10 \cdot \log p_{L} \\
+		          & = & 10 \cdot \log P_{r} + 10 \cdot \log D_{TX} + 20 \cdot \log \frac{\lambda}{4 \pi r} + 10 \cdot \log D_{RX} \\
+		          & = & P_{R} (dB) + D_{TX} (dB) - 20 \log \frac{4 \pi r}{\lambda} + D_{RX} (dB)\\
+		          & = & P_{R} (dB) + D_{TX} (dB) + L_{FS} + D_{RX} (dB) \hspace{5pt} \text{Ecuación de Propagación en el Espacio Libre de FRIIS}\\
+		          & = & P_{in} (dB) + G_{TX} (dB) + L_{FS} + D_{RX} (dB)
+	\end{IEEEeqnarray*}	
+	
+Donde $ - 20 \log \frac{4 \pi r}{\lambda}$ son las \textbf{LFS} pérdidas de espacio libre.\\
+
+Si se coge $P_{RX}^{'}$ en lugar de $P_{L}$:
+
+	\begin{IEEEeqnarray*}{rCl}
+		P_{RX}^{'} & = & P_{in} + G_{TX} - L_{FS} + G_{RX} \\
+				 & = & P_{r} + G_{TX} - L_{FS} + D_{RX} 
+	\end{IEEEeqnarray*}	
+
+	\begin{equation*}
+		P_{r} + D_{TX} - L_{FS} = P_{L} D_{RX}
+	\end{equation*}
+	
+?`Por qué $D_{RX}$ es de signo negativo en la expresión de arriba al despejar?. Al estar trabajando en unidades logarítmicas, una resta en lineal sería una división por lo que $p_{L} / d_{RX}$. Una antena transmisora se le entrega $P_{TX}$ y la concentra $x \cdot d_{TX}$, una antena receptora recibe $P_{RX}$ y la desconcentra $ x / d_{RX} $ de ahí el signo negativo de la expresión.\\
+
+\textbf{?`Por qué $L_{FS}$ es de signo negativo?}
+
+	\begin{equation*}
+	L_{FS} = -20 \cdot \log \frac{4 \pi r}{\lambda}
+	\end{equation*}
+
+$\frac{4 \pi r}{\lambda}$ siempre será mayor que uno (condición de campo lejano) por lo que el logaritmo dará valores positivos y el resultado con el menos será negativo.\\
+
+\textbf{Unidades de $D_{TX}$}:
+
+	\begin{equation*}
+		D_{TX} = \frac{S_{max}}{S_{iso}} = \frac{\frac{W}{m^{2}}}{\frac{W}{m^{2}}} = \text{adimensional}
+	\end{equation*}
+
+Según la referencia que se tome las unidades de $D$ son unas u otras:
+
+	\begin{itemize}
+	\item Referencia antena isotrópica: $dBi$
+	\item Referencia dipolo: $dBd$.
+	\end{itemize}
+
 %\vfill
 
 
