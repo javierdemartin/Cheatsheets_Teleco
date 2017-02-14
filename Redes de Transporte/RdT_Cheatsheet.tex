@@ -92,6 +92,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tema 4
+\textbf{Revisar 1.1 y 1.2}
 
 \begin{center}
 \section{\underline{0.- Introducción}}
@@ -422,6 +423,187 @@ Permite a las subredes anunciar su existencia al resto de Internet. \textbf{Cara
 \begin{center}
 \section{\underline{Tema 2 - Transmisión}}
 \end{center}
+
+\subsection{Introducción}
+
+La \textbf{transmisión} es la función de transporte de información de un punto a otro, está presente en la red de acceso \footnote{La mayor parte de la red es para transmitir, no para conmutar} y de transporte \footnote{Interconecta los nodos de conmutación}. Los objetivos son la transparencia para el soporte de todo tipo de señales, uso eficaz de los recursos (multiplexación), adaptación a los medios de transmisión y gestión, operación y mantenimientos óptimos.\\
+
+La red de transporte es el soporte de transmisión para toda la gana de servicios de las redes de conmutación.
+
+\begin{figure}[h]
+	\centering
+     \includegraphics[width=0.35\textwidth]{NGN}
+      \caption{NGN}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+
+En las NGN la Red de Acceso es fundamentalmente óptica, en el núcleo de red se encuentra la Red de Transporte y redes específicas (nodos de servicio).\\
+
+\textbf{Elementos} en la red de transporte (TX):
+
+	\begin{itemize}
+	\item Medios de transmisión : Fibra óptica (redes ópticas en la red de transporte)
+	\item Equipos/Funciones de transmisión: Multiplexación, Inserción/Extracción, Transconexión y Amplificación.
+	\end{itemize}
+	
+La \textbf{evolución de las Redes de Transoprte} consiste en adaptarse a las características de tráfico. Hoy en día las sesiones son más largas, el tráfico es impredecible, mayor cantidad de datos... Aparecen las \textbf{redes multiservicio}:
+
+	\begin{equation*}
+	\text{PDH} \rightarrow \text{SDH} \rightarrow \text{NG-SDH} \rightarrow \text{OTN/WDM} \rightarrow \text{MPLS-TP}
+	\end{equation*}
+	
+y en las redes de datos EoT (Ethernet on Transport).
+
+\begin{figure}[h]
+	\centering
+     \includegraphics[width=0.35\textwidth]{EvolucionRdT}
+      \caption{Evolución de las Redes de Transporte}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+
+\subsection{Transmisión en Redes Multiservicio}
+
+Una característica de una red óptica de transporte es su \textbf{oferad e transporte para cualquier señal cliente}, con independencia de los aspectos específicos del cliente, eso es, las funciones de una red óptica de transporte pueden ser independientes de la información característica de las señales cliente.
+
+\begin{figure}[h]
+	\centering
+     \includegraphics[width=0.35\textwidth]{RdT}
+      \caption{Redes Ópticas de Transporte}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+ 
+ \textbf{Capas de las Redes de Transporte ópticas}\\
+  
+La \textbf{capa cliente (datos)} procesa los datos en el campo eléctrico y se aplica a través de un equipo que cumple las funciones de multiplexación de señal, encaminamiento, supervisión, control del funcionamiento, vigilancia y supervivencia de la red. Incorpora diversos servicios de baja velocidad de voz, datos y líneas privadas.
+
+\begin{figure}[h!]
+	\centering
+     \includegraphics[width=0.35\textwidth]{Capa}
+      \caption{Capas de la Red de Transporte}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+  
+ La \textbf{capa óptica} proporciona trayectos de luz a la capa cliente siendo los trayectos de luz los enlaces físicos entre los elementos de la red de la capa cliente.
+ 
+\textbf{Características de una red óptica de transporte}, la capa cliente (datos) de una red óptica se caracteriza por su arquitectura de red, jerarquía de multiplexación, técnica de supervisión, técnica de sincronización de la red y procedimientos de supervivencia de la red. \textbf{FALTA AQUI ?`POR QUÉ UNA RED DE OPTICA DE TRANSPORTE?}
+
+\subsubsection{Tipos de Redes Ópticas de Transporte}
+
+\begin{itemize}
+\item \textbf{Redes Públicas (multiservicio)}:
+	\begin{itemize}
+		\item \textbf{PDH} (Plesiochronous Digital Hierarchy): Muy utilizada en las redes públicas de telecomunicaciones pero puede considerarse obsoleta para las redes de transporte.
+		\item \textbf{SDH} (Synchronous Digital Hierarchy): Ha prevalecido en las infraestructuras públicas de transporte. SDH ofrece una multiplexación por división en el tiempo eficiente para señales de baja velocidad y permite que estas señales se transporten en la red de manera fiable y bien gestionada.
+		\item \textbf{OTN} (Optical Transport Network): Se está convirtiendo en la actual jerarquía de multiplexación predominante que se utiliza ahora con clientes que disponen de anchos de banda de servicio altos.
+		\item \textbf{MPLS-TP} (Multiprotocol Label Switching - Transport Profile): Emerge como tecnología destacada en las NGN.
+	\end{itemize}
+	
+\item \textbf{Redes Privadas (datos)}:
+
+	\begin{itemize}
+		\item \textbf{Ethernet}: Tecnología de red por paquetes. Utilizada en el ámbito de empresas y para el transporte entre proveedores de servicios $\rightarrow$ Evolución a EoT.
+		\item \textbf{MPLS} (Multiprotocol Label Switching): Diseñado para unificar el servicio de transporte de datos para las redes basadas en circuitos y las basadas en paquetes.
+	\end{itemize}
+\end{itemize}
+ 
+\begin{figure}[ht]
+	\centering
+     \includegraphics[width=0.35\textwidth]{Recomendaciones}
+      \caption{Recomendaciones de redes ópticas de Transporte}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+ 
+\begin{center}
+\subsection{Jerarquías Digitales de Multiplexación TDM}
+\end{center}
+
+ 
+\begin{figure}[ht]
+	\centering
+     \includegraphics[width=0.35\textwidth]{PDHSDH}
+      \caption{Secuencia Histórica de PDH y SDH}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+  
+En \textbf{SDH} los multiplexores tienen un reloj independiente de las otras fuentes, en \textbf{SDH} hay una única señal de reloj para todos los equipos. Los 2Mb/s de PDH es la base como señal para la multiplexación, proviene de los MIC PCM. El último estándar es la señal de 140Mb/s.\\
+
+El \textbf{plan de multiplexación MDT (TDM)} recomendado por la UIT-T para la multiplexación de señales plesiócronas basado en la banda base de 2Mbits/seg (origen de la señal MIC). \textbf{Plesiócrono} indica que las frecuencias de reloj de los distintos niveles no están sincronizadas entre sí, los relojes son casi-síncronos. El reloj del multiplexor es \textbf{independiente} de los relojes de las señales tributarias de orden inferior. La multiplexación se realiza \textbf{bit a bit}, eso es posible ya que todos los canales han sido digitalizados y multiplexados por el mismo dispositivo MIC.
+
+\subsubsection{Características de PDH}
+
+Las multiplexaciones se realizan agrupando \textbf{cuatro afluentes} o \textbf{tributarios} de orden inferior para obtener un flujo de velocidad binaria superior, la \textbf{señal multiplex}.
+
+\begin{figure}[ht]
+	\centering
+     \includegraphics[width=0.35\textwidth]{Multiplex}
+      \caption{Señal Multiplex}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+
+El equipo Multiplex multiplexa y demultiplexa las señales en TDM. 
+  
+ \begin{figure}[ht]
+	\centering
+     \includegraphics[width=0.35\textwidth]{SdT}
+      \caption{Sistema de Transmisión (2 equipos MUX}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+  
+Para las velocidades de 2, 8, 34 y 140 Mbps la UIT-T recomienda interfaces normalizados y que la interconexión se haga por medio de repartidores. Para las velocidades de 565 Mbs/seg no se ha normalizado ningún interfaz. En el caso del equipo multiplex se conecta directamente al ETL (Equipo Terminal de Línea). La multiplexación en todos los casos se realiza bit a bit. Se utilizan técnicas de relleno o justificación, por eso al juntar 4 señales afluentes no se obtiene la multiplicación por 4 en la señal multiplex, se añaden bits extra.\\
+
+\textbf{Características de los múltiplex}: Multiplexan afluentes plesiócronos por le método de justificación positiva. Se dice que dos señales son plesiócronas entre sí cuando tienen una velocidad parecida, aunque no exactamente igual.
+
+\begin{figure}[h]
+	\centering
+     \includegraphics[width=0.35\textwidth]{CaracPDH}
+      \caption{Características PDH}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+  
+\subsubsection{Interconexión de Equipos}
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.35\textwidth]{ETL}
+      \caption{Uso de repartidores y ETL hacia la línea}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+
+El ETL se utiliza para adaptar la señal del múltiplex para ser transmitida.
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.35\textwidth]{Intercx}
+      \caption{Interconexión de equipos}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+
+La entrada a la cadena de multiplexación permite la entrada de diferentes tipos de señales a pesar de haber sido diseñado originalmente para señales telefónicas.
+
+\subsubsection{Jerarquía Digital PDH}
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.35\textwidth]{Jerarquia}
+      \caption{Jerarquía Digital PDH}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+  
+La jerarquía digital PDH tiene varios problemas, entre ellos que para extraer una señal de 2Mb no se puede hacer directamente, hay que demultiplexar toda la señal y no es compatible entre países.\\
+
+\subsubsection{Multiplexación MDT entre Países}
+
+Los equipos PDH no están sincronizados con un único reloj. Se sincronizan con diferentes relojes a la misma velocidad pero con tolerancias. Hay un \textbf{problema} en la multiplexación MDT, es necesario que los cuatro afluentes tengan exactamente la misma velocidad binaria, y que la velocidad de la señal multiplex sea exactamente cuatro veces mayor que la de cada afluente. Con señales plesiócronas se plantea el problema:
+
+\begin{center}
+\includegraphics[width=0.35\textwidth]{Problemas}
+\end{center}
+
+La solución es la multiplexación de afluentes plesiócronos con justificación positiva (o negativa). Previo a realizar multiplexación MDT (TDM) s esincronizan los cuatro afluentes utilizando métodos de justificación para evitar errores con los diferentes tiempos de bit. La velocidad de los afluentes sincronizados es exactamente 1/4 parte de la velocidad de la señal multiplex. La justificación consiste en la variación de forma controlada de la velocidad de la velocidad binaria del afluente, de forma que se adapte a una velocidad binaria distinta de la suya propia sin pérdida de información.
+
+
+\subsection{Transmisión en Redes de Datos}
+
 
 	
 	
