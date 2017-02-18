@@ -595,11 +595,122 @@ La jerarquía digital PDH tiene varios problemas, entre ellos que para extraer u
 
 Los equipos PDH no están sincronizados con un único reloj. Se sincronizan con diferentes relojes a la misma velocidad pero con tolerancias. Hay un \textbf{problema} en la multiplexación MDT, es necesario que los cuatro afluentes tengan exactamente la misma velocidad binaria, y que la velocidad de la señal multiplex sea exactamente cuatro veces mayor que la de cada afluente. Con señales plesiócronas se plantea el problema:
 
-\begin{center}
-\includegraphics[width=0.35\textwidth]{Problemas}
-\end{center}
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.35\textwidth]{Problemas}
+      \caption{Multiplexación MDT de Afluentes}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
 
-La solución es la multiplexación de afluentes plesiócronos con justificación positiva (o negativa). Previo a realizar multiplexación MDT (TDM) s esincronizan los cuatro afluentes utilizando métodos de justificación para evitar errores con los diferentes tiempos de bit. La velocidad de los afluentes sincronizados es exactamente 1/4 parte de la velocidad de la señal multiplex. La justificación consiste en la variación de forma controlada de la velocidad de la velocidad binaria del afluente, de forma que se adapte a una velocidad binaria distinta de la suya propia sin pérdida de información.
+La \textbf{solución} es la multiplexación de afluentes plesiócronos con justificación positiva (o negativa). Previo a realizar multiplexación MDT (TDM) s esincronizan los cuatro afluentes utilizando métodos de justificación para evitar errores con los diferentes tiempos de bit. La velocidad de los afluentes sincronizados es exactamente 1/4 parte de la velocidad de la señal multiplex. La justificación consiste en la variación de forma controlada de la velocidad de la velocidad binaria del afluente, de forma que se adapte a una velocidad binaria distinta de la suya propia sin pérdida de información.\\
+
+La \textbf{justificación positiva} consiste en la variación de forma controlada de la velocidad binaria e una señal digital, de forma que se adapte a una velocidad binaria distinta de la suya propia, sin pérdida de información.\\
+
+\textbf{Sincronización de Afluentes}
+
+Los tres bits que aparecen al inicio de cada afluente son fijos. La longitud de cada afluente varía, $50b + 52b + 52b + 51b \pm S = 205/6b$ dependiendo de si el bit S (bit de justificación) es de información o relleno.\\
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.5\textwidth]{sync}
+      \caption{Sincronización de Afluentes de 2.112 kb/seg}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+  
+  
+\textbf{Bits de oportunidad de justificación (S)} pueden llevar información del afluente o ser de relleno. \textbf{Bits de control de justificación (C)}, \texttt{111} es justificación positiva y el bit S debe de ser ignorado o \texttt{000} indica que hay ausencia de justificación y el bit S es información del afluente.\\
+
+En \textbf{ausencia de justificación} se lee más deprisa de lo que se escribe (2.052,22 kbps > 2.048 kbps). En \textbf{presencia de justificación} se lee más despacio de lo que se escribe (2.042,26 kbps < 2.048 kbps). Con velocidad nominal, la tasa de justificación será de 42,42\%.
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.5\textwidth]{MDT}
+      \caption{Multiplexación MDT bit a bit}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+  
+En transmisión las memorias elásticas permiten la sincronización de los afluentes plesiócronos.
+  
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.5\textwidth]{Elastica}
+      \caption{Memorias Elásticas TX}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+
+En \textbf{recepción} las memorias elásticas permiten que los afluentes se entreguen con una velocidad binaria constante.
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.35\textwidth]{Elastica2}
+      \caption{Memorias Elásticas RX}
+      \label{fig:Regiones de frecuencias}
+  \end{figure}
+  
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.35\textwidth]{muxtx}
+      \caption{Esquema general del MUX TX}
+      \label{fig:Regiones de frecuencias}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.35\textwidth]{muxrx}
+      \caption{Esquema general del MUX RX}
+      \label{fig:Regiones de frecuencias}
+\end{figure}
+
+\textbf{Velocidad de tributario}
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.5\textwidth]{tributario}
+      \caption{Tributario}
+      \label{fig:Regiones de frecuencias}
+\end{figure}
+
+\begin{itemize}
+\item Velocidad de tributario: $V_{t}$
+\item Justificación: $V_{r}$
+\item Velocidad bits de alineamiento de trama y control de justificación: $V_{a}$
+\item Plesiocronidad: $\Delta V_{m}$, $\Delta V_{t}$
+\end{itemize}
+
+\textbf{Multiplex Digital 2/8}
+
+Estructura de trama de 8Mbits/seg (filas). En este caso hay 4 bits S que se pueden utilizar de relleno o justificación.
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.5\textwidth]{mux28}
+      \caption{Múltiplex Digital 2/8}
+      \label{fig:Regiones de frecuencias}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.5\textwidth]{otromux}
+      \caption{Múltiplex Digital 2/8}
+      \label{fig:Regiones de frecuencias}
+\end{figure}
+
+\textbf{Multiplex Digital 8/34}
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.5\textwidth]{mux834}
+      \caption{Estructura de la trama de 34MBits/seg}
+      \label{fig:Regiones de frecuencias}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+     \includegraphics[width=0.5\textwidth]{trama140}
+      \caption{Estructura de la trama de 140MBits/seg}
+      \label{fig:Regiones de frecuencias}
+\end{figure}
 
 
 \subsection{Transmisión en Redes de Datos}
