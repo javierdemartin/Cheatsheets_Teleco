@@ -1,0 +1,137 @@
+\BOOKMARK [1][-]{section.1}{Introducci\363n}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Introducci\363n}{section.1}% 2
+\BOOKMARK [3][-]{subsubsection.1.1.1}{Interface}{subsection.1.1}% 3
+\BOOKMARK [3][-]{subsubsection.1.1.2}{Gestor de Recursos}{subsection.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.2}{Conceptos de los S.O.}{section.1}% 5
+\BOOKMARK [3][-]{subsubsection.1.2.1}{Introducci\363n}{subsection.1.2}% 6
+\BOOKMARK [3][-]{subsubsection.1.2.2}{Procesos}{subsection.1.2}% 7
+\BOOKMARK [3][-]{subsubsection.1.2.3}{Archivos}{subsection.1.2}% 8
+\BOOKMARK [3][-]{subsubsection.1.2.4}{Pipe}{subsection.1.2}% 9
+\BOOKMARK [2][-]{subsection.1.3}{Llamadas al sistema}{section.1}% 10
+\BOOKMARK [3][-]{subsubsection.1.3.1}{Introducci\363n}{subsection.1.3}% 11
+\BOOKMARK [2][-]{subsection.1.4}{Estructura de un S.O.}{section.1}% 12
+\BOOKMARK [3][-]{subsubsection.1.4.1}{Monol\355tico}{subsection.1.4}% 13
+\BOOKMARK [3][-]{subsubsection.1.4.2}{Capas}{subsection.1.4}% 14
+\BOOKMARK [3][-]{subsubsection.1.4.3}{Modelo Cliente Servidor}{subsection.1.4}% 15
+\BOOKMARK [1][-]{section.2}{Gesti\363n de Procesos}{}% 16
+\BOOKMARK [2][-]{subsection.2.1}{Introducci\363n}{section.2}% 17
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Modelo}{subsection.2.1}% 18
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Implementaci\363n}{subsection.2.1}% 19
+\BOOKMARK [2][-]{subsection.2.2}{Comunicaci\363n entre Procesos}{section.2}% 20
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Condiciones de Carrera}{subsection.2.2}% 21
+\BOOKMARK [3][-]{subsubsection.2.2.2}{Secciones Cr\355ticas}{subsection.2.2}% 22
+\BOOKMARK [3][-]{subsubsection.2.2.3}{Exclusi\363n Mutua con Espera Activa}{subsection.2.2}% 23
+\BOOKMARK [3][-]{subsubsection.2.2.4}{Dormir y Despertar}{subsection.2.2}% 24
+\BOOKMARK [3][-]{subsubsection.2.2.5}{Sem\341foros}{subsection.2.2}% 25
+\BOOKMARK [3][-]{subsubsection.2.2.6}{Contadores de Eventos}{subsection.2.2}% 26
+\BOOKMARK [3][-]{subsubsection.2.2.7}{Mutexes}{subsection.2.2}% 27
+\BOOKMARK [3][-]{subsubsection.2.2.8}{Monitores}{subsection.2.2}% 28
+\BOOKMARK [3][-]{subsubsection.2.2.9}{Transferencia de mensajes}{subsection.2.2}% 29
+\BOOKMARK [3][-]{subsubsection.2.2.10}{Equivalencia de Primitivas}{subsection.2.2}% 30
+\BOOKMARK [2][-]{subsection.2.3}{Planificaci\363n}{section.2}% 31
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Round Robin}{subsection.2.3}% 32
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Prioridades}{subsection.2.3}% 33
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Colas M\372ltiples}{subsection.2.3}% 34
+\BOOKMARK [3][-]{subsubsection.2.3.4}{Primero Trabajo m\341s Corto \(SJF\)}{subsection.2.3}% 35
+\BOOKMARK [3][-]{subsubsection.2.3.5}{Predeterminada}{subsection.2.3}% 36
+\BOOKMARK [3][-]{subsubsection.2.3.6}{Planificaci\363n a Dos Niveles}{subsection.2.3}% 37
+\BOOKMARK [3][-]{subsubsection.2.3.7}{Evaluaci\363n}{subsection.2.3}% 38
+\BOOKMARK [2][-]{subsection.2.4}{Tratamiento de Procesos MINIX}{section.2}% 39
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Estructura Interna}{subsection.2.4}% 40
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Gesti\363n de Procesos}{subsection.2.4}% 41
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Comunicaci\363n entre Procesos}{subsection.2.4}% 42
+\BOOKMARK [3][-]{subsubsection.2.4.4}{Planificaci\363n de Procesos}{subsection.2.4}% 43
+\BOOKMARK [2][-]{subsection.2.5}{Implementaci\363n de Procesos en MINIX}{section.2}% 44
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Organizaci\363n MINIX}{subsection.2.5}% 45
+\BOOKMARK [3][-]{subsubsection.2.5.2}{Directorio h}{subsection.2.5}% 46
+\BOOKMARK [3][-]{subsubsection.2.5.3}{Directorio Kernel - Archivos de encabezamiento}{subsection.2.5}% 47
+\BOOKMARK [3][-]{subsubsection.2.5.4}{kernel main.c}{subsection.2.5}% 48
+\BOOKMARK [3][-]{subsubsection.2.5.5}{kernel mpx88.s}{subsection.2.5}% 49
+\BOOKMARK [3][-]{subsubsection.2.5.6}{RESUMEN}{subsection.2.5}% 50
+\BOOKMARK [1][-]{section.3}{Gesti\363n de E/S}{}% 51
+\BOOKMARK [2][-]{subsection.3.1}{HW E/S}{section.3}% 52
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Dispositivos E/S}{subsection.3.1}% 53
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Controladores de Dispositivo}{subsection.3.1}% 54
+\BOOKMARK [2][-]{subsection.3.2}{SW E/S}{section.3}% 55
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Objetivos}{subsection.3.2}% 56
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Gesti\363n de Interrupciones}{subsection.3.2}% 57
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Drivers del Dispositivo}{subsection.3.2}% 58
+\BOOKMARK [3][-]{subsubsection.3.2.4}{SW Independiente de dispositivo}{subsection.3.2}% 59
+\BOOKMARK [3][-]{subsubsection.3.2.5}{SW Nivel de Usuario}{subsection.3.2}% 60
+\BOOKMARK [2][-]{subsection.3.3}{Tratamiento E/S en MINIX}{section.3}% 61
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Gesti\363n de Interrupciones}{subsection.3.3}% 62
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Drivers de Dispositivo}{subsection.3.3}% 63
+\BOOKMARK [3][-]{subsubsection.3.3.3}{SW independiente de dispositivo}{subsection.3.3}% 64
+\BOOKMARK [3][-]{subsubsection.3.3.4}{SW Nivel de Usuario}{subsection.3.3}% 65
+\BOOKMARK [2][-]{subsection.3.4}{Memoria RAM}{section.3}% 66
+\BOOKMARK [3][-]{subsubsection.3.4.1}{HW Y SW}{subsection.3.4}% 67
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Driver Memoria RAM en MINIX}{subsection.3.4}% 68
+\BOOKMARK [2][-]{subsection.3.5}{Discos}{section.3}% 69
+\BOOKMARK [3][-]{subsubsection.3.5.1}{HW}{subsection.3.5}% 70
+\BOOKMARK [3][-]{subsubsection.3.5.2}{SW}{subsection.3.5}% 71
+\BOOKMARK [2][-]{subsection.3.6}{Relojes}{section.3}% 72
+\BOOKMARK [3][-]{subsubsection.3.6.1}{HW}{subsection.3.6}% 73
+\BOOKMARK [3][-]{subsubsection.3.6.2}{SW}{subsection.3.6}% 74
+\BOOKMARK [2][-]{subsection.3.7}{Terminales}{section.3}% 75
+\BOOKMARK [3][-]{subsubsection.3.7.1}{HW}{subsection.3.7}% 76
+\BOOKMARK [2][-]{subsection.3.8}{System Task}{section.3}% 77
+\BOOKMARK [3][-]{subsubsection.3.8.1}{Tarea del sistema en MINIX}{subsection.3.8}% 78
+\BOOKMARK [1][-]{section.4}{Gesti\363n de Memoria}{}% 79
+\BOOKMARK [2][-]{subsection.4.1}{G.M. sin Intercambio ni Paginaci\363n}{section.4}% 80
+\BOOKMARK [2][-]{subsection.4.2}{Espacios de Direcci\363n}{section.4}% 81
+\BOOKMARK [3][-]{subsubsection.4.2.1}{Swapping}{subsection.4.2}% 82
+\BOOKMARK [2][-]{subsection.4.3}{Monoprogramaci\363n sin intercambio ni paginaci\363n}{section.4}% 83
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Multiprogramaci\363n y Empleo de Memoria}{subsection.4.3}% 84
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Multiprogramaci\363n con Particiones Fijas}{subsection.4.3}% 85
+\BOOKMARK [2][-]{subsection.4.4}{Intercambio \(Swapping\)}{section.4}% 86
+\BOOKMARK [3][-]{subsubsection.4.4.1}{Multiprogramaci\363n con Particiones Variables}{subsection.4.4}% 87
+\BOOKMARK [3][-]{subsubsection.4.4.2}{G.M. con Mapa de Bits}{subsection.4.4}% 88
+\BOOKMARK [3][-]{subsubsection.4.4.3}{G.M. con listas enlazadas}{subsection.4.4}% 89
+\BOOKMARK [3][-]{subsubsection.4.4.4}{G.M. con Sistemas Buddy}{subsection.4.4}% 90
+\BOOKMARK [2][-]{subsection.4.5}{Memoria Virtual}{section.4}% 91
+\BOOKMARK [3][-]{subsubsection.4.5.1}{Paginaci\363n}{subsection.4.5}% 92
+\BOOKMARK [3][-]{subsubsection.4.5.2}{Tablas de P\341gina}{subsection.4.5}% 93
+\BOOKMARK [3][-]{subsubsection.4.5.3}{Acelerando la Paginaci\363n}{subsection.4.5}% 94
+\BOOKMARK [2][-]{subsection.4.6}{Segmentaci\363n}{section.4}% 95
+\BOOKMARK [2][-]{subsection.4.7}{Algoritmos de Sustituci\363n de P\341gina}{section.4}% 96
+\BOOKMARK [3][-]{subsubsection.4.7.1}{Sustituci\363n \323ptima}{subsection.4.7}% 97
+\BOOKMARK [3][-]{subsubsection.4.7.2}{Sustituci\363n NRU}{subsection.4.7}% 98
+\BOOKMARK [3][-]{subsubsection.4.7.3}{Sustituci\363n FIFO}{subsection.4.7}% 99
+\BOOKMARK [3][-]{subsubsection.4.7.4}{Sustituci\363n Clock Page}{subsection.4.7}% 100
+\BOOKMARK [3][-]{subsubsection.4.7.5}{Sustituci\363n LRU}{subsection.4.7}% 101
+\BOOKMARK [2][-]{subsection.4.8}{Principios de Dise\361o de Sistemas de Paginaci\363n}{section.4}% 102
+\BOOKMARK [3][-]{subsubsection.4.8.1}{Localismo}{subsection.4.8}% 103
+\BOOKMARK [3][-]{subsubsection.4.8.2}{Working Set}{subsection.4.8}% 104
+\BOOKMARK [3][-]{subsubsection.4.8.3}{Algoritmo PFF}{subsection.4.8}% 105
+\BOOKMARK [3][-]{subsubsection.4.8.4}{Demanda de p\341gina}{subsection.4.8}% 106
+\BOOKMARK [3][-]{subsubsection.4.8.5}{Prepaginaci\363n}{subsection.4.8}% 107
+\BOOKMARK [2][-]{subsection.4.9}{Tratamiento GM en MINIX}{section.4}% 108
+\BOOKMARK [1][-]{section.5}{Gesti\363n de Archivos}{}% 109
+\BOOKMARK [2][-]{subsection.5.1}{Archivos}{section.5}% 110
+\BOOKMARK [2][-]{subsection.5.2}{Nombramiento}{section.5}% 111
+\BOOKMARK [2][-]{subsection.5.3}{Estructura}{section.5}% 112
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Tipos}{subsection.5.3}% 113
+\BOOKMARK [3][-]{subsubsection.5.3.2}{Acceso}{subsection.5.3}% 114
+\BOOKMARK [3][-]{subsubsection.5.3.3}{Atributos}{subsection.5.3}% 115
+\BOOKMARK [3][-]{subsubsection.5.3.4}{Operaciones}{subsection.5.3}% 116
+\BOOKMARK [3][-]{subsubsection.5.3.5}{Mapeado de Archivos en Memoria}{subsection.5.3}% 117
+\BOOKMARK [2][-]{subsection.5.4}{Directorios}{section.5}% 118
+\BOOKMARK [3][-]{subsubsection.5.4.1}{Sistemas Jer\341rquicos de Directorios}{subsection.5.4}% 119
+\BOOKMARK [3][-]{subsubsection.5.4.2}{Paths}{subsection.5.4}% 120
+\BOOKMARK [3][-]{subsubsection.5.4.3}{Operaciones}{subsection.5.4}% 121
+\BOOKMARK [2][-]{subsection.5.5}{Implentaci\363n de un Sistema de Archivos}{section.5}% 122
+\BOOKMARK [3][-]{subsubsection.5.5.1}{Implementaci\363n Archivos}{subsection.5.5}% 123
+\BOOKMARK [3][-]{subsubsection.5.5.2}{Implementaci\363n de directorios}{subsection.5.5}% 124
+\BOOKMARK [3][-]{subsubsection.5.5.3}{Archivos compartidos}{subsection.5.5}% 125
+\BOOKMARK [3][-]{subsubsection.5.5.4}{Gesti\363n del Espacio de Disco}{subsection.5.5}% 126
+\BOOKMARK [3][-]{subsubsection.5.5.5}{Fiabilidad del S.A.}{subsection.5.5}% 127
+\BOOKMARK [3][-]{subsubsection.5.5.6}{Eficacia}{subsection.5.5}% 128
+\BOOKMARK [2][-]{subsection.5.6}{Tratamiento Sistemas de Archivos en MINIX}{section.5}% 129
+\BOOKMARK [3][-]{subsubsection.5.6.1}{Mensajes}{subsection.5.6}% 130
+\BOOKMARK [3][-]{subsubsection.5.6.2}{Distribuci\363n S.A.}{subsection.5.6}% 131
+\BOOKMARK [3][-]{subsubsection.5.6.3}{Mapas de Bits}{subsection.5.6}% 132
+\BOOKMARK [3][-]{subsubsection.5.6.4}{i-nodos}{subsection.5.6}% 133
+\BOOKMARK [3][-]{subsubsection.5.6.5}{Bloque cach\351}{subsection.5.6}% 134
+\BOOKMARK [3][-]{subsubsection.5.6.6}{Directorios y Paths}{subsection.5.6}% 135
+\BOOKMARK [3][-]{subsubsection.5.6.7}{Descriptores de Archivo}{subsection.5.6}% 136
+\BOOKMARK [3][-]{subsubsection.5.6.8}{Pipes y Archivos Especiales}{subsection.5.6}% 137
