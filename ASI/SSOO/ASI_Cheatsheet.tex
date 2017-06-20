@@ -155,7 +155,7 @@ El \textbf{procesador} corre en dos \textbf{modos}:
 
 	\begin{itemize}
 	\item \textbf{Usuario}: Dispone un conjunto limitado de instrucciones.
-	\item \textbf{Kernel o Supervisor}: Tiene acceso completo a todo el hardware y puede ejecutar cualquier instrucción que la máquina puede ejecutar. El Sistema Operativo es software que corre en modo kernel.
+	\item \textbf{Kernel o Supervisor}: Tiene acceso completo a todo el hardware y puede ejecutar cualquier instrucción que la máquina puede ejecutar. El Sistema Operativo es software que corre en modo kernel y provee la base para cualquier otro software que se ejecute.
 	\end{itemize}
 
 \begin{figure}[h]
@@ -184,9 +184,7 @@ font=\small}]
 
 \subsubsection{Interface}
 
-La \textbf{interfaz de usuario} es el nivel más bajo de software ejecutable en modo de usuario, permite al usuario arrancar otros programas.
-
-\quad El sistema operativo corre sobre el hardware y provee la base para cualquier otro software que se ejecute.\\
+La \textbf{interfaz de usuario} es el nivel más bajo de software ejecutable en modo de usuario, permite al usuario arrancar otros programas.\\
 
 Es importante distinguir entre el sistema operativo y software normal (modo de usuario). El usuario es libre de cambiar lo último pero no es posible modificar el sistema operativo.
 
@@ -199,8 +197,7 @@ fill=white,
 rectangle, 
 minimum width={width("Kernel o Supervisor")+2pt},
 font=\small}]
-%		\node[](acc){Modos Procesador};
-		\node[block,below=0.1cm of acc](gyro){Usuario};
+		\node[block](gyro){Usuario};
 		\node[block,below=0.5cm of gyro](mag){Interfaz};
 		\node[block,below=0.5cm of mag](mag2){HW};
 		\node[left=0.5cm of mag](mag3){S.O.};
@@ -216,7 +213,7 @@ font=\small}]
 
 \subsubsection{Gestor de Recursos}
 
-El concepto de sistema operativo es principalmente proveer abstracciones a programas como un visión descendente. Una alternativa, es un enfoque ascendente, que dice que el sistema operativo está ahí para gestionar todas las piezas del sistema complejo.
+El sistema operativo es provee abstracciones a programas como una visión descendente. Una alternativa, es un enfoque ascendente, que dice que el sistema operativo está ahí para gestionar todas las piezas del sistema complejo.
 
 \quad 
 La misión de un \textbf{gestor de recursos} es ofrecer una asignación ordenada y controlada de los procesadores, memorias y dispositivos entre los diversos programas que compiten por ellos.
@@ -230,8 +227,7 @@ fill=white,
 rectangle, 
 minimum width={width("Kernel o Supervisor")+2pt},
 font=\small}]
-%		\node[](acc){Modos Procesador};
-		\node[block,below=0.1cm of acc](gyro){Usuario};
+		\node[block](gyro){Usuario};
 		\node[block,below=0.5cm of gyro](mag){Gestor};
 		\node[block,below=0.5cm of mag](mag2){HW};
 		\node[left=0.5cm of mag](mag3){S.O.};
@@ -285,9 +281,9 @@ Los procesos se rigen por una jerarquía de padres-hijos. Un padre puede crear p
 
 Para proveer un lugar para mantener archivos se tiene el concepto de \textbf{directorio} como una forma de agrupar ficheros.\\
 
-En UNIX hay \textbf{archivos especiales}, son archivos que se suministran para hace que los dispositivos I/O parezcan archivos. De esa forma pueden ser leídos y escritos utilizando las mismas llamadas al sistema que son utilizadas para leer y escribir archivos. 
+En UNIX hay \textbf{archivos especiales}, son archivos que se suministran para hace que los dispositivos I/O parezcan archivos. De esa forma pueden ser leídos y escritos utilizando las mismas llamadas al sistema que son utilizadas para leer y escribir archivos. \\
 
-	\quad Existen dos tipos de archivos especiales:
+Existen dos tipos de archivos especiales:
 
 	\begin{itemize}
 	\item \textbf{Bloque}: Utilizados para modelar servicios que consisten en una colección de bloques aleatoriamente direccionables, como discos. 
@@ -302,24 +298,34 @@ Un \textbf{pipe} es un pseudo-archivo que puede ser utilizado para conectar dos 
 
 \subsubsection{Introducción}
 
-Los sistemas operativos tienen dos funciones principales: proveer abstracciones los programas de usuarios y gestionar los recursos de los programas.\\
-
-Es importante recordar que cualquier ordenador con una única CPU puede ejecutar una única instrucción a la vez. Si un proceso está corriendo un programa de usuario en modo de usuario y necesita un servicio del sistema tiene que ejecutar una instrucción trap para transferir el control al sistema operativo. Las llamadas al sistema se hacen en una serie de pasos.\\
-
-Una instrucción TRAP difiera de una instrucción procedure-call  de dos formas fundamentales:
+Los sistemas operativos tienen dos funciones principales: 
 
 	\begin{itemize}
-		\item Como efecto colateral, se cambia a modo kernel. Mientras que la procedure-call no cambia el modo.
-		\item En lugar de dar una dirección relativa o absoluta donde se encuentra el procedimiento, la instrucción TRAP no puede saltar a una dirección arbitraria. Dependiendo de la arquitectura, salta a una ubicación fija o hay un campo de la instrucción que le datá una tabla en memoria que contenga la dirección a donde ir o similar.
+		\item Proveer abstracciones a los programas de usuarios.
+		\item Gestionar los recursos de los programas.
+	\end{itemize}
+
+Es importante recordar que cualquier ordenador con una única CPU puede ejecutar una única instrucción a la vez. 
+
+	\quad Si un proceso está corriendo un programa de usuario en modo de usuario y necesita un servicio del sistema tiene que ejecutar una \textbf{instrucción trap} para transferir el control al sistema operativo. Las llamadas al sistema se hacen en una serie de pasos.\\
+
+Una instrucción TRAP difiere de una instrucción procedure-call  de dos formas fundamentales:
+
+	\begin{itemize}
+		\item Cambia a modo kernel. Mientras que la procedure-call no cambia el modo.
+		\item En lugar de dar una dirección relativa o absoluta donde se encuentra el procedimiento, la instrucción TRAP no puede saltar a una dirección arbitraria. Dependiendo de la arquitectura, salta a una ubicación fija, o hay un campo de la instrucción, que le dará una tabla en memoria que contenga la dirección a donde ir o similar.
 	\end{itemize}
 	
 \subsection{Estructura de un S.O.}
 
 \subsubsection{Monolítico}
 
-Es la organización más común. En el acercamiento monolítico el sistema operativo corre como un único programa en modo kernel. El Sistema Operativo se escribe como una colección de procedimientos, enlazados entre ellos como un único archivo binario ejecutable. Cuando se utiliza esta técnica, cada procedimiento del ssitema es libre de llamar a cualquier otro procedimiento. Poder llamar a cualquier procedimiento es bastante eficiente, pero tener la posibilidad de que muchos procesos que se puedan llamar entre ellos sin restricción puede llevar a que sea díficil de entender. También, un fallo en cualquiera de estos procedimientos tirará el sistema operativo al completo.
+Es la organización más común. El sistema operativo corre como un único programa en modo kernel y se escribe como una colección de procedimientos, enlazados entre ellos como un único archivo binario ejecutable. 
 
-	\quad La estructura básica de una organización monolítica:
+	\quad Cuando se utiliza esta técnica, cada procedimiento del sistema es libre de llamar a cualquier otro procedimiento, siendo esto bastante eficiente. 
+	
+	\quad Pero tener la posibilidad de que muchos procesos que se puedan llamar entre ellos sin restricción puede llevar a que sea díficil de entender. También, un fallo en cualquiera de estos procedimientos tirará el sistema operativo al completo.
+La estructura básica de una organización monolítica:
 	
 	\begin{enumerate}
 		\item Programa principal que invoca a la subrutina requerida
@@ -362,7 +368,7 @@ Una pequeña variación del modelo microkernel es la idea de distinguir dos clas
 
 Un \textbf{proceso} es una instancia de un programa en ejecución. Conceptualmente, cada proceso tiene su propia CPU virtual.
 
-\quad La diferencia entre un proceso y un programa es sutil pero crucial. La idea clave es que un proceso es algo similar a una actividad. Un programa es algo que puede ser guardado en disco no haciendo nada. 
+\quad La diferencia entre un proceso y un programa es que un proceso es algo similar a una actividad. Un programa es algo que puede ser guardado en disco no haciendo nada. 
 
 \quad Si un programa corre dos veces cuenta como dos procesos.
 
@@ -380,17 +386,17 @@ Cuatro principales eventos provocan la \textbf{creación de procesos}:
 	\begin{enumerate}
 	\item Inicialización del sistema
 	\item Ejecución de una llamada al sistema de creación de procesos por un proceso que está corriendo.
-	\item Una petición del usuario de crear un nuevo proceso.
+	\item Petición del usuario de crear un nuevo proceso.
 	\item Iniciación de una tanda de trabajos
 	\end{enumerate}
 	
-Los procesos que se mantienen en segundo plano para gestionar alguna actividad se llaman \textbf{demonios}.\\
+Los procesos que se mantienen en segundo plano para gestionar alguna actividad se llaman \textbf{demonios} (\textit{daemons}).\\
 
-En UNIX, sólo hay una forma de hacer una llamada al sistema para crear un proceso \texttt{fork}, crea una copia exacta del proceso llamante. Después del \texttt{fork}, cada proceso tienen las mismas variables.
+En UNIX sólo hay una forma de hacer una llamada al sistema para crear un proceso \texttt{fork}, crea una copia exacta del proceso llamante. Después del \texttt{fork}, cada proceso tienen las mismas variables.
 
 	\quad Cuando un usuario escribe un comando en la consola, ésta hace un proceso hijo y éste ejecuta el comando introducido.\\
 
-Un proceso hijo puede formar más procesos, formando una \textbf{jerarquía de procesos}.  A pesar de que cada proceso es una entidad independiente, puede estar en un estado. 
+Un proceso hijo puede formar más procesos, formando una \textbf{jerarquía de procesos}.  A pesar de que cada proceso es una entidad independiente cada uno puede encontrarse en un estado diferente.
 
 \begin{figure}[h]
 	\centering
@@ -409,12 +415,10 @@ Un proceso hijo puede formar más procesos, formando una \textbf{jerarquía de p
       \caption{Modelo Básico de los 3 estados de un proceso}
   \end{figure}
 
-Un proceso está en \textbf{ejecución} cuando utiliza capacidad de procesamiento de la CPU en ese instante. Se \textbf{bloquea} y no puede ejecutarse hasta que un evento externo ocurre. Y está \textbf{listo} si ha parado temporalmente para dejar a otro proceso correr.\\
-
 	\begin{enumerate}
-	\item Running (Utilizando la CPU en ese instante).
-	\item Ready (runnable; temporalmente detenido para dejar correr a otro proceso)
-	\item Bloqueado\footnote{Por ejemplo, cuando un proceso lee de un pipe y no hay nada disponible el proceso se bloquea automáticamente.} (imposible de correr hasta que un evento externo ocurre).
+	\item \textbf{Ejecución}: Utiliza la CPU en ese instante
+	\item \textbf{Listo}: Temporalmente detenido para dejar correr a otro proceso)
+	\item \textbf{Bloqueado}\footnote{Por ejemplo, cuando un proceso lee de un pipe y no hay nada disponible el proceso se bloquea automáticamente.}: Imposible de correr hasta que un evento externo ocurre
 	\end{enumerate}
 
 
@@ -443,7 +447,7 @@ En algunos sistemas operativos, procesos que trabajen juntos pueden compartir es
 
 \subsubsection{Secciones Críticas}
 
-¿Cómo evitar condiciones de carrera? Hay que prohibir que más de un proceso la lectura y escritura de catos compartidos a la vez, llamado \textbf{exclusión mutua}.\\
+¿Cómo evitar condiciones de carrera? Hay que prohibir que más de un proceso lean o escriban datos compartidos a la vez, llamado \textbf{exclusión mutua}.\\
  
 Una \textbf{sección crítica} son  partes del programa donde se accede a las zonas compartidas.\\
 
@@ -456,14 +460,14 @@ Condiciones que implican una buena solución a las condiciones de carrera:
 	\item Ningún proceso esperará indefinidamente para entrar en su sección crítica.
 	\end{enumerate}
 	
-\subsubsection{Exclusión Mutua con Espera Activa}
+\subsubsection{Exclusion Mutua con Espera Activa}
 
-Se van a examinar varias propuestas para conseguir la exclusión mutua, mientras que un proceso está ocupado actualizando la memoria compartida en su región crítica, ningún otro proceso entrará su región crítica y causará problemas.
+Se van a examinar varias propuestas para conseguir la exclusión mutua, mientras que un proceso está ocupado actualizando la memoria compartida en su región crítica, ningún otro proceso entrará su región crítica y causará problemas.\\
 
-	\quad Hay 5 formas:
+Hay 5 formas:
 
 	\begin{enumerate}
-		\item \textbf{Inhabilitación de interrupciones}: Solución más simple para sistemas con un único procesador. Cada vez que un proceso entre en la región crítica deshabilitará todas las interupciones y las volverá a activar antes de salir. Con las interrupciones desactivadas, no pueden ocurrir interrupciones de reloj.  No es óptima ya que no es 'sabio' dar a los procesos la posibilidad de deshabilitar interrupciones. Hoy en día la posibilidad de conseguir exclusión mutua por deshabilitación de interrupciones es cada vez menos común debido a que los procesadores tienen más núcleos. Mientras que en un núcleo se desactivan las interrupciones en el otro no se evita que se interfiera en las operaciones.
+		\item \textbf{Inhabilitación de interrupciones}: Solución más simple para sistemas con un único procesador. Cada vez que un proceso entre en la región crítica deshabilitará todas las interupciones y las volverá a activar antes de salir. Con las interrupciones desactivadas, no pueden ocurrir interrupciones de reloj.  No es óptima ya que no es conveniente dar a los procesos la posibilidad de deshabilitar interrupciones. Hoy en día la posibilidad de conseguir exclusión mutua por deshabilitación de interrupciones es cada vez menos común debido a que los procesadores tienen más núcleos. Mientras que en un núcleo se desactivan las interrupciones en el otro no se evita que se interfiera en las operaciones.
 		\item \textbf{Variables Candado}: Es una solución por software, se emplea una variable compartida \texttt{lock} inicializada a \texttt{0}. Cuando un proceso quiere acceder a la región crítica.
 			\begin{itemize}
 			\item Mira el valor de la variable \texttt{lock}
@@ -472,7 +476,8 @@ Se van a examinar varias propuestas para conseguir la exclusión mutua, mientras
 			\end{itemize}
 			
 			Cuando la variable está a \texttt{0} no hay ningún proceso en su región crítica y si \texttt{1} algún proceso está en su región crítica. Desafortunadamente, este método contiene un fallo. Si un proceso leyera el candado y viera que es cero. Antes de que pueda poner el candado a \texttt{1} otro proceso lo pone a \texttt{1}. Cuando el primer proceso vuelva a ejecutarse, también pondrá el candado a \texttt{1}  y dos procesos estarán en la región crítica a la vez.
-		\item \textbf{Alternancia Estricta}: Solución por software, evita condiciones de carrera pero no cumple la condición 3.
+			
+		\item \textbf{Alternancia Estricta}: Solución por software, evita condiciones de carrera pero no cumple la condición 3\footnote{Ningún proceso fuera de la sección crítica podrá bloquear a otros procesos.}.
 		
 			  \begin{verbatim}
 			  while(TRUE) {
@@ -483,7 +488,7 @@ Se van a examinar varias propuestas para conseguir la exclusión mutua, mientras
 			  }
 			  \end{verbatim}
 			  
-		La comprobación continua de variables hasta que un valor aparece se llama \textbf{\textit{busy waiting}}. Debería ser evitado ya que desperdicia tiempo de uso de la CPU. Sólo cuando hay una necesidad estricta de espera se debería utilizar esta espera. Un candado que utiliza \textit{busy waiting} se le llama \textbf{\textit{spin lock}}.
+		La comprobación continua de variables hasta que un valor aparece se llama \textbf{\textit{busy waiting}}, debería ser evitado ya que desperdicia tiempo de uso de la CPU. Sólo cuando hay una necesidad estricta de espera se debería utilizar esta espera. Un candado que utiliza \textit{busy waiting} se le llama \textbf{\textit{spin lock}}.
 			
 		\item \textbf{Solución Peterson}: Combina la idea de tomar turnos con la idea de variables candado.
 		
@@ -527,7 +532,7 @@ Las \textbf{primitivas de comunicación} son las operaciones para conseguir la c
 	\item \texttt{WAKEUP} es una llamada que tiene por parámetro el proceso a despertar.
 	\end{itemize}
 	
-El \textbf{problema productor-consumidor}. Por ejemplo dos procesos comparten un mismo buffer de tamaño fijo. El productor, pone información en el buffer y el otro, el consumidor la extrae. EL problema nace cuando el productor quiere poner un nuevo item en el buffer pero está lleno. La solución para el productir es dormirse y ser despertado cuando el consumidor haya liberado uno o más items. Similarmente, si el consumidor quiere eliminar uun item del buffer y ve que el buffer está vacío se duerme hasta que el productor pone algo en el buffer y lo despierta.
+El \textbf{problema productor-consumidor}\footnote{Problema de ejemplo de problema de sincronización de multipcocesos. Se definen dos procesos, productor y consumidor, ambos comparten un buffer de tamaño infinito. La tarea del productor es generar un producto, almacenarlo y comenzar nuevamente; mientras que la del consumidor toma (simultáneamente) productos uno a uno. El problema consiste en que el producto no añada más productos que la capacidad del buffer y que el consumidor no intente tomar un producto si el buffer está vacío. La idea para la solución es que ambos procesos se ejecuten simultáneamente y se despierten o duerman según el estado del buffer. Concretamente, el productor agrega productos mientras quede espaio y en el momento en que se llene el buffer se pone a dormir. Cuando el consumidor toma un producto notifica al productor que puede comenzar a trabajar nuevamente. En el caso contrario, si el buffer se vacía, el consumidor se pone a dormir y en el momento enque el productor agrega un producto crea una señal para despertarlo.}. Por ejemplo dos procesos comparten un mismo buffer de tamaño fijo. El productor, pone información en el buffer y el otro, el consumidor la extrae. EL problema nace cuando el productor quiere poner un nuevo item en el buffer pero está lleno. La solución para el productir es dormirse y ser despertado cuando el consumidor haya liberado uno o más items. Similarmente, si el consumidor quiere eliminar uun item del buffer y ve que el buffer está vacío se duerme hasta que el productor pone algo en el buffer y lo despierta.
 
 
 
@@ -553,9 +558,25 @@ Solución atómica que resuelve el problema de pérdidas de llamadas de wakeup. 
 		\end{itemize}
 	\end{itemize}
 
-Con la implementación de \texttt{UP} y \texttt{DOWN} el S.O. inhabiblita las interrupciones durante las operaciones a un semáforo.
+Con la implementación de \texttt{UP} y \texttt{DOWN} el S.O. inhabiblita las interrupciones durante las operaciones a un semáforo.\\
 
+Para resolver el \textbf{problema productor-consumidor} y hacer funcionar correctamente a los semáforos, es esencial implementarlos de una forma indivisible. La forma normal es implementar \texttt{up} y \texttt{down} como llamadas al sistema, con el sistema operativo desactivando brevemente todas las interrupciones cuando prueba el semáforo, actualizándolo y poniendo los procesos a dormir si es necesario. Como todas estas acciones solo llevan para ejecutarse unas pocas instrucciones, no se producen daños deshabilitando interrupciones.
 
+	\quad Si hay múltiples CPUs en uso, cada semáforo tiene que ser protegido por una variable \textit{lock}.
+	
+	\quad La solución que se propone utiliza tres semáforos:
+	
+	\begin{itemize}
+		\item \textit{fool}: Lleva la cuenta de los slots que están llenos.
+		\item \textit{empty}: Para contar es igual al número de slots en el buffer.
+		\item \textit{mutex}: Inicialmente vale a 1.
+	\end{itemize}
+	
+Los semáforos que se inicializan a 1 y son usados por dos o más procesos para asegurar que únicamente uno de ellos puede entrar a su región crítica al mismo tiempo se llaman \textbf{semáforos binarios}. Si cada proceso hace un \texttt{down} justo antes de entrar a su región crítica y \texttt{up} después de salir, \textbf{se asegura la exclusión mutua}.
+
+	\quad Ahora que se tiene una buena primitiva de comunicación entre procesos. En un sistema que usa semáforos, la forma natural  de esconder las interrupciones es tener un semáforo, inicialmente puesto a \texttt{0}, asociado con cada dispositivo I/O. Justo después de arrancar un dispositivo I/O, el proceso gestor hace un \texttt{down} al semáforo asociado, bloqueando inmediatamente. Cuando llega la interrupción, el gestor de interrupciones hace un \texttt{up} al semáforo asociado, que hace que el proceso relevante asociado corra de nuevo.\\
+	
+El otro uso de semáforos es para la \textbf{sincronización}. Los semáforos \textit{full} y \textit{empty} son necesarios para garantizar que ciertos eventos de secuencias ocurran o no. En este caso, se aseguran que el productor deja de funcionar cuando el buffer está lleno, y que el consumidor pare cuando está vacío. Este uso es diferente al del uso para exclusión mutua.
 
 \subsubsection{Contadores de Eventos}
 
@@ -571,13 +592,13 @@ Como característica tiene que los contadores de eventos siempre crecen, nunca d
 
 \subsubsection{Mutexes}
 
-CUando la habilidad de contar de un semáforo no se necesita, se implementa una vesrión simplificada de los semáforos, los mutex. Un mutex es una variable compartida que puede estar en dos estados: bloqueada o desbloqueada.
+Cuando la habilidad de contar de un semáforo no se necesita, se implementa una vesrión simplificada de los semáforos, los mutex. Un mutex es una variable compartida que puede estar en dos estados: bloqueada o desbloqueada.
 
 \subsubsection{Monitores}
 
-Los \textbf{monitores} son objetos destinados a ser usados sin peligro por más de un hilo de ejecución. Sus métodos son ejecutados con exclusión mutua. Lo que significa, que en cada momento en el tiempo, como máximo un hilo estará ejecutando cualquiera de sus métodos. Simplifica el razonamiento de implementar monitores en lugar de código a ser ejecutado en paralelo.
+Los \textbf{monitores} son un acolección de procedimientos, variables y estructuras de datos que son agrupadas por un paquete o módulo. Los procesos pueden llamar a los procedimientos de un monitor siempre que quieran, pero no pueden acceder directamente a las estructuras de datos internas desde procedimientos declarados fuera del monitor. Los monitores tienen una propiedad importante que los hace útiles para alcanzar la exclusión mutua: un único proceso puede estar activo dentro de un monitor en cualquier instante. Aunque los monitores provean una forma sencilla de conseguir la exclusión mutua, no es suficiente. También se necesita una forma de bloquear procesos cuando no pueden continua.\\
 
-\quad Los procesos no pueden acceder a una estructura de datos interna de un monitor desde una función declarada fuera del monitor. Pueden llamad a las funciones de un monitor siempre que quieran.\\
+En el \textbf{problema productor-consumidor} es tan fácil como colocar las pruebas de si el buffer está lleno o vacío dentro de los procedimientos de los monitores. Pero, ?`cómo debe de bloquear e productor cuando el buffer está lleno?  La solución recae en la introducción de \textbf{variables de condición} junto con dos operaciones sobre ellas, \texttt{wait} y \texttt{signal}. Cuando un procedimiento de un monitor descubre que no puede continuar (el buffer está lleno), realiza un \texttt{wait} sobre alguna variable de condición. Esta acción causa al proceso llamante que se bloquee. También, permite a otro proceso que previamente haya sido prohibido de entrar al monitor entrar ahora. Las variables de condición no son contadores, no acumulan señales para uso posterior como hacen los semáforos. \\
 
 Propiedades:
 
@@ -602,20 +623,23 @@ Tiene un inconveniente, que utiliza lenguaje concepto y el compilador debe recon
 	
 \subsubsection{Transferencia de mensajes}
 
-Hay 2 primitivas de intercomunicación entre procesos:
+
+Ninguna de las primitivas de comunicación anteriores permiten el intercambio. Hay 2 primitivas de intercomunicación entre procesos:
 
 	\begin{enumerate}
 		\item \texttt{SEND (destino, mensaje)}: Envía un mensaje a un destino dado
 		\item \texttt{RECEIVE (origen, mensaje)}; Recibe un mensaje de un origen dado (Si no hay mensaje disponible el proceso receptor se bloquea hasta que llegue alguno).
 	\end{enumerate}
 	
+Las dos primitivas del método de comunicación entre procesos son llamadas al sistema en lugar de \textit{language constructs} como en los monitores por lo que pueden ser concluidos fácilmente en librerías.\\
 
+Los sistemas de envío de mensajes tienen muchos problemas que no aparecen con semáforos o monitores, especialmente si los procesos a comunicar están en máquinas conectadas por la red. Por ejemplo, aparecen problemas relacionados con las pérdidas en la red, se necesitarán mensajes especiales de \textbf{confirmación} de recepción.\\
   
 
-Problema productor-consumidor:
+?`Cómo resolver el \textbf{problema productor-consumidor} en el paso de mensajes sin memoria compartida? Suponiendo que todos los mensajes son del mismo tamaño y que todos los mensajes enviados pero no recibidos son guardados en el buffer automáticamente por el S.O.  El consumidor empieza enviando \texttt{N} mensajes vacíos el productor. Siempre que el productor tenga un item que dar al consumidor, coge un mensaje vacío y devuelve uno lleno. De esta forma, el número total de mensajes en el sistema se mantiene constante en el tiempo, por lo tanto pueden ser guardados en un espacio de memoria conocido. Si el productor  trabaja más rápido que el consumidor, todos los mensajes acabarán llenos, esperando al consumidor; el productor será bloqueado, esperando a una respuesta vacía. Si el consumidor trabaja más rápido, ocurre lo contrario: todos los mensajes serán vacío esperando al productor que los llene; el consumidor será bloqueado, esperando a un mensaje lleno.
 
 	\begin{enumerate}
-	\item Pipes: Todos los mensjaes del mismo tamaño, el S.O. almacena mensajes enviados y no recibidos.
+	\item Pipes: Todos los mensajes del mismo tamaño, el S.O. almacena mensajes enviados y no recibidos.
 	
 		\begin{figure}[h]
 	\centering
@@ -872,7 +896,9 @@ Implementación de mensajes a partir de monitores
 
 \subsection{Planificación}
 
-Cuando un ordenador es multiprogramado, tiene frecuentemente multitud de procesos o threads compitiendo por la CPU al mismo tiempo. Esta situación se produce cuando dos o más están simultáneamente en el estado listo. Si sólo una CPU está disponible, se ha de hacer una elección sobre qué proceso correr después, de esto se encarga el \textbf{planificador}.\\
+Cuando un ordenador es multiprogramado, tiene frecuentemente multitud de procesos o threads compitiendo por la CPU al mismo tiempo. 
+
+	\quad Esta situación se produce cuando dos o más están simultáneamente en el estado listo. Si sólo una CPU está disponible, se ha de hacer una elección sobre qué proceso correr después, de esto se encarga el \textbf{planificador}.\\
 
 Características de los algoritmos de planificación:
  
@@ -886,74 +912,23 @@ Características de los algoritmos de planificación:
 	
 El \textbf{reloj interno} a cada interrupción el S.O. toma el control y decide el siguiente proceso que se ejecutará.
 
-\subsubsection{Round Robin}
+\subsubsection{Planificación en Sistemas Batch}
 
-A cada proceso se le asigna un tiempo de ejecución $\rightarrow$ quantum. 
-	
-\subsubsection{Prioridades}
-
-A cada proceso se le asigna una prioridad, y el proceso ejecutable con la máxima prioridad es el que se ejecuta:
-
-	\begin{itemize}
-	\item Asignación de prioridades
-		\begin{itemize}
-		\item Estática: No cambia, fácil implementación (poco \textit{overhead}) y sin respuesta a cambios de entorno.
-		\item Dinámica: Dispone de mecanismos para su cambio, esquemas más difíciles de implementar que los estáticos (más overhead) y son sensibles a los cambios de entorno.
-		\end{itemize}
-	\end{itemize}
-
-Hay veces que interesa agrupar los procesos por clases de prioridad, utilizando planificación de prioridades entre las clases y planificación \textit{round robin} entre los procesos de cada clase.
-
-\subsubsection{Colas Múltiples}
-
-Es una variante de la planificación en clases de prioridad. La condición es que siempre que un proceso emplea la totalidad del quantum asignado se le baja una clase.
-
-\subsubsection{Primero Trabajo más Corto (SJF)}
+\begin{itemize}
+	\item \textbf{First-Come, First-Served}: Algoritmo más simple. Los procesos son asignados a la CPU en el orden en el que lo piden. Básicamente hay una única cola para los procesos que están listos para ser ejecutados. La ventaja de este algoritmo es que es sencillo de entender y fácil de programar. Su desventaja es que los procesos de corta duración se ven solapados por los de larga.
+	\item \textbf{Shortest Job First}: Se conocen previamente los tiempos de ejecución. Al ejecutar primero los trabajos más cortos se produce el menor tiempo medio de respuesta. Este algoritmo es óptimo cuando todos los trabajos están disponibles simultáneamente.
+\end{itemize}
 
 
-Algoritmo indicado para sistemas \textit{batch} en los que son conocidos los tiempos de ejecución. Al ejecutar primero el trabajo más corto se produce el menor tiempo medio de respuesta. La generalización de SJF son los sistemas interactivos. Determinación del proceso ejecutable más corto, a partir de estimaciones basadas en el comportamiento anterior.\\
+\subsubsection{Planificación en Sistemas Interactivos}
 
-SJF es óptimo únicamente cuando todos los trabajos están disponibles simultáneamente.
-
-\subsubsection{Predeterminada}
-
-Consiste en adquirir un compromiso con el usuario y cumplirlo.
-
-	\begin{itemize}
-	\item Seguimiento del sistema:
-		\begin{itemize}
-		\item tiempo CPU empleado por el usuario
-		\item Tiempo usuario activo en el sistema
-		\end{itemize}
-	\end{itemize}
-	
-La planificación determinada es similar a los sistemas de tiempo real $\rightarrow$ Planificación Deadline.\\
-
-Dificultad:
-
-	\begin{enumerate}
-		\item El sistema ha de ejecutar el trabajo sin degradar el servicio a los otros usuarios.
-		\item El sistema debe planificar la asignación de recursos completamente hasta el deadline. Pueden llegar trabajos que introduzcan demandas que el sistema no puede predecir.
-		\item Varios trabajos deadline a la vez $\rightarrow$ introducir sofisticados métodos de optimización para cumplir plazos $\rightarrow$ overhead.
-	\end{enumerate}
-	
-\subsubsection{Planificación a Dos Niveles}
-
-Los tiempos de intercambio entre memoria principal y disco duro son uno o dos órdenes de magnitud superiores a los de intercambio entre los procesos que encuentran en memoria principal.\\
-
-	\begin{itemize}
-	\item El planificador a bajo nivel $\rightarrow$ Procesos en MP
-	\item Planificador a alto nivel $\rightarrow$ Desplazamiento entre MP y Disco
-	\end{itemize}
-	
-Criterios de decisión de un planificador de alto nivel:
-
-	\begin{enumerate}
-	\item ?`Cuánto tiempo ha pasado desde que el proceso ha sido introducido o extraído?
-	\item ?`Cuánto tiempo de CPU ha consumido el proceso recientemente?
-	\item ?`Cómo de grande es el proceso?
-	\item ?` Cómo de alta es la prioridad del proceso?
-	\end{enumerate}
+\begin{itemize}
+	\item 	\textbf{Round Robin}: A cada proceso se le asigna un intervalo de tiempo en el cual puede ejecutarse, llamado \textbf{\textit{quantum}}. Si el proceso sigue corriendo al final del \textit{quantum}, la CPU le pasa el control a otro proceso. Si el proceso se ha bloqueado o ha finalizado su ejecución antes de consumir su \textit{quantum} la CPU intercambia el proceso. Es sencillo de implementar, lo único que necesita el planificador es mantener una lista de los procesos que están listos para ejecutarse. El principal problema con este algoritmo es la determinación de la duración del \textit{quantum}.
+	\item \textbf{Prioridades}: Round-robin asume implícitamente que todos los procesos son igual de importantes. La asignación de prioridades puede ser estática\footnote{No cambia, es de fácil implementación y no responde a cambios de entorno} y dinámica\footnote{Dispone de mecanismos para su modificación, tiene esquemas más difíciles de implementar y son sensibles a cambios de entorno}.
+	\item \textbf{Colas Múltiples}: Variación de la planificación en clases de prioridad. La condición es que siempre que un proceso emplea la totalidad del \textit{quantum} asignado se le baja una clase.
+	\item \textbf{Predeterminada}: Consiste en adquirir un compromiso con el usuario y cumplirlo.
+	\item \textbf{A Dos Niveles}: Los tiempos de intercambio entre la memoria principal y el disco duro son uno o dos órdenes de magnitud superiores a los de intercambio entre los procesos que se encuentran en la memoria principal.
+\end{itemize}
 	
 \subsubsection{Evaluación}
 
@@ -1024,31 +999,32 @@ MINIX - Jerarquía de procesos en forma de árbol donde la raíz es INIT
 
 	\begin{figure}[h]
 	\centering
-     \begin{tikzpicture}[
-block/.style={
-draw,
-fill=white,
-rectangle, 
-minimum width={width("XXXXXXXXX")+2pt},
-minimum height = 20pt,
-font=\small}]
-%		\node[](acc){Modos Procesador};
-		% Productor
+    	 \begin{tikzpicture}[
+		block/.style={
+		draw,
+		fill=white,
+		rectangle, 
+		minimum width={width("XXXXXX")+2pt},
+		minimum height = 20pt,
+		font=\small}
+		]
+
 		\node[draw](f){FORK EXEC};
-		\node[draw, right=.4cm of f] (tabla){Tabla de Procesos};
-		\node[draw, right=.4cm of tabla] (exit){EXIT SIGNAL};
+		\node[draw, right=.4cm of f, text width = 1.7cm] (tabla){Tabla de Procesos};
+		\node[draw, right=.4cm of tabla, text width = 1.6cm] (exit){EXIT SIGNAL};
 		\node[draw, circle, right=.4cm of exit] (mm){MM, FS, Kernel};
 		
-		\draw[->] (f) -- (tabla) -- (exit) -- (mm);
-		% Corregit flecha de MM a TABLA por arribita
-		\draw[<-] (tabla) -| (mm);
+		\draw[->] (mm) -- (7.4,2) -| (tabla);
+		\draw[->] (f) -- (tabla);
+		\draw[->] (tabla) -- (exit);
+		\draw[->] (exit) -- (mm);
 	\end{tikzpicture}	
       \caption{Transferencias de mensajes}
   \end{figure}
   
  \subsubsection{Comunicación entre Procesos}
  
- Mediante el intercambio de mensajes de tamaño fijo (estructura messaje), se utilizan 3 primitivas para el envío y recepción de mensajes:
+ Mediante el intercambio de mensajes de tamaño fijo (estructura mensaje), se utilizan 3 primitivas para el envío y recepción de mensajes:
  
  	\begin{itemize}
 	\item \texttt{send}
@@ -1093,20 +1069,6 @@ Minix se organiza ne los siguientes directorios:
 \end{itemize}
 
 MINIX es un conjunto de 4 programas totalmente independientes (init, kernel, mm y fs) que se comunicacn a través de mensajes
-
-\subsubsection{Directorio h}
-
-\textcolor{red}{BLA BLA BLA}
-
-\subsubsection{Directorio Kernel - Archivos de encabezamiento}
-
-\textcolor{red}{BLA BLA BLA}
-
-\subsubsection{kernel main.c}
-
-\textcolor{red}{BLA BLA BLA}
-
-\subsubsection{kernel mpx88.s}
 
 
 \subsubsection{RESUMEN}
@@ -1214,18 +1176,31 @@ Estructura en capas:
 
 \begin{figure}[h]
 	\centering
+		\resizebox {\columnwidth} {!} {
+
      \begin{tikzpicture}[
 block/.style={
 draw,
 fill=white,
 rectangle, 
 minimum width={width("SW independiente de dispositivo")+2pt},
+minimum height = 15pt,
 font=\small}]
 		\node[block](user){SW nivel usuario};
 		\node[block,below=0cm of user](device){SW independiente dispositivo};
 		\node[block,below=0cm of device](drivers){Drivers de dispositivo};
 		\node[block,below=0cm of drivers](interr){Gestión de interrupciones};
+		
+		\node[block, right = 1.5cm of user](user2){Procesos de Usuario};
+		\node[block,below=0cm of user2](device2){GM | SA};
+		\node[block,below=0cm of device2](drivers2){I/O Tasks};
+		\node[block,below=0cm of drivers2](interr2){Gestión de Procesos};
+		
+		\draw[thick,-stealth] (drivers2.10) -| (9,-1.5) node[pos= 0.4, above right]{Kernel};    
+		\draw[thick,-stealth] (drivers2.190) -| (3,.5) node[pos= 0.5, below]{Usuario};    
+		
 	\end{tikzpicture}	
+	}
       \caption{Capas del SW de E/S}
   \end{figure}
   
@@ -1434,16 +1409,16 @@ El disco RAM:
  
  \subsection{Discos}
  
- \subsubsection{HW}
+ \subsubsection{Hardware}
  
 Los datos son registrados y recuperados del disco a través de una bobina conductora (cabeza). Durante una operación de lectura/escritura, la cabeza permanece fija, girando el disco debajo de ella.
  
- \subsubsection{SW}
+ \subsubsection{Software}
  
  Tiempo lectura/escritura de un bloque:
  
  	\begin{enumerate}
-	\item Tiempo de búsqueda (\textit{seek time}
+	\item Tiempo de búsqueda (\textit{seek time})
 	\item Tiempo de rotación (\textit{latency time})
 	\item Tiempo de transferencia (\textit{latency time})
 	\end{enumerate}
@@ -1451,8 +1426,8 @@ Los datos son registrados y recuperados del disco a través de una bobina conduc
 La planificación del disco:
 
 	\begin{itemize}
-	\item Multiprogramación: Procesos generan solicitudes de acceso a disco (leer, escribir) más deprisa de lo que pueden ser atendidas (movimiento de la cabeza de disco).
-	\item Planificación: Examen detallado de las solicitudes pendientes para determinar el modo más eficiente de atenderlas.
+	\item \textbf{Multiprogramación}: Procesos generan solicitudes de acceso a disco (leer, escribir) más deprisa de lo que pueden ser atendidas (movimiento de la cabeza de disco).
+	\item \textbf{Planificación}: Examen detallado de las solicitudes pendientes para determinar el modo más eficiente de atenderlas.
 	\end{itemize}
 	
 Planificación:
@@ -1474,12 +1449,12 @@ Características:
  	\begin{itemize}
 	\item FCFS (\textit{First Come First Served}): No hay reordenamiento de la cola
 	\item SSTF (\textit{Shortest Seek Time First}): Sirve la solicitud con menor tiempo de búsqueda, aunque no sea la primera de la cola.
-	\item SCAN: Opera como SSTF execepto que existe la solicitud de menor distancia de búsqueda en una dirección definida.
-	\item N-Step Scan: El brazo de disco se mueve como el caso SCAN, escepto que únicamente da servicio a las solicitudes en estado de espera, cuando comienza un barrido.
-	\item C-SCAN (Circular scan): Elimina la discriminación de las estrategias anteriores en relación con los cilindros internos y externos.
+	\item SCAN: Opera como SSTF excepto que existe la solicitud de menor distancia de búsqueda en una dirección definida.
+	\item N-Step Scan: El brazo de disco se mueve como el caso SCAN, excepto que únicamente da servicio a las solicitudes en estado de espera, cuando comienza un barrido.
+	\item C-SCAN (\textit{Circular scan}): Elimina la discriminación de las estrategias anteriores en relación con los cilindros internos y externos.
 	\end{itemize}
 	
-Tratamiento de errores comunes qu es e producen en los discos:
+Tratamiento de \textbf{errores} comunes que se producen en los discos:
 
 	\begin{enumerate}
 	\item Error de programación: Petición de un sector inexistente
@@ -1493,11 +1468,13 @@ Tratamiento de errores comunes qu es e producen en los discos:
  
  \subsection{Relojes}
  
- \subsubsection{HW}
+Los \textbf{relojes} son esenciales para la operación de cualquier sistema multiprogramado. Mantienen el tiempo del día y preveen a un proceso monopolizar el uso de la CPU
+ 
+ \subsubsection{Hardware del Reloj}
  
  Dispositivo que genera interrupciones en intervalos definidos de tiempo.
  
- \subsubsection{SW}
+ \subsubsection{Software del Reloj}
  
  Tareas en las que interviene el reloj:
  
@@ -1522,8 +1499,6 @@ Hay dos tipos de terminales en función de la forma en el que el S.O. se comunic
 	\item Interfaz RS-232 para comunicación serie
 	\item Terminal Mapeado de Memoria
 	\end{itemize}
-	
-\textcolor{red}{Igual añadir algo más aqui pero no sep}
 
 
 \subsection{System Task}
@@ -1536,8 +1511,6 @@ Es el SW encargado de comunicar el kernel con MM y FS vía mensajes en aquellos 
 Fork (MM) $\rightarrow$ Planificación nuevo proceso (kernel)
 \end{center}
  
-\textcolor{red}{Igual añadir algo más aqui pero no sep}
-
 \clearpage
 
 \begin{framed}
@@ -1574,7 +1547,7 @@ Gestión de memoria \textbf{sin abstracción}
 	
 A pesar de no poder correr varios programas de manera simultáneamente, es posible hacerlo. El Sistema Operativo tendrá que guardar el contenido de la memoria a un archivo de disco, y entonces volverlos a traer y correr el siguiente programa. Siempre y cuando haya un único programa a la vez en memoria no habrá conflictos. A esto se le llama \textit{swapping}.
 
-\subsection{Espacios de Dirección}
+S
 
 No es posible dar acceso a los programas de usuario a todos los registros de memoria.
 
@@ -2136,17 +2109,86 @@ Las operaciones (llamadas al sistema) para la
 
 \subsection{Implentación de un Sistema de Archivos}
 
-\subsubsection{Implementación Archivos}
+La principal tarea al implementar un sistema de almacenamiento es mantener una lista de qué bloques de disco van con qué archivo.
 
-La tarea principal en la implementación de un archivo es el seguimiento de los bloques de disco que pertenecen a ese archivo.\\
+\subsubsection{Asignación Continua}
 
-La \textbf{asignación contigua} consiste en asignar bloques contiguos de disco. Como \textbf{ventaja} tiene que es muy sencillo de implementar y es eficiente en las operaciones de acceso. Como \textbf{desventajas} tiene la asignación de espacio cuando no se sabe el tamaño final y la fragmentación.
 
-	\quad La \textbf{lista enlazada} \textcolor{red}{no esta mu definido}.
+El esquema de asignación más simple, almacenar cada archivo seguido uno detrás de otro. La ventaja de este esquema es que es simple de implementar ya que se reduce la complicación de saber dónde está cada archivo, solo se necesita la dirección de disco del primer bloque y el número de archivos en cada bloque. La tasa de lectura es muy buena ya que el archivo entero puede ser leído del disco en una única operación. Sólo se necesita la operación \textit{seek} del primer bloque. Después de sto no se necesitan más \textit{seeks} o retrasos rotacionales. Tiene una desventaja importante, con el paso del tiempo el disco se fragmentará. Cuando un archivo se elimina, sus bloques se liberan, dejando unos bloques libres en el disco. El disco no se compacta hasta el punto de perder el hueco ya que habría que copiar todo de nuevo. como resultado, el disco consistirá en huecos y datos.\\
+
+
+
+\subsubsection{Listas Enlazadas}
+
+Hay que mantener cada archivo como una lista enlazada de bloques de disco. La primera palabra de cada bloque se usa como puntero al siguiente. El resto del bloque son datos.
+
+	\quad Al contrario que la asignación contigua, todos los bloques del disco pueden ser utilizados según este método. No se pierde espacio disco por la fragmentación\footnote{Excepto por la fragmentación interna en el último bloque}. Es suficiente para la entrada del directorio solo almacenar la dirección de disco del primer bloque, el resto se pueden encontrar a partir de ahí.
 	
-	\quad Con los \textbf{i-nodos} cada archivo tiene una pequeña tabla que contiene una lista de atributos y de direcciones de bloques de disco donde se encuentran los datos. Cuando se abre un archivo se carga su i-nodo desde el disco en memoria. Para archivos grandes una de las direcciones del i-nodo es uan direcciónd e un bloque de disco llamado bloque de direccionamiento indirecto simple (contiene direcciones de disco). Si no es suficiente,otra direccion del i-nodo, bloque de direccionamiento indirecto doble(bloque que contiene una lista de bloques d direccionamiento indirecto simple). Si no fuera suficiente, existe un bloque de direccionamiento \textbf{indirecto triple}.
+	\quad A pesar de que leer un archivo de forma secuencial es sencillo, el acceso aleatorio es extremadamente lento. Para llegar al bloque $n$, el sistema operativo tiene que empezar desde el principio y leer $n-1$ bloques antes, haciéndolo muy lento.
+	
+	\quad El tamaño de datos a almacenar en un bloque ya no es una potencia de dos ya que el puntero usa unos. Esto no es un problema grave pero añade ciertas complicaciones ya que los programas leen y escfriben en potencias de base dos.\\
+	
+	
+\textbf{¿Cómo eliminar el bloque $n$?} Hay que acceder al bloque $n+1$, pasando antes por la lectura de $n$ bloques. Escribir  la dirección del bloque $n+1$ en el bloque $n-1$ para saltar su lectura. Además, hay que marcar el bloque $n$ como libre en el mapa de bits (o en la lista) de bloques libres.
+	
+\subsubsection{I-nodos}
+
+Asocia a cada archivo una estructura de datos llamada \textbf{i-nodo} (\textit{i-node}), que almacena los atributos y direcciones de disco de los bloques del archivo. Dado un i-nodo, es posible, encontrar todos los bloques de un archivo.
+
+	\quad La principal ventaja de este esquema sobre las listas enlazadas es que los i-nodos sólo tienen que estar en memoria cuando el correspondiente archivo está abierto. 
+	
+	\quad Si cada i-nodo ocupa $n$ bytes y hay un número máximo de $k$ archivos que pueden ser abiertos a la vez, la memoria total ocupada por el array que alberga los i–nodos para los archivos abiertos ocupa $k \cdot n$ bytes. Y sólo este tamaño tendrá que ser reservado por adelantado.\\
+		
+	\begin{figure}[h]
+	\centering
+	\resizebox {\columnwidth} {!} {
+     \begin{tikzpicture}[
+block/.style={
+draw,
+fill=white,
+rectangle, 
+minimum width={width("Dirección de disco del bloque 4")+2pt},
+minimum height = 20pt,
+font=\small}]
+		\node[block,below=0cm of acc](gyro){Atributos de Archivo};
+		
+		\node[block,below=0cm of gyro](mag){Dirección de disco del bloque 0};
+		\draw[thick,-stealth] (mag.0) -- (4,-1.3);
+		
+		\node[block,below=0cm of mag](Datos){Dirección de disco del bloque 1};
+		\draw[thick,-stealth] (Datos.0) -- (4,-2.0);
+		
+		\node[block,below=0cm of Datos](Codigo){Dirección de disco del bloque 2};
+		\draw[thick,-stealth] (Codigo.0) -- (4,-2.7);
+		
+		\node[block,below=0cm of Codigo](b3){Dirección de disco del bloque 3};
+		\draw[thick,-stealth] (b3.0) -- (4,-3.45);
+		\node[block,below=0cm of b3](b4){Dirección de disco del bloque 4};
+		\draw[thick,-stealth] (b4.0) -- (4,-4.2);
+		\node[block,below=0cm of b4](b5){Dirección de disco del bloque 5};
+		\draw[thick,-stealth] (b5.0) -- (4,-4.9);
+		\node[block,below=0cm of b5](b6){Dirección de disco del bloque 6};
+		\draw[thick,-stealth] (b6.0) -- (4,-5.6);
+		\node[block,below=0cm of b6](b7){Dirección de disco del bloque 7};
+		\draw[thick,-stealth] (b7.0) -- (4.7,-6.32);
+		
+		\node[block, right = 2.5cm of b7, text width = 3.9cm](disco){Bloque de disco que contiene direcciones de disco adicional};
+		
+	\end{tikzpicture}	
+	}
+      \caption{Ejemplo de un i-nodo}
+  \end{figure}
+	
+	
+Este array es bastante menor que el espacio ocupado por la tabla de archivo. La razón es simple. La tabla para guardar la lista enlazada de todos los bloques de disco es proporcional en tamaño al disco en sí. Si el disco tiene $n$ bloques, la tabla necesita $n$ entradas. 
+
+	\quad Un problema con los i-nodos es que cada uno tiene espacio para un número fijo de direcciones de disco. ¿Qué pasa si un archivo crece por encima de este límite? Una solución es reservar la última dirección de disco no para un bloque de datos, sino para la dirección de un bloque que contenga más direcciones de bloque de disco. 
 	
 \subsubsection{Implementación de directorios}
+
+Antes de que un archivo pueda ser leído, tiene que ser abierto. Cuando se abre un archivo, el Sistema Operativo usa el path name provisto por el usuario  para localizar la entrada en el disco. La entrada del directorio provee información necesaria para localizar los bloques de disco. Dependiendo del sistema, esta información puede ser la dirección de disco del archivo completo (con asignación contigua), el número del primer bloque (esquemas de listas enlazadas) o el número del i-nodo.
+
+	\quad En cualquiera de los casos, la principal función del sistema de directorios es mapear el nombre ASCII del archivo en la información necesaria para encontrar los datos.
 
 La tarea principal de un sistema de directorios es convertir el nombre en ASCII de un archivo en la inforamción necesaria par alocalizar sus datos.
 
@@ -2212,14 +2254,26 @@ El sistema de archivos acepta 29 tipos de mensajes (todos excepto 2, llamadas al
 
 Distribución típica del Sistema de Archivos:
 
-	\begin{itemize}
-		\item Bloque Boot
-		\item Super Bloque: Información de la distribución del Sistema de Archivos (su tarea principal es dar información del tamaño de las 6 partes que lo forman)
-		\item Mapa de Bits de los i-nodos
-		\item Mapa de bits de las zonas
-		\item i-nodos
-		\item Datos
-	\end{itemize}
+	\begin{enumerate}
+		\item \textbf{Bloque Boot}: Ocupa 1 bloque.
+		\item \textbf{Super Bloque}: Información de la distribución del Sistema de Archivos (su tarea principal es dar información del tamaño de las 6 partes que lo forman). Ocupa 1 bloque.
+		\item \textbf{Mapa de Bits de los i-nodos}: Es necesario un 1 bit para referenciar cada archivo.
+		\item \textbf{Mapa de bits de las zonas}: 
+%		\resizebox {\columnwidth} {!} {
+		\begin{equation*}
+		\resizebox {.92\columnwidth} {!} {%
+			$\frac{\text{Tamaño total}}{\text{Tamaño de bloque}} = \text{zonas}\rightarrow  \frac{\text{zonas}}{\text{8}} = \text{bytes} \rightarrow  \frac{\text{Bytes}}{\text{Tamaño Bloque}} = \text{bloques}$%
+			}
+		\end{equation*}
+%		}
+		\item \textbf{i-nodos}:
+
+			\begin{equation*}
+				\frac{\text{Tamaño de bloque}}{\text{Tamaño de i-nodo}} = (\text{i-nodos/bloque}) \rightarrow \frac{\text{Número de i-nodos}}{\text{i-nodos/bloque}}
+			\end{equation*}
+
+		\item Datos: Bloques libres que queden.
+	\end{enumerate}	
 	
 Cuando se arranca MINIX, el superbloque del dispositivo raíz, se lee dentro de una tabla de memoria. De igual forma, cuando se montan otros Sistemas de Archivo, se cargan sus superbloques en memoria.
 
@@ -2231,7 +2285,7 @@ Cuando se arranca MINIX, el superbloque del dispositivo raíz, se lee dentro de 
 
 En MINIX, el seguimiento de los i-nodos y de las zonas libres se realiza a través de dos mapas de bits. 
 
-	\quad Cuando se crea un archivo, el Sistema de Archivos busa a través de los bloques de mapas de bits hasta que encuentra un i-nodo libre. Si todos los i-nodos de unbloque están ocupados, la rutina de búsqueda devuelve un 0, por eso nunca se emplea el i-nodo 0.
+	\quad Cuando se crea un archivo, el Sistema de Archivos busca a través de los bloques de mapas de bits hasta que encuentra un i-nodo libre. Si todos los i-nodos de unbloque están ocupados, la rutina de búsqueda devuelve un 0, por eso nunca se emplea el i-nodo 0.
 	
 	\quad Al usar zonas en lugar de bloques se mejora la eficacia cuando se realiza un acceso al fichero (zona es una localización contigua de bloques).
 	
@@ -2241,7 +2295,28 @@ En MINIX un i-nodo ocupa 32 bytes mientras que en UNIX ocupan 64 bytes. Cuandos 
 
 \subsubsection{Bloque caché}
 
-\textcolor{red}{TERMINAR}
+La implementación de la memoria caché del SA está formada por buffers. Cada uno de ellos posee una cabecera y un bloque de disco. Todos los bloque están formando una lista doblemente encadenada o enlazada, teniendo al inicio de la lista el bloque menos recientemente usado (LRU) y en la última el más recientemente usado.
+
+\textbf{En caso que se necesite un bloque de caché}:
+
+	\begin{itemize}
+		\item Está el bloque en caché, se devuelve al cliente y se incrementa el contador de la cabecera de buffer para saber que ha sido usado.
+		\item No está en caché: Se busca un bloque para expulsar:
+			\begin{itemize}
+				\item Contador de bloque a 0 $\rightarrow$ Bloque expulsado
+					\begin{itemize}
+						\item FLAG = 0 $\rightarrow$ Se expulsó
+						\item FLAG = 1 $\rightarrow$ Se copia en disco porque ha sido modificado
+					\end{itemize}
+				\item Contador distinto de 0 $\rightarrow$ Se inspecciona el siguiente bloque.
+			\end{itemize}
+			\item La función de petición de bloque desperdicia la naturaleza de bloque (i-nodo, directorio, datos...) pone el bloque en primer lugar de la lista de caché o al final. En LRU no se usa y en MRU se usa.
+			\item 	Dependiendo del tipo:
+				\begin{itemize}
+					\item Si no es convencional y se ha modificado se escribe en el disco en el instante de la modificación.
+					\item Si es convencional y se ha modificado se espera al SYNC o a que sea expulsado para ser escrito en el disco.
+				\end{itemize}
+	\end{itemize}
 
 \subsubsection{Directorios y Paths}
 
@@ -2263,8 +2338,46 @@ Cuando se abre un archivo, se devuelve un descriptor de archivo (número asociad
 	
 El tercer campo podría parecer suficiente que el contenido de este array fueran apuntadores a los i-nodos de los respectivos descriptores de archivo.
 
-	\quad Desafortunadamente, esta solución non funciona por el hecho de que los archivos pueden ser compartidos. 
+	\quad Desafortunadamente, esta solución no funciona por el hecho de que los archivos pueden ser compartidos. Asociado a cada archivo hay un número de 32 bits que indica la posición del siguiente byte para leer o escribir, ¿dónde se guarda este número?
+	
+	\begin{enumerate}
+		\item En el i-nodo, desfortunadamente 2 o más procesos pueden tener el mismo archivo abierto a la vez y tendrían que tener sus respectivos apuntadores a sus posiciones, y el i-nodo es único.
+		\item En la tabla de procesos. En un segundo array, paralelo al array de descriptores de archivo, dando la posición de cada archivo.. Est ano es solución por la situación que plantea \texttt{FORK}, donde el padre y el hijo comparten un único puntero a la posición de cada fichero abierto.
+	\end{enumerate}
+	
+Como resultado, no es posible poner la posición en la tabla de procesos. La posición debe ser compartida.
+
+	\quad La solución es introducir una nueva tabla, \textbf{FILP} (\text{File Position}) que contiene las posiciones de los archivos.
+	
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width = .2\textwidth]{filp}
+\end{figure}
+
+
+En cada entrada de la tabla FILp se introduce además el apuntador al i-nodo y un contador que cuenta el número de procesos que lo está utilizando (así el SA puede saber cuando el último proceso que ha utilizado el archivo, ha terminado) para poder liberar la entrada.
+	
+	\quad Por tanto el array de descriptores de archivo de la tabla de procesos apunta a la entrada FILP.
 	
 \subsubsection{Pipes y Archivos Especiales}
+	
+El concepto de completar una operación de lectura o escritura en un archivo especial difiere de los archivos ordinarios. Depende de por ejemplo si el pipe está vacío o no y en el caso de un archivo especial si se introducen datos o no.\\
+
+En los \textbf{pipes} un proceso que intenta leer de un pipe vacío debe de esperar hasta que otro proceso ponga información en el pipe. El S.A. puede verificar el estado del pipe y suspender la solicitud si ve que está vacío para volver a iniciarla después. El S.A. registra los parámetros de la llamada l sistema en la tabla de procesos para poder reiniciarlo después.\\
+
+En los \textbf{archivos especiales} el i-nodo de los archivos especiales tiene dos campos:
+
+\begin{enumerate}
+	\item Número de dispositivo mayor (clase de dispositivo, se utiliza como índice en la tabla S.A. para acceder a la tarea correspondiente)
+	\item Número de dispositivo mejor (se pasa al driver como parámetro).
+\end{enumerate}
+	
+Cuando un proceso lee de un archivo especial:
+
+	\begin{enumerate}
+		\item El S.A. extrae los números mayor y menos de dispositivo de la tabla de i-nodo.
+		\item Con el número mayor en la tabla S.A. obtiene el número de tarea.
+		\item El S.A. envía un mensaje que incluye: Parámetros del disposivito menor, operación, número del proceso que efectúa la llamada y número de bits que se transfieren.
+	\end{enumerate}
 	
 \end{document}
